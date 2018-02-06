@@ -1,0 +1,8 @@
+---
+version: '3'
+services:
+
+  web-mysql:
+    user: "1000:50"
+    volumes:
+      - ./mysql-data/:/var/lib/mysql/

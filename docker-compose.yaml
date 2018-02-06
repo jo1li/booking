@@ -1,0 +1,24 @@
+---
+version: '3'
+services:
+
+  web-mysql:
+    image: mysql:latest
+    env_file: ./.env
+    ports:
+      - "3306:3306"
+
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./booking:/app
+    ports:
+      - "80:80"
+    command: ./scripts/cmd-web.sh
+    environment:
+      MYSQL_HOST: web-mysql
+    env_file: ./.env
+    depends_on:
+      - web-mysql
