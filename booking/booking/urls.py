@@ -21,7 +21,14 @@ from django.conf.urls.static import static
 
 from musicians.views import index
 
+# Healthcheck
+from django.http import HttpResponse
+def healthcheck(request):
+    return HttpResponse("<html><body>Healthy</body></html>")
+####
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index)
+    path('', index),
+    path('_ah/health', healthcheck)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
