@@ -11,8 +11,8 @@ python manage.py migrate --noinput
 python manage.py collectstatic --noinput
 
 # Load fixture data, but only locally
-if [ "$DJANGO_SETTINGS_MODULE" == "backend.settings.dev" ]
+if [ "$DJANGO_SETTINGS_MODULE" == "booking.settings.dev" ]
 then
     echo "Fixturizing!!!1!"
-    # python manage.py loaddata fixtures/auth.user.json
+    python manage.py loaddata fixtures/auth.user.json
 fi

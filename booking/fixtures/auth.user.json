@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$37JQDqZMwidn$fEGNZuuYzXHYYM7z5jBJWbfilweRERWM82xp6ZGrSTg=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "root",
+      "first_name": "",
+      "last_name": "",
+      "email": "chris@opuslive.io",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-02-06T18:23:04.688Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
