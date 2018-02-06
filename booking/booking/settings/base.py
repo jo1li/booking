@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+def get_env_variable(var_name):
+    """ Get the environment variable or return exception """
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s env variable" % var_name
+        raise Exception("ImproperlyConfigured {}".format(error_msg))
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -75,9 +83,24 @@ WSGI_APPLICATION = 'booking.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': get_env_variable('MYSQL_HOST'),
+        'PORT': get_env_variable('MYSQL_PORT'),
+        'USER': get_env_variable('MYSQL_OPUS_USER'),
+        'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
+        'NAME': get_env_variable('MYSQL_DATABASE'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8mb4',
+            'ssl': {
+                'key':None,
+                'cert':None,
+                'ca':None,
+                'cipher': 'DHE-RSA-AES256-SHA'
+            },
+        }
+    },
 }
 
 
