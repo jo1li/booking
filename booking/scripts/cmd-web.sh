@@ -2,6 +2,8 @@
 
 cd /app/
 
+env
+
 ./scripts/setup.sh
 
 # Run the app

@@ -1,8 +1,17 @@
 #!/bin/bash -e
 
+
+echo "ls /"
+ls /
+
+echo "ls /cloudsql/"
+ls /cloudsql/
+
+echo ""
+
 cd /app/
 
-./scripts/wait-for-it.sh $MYSQL_HOST:$MYSQL_PORT --timeout=30 --strict -- echo "DB is up!!!1!!"
+# ./scripts/wait-for-it.sh $MYSQL_HOST:$MYSQL_PORT --timeout=30 --strict -- echo "DB is up!!!1!!"
 
 # Run migrations
 python manage.py migrate --noinput
