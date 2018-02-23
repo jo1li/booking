@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'bootstrapform',
+    'pinax.templates',
+    'pinax_theme_bootstrap',
     'django_extensions',
     'account',
     'musicians'
@@ -85,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'account.context_processors.account',
+                'pinax_theme_bootstrap.context_processors.theme'
             ],
         },
     },
