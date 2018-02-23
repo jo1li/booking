@@ -80,24 +80,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'booking.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'HOST': get_env_variable('MYSQL_HOST'),
-    #     'PORT': get_env_variable('MYSQL_PORT'),
-    #     'USER': get_env_variable('MYSQL_OPUS_USER'),
-    #     'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
-    #     'NAME': get_env_variable('MYSQL_DATABASE'),
-    # },
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

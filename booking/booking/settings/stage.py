@@ -4,19 +4,16 @@ ALLOWED_HOSTS = [
     'opus-booking-stage.appspot.com'
 ]
 
-# DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'HOST': get_env_variable('MYSQL_HOST'),
-    #     'USER': get_env_variable('MYSQL_OPUS_USER'),
-    #     'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
-    #     'NAME': get_env_variable('MYSQL_DATABASE'),
-    # },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'HOST': '/cloudsql/opusapp-booking-utility:us-east1:opusapp-booking-utility',
-    #     'USER': get_env_variable('MYSQL_OPUS_USER'),
-    #     'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
-    #     'NAME': get_env_variable('MYSQL_DATABASE'),
-    # }
-# }
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '/cloudsql/opus-booking-stage:us-central1:opus-booking-stage',
+        'USER': get_env_variable('MYSQL_OPUS_USER'),
+        'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
+        'NAME': get_env_variable('MYSQL_DATABASE'),
+        'PORT': '3306'
+    }
+}

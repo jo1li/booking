@@ -15,9 +15,10 @@ resources:
 
 env_variables:
   DJANGO_SETTINGS_MODULE: booking.settings.stage
-  MYSQL_OPUS_USER: root
-  MYSQL_PASSWORD: pAq4znhIOcb2iesz
   MYSQL_DATABASE: booking
+  MYSQL_OPUS_USER: root
+  # TODO: put this somewhere safer
+  MYSQL_PASSWORD: pAq4znhIOcb2iesz
 
 beta_settings:
   cloud_sql_instances: opus-booking-stage:us-central1:opus-booking-stage
