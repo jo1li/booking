@@ -6,6 +6,7 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'HOST': get_env_variable('MYSQL_HOST'),
         'NAME': get_env_variable('MYSQL_DATABASE'),
         'PORT': get_env_variable('MYSQL_PORT'),
         'USER': get_env_variable('MYSQL_OPUS_USER'),
