@@ -1,0 +1,24 @@
+runtime: custom
+env: flex
+entrypoint: ./scripts/cmd-web.sh
+
+# This sample incurs costs to run on the App Engine flexible environment.
+# The settings below are to reduce costs during testing and are not appropriate
+# for production use. For more information, see:
+# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: booking.settings.stage
+  MYSQL_DATABASE: booking
+  MYSQL_OPUS_USER: root
+  # TODO: put this somewhere safer
+  MYSQL_PASSWORD: pAq4znhIOcb2iesz
+
+beta_settings:
+  cloud_sql_instances: opus-booking-stage:us-central1:opus-booking-stage

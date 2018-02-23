@@ -1,0 +1,4 @@
+-r base.txt
+
+# testing
+pytest-django==3.1.2
