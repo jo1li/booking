@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'bootstrapform',
-    'pinax.templates',
     'pinax_theme_bootstrap',
     'django_extensions',
     'account',
@@ -78,7 +77,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(PROJECT_ROOT, "templates"),
+            "/app/templates/",
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,5 +134,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
-
-print(STATIC_ROOT)
