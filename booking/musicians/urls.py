@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile
+from .views import profile, apply
 
 urlpatterns = [
+    path('apply', apply, name="musician_apply"),
     path('<slug>', profile, name="musician_profile"),
 ]

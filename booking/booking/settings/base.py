@@ -133,3 +133,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+
+# Temporary config to skip sending emails
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
