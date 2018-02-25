@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Home{% endblock %}
+
+{% block body %}
+
+    <div>Welcome to OpusApps Booking!!!1!</div>
+
+    <div>Designversion: {{ design_version }}</div>
+
+    <div>
+        {{ design_version|add:"/site_base.html" }}
+    </div>
+
+{% endblock %}

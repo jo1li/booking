@@ -13,9 +13,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
-BASE_DIR = PACKAGE_ROOT
 
 def get_env_variable(var_name):
     """ Get the environment variable or return exception """
@@ -24,10 +23,6 @@ def get_env_variable(var_name):
     except KeyError:
         error_msg = "Set the %s env variable" % var_name
         raise Exception("ImproperlyConfigured {}".format(error_msg))
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -73,12 +68,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'booking.urls'
 
+TEMPLATES_VERSIONS = ['v1', 'v2']
+TEMPLATES_DESIGN_VERSION = 'v1'
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIRS = [TEMPLATES_DIR] + list(map(lambda v: os.path.join(BASE_DIR, 'templates', v), TEMPLATES_VERSIONS))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            "/app/templates/",
-        ],
+        'DIRS': TEMPLATES_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +85,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'account.context_processors.account',
-                'pinax_theme_bootstrap.context_processors.theme'
+                'pinax_theme_bootstrap.context_processors.theme',
+                "booking.context_processors.template_version"
             ],
         },
     },
@@ -133,4 +132,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))

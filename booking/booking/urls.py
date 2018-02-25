@@ -19,13 +19,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from musicians.views import index
+from home.views import index, healthcheck
 
-# Healthcheck
-from django.http import HttpResponse
-def healthcheck(request):
-    return HttpResponse("<html><body>Healthy</body></html>")
-####
 
 urlpatterns = [
     path('', index, name="home"),
