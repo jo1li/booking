@@ -9,4 +9,6 @@ def healthcheck(request):
 
 
 def index(request):
-    return opus_render(request, "home/index.html", {})
+    return opus_render(request, "home/index.html", {
+            'range': range(10)
+        })

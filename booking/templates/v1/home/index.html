@@ -4,12 +4,45 @@
 
 {% block body %}
 
-    <div>Welcome to OpusApps Booking!!!1!</div>
-
-    <div>Designversion: {{ design_version }}</div>
-
     <div>
-        {{ design_version|add:"/site_base.html" }}
+        <h1>Welcome to OpusApps Booking!!!1!</h1>
     </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-4">
+                <h3>Musicians</h3>
+                <ul>
+                {% for i in range %}
+                    <li>
+                        <a href="/m/musician-{{ forloop.counter }}">Musician {{ forloop.counter }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-4">
+                <h3>Venues</h3>
+                {% for i in range %}
+                    <li>
+                        <a href="/v/venue-{{ forloop.counter }}">Venue {{ forloop.counter }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-4">
+                <h3>Events</h3>
+                {% for i in range %}
+                    <li>
+                        <a href="/v/venue-{{ forloop.counter }}/e/event-{{ forloop.counter }}">Event {{ forloop.counter }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

@@ -12,7 +12,7 @@ def design_version(request):
         return ''
 
 
-def opus_render(request, template, context, version=None):
+def opus_render(request, template, context={}, version=None):
 
     template = opus_get_template_path(request, template, version=version)
 
