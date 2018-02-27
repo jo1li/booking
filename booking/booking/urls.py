@@ -21,11 +21,14 @@ from django.conf.urls.static import static
 
 from home.views import index, healthcheck
 
+from venues.views_admin import create
+
 
 urlpatterns = [
     path('', index, name="home"),
-    path('admin/', admin.site.urls),
     path('_ah/health', healthcheck),
+    path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
+    path('opus-control/', admin.site.urls),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),

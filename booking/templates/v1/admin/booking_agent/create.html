@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Create a Booking Agent{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">Home</a>
+&rsaquo; Create a Booking Agent
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Create a Booking Agent</h1>
+  {% regroup book_list|dictsort:"publisher.name" by publisher as books_by_publisher %}
+  {% for publisher in books_by_publisher %}
+    <h3>{{ publisher.grouper }}</h3>
+    <ul>
+      {% for book in publisher.list|dictsort:"title" %}
+        <li>{{ book }}</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
+{% endblock %}
