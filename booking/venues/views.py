@@ -7,3 +7,7 @@ def profile(request, slug=None):
 
 def event(request, venue_slug=None, event_slug=None):
     return opus_render(request, "venues/event.html")
+
+
+def pretend_venue_site(request):
+    return opus_render(request, "venues/pretend_venue_site.html")
