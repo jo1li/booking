@@ -11,15 +11,13 @@
 
 {% block content %}
 <div id="content-main">
-  <h1>Create a Booking Agent</h1>
-  {% regroup book_list|dictsort:"publisher.name" by publisher as books_by_publisher %}
-  {% for publisher in books_by_publisher %}
-    <h3>{{ publisher.grouper }}</h3>
-    <ul>
-      {% for book in publisher.list|dictsort:"title" %}
-        <li>{{ book }}</li>
-      {% endfor %}
-    </ul>
-  {% endfor %}
+    <h1>Create a Booking Agent</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ agent_form }}
+        <input type="submit" value="Submit" />
+    </form>
+
 </div>
 {% endblock %}
