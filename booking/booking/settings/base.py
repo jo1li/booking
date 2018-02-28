@@ -136,5 +136,5 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
 
 # Email config
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
