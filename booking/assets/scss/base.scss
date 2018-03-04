@@ -1,0 +1,44 @@
+$font-family: 'Quicksand', sans-serif;
+$font-color-primary: #1D1D1D;
+$font-color-secondary: #121212;
+
+$color-cta: #D600E5;
+$color-cta-dark: #9013FE;
+
+$color-background-light: #FAFAFA;
+$color-background-med: #D8D8D8;
+$color-background-dark: #979797;
+
+$color-link: $color-cta-dark;
+
+body {
+    background-color: $color-background-light;
+}
+
+a {
+    color: $color-link;
+}
+
+h1 {
+    font-family: $font-family;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 37px;
+    color: $font-color-primary;
+}
+
+h2 {
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    color: $font-color-primary;
+}
+
+h3 {
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    color: $font-color-primary;
+}
