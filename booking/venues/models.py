@@ -29,9 +29,9 @@ class BookingAgent(models.Model):
 
 class Event(models.Model):
 
-    OPPORTUNITY_TYPES = (
-        (0, 'FESTIVAL')
-        (1, 'CLUB')
+    EVENT_TYPES = (
+        (0, 'CLUB')
+        (1, 'FESTIVAL')
         (2, 'MUSIC_SERIES')
         (3, 'PUBLICATION')
         (4, 'COFFEE_HOUSE')
@@ -49,7 +49,9 @@ class Event(models.Model):
     description = models.TextField(null=True, blank=True)
     slug = models.CharField(max_length=32, null=True, blank=True)
 
-    opportunity_type = models.SmallIntegerField(null=True, choices=OPPORTUNITY_TYPES)
+    event_type = models.SmallIntegerField(null=True, choices=EVENT_TYPES)
+
+    # genre =
 
     compensated = models.BooleanField(default=False)
     compensation_food_drink_tickets = models.BooleanField(default=False)
@@ -58,6 +60,11 @@ class Event(models.Model):
     compensation_min_flat_rate = models.DecimalField(max_digits=8, decimal_places=2)
     compensation_percent_of_door = models.DecimalField(max_digits=2, decimal_places=2)
     compensation_percent_of_merchandise_sales = models.DecimalField(max_digits=2, decimal_places=2)
+
+    # Pay to play
+    # tickets_presale_required = models.BooleanField(default=False)
+    # tickets_minimum_sales_required = models.BooleanField(default=False)
+
 
     review_by_datetime = models.DateTimeField()
 
