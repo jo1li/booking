@@ -15,6 +15,11 @@ class Venue(models.Model):
     featured = models.BooleanField(default=False)
     slug = models.CharField(max_length=32, null=True, blank=True)
 
+    # Social connections
+    facebook = models.CharField(max_length=256, null=True, blank=True)
+    twitter = models.CharField(max_length=256, null=True, blank=True)
+    instagram = models.CharField(max_length=256, null=True, blank=True)
+
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned
     claimed = models.BooleanField(default=True)
@@ -23,26 +28,35 @@ class Venue(models.Model):
 class BookingAgent(models.Model):
     first_name = models.CharField(max_length=256, null=True, blank=True)
     last_name = models.CharField(max_length=256, null=True, blank=True)
+    email = models.CharField(max_length=256, null=True, blank=True)
+    title = models.CharField(max_length=256, null=True, blank=True)
 
+    # TOOD: https://github.com/stefanfoulis/django-phonenumber-field
+    phone_number_office = models.CharField(max_length=256, null=True, blank=True)
+    phone_number_cell = models.CharField(max_length=256, null=True, blank=True)
 
+    # Social connections
+    facebook = models.CharField(max_length=256, null=True, blank=True)
+    twitter = models.CharField(max_length=256, null=True, blank=True)
+    instagram = models.CharField(max_length=256, null=True, blank=True)
 
 
 class Event(models.Model):
 
     EVENT_TYPES = (
-        (0, 'CLUB')
-        (1, 'FESTIVAL')
-        (2, 'MUSIC_SERIES')
-        (3, 'PUBLICATION')
-        (4, 'COFFEE_HOUSE')
-        (5, 'BROADCAST')
-        (6, 'MANAGEMENT')
-        (7, 'SONGWRITING')
-        (8, 'SPECIAL_EVENTS')
-        (9, 'CONFERENCE')
-        (10, 'RECORD LABEL')
-        (11, 'COMPILATION')
-        (12, 'INTERNET')
+        (0, 'CLUB'),
+        (1, 'FESTIVAL'),
+        (2, 'MUSIC_SERIES'),
+        (3, 'PUBLICATION'),
+        (4, 'COFFEE_HOUSE'),
+        (5, 'BROADCAST'),
+        (6, 'MANAGEMENT'),
+        (7, 'SONGWRITING'),
+        (8, 'SPECIAL_EVENTS'),
+        (9, 'CONFERENCE'),
+        (10, 'RECORD LABEL'),
+        (11, 'COMPILATION'),
+        (12, 'INTERNET'),
     )
 
     name = models.CharField(max_length=256, null=True, blank=True)

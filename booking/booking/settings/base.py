@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'account',
     'sass_processor',
-    'musicians'
+    'musicians',
+    'venues',
 ]
 
 MIDDLEWARE = [
