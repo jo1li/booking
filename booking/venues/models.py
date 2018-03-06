@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Venue(models.Model):
@@ -10,6 +11,8 @@ class Venue(models.Model):
     address_region = models.CharField(max_length=256, null=True, blank=True)
     address_street = models.CharField(max_length=256, null=True, blank=True)
     address_string = models.CharField(max_length=256, null=True, blank=True)
+
+    phone_number = PhoneNumberField(max_length=256, null=True, blank=True)
 
     website = models.CharField(max_length=256, null=True, blank=True)
     featured = models.BooleanField(default=False)
@@ -31,9 +34,8 @@ class BookingAgent(models.Model):
     email = models.CharField(max_length=256, null=True, blank=True)
     title = models.CharField(max_length=256, null=True, blank=True)
 
-    # TOOD: https://github.com/stefanfoulis/django-phonenumber-field
-    phone_number_office = models.CharField(max_length=256, null=True, blank=True)
-    phone_number_cell = models.CharField(max_length=256, null=True, blank=True)
+    phone_number_office = PhoneNumberField(max_length=256, null=True, blank=True)
+    phone_number_cell = PhoneNumberField(max_length=256, null=True, blank=True)
 
     # Social connections
     facebook = models.CharField(max_length=256, null=True, blank=True)

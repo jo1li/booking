@@ -47,11 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     'bootstrapform',
     'pinax_theme_bootstrap',
     'django_extensions',
     'account',
     'sass_processor',
+    'phonenumber_field',
+
     'musicians',
     'venues',
 ]
