@@ -13,3 +13,6 @@ DATABASES = {
         'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
     },
 }
+
+SITE_SSL_AVAILABLE = False
+SITE_DOMAIN = 'localhost'

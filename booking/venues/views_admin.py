@@ -1,11 +1,9 @@
-from django.template import RequestContext
+from django.conf import settings
 from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
-from django import forms
-
+from django.urls import reverse
 from django.core.mail import send_mail
-
-
+from django import forms
 
 class AgentForm(forms.Form):
     email = forms.EmailField(label="Agent's email", required=True)
@@ -21,7 +19,7 @@ def create(request):
         if f.is_valid():
 
             subject = "Welcome to Opus!!!1!"
-            message = "Get in here!!!"
+            message = "Get in here!!!\n\n http://{}{}".format(settings.SITE_DOMAIN, reverse('venue_welcome'))
             from_email = "info@opuslive.io"
             recipient_list = [f.cleaned_data['email']]
 

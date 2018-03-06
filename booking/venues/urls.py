@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile, event, pretend_venue_site
+from .views import *
 
 urlpatterns = [
     path('pretend_venue_site', pretend_venue_site, name="pretend_venue_site"),
+    path('welcome', welcome, name="venue_welcome"),
+    path('dashboard', dashboard, name="venue_dashboard"),
     path('<slug>', profile, name="venue_profile"),
     path('<venue_slug>/e/<event_slug>', event, name="event_profile"),
 ]
