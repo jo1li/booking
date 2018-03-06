@@ -1,17 +1,16 @@
 {% extends "admin/base_site.html" %}
 
-{% block title %}Create a Booking Agent{% endblock %}
+{% block title %}Send Booking Agent Welcome Email{% endblock %}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
-<a href="{% url 'admin:index' %}">Home</a>
-&rsaquo; Create a Booking Agent
+    <a href="{% url 'admin:index' %}">Home</a>&nbsp;&rsaquo;&nbsp;Send Booking Agent Welcome Email
 </div>
 {% endblock %}
 
 {% block content %}
 <div id="content-main">
-    <h1>Create a Booking Agent</h1>
+    <h1>Send Booking Agent Welcome Email</h1>
 
     <form method="POST">
         {% csrf_token %}

@@ -90,6 +90,7 @@ class Event(models.Model):
     min_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
     max_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
 
+
 class Application(models.Model):
     pass
 

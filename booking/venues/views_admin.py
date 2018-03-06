@@ -16,26 +16,19 @@ def create(request):
 
     if request.POST:
 
-        print("in POST block")
-
         f = AgentForm(request.POST)
 
         if f.is_valid():
-
-            print("in is_valid block")
 
             subject = "Welcome to Opus!!!1!"
             message = "Get in here!!!"
             from_email = "info@opuslive.io"
             recipient_list = [f.cleaned_data['email']]
 
-            retval = send_mail(subject, message, from_email, recipient_list)
-
-            print("after send_email: ", retval)
-
+            send_mail(subject, message, from_email, recipient_list)
 
     else:
-        f = AgentForm({})
+        f = AgentForm()
 
     return render(
         request,
