@@ -13,6 +13,18 @@ def dashboard(request):
     return opus_render(request, "venues/dashboard.html")
 
 
+def settings(request):
+    return opus_render(request, "venues/settings.html")
+
+
+def editor(request):
+    return opus_render(request, "venues/editor.html")
+
+
+def event_editor(request):
+    return opus_render(request, "venues/event_editor.html")
+
+
 def welcome(request):
     return opus_render(request, "venues/welcome.html")
 

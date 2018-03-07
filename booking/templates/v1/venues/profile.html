@@ -3,23 +3,30 @@
 {% block head_title %}Venue Profile{% endblock %}
 
 {% block body %}
-    <h1>Venue Profile</h1>
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-4">
 
-    <div class="container">
-        <div class="row">
-            <h2>Venue Bio</h2>
+            <h1>Venue Profile</h1>
+
+            <div class="container">
+                <div class="row">
+                    <h2>Venue Bio</h2>
+                </div>
+
+                <div class="row">
+                    <div>We're cool</div>
+                </div>
+
+                <div class="row">
+                    <a href="/m/apply?venue=1">
+                        <button type="button" class="btn btn-primary">Apply to play!</button>
+                    </a>
+                </div>
+
+            </div>
+
         </div>
-
-        <div class="row">
-            <div>We're cool</div>
-        </div>
-
-        <div class="row">
-            <a href="/m/apply?venue=1">
-                <button type="button" class="btn btn-primary">Apply to play!</button>
-            </a>
-        </div>
-
     </div>
-
+</div>
 {% endblock body %}

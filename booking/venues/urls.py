@@ -21,6 +21,9 @@ urlpatterns = [
     path('pretend_venue_site', pretend_venue_site, name="pretend_venue_site"),
     path('welcome', welcome, name="venue_welcome"),
     path('dashboard', dashboard, name="venue_dashboard"),
+    path('editor', editor, name="venue_editor"),
+    path('event_editor', event_editor, name="event_editor"),
+    path('settings', settings, name="venue_settings"),
     path('<slug>', profile, name="venue_profile"),
     path('<venue_slug>/e/<event_slug>', event, name="event_profile"),
 ]
