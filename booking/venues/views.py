@@ -25,6 +25,10 @@ def event_editor(request):
     return opus_render(request, "venues/event_editor.html")
 
 
+def landing(request):
+    return opus_render(request, "venues/landing.html")
+
+
 def welcome(request):
     return opus_render(request, "venues/welcome.html")
 

@@ -19,6 +19,7 @@ from .views import *
 
 urlpatterns = [
     path('pretend_venue_site', pretend_venue_site, name="pretend_venue_site"),
+    path('landing', landing, name="venue_landing"),
     path('welcome', welcome, name="venue_welcome"),
     path('dashboard', dashboard, name="venue_dashboard"),
     path('editor', editor, name="venue_editor"),
