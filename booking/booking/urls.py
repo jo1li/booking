@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from home.views import index, healthcheck
+from home.views import index, healthcheck, logout
 
 from venues.views_admin import create
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('_ah/health', healthcheck),
     path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
     path('opus-control/', admin.site.urls),
+    path('account/log_out/', logout, name="opus_logout"),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),

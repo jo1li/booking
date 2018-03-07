@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="#">Opus</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,12 +18,18 @@
       </li>
     </ul>
     <ul class="navbar-nav">
+      {% if request.user.is_authenticated %}
+      <li>
+          <a id="account_logout" href="{% url "opus_logout" %}"><i class="fa fa-power-off"></i> {% trans "Log out" %}</a>
+      </li>
+      {% else %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'account_signup' %}">Musician Signup</a>
       </li>
+      {% endif %}
     </ul>
   </div>
 </nav>
