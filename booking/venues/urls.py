@@ -22,6 +22,7 @@ urlpatterns = [
     path('landing', landing, name="venue_landing"),
     path('welcome', welcome, name="venue_welcome"),
     path('dashboard', dashboard, name="venue_dashboard"),
+    path('embeds', embeds, name="venue_embeds"),
     path('editor', editor, name="venue_editor"),
     path('event_editor', event_editor, name="event_editor"),
     path('settings', settings, name="venue_settings"),

@@ -13,6 +13,10 @@ def dashboard(request):
     return opus_render(request, "venues/dashboard.html")
 
 
+def embeds(request):
+    return opus_render(request, "venues/embeds.html")
+
+
 def settings(request):
     return opus_render(request, "venues/settings.html")
 
