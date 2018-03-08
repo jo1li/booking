@@ -8,15 +8,39 @@
 
     <div class="container">
         <div class="row">
-            Here's your stuff....
+            Here's your stuff....fix it up!!1!
         </div>
 
         <div class="row">
-            Fix it up!!!
+            <ul>
+                <li>Email</li>
+                <li>Artist name</li>
+                <li>Hometown</li>
+                <li>On tour? </li>
+                <li>Genre/Subgenre</li>
+                <li>Instrument</li>
+                <li>Instagram</li>
+                <li>Facebook</li>
+                <li>Twitter (?)</li>
+                <li>Website</li>
+                <li>1-3 videos (YT, Vimeo) </li>
+                <li>1-3 audio (SC, Bandcamp, Spotify)</li>
+                <li>1-6 photos</li>
+                <li>Past shows/venues</li>
+                <li>Short bio</li>
+            </ul>
         </div>
 
         <div class="row">
-            <button type="button" class="btn btn-primary">Save</button>
+            {% if apptype.0 %}
+                <a href="{% url 'musician_app_venue_questions' %}">
+                    <button type="button" class="btn btn-primary">Save and answer some moar Qs</button>
+                </a>
+            {% else %}
+                <a href="{% url 'musician_dash' %}">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile, apply, dashboard, editor
+from .views import profile, dashboard, editor, settings, venue_questions
 
 urlpatterns = [
-    path('apply', apply, name="musician_apply"),
     path('dashboard', dashboard, name="musician_dash"),
     path('editor', editor, name="musician_editor"),
+    path('settings', settings, name="musician_settings"),
+    path('venue_questions', venue_questions, name="musician_app_venue_questions"),
     path('<slug>', profile, name="musician_profile"),
 ]

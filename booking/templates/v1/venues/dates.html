@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Pick ur dates{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-4">
+            <h1>Open Call!!!</h1>
+            <div>When can you play?</div>
+            <div>Calendar thingy</div>
+            <a href="{% url 'musician_editor' %}?apptype=venue&id=1">
+                <button type="button" class="btn btn-primary">Apply to play!</button>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <h1>Specific Event!!!</h1>
+            <div>Can you play on xx/xx/xxxx?</div>
+            <a href="{% url 'musician_editor' %}?apptype=event&id=1">
+                <button type="button" class="btn btn-primary">Apply to play!</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}

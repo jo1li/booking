@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Venue wants to know a bunch moar stuffz{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-4">
+            <h1>Just a few moar things!!!</h1>
+
+            <div class="row mt-5 mb-5">
+                <label for="q1">Why do you want to play here?</label><br />
+                <textarea id="q1"></textarea>
+            </div>
+
+            <div class="row mt-5 mb-5">
+                <label for="q2">How hard do you rock? Or roll?</label><br />
+                <textarea id="q2"></textarea>
+            </div>
+
+            <a href="{% url 'musician_dash' %}?applied=1">
+                <button type="button" class="btn btn-primary">Apply to play!</button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock body %}

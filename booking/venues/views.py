@@ -5,6 +5,10 @@ def profile(request, slug=None):
     return opus_render(request, "venues/profile.html")
 
 
+def dates(request, slug=None):
+    return opus_render(request, "venues/dates.html")
+
+
 def event(request, venue_slug=None, event_slug=None):
     return opus_render(request, "venues/event.html")
 
