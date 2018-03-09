@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row mt-5 mb-5">
-        <div class="col-md-4">
+        <div class="col-md-8">
 
             <h1>Event Editor</h1>
 
@@ -14,12 +14,32 @@
                 <ul>
                     <li>Title</li>
                     <li>Date &amp; time</li>
-                    <li>Venue (If venue account, event should autopopulate w/ current venue)</li>
+                    <li>Venue</li>
+                    <!-- Figure out a way to get rid of bullet for this one. -->
+                    <li>
+                        <ul>
+                            <li>Should default to the BA's venue</li>
+                            <li>If BA is 3rd party, prompt to select existing venue</li>
+                            <li>If no venue exists, prompt to create new venue</li>
+                        </ul>
+                    </li>
                     <li>Description</li>
-                    <li>Comp Type</li>
-                    <li>Ticket sales required?</li>
-                    <li>Event Type: (show where musician brings audience, freelance service, show where venue has captive audience, pit orchestra, )</li>
+                    <li>
+                        <ul>
+                            <li>Rehearsals</li>
+                            <li>Sound checks</li>
+                            <li>Dress code</li>
+                        </ul>
+                    </li>
+                    <li>Genres (defaulted to venue's genres)</li>
+                    <li><a href="https://docs.google.com/spreadsheets/d/10PR62CNFu8JEdABUQnZka_4fgogEk-3hkS8bMGOeeWw/edit#gid=209089687">Comp Type</a></li>
                 </ul>
+            </div>
+
+            <div class="row">
+                <a href="/v/dashboard">
+                    <button type="button" class="btn btn-primary">Save!</button>
+                </a>
             </div>
 
         </div>
