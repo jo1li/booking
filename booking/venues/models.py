@@ -64,6 +64,7 @@ class Event(models.Model):
 
     name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
     slug = models.CharField(max_length=32, null=True, blank=True)
 
     event_type = models.SmallIntegerField(null=True, choices=EVENT_TYPES)
@@ -99,6 +100,7 @@ class Slot(models.Model):
     duration = models.SmallIntegerField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    notes = models.TextField(null=True, blank=True)
 
 
 class Application(models.Model):
