@@ -1,6 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+from musicians.models import Musician
 
 class Venue(models.Model):
     title = models.CharField(max_length=256, null=True, blank=True)
@@ -91,6 +92,13 @@ class Event(models.Model):
 
     min_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
     max_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
+
+
+class Slot(models.Model):
+    start_time = models.DateTimeField()
+    duration = models.SmallIntegerField()
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
 
 
 class Application(models.Model):
