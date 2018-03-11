@@ -1,6 +1,13 @@
 {% extends "site_base.html" %}
+{% load sass_tags %}
 
 {% block head_title %}Welcome Booking Agent Person!!!{% endblock %}
+
+{% block assets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% sass_src 'scss/venue-dashboard.scss' %}">
+{% endblock assets %}
+
 
 {% block body %}
 
@@ -8,26 +15,64 @@
     <div class="row mt-5 mb-5">
         <div class="col-md-8">
 
-            <h1>Booking Agent Dashboard</h1>
+            <div class="container-fluid">
+              <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                  <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                          <span data-feather="home"></span>
+                          Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/v/something">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a  class="nav-link" href="/v/editor">Edit Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/v/event_editor">Event Editor</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'venue_settings' %}">Settings</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'venue_embeds' %}">Embeds</a>
+                      </li>
+                    </ul>
 
-            <div>
-                <ul>
-                    <li>Applications (include messages on app cards)</li>
-                    <li>Events</li>
-                    <li>Calendar (simple visual representation of events & slots)</li>
-                    <li>Recommendations</li>
-                    <li>ONE tooltip tutorial per visit on the first few visits</li>
-                </ul>
-            </div>
+                  </div>
+                </nav>
 
-            <div>
-                <ul>
-                    <li><a href="/v/something">Profile</a></li>
-                    <li><a href="/v/editor">Edit Profile</a></li>
-                    <li><a href="/v/event_editor">Event Editor</a></li>
-                    <li><a href="{% url 'venue_settings' %}">Settings</a></li>
-                    <li><a href="{% url 'venue_embeds' %}">Embeds</a></li>
-                </ul>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                      <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                      </div>
+                      <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                      <ul>
+                          <li>Applications (include messages on app cards)</li>
+                          <li>Events</li>
+                          <li>Calendar (simple visual representation of events & slots)</li>
+                          <li>Recommendations</li>
+                          <li>ONE tooltip tutorial per visit on the first few visits</li>
+                      </ul>
+                  </div>
+
+                </main>
+              </div>
             </div>
 
         </div>
