@@ -30,6 +30,8 @@ class Venue(models.Model):
 
 
 class BookingAgent(models.Model):
+    venues = models.ManyToManyField(Venue)
+
     first_name = models.CharField(max_length=256, null=True, blank=True)
     last_name = models.CharField(max_length=256, null=True, blank=True)
     email = models.CharField(max_length=256, null=True, blank=True)

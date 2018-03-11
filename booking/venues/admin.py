@@ -15,6 +15,10 @@ class EventAdmin(admin.ModelAdmin):
     pass
 
 
+class SlotAdmin(admin.ModelAdmin):
+    pass
+
+
 class ApplicationAdmin(admin.ModelAdmin):
     pass
 
@@ -22,6 +26,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 admin.site.register(Venue, VenueAdmin)
 admin.site.register(BookingAgent, BookingAgentAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(Slot, SlotAdmin)
 admin.site.register(Application, ApplicationAdmin)
 
 
