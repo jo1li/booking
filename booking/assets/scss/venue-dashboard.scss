@@ -1,3 +1,5 @@
+@import 'variables';
+
 .feather {
   width: 16px;
   height: 16px;
@@ -16,13 +18,14 @@
   z-index: 100; /* Behind the navbar */
   padding: 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  background-color: $color-background-med;
 }
 
 .sidebar-sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 48px; /* Height of navbar */
-  height: calc(100vh - 48px);
+  // height: calc(100vh - 48px);
   padding-top: 1rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */

@@ -44,12 +44,14 @@
             {% endblock %}
 
             {% block footer_base %}
-                <hr />
-                <footer>
-                    <div class="container">
-                        {% block footer %}{% endblock %}
-                    </div>
-                </footer>
+                {% block footer %}
+                    <hr />
+                    <footer>
+                        <div class="container">
+                                {% include "_footer.html" %}
+                        </div>
+                    </footer>
+                {% endblock footer %}
             {% endblock %}
         </div>
 
@@ -61,8 +63,6 @@
         {% block extra_body_base %}
             {% block extra_body %}{% endblock %}
         {% endblock %}
-
-        {% include "_footer.html" %}
 
     </body>
 </html>
