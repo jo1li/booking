@@ -34,6 +34,10 @@ h3 {
     color: $font-color-primary;
 }
 
+.btn-primary {
+    background-color: $color-cta;
+}
+
 
 @import 'home';
 @import 'venue-profile';

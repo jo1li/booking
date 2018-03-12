@@ -1,11 +1,16 @@
 {% extends "site_base.html" %}
 {% load sass_tags %}
+{% load staticfiles %}
 
 {% block head_title %}Welcome Booking Agent Person!!!{% endblock %}
 
 {% block assets %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% sass_src 'scss/base.scss' %}">
     <link rel="stylesheet" href="{% sass_src 'scss/venue-dashboard.scss' %}">
+    <link rel="stylesheet" href="{% static 'css/ekko-lightbox.css' %}">
+
+    <script src="{% static 'js/ekko-lightbox.min.js' %}"></script>
 {% endblock assets %}
 
 
@@ -13,7 +18,7 @@
 
 <div class="container">
     <div class="row mt-5 mb-5">
-        <div class="col-md-8">
+        <div class="col-md-16">
 
             <div class="container-fluid">
               <div class="row">
@@ -61,11 +66,92 @@
                     </div>
                   </div>
 
+
+                  <div class="card-columns">
+                    <div class="card" style="width: 18rem">
+<!--
+                      <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                          <li class="nav-item">
+                            <a class="nav-link active" href="#">Active</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                          </li>
+                        </ul>
+                      </div>
+-->
+                      <div class="card-header">
+                        <h5 class="card-title">The Vines</h5>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">Super fun band that won't evar give u up.</p>
+                        <div  class="row">
+                          <ul class="social d-flex justify-content-between">
+                              <li>
+                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" data-toggle="lightbox">
+                                  <i class="fas fa-video"></i>
+                                </a>
+                              </li>
+                              <li>
+                                  <a data-toggle="tab" href="#settings">
+                                      <i class="fas fa-images"></i>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a data-toggle="tab" href="#email">
+                                      <i class="fas fa-headphones"></i>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a data-toggle="tab" href="#email">
+                                      <i class="fas fa-link"></i>
+                                  </a>
+                              </li>
+                          </ul>
+                        </div>
+                        <div class="row">
+                          <ul class="social d-flex justify-content-between">
+                            <li>
+                              <a href="#" class="btn btn-primary">Book</a>
+                            </li>
+                            <li>
+                              <a href="#" class="btn btn-primary">Msg</a>
+                            </li>
+                            <li>
+                              <a href="#" class="btn btn-primary">Reject</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="card-footer text-muted">
+                        <ul class="social d-flex justify-content-between">
+                            <li class="active">
+                                <a data-toggle="tab" href="#information">
+                                    <i class="fab fa-facebook-f"></i>&nbsp;&nbsp;57
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#settings">
+                                    <i class="fab fa-twitter"></i>&nbsp;&nbsp;12
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#events">
+                                    <i class="fab fa-instagram"></i>&nbsp;&nbsp;180
+                                </a>
+                            </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+
                   <div>
                       <ul>
                           <li>Applications (include messages on app cards)</li>
                           <li>Events</li>
-                          <li>Calendar (simple visual representation of events & slots)</li>
+                          <li>Calendar (simple visual representation of events &amp; slots)</li>
                           <li>Recommendations</li>
                           <li>ONE tooltip tutorial per visit on the first few visits</li>
                       </ul>
@@ -78,6 +164,13 @@
         </div>
     </div>
 </div>
+
+<script>
+  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+  });
+</script>
 
 {% endblock body %}
 

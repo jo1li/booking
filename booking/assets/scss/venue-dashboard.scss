@@ -82,3 +82,21 @@
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.card-footer {
+  padding:0;
+}
+
+.card .social {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0.50rem 1rem;
+  list-style: none;
+}
+
+.card .social li {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
