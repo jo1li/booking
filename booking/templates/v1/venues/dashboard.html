@@ -56,8 +56,8 @@
                     <h1 class="h2">Dashboard</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                       <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                        <button class="btn btn-sm btn-outline-secondary">List</button>
+                        <button class="btn btn-sm btn-outline-secondary active">Tiles</button>
                       </div>
                       <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
                         <span data-feather="calendar"></span>
@@ -66,8 +66,8 @@
                     </div>
                   </div>
 
-
                   <div class="card-columns">
+                    {% for i in range %}
                     <div class="card" style="width: 18rem">
 <!--
                       <div class="card-header">
@@ -82,46 +82,55 @@
                       </div>
 -->
                       <div class="card-header">
-                        <h5 class="card-title">The Vines</h5>
+                        <h5 class="card-title">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <a href="/m/the-vines">The Vines</a>
+                          </div>
+                        </h5>
                       </div>
                       <div class="card-body">
-                        <p class="card-text">Super fun band that won't evar give u up.</p>
-                        <div  class="row">
-                          <ul class="social d-flex justify-content-between">
+                        <div class="card-text">
+                          <div  class="row">
+                            <ul class="social d-flex justify-content-between">
+                                <li>
+                                  <iframe id="ytplayer" type="text/html" width="70" height="39.375"
+                                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                  frameborder="0" allowfullscreen></iframe>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#settings">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <i class="fas fa-headphones"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                          </div>
+                          <div class="row">
+                            <p>Super fun band that won't evar give u up.</p>
+                          </div>
+                          <div class="row">
+                            <ul class="social d-flex justify-content-between">
                               <li>
-                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" data-toggle="lightbox">
-                                  <i class="fas fa-video"></i>
-                                </a>
+                                <a href="#" class="btn btn-primary">Book</a>
                               </li>
                               <li>
-                                  <a data-toggle="tab" href="#settings">
-                                      <i class="fas fa-images"></i>
-                                  </a>
+                                <a href="#" class="btn btn-primary">Msg</a>
                               </li>
                               <li>
-                                  <a data-toggle="tab" href="#email">
-                                      <i class="fas fa-headphones"></i>
-                                  </a>
+                                <a href="#" class="btn btn-primary">Reject</a>
                               </li>
-                              <li>
-                                  <a data-toggle="tab" href="#email">
-                                      <i class="fas fa-link"></i>
-                                  </a>
-                              </li>
-                          </ul>
-                        </div>
-                        <div class="row">
-                          <ul class="social d-flex justify-content-between">
-                            <li>
-                              <a href="#" class="btn btn-primary">Book</a>
-                            </li>
-                            <li>
-                              <a href="#" class="btn btn-primary">Msg</a>
-                            </li>
-                            <li>
-                              <a href="#" class="btn btn-primary">Reject</a>
-                            </li>
-                          </ul>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                       <div class="card-footer text-muted">
@@ -144,6 +153,9 @@
                         </ul>
                       </div>
                     </div>
+                    {% endfor %}
+
+
                   </div>
 
 

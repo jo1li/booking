@@ -14,7 +14,9 @@ def event(request, venue_slug=None, event_slug=None):
 
 
 def dashboard(request):
-    return opus_render(request, "venues/dashboard.html")
+    return opus_render(request, "venues/dashboard.html", {
+            'range': range(10)
+        })
 
 
 def embeds(request):
