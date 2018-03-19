@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'macros',
     'bootstrapform',
     'pinax_theme_bootstrap',
     'django_extensions',

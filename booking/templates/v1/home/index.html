@@ -2,6 +2,13 @@
 
 {% block head_title %}Home{% endblock %}
 
+{% block og %}
+  {{ block.super }}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="Opus: the best way to book talent" />
+{% endblock og %}
+
+
 {% block body %}
 
 <!--

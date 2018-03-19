@@ -1,13 +1,18 @@
 {% load staticfiles %}
 {% load sass_tags %}
+{% load repeatedblocks %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta charset="utf-8" />
-        <title>{% block head_title_base %}Opus | {% block head_title %}{% endblock %}{% endblock %}</title>
+        <title>{% repeated_block head_title_base %}Opus | {% block head_title %}{% endblock %}{% endblock %}</title>
         {% block viewport %}
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endblock %}
+
+        {% block og %}
+        <meta property="og:title" content="{% repeat head_title_base %}" />
+        {% endblock og %}
 
         {% block assets %}
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
