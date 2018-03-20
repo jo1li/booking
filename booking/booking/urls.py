@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from home.views import index, healthcheck, logout, LoginView
 
 from venues.views_admin import create
+from musicians.views import SignupView
 
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path('opus-control/', admin.site.urls),
     path('account/log_out/', logout, name="opus_logout"),
     path('account/login/', LoginView.as_view(), name="opus_login"),
+    path('account/signup/', SignupView.as_view(), name="opus_signup"),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),
