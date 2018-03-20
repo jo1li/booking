@@ -2,6 +2,11 @@
 
 {% block head_title %}Musician Profile{% endblock %}
 
+{% block og %}
+  {{ block.super }}
+  <meta property="og:description" content="Venue Name: Awesome place that has awesome shows" />
+{% endblock og %}
+
 {% block body %}
     <h1>Musician Profile</h1>
 

@@ -92,7 +92,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
-                "booking.context_processors.template_version"
+                "booking.context_processors.template_version",
+                "booking.context_processors.absolute_url"
             ],
         },
     },

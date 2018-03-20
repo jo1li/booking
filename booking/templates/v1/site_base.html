@@ -12,6 +12,8 @@
 
         {% block og %}
         <meta property="og:title" content="{% repeat head_title_base %}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ absolute_url }}" />
         {% endblock og %}
 
         {% block assets %}
