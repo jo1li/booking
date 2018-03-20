@@ -4,8 +4,10 @@ from django.contrib import auth
 
 from booking.utils import opus_render
 
-from account.views import LogoutView
 from account.compat import is_authenticated
+
+import account.forms
+import account.views
 
 # Create your views here.
 def healthcheck(request):
@@ -21,3 +23,8 @@ def logout(request):
     if is_authenticated(request.user):
         auth.logout(request)
     return redirect("/")
+
+
+class LoginView(account.views.LoginView):
+
+    form_class = account.forms.LoginEmailForm

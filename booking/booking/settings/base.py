@@ -120,6 +120,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "account.auth_backends.EmailAuthenticationBackend"
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -154,3 +158,9 @@ STATICFILES_FINDERS = [
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+# Account settings
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+
+
