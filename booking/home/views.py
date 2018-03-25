@@ -19,6 +19,11 @@ def index(request):
             'range': range(10)
         })
 
+
+def privacy(request):
+    return opus_render(request, "home/privacy.html")
+
+
 def logout(request):
     if is_authenticated(request.user):
         auth.logout(request)

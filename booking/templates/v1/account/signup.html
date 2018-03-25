@@ -18,6 +18,9 @@
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
+                <p class="signup-social">
+                    <a href="{% url "social:begin" "facebook" %}">Facebook</a>
+                </p>
                 <div class="form-actions">
                     <button>{% trans "Sign up" %}</button>
                 </div>

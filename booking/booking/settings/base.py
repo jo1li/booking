@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'account',
     'sass_processor',
     'phonenumber_field',
+    'social_django',
 
     'musicians',
     'venues',
@@ -93,7 +94,10 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
                 "booking.context_processors.template_version",
-                "booking.context_processors.absolute_url"
+                "booking.context_processors.absolute_url",
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -122,7 +126,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "account.auth_backends.EmailAuthenticationBackend"
+    "account.auth_backends.EmailAuthenticationBackend",
+
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
 ]
 
 # Internationalization
@@ -138,6 +145,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+APPEND_SLASH = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -163,4 +171,18 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
 
+# Social config
+AUTHENTICATION_SETTINGS = (
+  'social_core.backends.facebook.FacebookOAuth2',
+  'social_core.backends.instagram.InstagramOAuth2',
+)
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/m/dashboard'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range'
+}
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
