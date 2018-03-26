@@ -12,6 +12,9 @@ def profile(request, slug=None):
 
 @login_required
 def dashboard(request):
+
+    print(request.user)
+
     context = request.GET
     return opus_render(request, "musicians/dashboard.html", context)
 

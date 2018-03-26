@@ -1,7 +1,11 @@
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
+from home.models import OpusUser
+
 class Musician(TimeStampedModel):
+
+    user = models.OneToOneField(OpusUser, on_delete=models.CASCADE, primary_key=True)
 
     first_name = models.CharField(max_length=256, null=True, blank=True)
     last_name = models.CharField(max_length=256, null=True, blank=True)

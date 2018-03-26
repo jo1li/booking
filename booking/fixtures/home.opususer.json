@@ -1,6 +1,6 @@
 [
   {
-    "model": "auth.user",
+    "model": "home.opususer",
     "pk": 2,
     "fields": {
       "password": "pbkdf2_sha256$100000$7EFt06OBWoGy$iSuFOQXfIzrm5qzXK3qBdyndaWhFyA6hnCldoUlMqaI=",

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'social_django',
 
+    'home',
     'musicians',
     'venues',
 ]
@@ -131,6 +132,8 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
 ]
+
+AUTH_USER_MODEL = 'home.OpusUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
