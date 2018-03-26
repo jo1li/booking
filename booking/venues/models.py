@@ -2,8 +2,11 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 from musicians.models import Musician
+from home.models import OpusUser
+
 
 class Venue(models.Model):
+
     title = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
@@ -30,6 +33,8 @@ class Venue(models.Model):
 
 
 class BookingAgent(models.Model):
+
+    user = models.OneToOneField(OpusUser, on_delete=models.CASCADE, primary_key=True)
     venues = models.ManyToManyField(Venue)
 
     first_name = models.CharField(max_length=256, null=True, blank=True)
