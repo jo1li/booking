@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container mt-5 mb-5">
 
-    {% if applied.0 == "1" %}
+    {% if applied %}
         <div class="alert alert-success">Thanks for applying!!1!</div>
     {% endif %}
 
@@ -24,7 +24,7 @@
 
         <div class="row">
             <ul>
-                <li><a href="{% url 'musician_editor' %}">Edit your profile!</a></li>
+                <li><a href="{% url 'musician_editor' %}">{% if profile_created %}Edit{% else %}Create{% endif %} your profile!</a></li>
                 <li><a href="{% url 'musician_settings' %}">Settings</a></li>
             </ul>
         </div>

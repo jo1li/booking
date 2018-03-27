@@ -1,9 +1,10 @@
 from booking.utils import opus_render
-
-import account.views
-import musicians.forms
-
 from account.decorators import login_required
+import account.views
+
+from .forms import SignupForm
+from .models import  Musician
+
 
 
 def profile(request, slug=None):
@@ -13,9 +14,10 @@ def profile(request, slug=None):
 @login_required
 def dashboard(request):
 
-    print(request.user)
-
-    context = request.GET
+    context = {
+        "applied": request.GET.get('applied'),
+        "profile_created": Musician.objects.filter(user=request.user).exists()
+    }
     return opus_render(request, "musicians/dashboard.html", context)
 
 
@@ -36,7 +38,7 @@ def settings(request):
 
 class SignupView(account.views.SignupView):
 
-    form_class = musicians.forms.SignupForm
+    form_class = SignupForm
     identifier_field = 'email'
 
     def generate_username(self, form):
