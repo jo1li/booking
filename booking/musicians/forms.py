@@ -1,4 +1,7 @@
+from django.forms import ModelForm
 import account.forms
+
+from .models import Musician
 
 
 class SignupForm(account.forms.SignupForm):
@@ -13,3 +16,22 @@ class SignupForm(account.forms.SignupForm):
         del self.fields["username"]
         del self.fields["password_confirm"]
 
+
+class MusicianForm(ModelForm):
+
+    class Meta:
+        model = Musician
+        fields = [
+            'stage_name',
+            'hometown',
+            'on_tour',
+            'website',
+            'bio',
+            'facebook',
+            'twitter',
+            'instagram',
+            'youtube',
+            'soundcloud',
+            'bandcamp',
+            'spotify',
+        ]

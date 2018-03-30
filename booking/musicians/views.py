@@ -2,8 +2,8 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .forms import SignupForm
-from .models import  Musician
+from .models import Musician
+from .forms import SignupForm, MusicianForm
 
 
 
@@ -23,7 +23,13 @@ def dashboard(request):
 
 @login_required
 def editor(request):
-    context = request.GET
+
+    form = MusicianForm()
+
+    context = {
+        'form': form,
+        'apptype': request.GET.get('apptype')
+    }
     return opus_render(request, "musicians/editor.html", context)
 
 @login_required

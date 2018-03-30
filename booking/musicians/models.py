@@ -24,6 +24,7 @@ class Musician(TimeStampedModel):
     # genre
 
     on_tour = models.NullBooleanField()
+    hometown = models.CharField(max_length=256, null=True, blank=True)
     website = models.CharField(max_length=256, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
 
