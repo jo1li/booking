@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'phonenumber_field',
     'social_django',
+    'bootstrap3',
 
     'home',
     'musicians',

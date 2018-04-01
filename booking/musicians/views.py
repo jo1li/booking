@@ -6,7 +6,6 @@ from .models import Musician
 from .forms import SignupForm, MusicianForm
 
 
-
 def profile(request, slug=None):
     return opus_render(request, "musicians/profile.html")
 
@@ -24,13 +23,20 @@ def dashboard(request):
 @login_required
 def editor(request):
 
-    form = MusicianForm()
+    print(request.user.id)
+    print(type(request.user))
+
+    if Musician.objects.filter(user=request.user).exists():
+        pass
+
+    form = MusicianForm(request.POST)
 
     context = {
         'form': form,
         'apptype': request.GET.get('apptype')
     }
     return opus_render(request, "musicians/editor.html", context)
+
 
 @login_required
 def venue_questions(request):

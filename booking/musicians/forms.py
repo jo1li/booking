@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 import account.forms
 
 from .models import Musician
@@ -35,3 +36,6 @@ class MusicianForm(ModelForm):
             'bandcamp',
             'spotify',
         ]
+        widgets={
+            'on_tour': forms.CheckboxInput()
+        }

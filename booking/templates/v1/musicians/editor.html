@@ -1,31 +1,41 @@
 {% extends "site_base.html" %}
+{% load bootstrap3 %}
 
 {% block head_title %}Musician Editor{% endblock %}
+
+{% block assets %}
+    {{ block.super }}
+
+    <style>
+        label[for="id_on_tour"] {
+            display:inline;
+        }
+    </style>
+
+{% endblock %}
 
 {% block body %}
 <div class="container mt-5 mb-5">
     <h1>Musician Editor</h1>
 
     <div class="container">
-        <div class="row">
-            Here's your stuff....fix it up!!1!
-        </div>
 
-        <div class="row">
-            {{ form }}
-        </div>
+        <form method="post">
 
-        <div class="row">
-            {% if apptype.0 %}
-                <a href="{% url 'musician_app_venue_questions' %}">
-                    <button type="button" class="btn btn-primary">Save and answer some moar Qs</button>
-                </a>
-            {% else %}
-                <a href="{% url 'musician_dash' %}">
-                    <button type="button" class="btn btn-primary">Save</button>
-                </a>
-            {% endif %}
-        </div>
+            {% csrf_token %}
+
+            {% bootstrap_form form %}
+
+            <div class="row">
+                {% if apptype %}
+                    <button type="submit" class="btn btn-primary">Save and answer some moar Qs</button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                {% endif %}
+            </div>
+
+        </form>
+
     </div>
 </div>
 {% endblock body %}
