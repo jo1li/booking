@@ -10,7 +10,7 @@ class Musician(TimeStampedModel):
     first_name = models.CharField(max_length=256, null=True, blank=True)
     last_name = models.CharField(max_length=256, null=True, blank=True)
     stage_name = models.CharField(max_length=256, null=True, blank=True)
-    slug = models.CharField(max_length=32, null=True, blank=True)
+    slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
 
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned
