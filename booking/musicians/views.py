@@ -23,13 +23,17 @@ def dashboard(request):
 @login_required
 def editor(request):
 
-    print(request.user.id)
-    print(type(request.user))
+    print(request.POST)
 
     if Musician.objects.filter(user=request.user).exists():
-        pass
+        form = MusicianForm(request.POST, instance=Musician.objects.get(user=request.user))
+    else:
+        form = MusicianForm(request.POST)
 
-    form = MusicianForm(request.POST)
+    if request.POST:
+        musician = form.save(commit=False)
+        musician.user = request.user
+        musician.save()
 
     context = {
         'form': form,
