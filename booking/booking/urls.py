@@ -19,17 +19,24 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from musicians.views import index
+from home.views import index, healthcheck, logout, LoginView, privacy
 
-# Healthcheck
-from django.http import HttpResponse
-def healthcheck(request):
-    return HttpResponse("<html><body>Healthy</body></html>")
-####
+from venues.views_admin import create
+from musicians.views import SignupView
+
 
 urlpatterns = [
     path('', index, name="home"),
-    path('admin/', admin.site.urls),
+    path('', include('social_django.urls', namespace='social')),
+    path('privacy', privacy, name="privacy"),
+    path('privacy-2', privacy, name="privacy"),
     path('_ah/health', healthcheck),
-    path("account/", include("account.urls")),
+    path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
+    path('opus-control/', admin.site.urls),
+    path('account/log_out/', logout, name="opus_logout"),
+    path('account/login/', LoginView.as_view(), name="opus_login"),
+    path('account/signup/', SignupView.as_view(), name="opus_signup"),
+    path('account/', include("account.urls")),
+    path('m/',  include('musicians.urls')),
+    path('v/',  include('venues.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

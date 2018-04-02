@@ -6,3 +6,11 @@ django-extensions==1.9.8
 Pinax==0.9a2
 pinax-theme-bootstrap==8.0.1
 django-user-accounts==2.0.3
+django-sendgrid-v5==0.6.87
+libsass==0.13.7
+django-compressor==2.2
+django-sass-processor==0.5.8
+django-phonenumber-field==2.0.0
+django-macros==0.4.0
+social-auth-app-django==2.1.0
+django-bootstrap3==9.1.0

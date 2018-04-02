@@ -1,0 +1,189 @@
+{% extends "site_base.html" %}
+{% load sass_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Welcome Booking Agent Person!!!{% endblock %}
+
+{% block assets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% sass_src 'scss/base.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'scss/venue-dashboard.scss' %}">
+    <link rel="stylesheet" href="{% static 'css/ekko-lightbox.css' %}">
+
+    <script src="{% static 'js/ekko-lightbox.min.js' %}"></script>
+{% endblock assets %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-16">
+
+            <div class="container-fluid">
+              <div class="row">
+                <nav class="col-md-2 d-none d-md-block sidebar">
+                  <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                          <span data-feather="home"></span>
+                          Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/v/something">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a  class="nav-link" href="/v/editor">Edit Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/v/event_editor">Event Editor</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'venue_settings' %}">Settings</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'venue_embeds' %}">Embeds</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </nav>
+
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                      <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">List</button>
+                        <button class="btn btn-sm btn-outline-secondary active">Tiles</button>
+                      </div>
+                      <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card-columns">
+                    {% for i in range %}
+                    <div class="card" style="width: 18rem">
+<!--
+                      <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                          <li class="nav-item">
+                            <a class="nav-link active" href="#">Active</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                          </li>
+                        </ul>
+                      </div>
+-->
+                      <div class="card-header">
+                        <h5 class="card-title">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <a href="/m/the-vines">The Vines</a>
+                          </div>
+                        </h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-text">
+                          <div  class="row">
+                            <ul class="social d-flex justify-content-between">
+                                <li>
+                                  <iframe id="ytplayer" type="text/html" width="70" height="39.375"
+                                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                  frameborder="0" allowfullscreen></iframe>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#settings">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <i class="fas fa-headphones"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                          </div>
+                          <div class="row">
+                            <p>Super fun band that won't evar give u up.</p>
+                          </div>
+                          <div class="row">
+                            <ul class="social d-flex justify-content-between">
+                              <li>
+                                <a href="#" class="btn btn-primary">Book</a>
+                              </li>
+                              <li>
+                                <a href="#" class="btn btn-primary">Msg</a>
+                              </li>
+                              <li>
+                                <a href="#" class="btn btn-primary">Reject</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer text-muted">
+                        <ul class="social d-flex justify-content-between">
+                            <li class="active">
+                                <a data-toggle="tab" href="#information">
+                                    <i class="fab fa-facebook-f"></i>&nbsp;&nbsp;57
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#settings">
+                                    <i class="fab fa-twitter"></i>&nbsp;&nbsp;12
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#events">
+                                    <i class="fab fa-instagram"></i>&nbsp;&nbsp;180
+                                </a>
+                            </li>
+                        </ul>
+                      </div>
+                    </div>
+                    {% endfor %}
+
+
+                  </div>
+
+
+                  <div>
+                      <ul>
+                          <li>Applications (include messages on app cards)</li>
+                          <li>Events</li>
+                          <li>Calendar (simple visual representation of events &amp; slots)</li>
+                          <li>Recommendations</li>
+                          <li>ONE tooltip tutorial per visit on the first few visits</li>
+                      </ul>
+                  </div>
+
+                </main>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+  });
+</script>
+
+{% endblock body %}
+
+{% block footer %}{% endblock %}

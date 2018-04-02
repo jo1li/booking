@@ -17,5 +17,5 @@ python manage.py collectstatic --noinput
 if [ "$DJANGO_SETTINGS_MODULE" != "booking.settings.prod" ]
 then
     echo "Fixturizing!!!1!"
-    python manage.py loaddata fixtures/auth.user.json
+    python manage.py loaddata fixtures/home.opususer.json
 fi

@@ -17,3 +17,6 @@ DATABASES = {
         'PORT': '3306'
     }
 }
+
+SITE_SSL_AVAILABLE = True
+SITE_DOMAIN = 'opus-booking-stage.appspot.com'

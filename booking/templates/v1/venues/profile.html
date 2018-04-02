@@ -1,0 +1,82 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Venue Profile{% endblock %}
+
+{% block og %}
+  {{ block.super }}
+  <meta property="og:description" content="Venue Name: Awesome place that has awesome shows" />
+{% endblock og %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5 col-md-5 user-details mx-auto">
+                        <div class="user-image">
+                            <img src="https://static1.squarespace.com/static/555a3c9de4b0f32d3a151970/555a7432e4b090ebd0358a78/5568d7c5e4b0fc1727535735/1432934404148/Delancey_Roof1.jpg" alt="The Delancey" title="The Delancey" width="100" height="100" class="rounded-circle">
+                        </div>
+                        <div class="user-info-block">
+                            <div class="user-heading mb-2">
+                                <h3>The Delancey</h3>
+                                <span class="help-block">New York, NY</span>
+                            </div>
+                            <ul class="navigation">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#information">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#settings">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#events">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#events">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="user-body">
+
+                                <div class="row">
+                                    <a href="/v/editor">EDIT ME (Only logged in venue can see this)</a>
+                                </div>
+
+                                <div class="row">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </div>
+
+                                <div class="row">
+                                    <div>Is this your venue? Claim it!!!1!</div>
+                                </div>
+
+                                <div class="row">
+                                    <a href="/v/dates?venue=1">
+                                        <button type="button" class="btn btn-primary">Apply to play!</button>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock body %}

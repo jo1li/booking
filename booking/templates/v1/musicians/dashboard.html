@@ -1,0 +1,33 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Musician Dashboard{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+
+    {% if applied %}
+        <div class="alert alert-success">Thanks for applying!!1!</div>
+    {% endif %}
+
+    <h1>Musician Dashboard</h1>
+
+    <div class="container">
+
+        <div class="row">
+            <ul>
+                <li>Applications</li>
+                <li>Suggested Events</li>
+                <li>Messages</li>
+                <li>Profile completeness</li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <ul>
+                <li><a href="{% url 'musician_editor' %}">{% if profile_created %}Edit{% else %}Create{% endif %} your profile!</a></li>
+                <li><a href="{% url 'musician_settings' %}">Settings</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock body %}

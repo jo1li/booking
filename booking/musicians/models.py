@@ -1,15 +1,16 @@
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
+from home.models import OpusUser
+
 class Musician(TimeStampedModel):
+
+    user = models.OneToOneField(OpusUser, on_delete=models.CASCADE, primary_key=True)
 
     first_name = models.CharField(max_length=256, null=True, blank=True)
     last_name = models.CharField(max_length=256, null=True, blank=True)
     stage_name = models.CharField(max_length=256, null=True, blank=True)
-    slug = models.CharField(max_length=32, null=True, blank=True)
-
-    # This might be handled by the django user account app?
-    email = models.CharField(max_length=256, null=True, blank=True)
+    slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
 
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned
@@ -23,6 +24,7 @@ class Musician(TimeStampedModel):
     # genre
 
     on_tour = models.NullBooleanField()
+    hometown = models.CharField(max_length=256, null=True, blank=True)
     website = models.CharField(max_length=256, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
 
