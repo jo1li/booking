@@ -65,3 +65,13 @@ class SignupView(account.views.SignupView):
         # Django User model, unfortunately)
         return form.data['email']
 
+
+    def after_signup(self, form):
+        self.update_profile(form)
+        super(SignupView, self).after_signup(form)
+
+
+    def update_profile(self, form):
+        self.created_user.is_musician = True
+        self.created_user.save()
+
