@@ -1,7 +1,7 @@
 {% extends "account/login.html" %}
 
 {% load i18n %}
-{% load bootstrap %}
+{% load bootstrap3 %}
 
 {% block body %}
 <div class="container">
@@ -10,7 +10,7 @@
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <legend>{% trans "Log in" %}</legend>
                 {% csrf_token %}
-                {{ form|bootstrap }}
+                {% bootstrap_form form %}
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
