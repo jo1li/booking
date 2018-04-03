@@ -2,6 +2,9 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
+import random
+import string
+
 from .models import Musician
 from .forms import SignupForm, MusicianForm
 
@@ -60,5 +63,5 @@ class SignupView(account.views.SignupView):
     def generate_username(self, form):
         # do something to generate a unique username (required by the
         # Django User model, unfortunately)
-        username = "<magic>"
-        return username
+        return form.data['email']
+
