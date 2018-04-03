@@ -1,20 +1,51 @@
 [
   {
-    "model": "home.opususer",
-    "pk": 2,
+    "model": "account.emailconfirmation",
+    "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$100000$7EFt06OBWoGy$iSuFOQXfIzrm5qzXK3qBdyndaWhFyA6hnCldoUlMqaI=",
-      "last_login": "2018-03-20T00:48:51.566Z",
+      "email_address": 1,
+      "created": "2018-04-03T21:02:11.169Z",
+      "sent": "2018-04-03T21:02:11.741Z",
+      "key": "1175dc08842e8b08f35f1ef78836dc53c082cfc87e9e25d7c49a7b3793b52fcb"
+    }
+  },
+  {
+    "model": "home.opususer",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$Iy9eX88JNUql$QlxpkG52k+Fi33khxtOw2Z1r1sheOEWXknbV7uUhq9I=",
+      "last_login": "2018-04-03T21:08:56.626Z",
       "is_superuser": true,
-      "username": "root",
+      "username": "chris@opuslive.io",
       "first_name": "",
       "last_name": "",
       "email": "chris@opuslive.io",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2018-03-20T00:48:21.926Z",
+      "date_joined": "2018-04-03T21:02:11.024Z",
+      "is_musician": false,
+      "is_booking_agent": false,
       "groups": [],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "email": "chris@opuslive.io",
+      "verified": false,
+      "primary": true
+    }
+  },
+  {
+    "model": "account.account",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "timezone": "",
+      "language": "en"
     }
   }
 ]
