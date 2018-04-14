@@ -28,6 +28,7 @@ class MusicianForm(ModelForm):
             'on_tour',
             'website',
             'bio',
+            'bio_short',
             'facebook',
             'twitter',
             'instagram',
@@ -36,6 +37,9 @@ class MusicianForm(ModelForm):
             'bandcamp',
             'spotify',
         ]
+        labels = {
+            "bio_short": "Short Bio"
+        }
         widgets={
             'on_tour': forms.CheckboxInput()
         }
