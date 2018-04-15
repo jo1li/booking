@@ -99,6 +99,7 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
                 "booking.context_processors.template_version",
+                "booking.context_processors.home_url",
                 "booking.context_processors.absolute_url",
 
                 'social_django.context_processors.backends',

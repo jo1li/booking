@@ -1,9 +1,26 @@
 from django.conf import settings
+from django.urls import reverse
 
 def template_version(request):
     return {
         'design_version': settings.TEMPLATES_DESIGN_VERSION,
     }
+
+def home_url(request):
+    print(request.user)
+
+    if request.user.is_musician:
+        url = reverse('musician_dash')
+    elif request.user.is_booking_agent:
+        url = reverse('venue_dashboard')
+    else:
+        url = reverse('home')
+
+
+    return {
+        "home_url": url
+    }
+
 
 def absolute_url(request):
 

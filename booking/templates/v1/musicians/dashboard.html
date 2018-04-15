@@ -25,6 +25,9 @@
         <div class="row">
             <ul>
                 <li><a href="{% url 'musician_editor' %}">{% if profile_created %}Edit{% else %}Create{% endif %} your profile!</a></li>
+                {% if profile_created %}
+                <li><a href="{% url 'musician_profile' musician.slug %}">View your profile!</a></li>
+                {% endif %}
                 <li><a href="{% url 'musician_settings' %}">Settings</a></li>
             </ul>
         </div>

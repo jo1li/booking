@@ -16,18 +16,21 @@ def profile(request, slug=None):
 @login_required
 def dashboard(request):
 
+    musician = None
+
+    if Musician.objects.filter(user=request.user).exists():
+        musician = Musician.objects.get(user=request.user)
+
     context = {
         "applied": request.GET.get('applied'),
-        "profile_created": Musician.objects.filter(user=request.user).exists()
+        "musician": musician,
+        "profile_created": musician
     }
     return opus_render(request, "musicians/dashboard.html", context)
 
 
 @login_required
 def editor(request):
-
-    print(request.POST)
-    print(request.FILES)
 
     user = None
 
