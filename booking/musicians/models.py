@@ -12,7 +12,7 @@ class Musician(TimeStampedModel):
 
     user = models.OneToOneField(OpusUser, on_delete=models.CASCADE, primary_key=True)
 
-    stage_name = models.CharField(max_length=256, null=True, blank=True)
+    stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
     image = models.ImageField(upload_to='media/', blank=True)
 
