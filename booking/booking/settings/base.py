@@ -178,6 +178,8 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '149241287193565',
     'API_SECRET': 'AhIf3zd1VNvnBBivGSxgGqHkRec'
 }
+# For whatever reason, you seen to need to configure both these.
+CLOUDINARY = dict((k.lower(), v) for k,v in CLOUDINARY_STORAGE.items())
 
 MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
