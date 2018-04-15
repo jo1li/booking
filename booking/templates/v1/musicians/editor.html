@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 {% load bootstrap3 %}
+{% load cloudinary %}
 
 {% block head_title %}Musician Editor{% endblock %}
 
@@ -20,9 +21,12 @@
 
     <div class="container">
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
 
             {% csrf_token %}
+
+            {% cloudinary user.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
+
 
             {% bootstrap_form form %}
 

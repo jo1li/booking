@@ -23,6 +23,7 @@ class MusicianForm(ModelForm):
     class Meta:
         model = Musician
         fields = [
+            'image',
             'stage_name',
             'hometown',
             'on_tour',

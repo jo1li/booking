@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 
     'macros',
     'bootstrapform',
@@ -165,6 +168,16 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder'
 ]
+
+# Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'opus-dev',
+    'API_KEY': '149241287193565',
+    'API_SECRET': 'AhIf3zd1VNvnBBivGSxgGqHkRec'
+}
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Email config
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"

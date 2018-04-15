@@ -27,11 +27,15 @@ def dashboard(request):
 def editor(request):
 
     print(request.POST)
+    print(request.FILES)
+
+    user = None
 
     if Musician.objects.filter(user=request.user).exists():
-        form = MusicianForm(request.POST, instance=Musician.objects.get(user=request.user))
+        user = Musician.objects.get(user=request.user)
+        form = MusicianForm(request.POST, request.FILES, instance=user)
     else:
-        form = MusicianForm(request.POST)
+        form = MusicianForm(request.POST, request.FILES)
 
     if request.POST:
         musician = form.save(commit=False)
@@ -40,6 +44,7 @@ def editor(request):
 
     context = {
         'form': form,
+        'user': user,
         'apptype': request.GET.get('apptype')
     }
     return opus_render(request, "musicians/editor.html", context)
