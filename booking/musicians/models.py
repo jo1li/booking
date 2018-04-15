@@ -1,7 +1,12 @@
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.text import slugify
+
 from home.models import OpusUser
+
 
 class Musician(TimeStampedModel):
 
@@ -37,6 +42,14 @@ class Musician(TimeStampedModel):
     bandcamp = models.CharField(max_length=256, null=True, blank=True)
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
+
+@receiver(pre_save, sender=Musician)
+def signal_musician_pre_save(sender, **kwargs):
+
+    instance = kwargs['instance']
+
+    if not instance.slug and instance.stage_name:
+        instance.slug = slugify(instance.stage_name)
 
 
 # Both of these fields would be better implemented as tags

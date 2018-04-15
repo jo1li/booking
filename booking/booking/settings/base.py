@@ -170,6 +170,8 @@ STATICFILES_FINDERS = [
 ]
 
 # Cloudinary
+# TODO: Eventually move to CLOUDINARY_URL
+#   https://github.com/klis87/django-cloudinary-storage#installation
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'opus-dev',
     'API_KEY': '149241287193565',
