@@ -29,11 +29,11 @@ class Musician(TimeStampedModel):
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)
-    website = models.CharField(max_length=256, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 
     # Social connections
+    website = models.CharField(max_length=256, null=True, blank=True)
     facebook = models.CharField(max_length=256, null=True, blank=True)
     twitter = models.CharField(max_length=256, null=True, blank=True)
     instagram = models.CharField(max_length=256, null=True, blank=True)
