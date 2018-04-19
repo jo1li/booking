@@ -7,14 +7,6 @@ def template_version(request):
     }
 
 def home_url(request):
-    print(request.user.is_anonymous)
-    print(request.user.is_authenticated)
-    print(request.user)
-    print(type(request.user))
-
-    if not request.user.is_anonymous:
-        print("is_muso", request.user.is_musician)
-        print("is ba", request.user.is_booking_agent)
 
     if request.user.is_anonymous:
         url = reverse('home')
