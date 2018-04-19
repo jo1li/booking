@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
@@ -8,9 +10,27 @@ import string
 from .models import Musician
 from .forms import SignupForm, MusicianForm
 
+import requests
 
 def profile(request, slug=None):
-    return opus_render(request, "musicians/profile.html")
+
+    musician = get_object_or_404(Musician, slug=slug)
+
+    # Get instagram followers if there's an insta social auth
+    insta_auth = request.user.social_auth.get(provider='instagram')
+
+    insta_url = "https://api.instagram.com/v1/users/self/?access_token={}".format(insta_auth.extra_data['access_token'])
+    r = requests.get(insta_url)
+
+    insta_count = r.json()['data']['counts']['followed_by']
+
+
+    context = {
+        "musician": musician,
+        "insta_count": insta_count
+    }
+
+    return opus_render(request, "musicians/profile.html", context)
 
 
 @login_required

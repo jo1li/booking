@@ -25,7 +25,9 @@
 
             {% csrf_token %}
 
+            {% if musician.image %}
             {% cloudinary user.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
+            {% endif %}
 
             {% bootstrap_form form %}
 
