@@ -22,11 +22,18 @@
     <div class="container">
 
         <form method="post" enctype="multipart/form-data">
-
             {% csrf_token %}
 
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             {% if musician.image %}
-            {% cloudinary user.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
+            {% cloudinary musician.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
             {% endif %}
 
             {% bootstrap_form form %}

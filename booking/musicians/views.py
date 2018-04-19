@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
 
 from booking.utils import opus_render
 from account.decorators import login_required
@@ -40,22 +41,31 @@ def dashboard(request):
 @login_required
 def editor(request):
 
-    user = None
+    musician = None
 
     if Musician.objects.filter(user=request.user).exists():
-        user = Musician.objects.get(user=request.user)
-        form = MusicianForm(request.POST, request.FILES, instance=user)
+        musician = Musician.objects.get(user=request.user)
+        if request.POST or request.FILES:
+            form = MusicianForm(request.POST, request.FILES, instance=musician)
+        else:
+            form = MusicianForm(instance=musician)
     else:
         form = MusicianForm(request.POST, request.FILES)
 
-    if request.POST:
+    if form.is_valid():
         musician = form.save(commit=False)
         musician.user = request.user
         musician.save()
 
+        # Show a success message
+        messages.success(request, 'Profile details updated. Yay.')
+
+        # redirect to same page, to avoid the stupid repost issue
+        redirect('musician_dash')
+
     context = {
         'form': form,
-        'user': user,
+        'musician': musician,
         'apptype': request.GET.get('apptype')
     }
     return opus_render(request, "musicians/editor.html", context)
