@@ -1,3 +1,4 @@
+from django.conf import settings
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
@@ -7,6 +8,8 @@ from django.utils.text import slugify
 
 from home.models import OpusUser
 
+import twitter
+from urllib import parse
 
 class Musician(TimeStampedModel):
 
@@ -42,6 +45,19 @@ class Musician(TimeStampedModel):
     bandcamp = models.CharField(max_length=256, null=True, blank=True)
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
+
+    def twitter_followers(self):
+
+        twitter_username = parse.urlparse(self.twitter).path.lstrip('/')
+
+        api = twitter.Api(consumer_key=settings.SOCIAL_TWITTER_CONSUMER_KEY,
+                          consumer_secret=settings.SOCIAL_TWITTER_CONSUMER_SECRET,
+                          access_token_key=settings.SOCIAL_TWITTER_ACCESS_TOKEN,
+                          access_token_secret=settings.SOCIAL_TWITTER_ACCESS_TOKEN_SECRET
+                      )
+        r = api.GetUser(screen_name=twitter_username)
+
+        return r.followers_count
 
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):

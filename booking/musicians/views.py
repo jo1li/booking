@@ -1,3 +1,4 @@
+from django.conf import settings as conf_settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -10,6 +11,7 @@ import string
 
 from .models import Musician
 from .forms import SignupForm, MusicianForm
+
 
 def profile(request, slug=None):
 
