@@ -59,6 +59,29 @@ class Musician(TimeStampedModel):
 
         return r.followers_count
 
+    def facebook_followers(self):
+
+        print("******* facebook_followers ********")
+
+        page_name = parse.urlparse(self.facebook).path.lstrip('/').rstrip('/')
+        print(page_name)
+
+        try:
+
+            facebook_auth = self.user.social_auth.get(provider='facebook')
+
+        except ObjectDoesNotExist:
+            return None
+
+        import facebook
+        graph = facebook.GraphAPI(access_token=facebook_auth.extra_data['access_token'])
+
+        return graph.get_object("me/accounts")
+
+
+
+
+
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):
 

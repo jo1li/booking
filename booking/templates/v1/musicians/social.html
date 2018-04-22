@@ -16,30 +16,18 @@
                     <i class="fab fa-{{ social }}"></i>&nbsp;
                     {{ social | title}}&nbsp;
                     {% if auth %}
-                        <form action="{% url 'social:disconnect' social %}?next=/m/social" method="post" style="display:inline;">
+                        <form action="{% url 'social:disconnect' social %}?next={% url 'musician_social' %}" method="post" style="display:inline;">
                             {% csrf_token %}
                             <button class="btn btn-warning btn-xs">
                                 Disconnect
                             </button>
                         </form>
                     {% else %}
-                        <a href="{% url "social:begin" social %}?next=/m/social">Connect</a>
+                        <a href="{% url "social:begin" social %}?next={% url 'musician_social' %}">Connect</a>
                     {% endif %}
                 </li>
                 {% endfor %}
             </ul>
-        </div>
-
-        <div class="row">
-            {{ backends}}
-        </div>
-
-        <div class="row">
-            {{ not_associated}}
-        </div>
-
-        <div class="row">
-            {{ associated}}
         </div>
 
     </div>

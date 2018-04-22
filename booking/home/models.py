@@ -22,15 +22,3 @@ class OpusUser(AbstractUser):
             return None
 
         return r.json()['data']['counts']['followed_by']
-
-
-    def facebook_followers(self):
-
-        try:
-
-            facebook_auth = self.social_auth.get(provider='facebook')
-
-        except ObjectDoesNotExist:
-            return None
-
-        print(facebook_auth.extra_data['access_token'])
