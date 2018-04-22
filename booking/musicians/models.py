@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
 
@@ -8,6 +9,7 @@ from django.utils.text import slugify
 
 from home.models import OpusUser
 
+import requests
 import twitter
 from urllib import parse
 
@@ -44,6 +46,21 @@ class Musician(TimeStampedModel):
     soundcloud = models.CharField(max_length=256, null=True, blank=True)
     bandcamp = models.CharField(max_length=256, null=True, blank=True)
     spotify = models.CharField(max_length=256, null=True, blank=True)
+
+
+    def instagram_followers(self):
+
+        try:
+
+            insta_auth = self.user.social_auth.get(provider='instagram')
+
+            insta_url = "https://api.instagram.com/v1/users/self/?access_token={}".format(insta_auth.extra_data['access_token'])
+            r = requests.get(insta_url)
+
+        except ObjectDoesNotExist:
+            return None
+
+        return r.json()['data']['counts']['followed_by']
 
 
     def twitter_followers(self):
