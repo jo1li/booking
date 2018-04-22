@@ -136,6 +136,7 @@ AUTHENTICATION_BACKENDS = [
 
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.spotify.SpotifyOAuth2',
 ]
 
 AUTH_USER_MODEL = 'home.OpusUser'

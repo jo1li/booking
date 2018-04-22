@@ -17,11 +17,42 @@ def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
 
+    print(musician.user.facebook_followers())
+
     context = {
         "musician": musician,
     }
 
     return opus_render(request, "musicians/profile.html", context)
+
+
+@login_required
+def social(request):
+
+    # TODO: set up a better way of listing social integrations based on existing context_processor
+    #   https://github.com/python-social-auth/social-app-django/blob/master/social_django/context_processors.py
+    # from social_core.backends.utils import user_backends_data
+    # from social_django.utils import Storage, BACKENDS
+
+    # print(BACKENDS)
+    # print(user_backends_data(request.user, BACKENDS, Storage))
+
+
+    all_socials = {
+        'instagram': {},
+        'facebook': {},
+        'spotify': {},
+    }
+
+    for social in all_socials.keys():
+        if request.user.social_auth.filter(provider=social).exists():
+            all_socials[social]['social_auth'] = request.user.social_auth.get(provider=social)
+
+    context = {
+        "all_socials": all_socials,
+    }
+
+    return opus_render(request, "musicians/social.html", context)
 
 
 @login_required

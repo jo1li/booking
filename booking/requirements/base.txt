@@ -18,3 +18,4 @@ django-cloudinary-storage==0.2.3
 Pillow==5.1.0
 requests==2.18.4
 python-twitter==3.4.1
+facebook-sdk==2.0.0

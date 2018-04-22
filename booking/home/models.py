@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from django.core.exceptions import ObjectDoesNotExist
+
 import requests
 
 class OpusUser(AbstractUser):
@@ -8,9 +10,27 @@ class OpusUser(AbstractUser):
     is_booking_agent = models.BooleanField('booking agent status', default=False)
 
     def instagram_followers(self):
-        insta_auth = self.social_auth.get(provider='instagram')
 
-        insta_url = "https://api.instagram.com/v1/users/self/?access_token={}".format(insta_auth.extra_data['access_token'])
-        r = requests.get(insta_url)
+        try:
+
+            insta_auth = self.social_auth.get(provider='instagram')
+
+            insta_url = "https://api.instagram.com/v1/users/self/?access_token={}".format(insta_auth.extra_data['access_token'])
+            r = requests.get(insta_url)
+
+        except ObjectDoesNotExist:
+            return None
 
         return r.json()['data']['counts']['followed_by']
+
+
+    def facebook_followers(self):
+
+        try:
+
+            facebook_auth = self.social_auth.get(provider='facebook')
+
+        except ObjectDoesNotExist:
+            return None
+
+        print(facebook_auth.extra_data['access_token'])
