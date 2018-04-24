@@ -39,7 +39,11 @@ class MusicianForm(ModelForm):
             'spotify',
         ]
         labels = {
-            "bio_short": "Short Bio"
+            "bio_short": "Short Bio",
+            "facebook": "ex. https://www.facebook.com/opuslivemusic/",
+            "twitter": "ex. https://twitter.com/chrishnry",
+            "instagram": "ex. https://www.instagram.com/chrishnry/",
+            "spotify": "ex. https://open.spotify.com/artist/54tv11ndFfiqXiR03PwdlB"
         }
         widgets={
             'on_tour': forms.CheckboxInput()

@@ -36,9 +36,11 @@
             {% cloudinary musician.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
             {% endif %}
 
+            {% if musician.slug %}
             <div class="row">
                 <a href="{% url 'musician_profile' musician.slug %}">View your Profile</a>
             </div>
+            {% endif %}
 
             {% bootstrap_form form %}
 
