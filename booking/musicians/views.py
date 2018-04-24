@@ -17,8 +17,6 @@ def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
 
-    # print(musician.facebook_followers())
-
     context = {
         "musician": musician,
     }

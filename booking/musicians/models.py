@@ -11,6 +11,8 @@ from home.models import OpusUser
 
 import requests
 import twitter
+import spotipy
+import spotipy.util as util
 from urllib import parse
 
 class Musician(TimeStampedModel):
@@ -48,6 +50,39 @@ class Musician(TimeStampedModel):
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
 
+    def spotify_followers(self):
+
+        try:
+            spot_auth = self.user.social_auth.get(provider='spotify')
+        except ObjectDoesNotExist:
+            return None
+
+        spot_id = parse.urlparse(self.spotify).path.lstrip('/').split('/')[-1]
+        spot_artist_urn = "spotify:artist:{}".format(spot_id)
+
+        # Just refresh the damn token every time.
+        sp_oauth = spotipy.oauth2.SpotifyOAuth(
+            settings.SOCIAL_AUTH_SPOTIFY_KEY,
+            settings.SOCIAL_AUTH_SPOTIFY_SECRET,
+            "https://opus.ngrok.io/complete/spotify/"
+        )
+        token = sp_oauth.refresh_access_token(spot_auth.extra_data['refresh_token'])
+
+        print(token)
+
+
+        sp = spotipy.Spotify(auth=token['access_token'])
+        response = sp.artist(spot_artist_urn)
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(response)
+
+        print(response['followers']['total'])
+
+        return response['followers']['total']
+
+
     def instagram_followers(self):
 
         try:
@@ -75,6 +110,7 @@ class Musician(TimeStampedModel):
         r = api.GetUser(screen_name=twitter_username)
 
         return r.followers_count
+
 
     def facebook_followers(self):
 
