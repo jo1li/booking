@@ -4,7 +4,7 @@ Opusapp Booking Utility
 
 # Admin
 
-You can login to the admin with root / opusadmin.
+You can login to the admin with chris@opuslive.io / opusadmin.
 
 # Deploy
 

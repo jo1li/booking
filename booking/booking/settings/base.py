@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
 
     'macros',
     'bootstrapform',
@@ -96,6 +99,7 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
                 "booking.context_processors.template_version",
+                "booking.context_processors.home_url",
                 "booking.context_processors.absolute_url",
 
                 'social_django.context_processors.backends',
@@ -132,6 +136,7 @@ AUTHENTICATION_BACKENDS = [
 
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.spotify.SpotifyOAuth2',
 ]
 
 AUTH_USER_MODEL = 'home.OpusUser'
@@ -166,6 +171,20 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder'
 ]
 
+# Cloudinary
+# TODO: Eventually move to CLOUDINARY_URL
+#   https://github.com/klis87/django-cloudinary-storage#installation
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'opus-dev',
+    'API_KEY': '149241287193565',
+    'API_SECRET': 'AhIf3zd1VNvnBBivGSxgGqHkRec'
+}
+# For whatever reason, you seen to need to configure both these.
+CLOUDINARY = dict((k.lower(), v) for k,v in CLOUDINARY_STORAGE.items())
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Email config
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
@@ -174,11 +193,26 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 # Account settings
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+ACCOUNT_LOGIN_REDIRECT_URL = '/m/dashboard'
+
 
 # Social config
 AUTHENTICATION_SETTINGS = (
   'social_core.backends.facebook.FacebookOAuth2',
   'social_core.backends.instagram.InstagramOAuth2',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'booking.pipeline.set_type',
 )
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/m/dashboard'
@@ -190,3 +224,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
+SOCIAL_TWITTER_CONSUMER_KEY = 'S5pewaBl5sB7rpUXnKRl8ysRZ'
+SOCIAL_TWITTER_CONSUMER_SECRET = 'fKG8fOAwB3iiK72tTlyge7EBnlliHg1H5x60LUik743Om2EPUo'
+SOCIAL_TWITTER_ACCESS_TOKEN = '30171536-GxwENbTPA2RF3Em1CiZ9VgZCAGpyDw4bQNWfmenuz'
+SOCIAL_TWITTER_ACCESS_TOKEN_SECRET = 'oH8jw9RccbFKwQ9AgAvlnTNNxY3sjwzjxI1TTl1homk7c'

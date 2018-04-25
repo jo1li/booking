@@ -14,3 +14,9 @@ django-phonenumber-field==2.0.0
 django-macros==0.4.0
 social-auth-app-django==2.1.0
 django-bootstrap3==9.1.0
+django-cloudinary-storage==0.2.3
+Pillow==5.1.0
+requests==2.18.4
+python-twitter==3.4.1
+facebook-sdk==2.0.0
+spotipy==2.4.4

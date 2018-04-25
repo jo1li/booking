@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+
+{% block head_title %}Social Connections{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+
+    <h1>Social Connections</h1>
+
+    <div class="container">
+
+        <div class="row">
+            <ul>
+                {% for social, auth in all_socials.items %}
+                <li>
+                    <i class="fab fa-{{ social }}"></i>&nbsp;
+                    {{ social | title}}&nbsp;
+                    {% if auth %}
+                        <form action="{% url 'social:disconnect' social %}?next={% url 'musician_social' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn btn-warning btn-xs">
+                                Disconnect
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url "social:begin" social %}?next={% url 'musician_social' %}">Connect</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+{% endblock body %}
