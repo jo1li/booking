@@ -15,6 +15,10 @@
     {% cloudinary musician.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
     {% endif %}
 
+    {% if musician.image_hero %}
+    {% cloudinary musician.image_hero.name width=992 height=324 crop="thumb" gravity="face" %}
+    {% endif %}
+
     {% if user.is_authenticated and user.id == musician.user.id %}
     <div class="row">
         <a href="{% url 'musician_editor' %}">Edit ur profile</a>
