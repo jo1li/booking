@@ -22,6 +22,7 @@ class Musician(TimeStampedModel):
     stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
     image = models.ImageField(upload_to='media/', blank=True)
+    image_hero = models.ImageField(upload_to='media/', blank=True)
 
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned

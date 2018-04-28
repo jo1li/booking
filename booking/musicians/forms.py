@@ -24,6 +24,7 @@ class MusicianForm(ModelForm):
         model = Musician
         fields = [
             'image',
+            'image_hero',
             'stage_name',
             'hometown',
             'on_tour',
