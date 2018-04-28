@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'cloudinary',
 
     'macros',
-    'bootstrapform',
     'pinax_theme_bootstrap',
     'django_extensions',
     'account',
