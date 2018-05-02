@@ -115,13 +115,18 @@ def editor_audio(request):
         formset = MusicianAudioFormSet(
             request.POST, request.FILES,
             queryset=MusicianAudio.objects.filter(musician=musician),
-            musician_id=musician.pk,
             initial=[{'musician': musician}]
         )
+
+        print(formset.is_valid())
+
         if formset.is_valid():
             formset.save()
 
-            print("HERERERERR")
+            for form in formset.forms:
+                print("*****************")
+                print(dir(form))
+                print(form.data)
 
             messages.success(request, 'Audio saved. Yay.')
             return redirect('musician_editor_audio')
@@ -130,7 +135,6 @@ def editor_audio(request):
     else:
         formset = MusicianAudioFormSet(
                 queryset=MusicianAudio.objects.filter(musician=musician),
-                musician_id=musician.pk,
                 initial=[{'musician': musician}]
             )
 

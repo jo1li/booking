@@ -71,17 +71,8 @@ class Musician(TimeStampedModel):
         )
         token = sp_oauth.refresh_access_token(spot_auth.extra_data['refresh_token'])
 
-        print(token)
-
-
         sp = spotipy.Spotify(auth=token['access_token'])
         response = sp.artist(spot_artist_urn)
-
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(response)
-
-        print(response['followers']['total'])
 
         return response['followers']['total']
 
