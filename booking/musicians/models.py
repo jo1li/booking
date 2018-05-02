@@ -7,6 +7,8 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 
+from ordered_model.models import OrderedModel
+
 from home.models import OpusUser
 
 import requests
@@ -134,6 +136,9 @@ class Musician(TimeStampedModel):
 
 
 
+class MusicianAudio(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    code = models.TextField()
 
 
 @receiver(pre_save, sender=Musician)
