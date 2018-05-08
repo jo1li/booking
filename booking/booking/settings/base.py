@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'social_django',
     'bootstrap3',
+    'bootstrapform',
     'ordered_model',
 
     'home',

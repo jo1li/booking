@@ -119,8 +119,6 @@ def editor_audio(request):
             initial=[{'musician': musician}]
         )
 
-        print(formset.is_valid())
-
         if formset.is_valid():
             formset.save()
 
