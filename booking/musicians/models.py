@@ -132,6 +132,11 @@ class MusicianAudio(TimeStampedModel, OrderedModel):
     code = models.TextField()
 
 
+class MusicianVideo(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    code = models.TextField()
+
+
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):
 

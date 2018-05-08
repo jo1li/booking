@@ -12,8 +12,8 @@ import account.views
 import random
 import string
 
-from .models import Musician, MusicianAudio
-from .forms import SignupForm, MusicianForm, MusicianAudioFormSet
+from .models import Musician, MusicianAudio, MusicianVideo
+from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 
 
 def profile(request, slug=None):
@@ -137,6 +137,40 @@ def editor_audio(request):
         'formset': formset
     }
     return opus_render(request, "musicians/editor_audio.html", context)
+
+
+@login_required
+def editor_video(request):
+
+    # TODO: handle musician not existing
+    musician = Musician.objects.get(user=request.user)
+
+    if request.method == "POST":
+        formset = MusicianVideoFormSet(
+            request.POST, request.FILES,
+            queryset=MusicianVideo.objects.filter(musician=musician),
+            musician_id=musician.pk,
+            initial=[{'musician': musician}]
+        )
+
+        if formset.is_valid():
+            formset.save()
+
+            messages.success(request, 'Video saved. Yay.')
+            return redirect('musician_editor_video')
+
+
+    else:
+        formset = MusicianVideoFormSet(
+                queryset=MusicianVideo.objects.filter(musician=musician),
+                musician_id=musician.pk,
+                initial=[{'musician': musician}]
+            )
+
+    context = {
+        'formset': formset
+    }
+    return opus_render(request, "musicians/editor_video.html", context)
 
 
 @login_required

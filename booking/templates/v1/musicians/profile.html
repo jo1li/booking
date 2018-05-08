@@ -37,20 +37,21 @@
             <li><a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i>&nbsp;{{ musician.spotify_followers }}</a></li>
         </ul>
     </div>
-<!--
+
     <div class="row">
         <h3>Video</h3>
         <ul>
-            <li><iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></li>
+            {% for video in musician.musicianvideo_set.all %}
+            <li>{{ video.code|safe }}</li>
+            {% endfor %}
         </ul>
     </div>
--->
 
     <div class="row">
         <h3>Audio</h3>
         <ul>
             {% for audio in musician.musicianaudio_set.all %}
-            {{ audio.code|safe }}
+            <li>{{ audio.code|safe }}</li>
             {% endfor %}
         </ul>
     </div>
