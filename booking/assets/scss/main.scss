@@ -1,0 +1,49 @@
+$breakpoints: (
+	'xs-phone': 320px,
+	'phone': 576px,
+	'tablet': 768px,
+	'desktop': 992px,
+	'widescreen': 1200px
+);
+
+// keywords
+$media-expressions: (
+	'screen': 'screen',
+	'print': 'print',
+	'handheld': 'handheld',
+	'landscape': '(orientation: landscape)',
+	'portrait': '(orientation: portrait)',
+	'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+	'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+
+// ligatured operators ≥ ≤
+
+@import 'vendors/include-media';
+
+@import "vendors/bootstrap/functions";
+@import "vendors/bootstrap/variables";
+@import "vendors/bootstrap/mixins";
+
+@import "bootstrap-custom";
+
+@import 'base/functions';
+@import 'base/mixins';
+@import 'base/helpers';
+
+@import 'layout/header';
+@import 'layout/common';
+@import 'layout/footer';
+
+@import 'vendors/fonts';
+
+#wrapper {
+	max-width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+body {
+	min-width: $base-min-width;
+}
+

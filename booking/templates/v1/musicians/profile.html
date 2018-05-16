@@ -1,88 +1,342 @@
-{% extends "site_base.html" %}
-{% load cloudinary %}
+{% load staticfiles %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Opus</title>
+    <link rel="stylesheet" href="{% sass_src 'scss/bootstrap.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'scss/main.scss' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous" defer></script>
+    <script src="{% static 'js/jquery.main.js' %}" defer></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+        <header id="header">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="menu-opener burger">
+                        <i class="fas fa-bars"></i>
+                    </button>
 
-{% block head_title %}Musician Profile{% endblock %}
+                    <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="Opus"></a>
+                </div>
+            </div>
+        </header>
+        <div class="sidebar-menu">
+            <button type="button" class="menu-opener close"></button>
 
-{% block og %}
-  {{ block.super }}
-  <meta property="og:description" content="Artist: Awesome artist that puts on awesome shows" />
-{% endblock og %}
+            <span class="artist heading-xxl heading-light">Artist</span>
+            <div class="sidebar-nav">
+                <a href="#">browse venues</a>
+                <a href="#">browse artists</a>
+                <hr>
+                <a href="#">Application History</a>
+                <a href="#">Account Settings</a>
+                <a href="#" class="out">Sign out</a>
+            </div>
+        </div>
+        <main id="main">
+            <section class="artist-placeholder" style="background-image: url(images/artist.jpg);">
+                <div class="container">
+                    <div class="edit-box">
+                        <a href="#" class="edit"><img src="images/edit-white.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="artist-name-box fixed-on-scroll" id="artist-scroll">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="heading-xl heading-light">Run River North</h1>
+                            <div class="action-btn">
+                                <a href="#" class="btn"><img src="images/message-square.png" alt=""><span class="mobile-hidden">Message Artist</span></a>
+                                <a href="#" class="btn"><img src="images/star.png" alt=""><span class="mobile-hidden">Follow Artist</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="main-content">
+                <div class="container">
+                    <div class="row js-container">
+                        <div class="col-md-4 js-container">
+                            <aside class="sidebar">
+                                <div class="edit-box">
+                                    <h3 class="bold-text heading-orange text-center">on tour</h3>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
 
-{% block body %}
-<div class="container mt-5 mb-5">
+                                <div class="artist-photo text-center">
+                                    <img src="images/rounded-image.png" alt="">
+                                </div>
 
-    {% if musician.image %}
-    {% cloudinary musician.image.name width=150 height=150 crop="thumb" gravity="face" class="rounded-circle" %}
-    {% endif %}
+                                <ul class="social-subscribe">
+                                    <li>
+                                        <a href="#"><img src="images/facebook.png" alt=""></a>
+                                        <span class="subscribers-count">36.3K</span>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="images/instagram.png" alt=""></a>
+                                        <span class="subscribers-count">13.6K</span>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="images/spotify.png" alt=""></a>
+                                        <span class="subscribers-count">120.5K</span>
+                                    </li>
+                                </ul>
 
-    {% if musician.image_hero %}
-    {% cloudinary musician.image_hero.name width=992 height=324 crop="thumb" gravity="face" %}
-    {% endif %}
+                                <div class="info text-center">
+                                    <p class="body-text">San Fernando Valley, CA</p>
+                                    <p class="body-text">Alternative / Indie</p>
+                                    <p class="body-text regular"><a href="#">www.runeivernorth.com</a></p>
+                                </div>
 
-    {% if user.is_authenticated and user.id == musician.user.id %}
-    <div class="row">
-        <a href="{% url 'musician_editor' %}">Edit ur profile</a>
+                                <div class="about">
+                                    <p class="body-text regular">Based in California's San Fernando Valley, Run River North is a six-member indie pop ensemble that originally formed in 2011 under the name Monsters Calling Home.</p>
+                                </div>
+
+                                <a href="#" class="bold-text heading-secondary">See Full Bio</a>
+                            </aside>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="slider-section">
+                                <div class="category edit-box">
+                                    <h2 class="subheading">Videos</h2>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
+
+                                <div class="slide-gallery">
+                                    <div class="slide">
+                                        <iframe height="352" src="https://www.youtube.com/embed/4D0zgtXxEs0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <!-- <img src="images/slider-placeholder.jpg" alt=""> -->
+                                    </div>
+                                </div>
+
+                                <div class="slider-pagination">
+                                    <a href="#" class="slider-arrow prev"></a>
+                                    <ul class="pagination-list">
+                                        <li class="active"><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                    </ul>
+                                    <a href="#" class="slider-arrow next"></a>
+                                </div>
+                            </div>
+
+                            <div class="slider-section">
+                                <div class="category edit-box">
+                                    <h2 class="subheading">Audio</h2>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
+
+                                <div class="slide-gallery">
+                                    <div class="slide">
+                                        <img src="images/slider-placeholder2.jpg" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="slider-pagination">
+                                    <a href="#" class="slider-arrow prev"></a>
+                                    <ul class="pagination-list">
+                                        <li class="active"><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                    </ul>
+                                    <a href="#" class="slider-arrow next"></a>
+                                </div>
+                            </div>
+
+                            <div class="slider-section">
+                                <div class="category edit-box">
+                                    <h2 class="subheading">Photos</h2>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
+
+                                <div class="slide-gallery">
+                                    <div class="slide">
+                                        <img src="images/slider-placeholder3.jpg" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="slider-pagination">
+                                    <a href="#" class="slider-arrow prev"></a>
+                                    <ul class="pagination-list">
+                                        <li class="active"><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"></a></li>
+                                    </ul>
+                                    <a href="#" class="slider-arrow next"></a>
+                                </div>
+                            </div>
+
+                            <div class="slider-section">
+                                <div class="category edit-box">
+                                    <h2 class="subheading">Performances</h2>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <!-- <caption align="top">Upcoming Shows</caption> -->
+                                        <thead>
+                                            <th colspan="2">Upcoming Shows</th>
+                                            <th colspan="2" class="booked">Booked on Opus <img src="images/bookmark-copy.png" alt=""></th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>4/6/18</td>
+                                                <td class="show-name">Crawford Auditorium</td>
+                                                <td>Grove City, PA</td>
+                                                <td class="booked"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4/7/18</td>
+                                                <td class="show-name">Baby's All Right</td>
+                                                <td>New York, NY</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4/8/18</td>
+                                                <td class="show-name">Union Stage</td>
+                                                <td>Washington, DC</td>
+                                                <td class="booked"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4/9/18</td>
+                                                <td class="show-name">Sonia</td>
+                                                <td>Cambridge, MA</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4/10/18</td>
+                                                <td class="show-name">World Cafe Live</td>
+                                                <td>Philadelphia, PA</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="#" class="bold-text heading-secondary table-link">Show more</a>
+
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <th colspan="2">Past Shows</th>
+                                            <th colspan="2" class="booked">Booked on Opus <img src="images/bookmark-copy.png" alt=""></th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>3/8/18</td>
+                                                <td class="show-name">Troubadour</td>
+                                                <td>Los Angeles, CA</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9/16/17</td>
+                                                <td class="show-name">Open Arts &amp; Music Festival</td>
+                                                <td>Glendale, CA</td>
+                                                <td class="booked"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8/3/17</td>
+                                                <td class="show-name">The Irenic</td>
+                                                <td>San Diege, CA</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8/2/17</td>
+                                                <td class="show-name">The Rebel Lounge</td>
+                                                <td>Phoenix, AZ</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8/1/17</td>
+                                                <td class="show-name">Launchpad</td>
+                                                <td>Albuquerque, NM</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="#" class="bold-text heading-secondary table-link">Show more</a>
+                            </div>
+
+                            <div class="slider-section">
+                                <div class="category edit-box">
+                                    <h2 class="subheading">Biography</h2>
+                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                </div>
+
+                                <p>The Los Angeles-based, indie outfit Run River North release sophomore album Drinking From A Salt Pond led by lead single “Run Or Hide.” The album lands at #6 on the Billboard Heatseekers’ chart and #3 on the Alternative New Artist Albums’ chart. Working with producer Lars Stalfors (Cold War Kids, Deap Vally, HEALTH, Matt and Kim), the band leaves behind its familiar folksy roots to craft an ambitious rock album. The band performed ... the single for NBC’s Late Night with Seth Meyers,</p>
+                                <a href="#" class="bold-text heading-secondary">show more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="footer-col">
+                        <h3 class="title heading-light">Artists</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Why Opus</a></li>
+                            <li><a href="#">How Does It Work</a></li>
+                            <li><a href="#">Sign Up</a></li>
+                            <li><a href="#">Sign In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3 class="title heading-light">Venues</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Why Opus</a></li>
+                            <li><a href="#">How Does It Work</a></li>
+                            <li><a href="#">Sign Up</a></li>
+                            <li><a href="#">Sign In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3 class="title heading-light">Company</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3 class="title heading-light">Stay In Touch</h3>
+                        <ul class="footer-list social">
+                            <li><a href="#"><img src="images/mail.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/facebook-white.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/instagram-white.png" alt=""></a></li>
+                            <li><a href="#"><img src="images/twitter.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="body-text regular heading-light copyright">&copy; 2018 <a href="#">Opus Apps Inc.</a></p>
+            </div>
+        </footer>
     </div>
-    {% endif %}
-
-    <div class="row">
-        <ul>
-            <li>{{ musician.stage_name }}</li>
-            <li>{{ musician.hometown}}</li>
-            <li>On Tour: {{ musician.on_tour }}</li>
-            <li><a href="{{ musician.website }}" target="_blank"><i class="fas fa-globe"></i>&nbsp;{{ musician.website }}</a></li>
-            <li><a href="{{ musician.instagram }}" target="_blank"><i class="fab fa-instagram"></i>&nbsp;{{ musician.instagram_followers }}</a></li>
-            <li><a href="{{ musician.facebook }}" target="_blank"><i class="fab fa-facebook"></i>&nbsp;(# TODO)</a></li>
-            <li><a href="{{ musician.twitter }}" target="_blank"><i class="fab fa-twitter"></i>&nbsp;{{ musician.twitter_followers }}</a></li>
-            <li><a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i>&nbsp;{{ musician.spotify_followers }}</a></li>
-        </ul>
-    </div>
-
-    <div class="row">
-        <h3>Video</h3>
-        <ul>
-            {% for video in musician.musicianvideo_set.all %}
-            <li>{{ video.code|safe }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="row">
-        <h3>Audio</h3>
-        <ul>
-            {% for audio in musician.musicianaudio_set.all %}
-            <li>{{ audio.code|safe }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-<!--
-    <div class="row">
-        <h3>Photos</h3>
-        <ul>
-            <li></li>
-        </ul>
-    </div>
- -->
-    <div class="row">
-        <h3>Past Shows</h3>
-        <ul>
-            <li>This place at some time in the past</li>
-        </ul>
-    </div>
-
-    <div class="row">
-        <h3>Upcoming Shows</h3>
-        <ul>
-            <li>That place at some time in the future</li>
-        </ul>
-    </div>
-
-    <div class="row">
-        <h3>Data a Booking Agent ONLY can see</h3>
-        <ul>
-            <li>Draw stats</li>
-        </ul>
-    </div>
-</div>
-{% endblock body %}
+</body>
+</html>

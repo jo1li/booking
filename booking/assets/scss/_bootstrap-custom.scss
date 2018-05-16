@@ -1,0 +1,100 @@
+// custom variables and override bootstrap variables
+
+$body-bg: #fff;
+
+$white:  #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:  #000 !default;
+
+$blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$primary-blue:         #526e79;
+$primary-blue-dark:    #27434d;
+$primary-blue-light:   #7f9ca8;
+
+$secondary-blue:       #00b9d1;
+$secondary-dark:       #0089a0;
+$secondary-light:      #53ebfd;
+
+$tertiary-pink:        #f56190;
+$tertiary-purple:      #bd69c2;
+$tertiary-purple-dark: #9777c7;
+$tertiary-yellow:      #ffd467;
+$tertiary-orange:      #ffb560;
+
+$black: #000;
+$text-black: #333;
+
+$colors: (
+	blue: $blue,
+	indigo: $indigo,
+	purple: $purple,
+	pink: $pink,
+	red: $red,
+	orange: $orange,
+	yellow: $yellow,
+	green: $green,
+	teal: $teal,
+	cyan: $cyan,
+	white: $white,
+	gray: $gray-600,
+	gray-dark: $gray-800
+);
+
+$theme-colors: (
+	primary: $primary-blue,
+	secondary: $secondary-blue,
+	success: $green,
+	info: $cyan,
+	warning: $yellow,
+	danger: $red,
+	light: $gray-100,
+	dark: $gray-800
+);
+
+$spacer:   1rem !default;
+$spacers: (
+	0: 0,
+	1: ($spacer * .25),
+	2: ($spacer * .5),
+	3: $spacer,
+	4: ($spacer * 1.5),
+	5: ($spacer * 3),
+	6: ($spacer * 4.5),
+	7: ($spacer * 6),
+	8: ($spacer * 7.5),
+	9: ($spacer * 9),
+	10: ($spacer * 10.5)
+);
+
+$base-min-width: 320px;
+
+// This is the default html and body font-size for the base rem value.
+$rem-base: 16px;
+
+$container-max-widths: (
+  lg: 975px
+);
+
+$font-family-sans-serif:            'Roboto', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-base:                   $font-family-sans-serif;
+$font-size-base:                     14px;
+
+$paragraph-margin-bottom:            10px;
