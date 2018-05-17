@@ -43,10 +43,10 @@
             </div>
         </div>
         <main id="main">
-            <section class="artist-placeholder" style="background-image: url(images/artist.jpg);">
+            <section class="artist-placeholder" style="background-image: url('{% static 'images/artist.jpg' %}');">
                 <div class="container">
                     <div class="edit-box">
-                        <a href="#" class="edit"><img src="images/edit-white.png" alt=""></a>
+                        <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                     </div>
                 </div>
                 <div class="artist-name-box fixed-on-scroll" id="artist-scroll">
@@ -54,8 +54,8 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h1 class="heading-xl heading-light">Run River North</h1>
                             <div class="action-btn">
-                                <a href="#" class="btn"><img src="images/message-square.png" alt=""><span class="mobile-hidden">Message Artist</span></a>
-                                <a href="#" class="btn"><img src="images/star.png" alt=""><span class="mobile-hidden">Follow Artist</span></a>
+                                <a href="#" class="btn"><i class="far fa-comment-alt"></i><span class="mobile-hidden">Message Artist</span></a>
+                                <a href="#" class="btn"><i class="far fa-star"></i><span class="mobile-hidden">Follow Artist</span></a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <aside class="sidebar">
                                 <div class="edit-box">
                                     <h3 class="bold-text heading-orange text-center">on tour</h3>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <div class="artist-photo text-center">
@@ -107,7 +107,7 @@
                             <div class="slider-section">
                                 <div class="category edit-box">
                                     <h2 class="subheading">Videos</h2>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <div class="slide-gallery">
@@ -134,7 +134,7 @@
                             <div class="slider-section">
                                 <div class="category edit-box">
                                     <h2 class="subheading">Audio</h2>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <div class="slide-gallery">
@@ -157,7 +157,7 @@
                             <div class="slider-section">
                                 <div class="category edit-box">
                                     <h2 class="subheading">Photos</h2>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <div class="slide-gallery">
@@ -189,7 +189,7 @@
                             <div class="slider-section">
                                 <div class="category edit-box">
                                     <h2 class="subheading">Performances</h2>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <div class="table-responsive">
@@ -281,7 +281,7 @@
                             <div class="slider-section">
                                 <div class="category edit-box">
                                     <h2 class="subheading">Biography</h2>
-                                    <a href="#" class="edit"><img src="images/edit.png" alt=""></a>
+                                    <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                                 </div>
 
                                 <p>The Los Angeles-based, indie outfit Run River North release sophomore album Drinking From A Salt Pond led by lead single “Run Or Hide.” The album lands at #6 on the Billboard Heatseekers’ chart and #3 on the Alternative New Artist Albums’ chart. Working with producer Lars Stalfors (Cold War Kids, Deap Vally, HEALTH, Matt and Kim), the band leaves behind its familiar folksy roots to craft an ambitious rock album. The band performed ... the single for NBC’s Late Night with Seth Meyers,</p>

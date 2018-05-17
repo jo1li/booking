@@ -25,14 +25,11 @@
 .menu-opener {
 	width: 18px;
 	height: 12px;
-	background-image: url(../images/toggle.svg);
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
 	z-index: 100;
+	color:white;
 
 	&.close {
 		background-image: url(../images/menu-close.png);

@@ -98,6 +98,12 @@ a {
 	align-items: center;
 	flex-wrap: nowrap;
 
+	@include media ('>=phone') {
+       .svg-inline--fa {
+               margin-right:23px;
+       }
+	}
+
 	.btn {
 
 		@include media ('>=xs-phone') {
