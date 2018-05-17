@@ -102,3 +102,4 @@ ENV/
 
 mysql-data
 booking/static/*
+!booking/static/images
