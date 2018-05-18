@@ -1,10 +1,19 @@
-{% extends "site_base.html" %}
+{% extends "site_base2.html" %}
 {% load bootstrap3 %}
 {% load cloudinary %}
 
 {% block head_title %}Musician Audio Editor{% endblock %}
 
-{% block body %}
+{% block assets %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+{% endblock %}
+
+{% block main %}
 <div class="container mt-5 mb-5">
     <h1>Musician Audio Editor</h1>
 
@@ -34,4 +43,4 @@
 
     </div>
 </div>
-{% endblock body %}
+{% endblock main %}
