@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<header id="header">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="menu-opener burger">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="Opus"></a>
+        </div>
+    </div>
+</header>
+<div class="sidebar-menu">
+    <button type="button" class="menu-opener close"></button>
+
+    <span class="artist heading-xxl heading-light">Artist</span>
+    <div class="sidebar-nav">
+        <a href="#">browse venues</a>
+        <a href="#">browse artists</a>
+        <hr>
+        <a href="#">Application History</a>
+        <a href="#">Account Settings</a>
+        <a href="#" class="out">Sign out</a>
+    </div>
+</div>

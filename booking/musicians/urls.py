@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social
+from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social
 
 urlpatterns = [
     path('dashboard', dashboard, name="musician_dash"),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('social', social, name="musician_social"),
     path('settings', settings, name="musician_settings"),
     path('venue_questions', venue_questions, name="musician_app_venue_questions"),
+    path('template', profile_template, name="musician_profile_template"),
     path('<slug>', profile, name="musician_profile"),
 ]

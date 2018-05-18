@@ -27,6 +27,10 @@ def profile(request, slug=None):
     return opus_render(request, "musicians/profile.html", context)
 
 
+def profile_template(request):
+    return opus_render(request, "musicians/profile_template.html")
+
+
 @login_required
 def social(request):
 
