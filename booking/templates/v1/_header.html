@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load staticfiles %}
 <header id="header">
     <div class="container">
@@ -6,7 +7,7 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="Opus"></a>
+            <a href="{{ home_url }}" class="logo"><img src="{% static 'images/logo.png' %}" alt="Opus"></a>
         </div>
     </div>
 </header>
@@ -18,8 +19,13 @@
         <a href="#">browse venues</a>
         <a href="#">browse artists</a>
         <hr>
-        <a href="#">Application History</a>
-        <a href="#">Account Settings</a>
-        <a href="#" class="out">Sign out</a>
+        <a href="{% url 'musician_dash' %}">Application History</a>
+        <a href="{% url 'musician_settings' %}">Account Settings</a>
+
+        <form method="POST" action="{% url "account_logout" %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">{% trans "Log out" %}</button>
+        </form>
+
     </div>
 </div>
