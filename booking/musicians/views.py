@@ -1,16 +1,9 @@
-from django.conf import settings as conf_settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
-from django.forms import modelformset_factory
-
-
 
 from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
-
-import random
-import string
 
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
