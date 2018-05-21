@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from home.views import index, healthcheck, logout, LoginView, privacy
+from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
 from musicians.views import SignupView
@@ -28,8 +28,10 @@ from musicians.views import SignupView
 urlpatterns = [
     path('', index, name="home"),
     path('', include('social_django.urls', namespace='social')),
+    path('about', about, name="about"),
     path('privacy', privacy, name="privacy"),
     path('privacy-2', privacy, name="privacy"),
+    path('terms', terms, name="terms"),
     path('_ah/health', healthcheck),
     path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
     path('opus-control/', admin.site.urls),
