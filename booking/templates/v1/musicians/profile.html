@@ -3,7 +3,7 @@
 {% load repeatedblocks %}
 {% load cloudinary %}
 
-{% block head_title %}Musician Profile{% endblock %}
+{% block head_title %}{{ musician.stage_name }}{% endblock %}
 
 {% block og %}
   {{ block.super }}
