@@ -1,15 +1,24 @@
-{% extends "site_base.html" %}
+{% extends "site_base2.html" %}
 
 {% block head_title %}Event Page!!!{% endblock %}
 
-{% block body %}
-    <h1>Event Name</h1>
-    <h4>Venue Name</h4>
+{% block main %}
+<div class="container">
+    <div class="row mt-5 mb-5">
 
-    <div class="row">
-        <a href="/m/apply?venue=1&event=1">
-            <button type="button" class="btn btn-primary">Apply to play this event!</button>
-        </a>
+        <div class="row">
+            <h1>Event Name</h1>
+        </div>
+
+        <div class="row">
+            <h4>Venue Name</h4>
+        </div>
+
+        <div class="row">
+            <a href="/m/apply?venue=1&event=1">
+                <button type="button" class="btn btn-primary">Apply to play this event!</button>
+            </a>
+        </div>
     </div>
-
-{% endblock body %}
+</div>
+{% endblock main %}

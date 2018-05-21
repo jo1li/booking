@@ -7,6 +7,8 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 
+from ordered_model.models import OrderedModel
+
 from home.models import OpusUser
 
 import requests
@@ -22,6 +24,7 @@ class Musician(TimeStampedModel):
     stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
     image = models.ImageField(upload_to='media/', blank=True)
+    image_hero = models.ImageField(upload_to='media/', blank=True)
 
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned
@@ -68,17 +71,8 @@ class Musician(TimeStampedModel):
         )
         token = sp_oauth.refresh_access_token(spot_auth.extra_data['refresh_token'])
 
-        print(token)
-
-
         sp = spotipy.Spotify(auth=token['access_token'])
         response = sp.artist(spot_artist_urn)
-
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(response)
-
-        print(response['followers']['total'])
 
         return response['followers']['total']
 
@@ -133,6 +127,14 @@ class Musician(TimeStampedModel):
 
 
 
+class MusicianAudio(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    code = models.TextField()
+
+
+class MusicianVideo(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    code = models.TextField()
 
 
 @receiver(pre_save, sender=Musician)

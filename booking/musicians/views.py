@@ -1,4 +1,3 @@
-from django.conf import settings as conf_settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -6,11 +5,8 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-import random
-import string
-
-from .models import Musician
-from .forms import SignupForm, MusicianForm
+from .models import Musician, MusicianAudio, MusicianVideo
+from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 
 
 def profile(request, slug=None):
@@ -22,6 +18,10 @@ def profile(request, slug=None):
     }
 
     return opus_render(request, "musicians/profile.html", context)
+
+
+def profile_template(request):
+    return opus_render(request, "musicians/profile_template.html")
 
 
 @login_required
@@ -100,6 +100,74 @@ def editor(request):
         'apptype': request.GET.get('apptype')
     }
     return opus_render(request, "musicians/editor.html", context)
+
+
+@login_required
+def editor_audio(request):
+
+    # TODO: handle musician not existing
+    musician = Musician.objects.get(user=request.user)
+
+    if request.method == "POST":
+        formset = MusicianAudioFormSet(
+            request.POST, request.FILES,
+            queryset=MusicianAudio.objects.filter(musician=musician),
+            musician_id=musician.pk,
+            initial=[{'musician': musician}]
+        )
+
+        if formset.is_valid():
+            formset.save()
+
+            messages.success(request, 'Audio saved. Yay.')
+            return redirect('musician_editor_audio')
+
+
+    else:
+        formset = MusicianAudioFormSet(
+                queryset=MusicianAudio.objects.filter(musician=musician),
+                musician_id=musician.pk,
+                initial=[{'musician': musician}]
+            )
+
+    context = {
+        'formset': formset
+    }
+    return opus_render(request, "musicians/editor_audio.html", context)
+
+
+@login_required
+def editor_video(request):
+
+    # TODO: handle musician not existing
+    musician = Musician.objects.get(user=request.user)
+
+    if request.method == "POST":
+        formset = MusicianVideoFormSet(
+            request.POST, request.FILES,
+            queryset=MusicianVideo.objects.filter(musician=musician),
+            musician_id=musician.pk,
+            initial=[{'musician': musician}]
+        )
+
+        if formset.is_valid():
+            formset.save()
+
+            messages.success(request, 'Video saved. Yay.')
+            return redirect('musician_editor_video')
+
+
+    else:
+        formset = MusicianVideoFormSet(
+                queryset=MusicianVideo.objects.filter(musician=musician),
+                musician_id=musician.pk,
+                initial=[{'musician': musician}]
+            )
+
+    context = {
+        'formset': formset
+    }
+    return opus_render(request, "musicians/editor_video.html", context)
 
 
 @login_required

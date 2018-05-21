@@ -1,20 +1,20 @@
-{% extends "site_base.html" %}
+{% extends "site_base2.html" %}
 
 {% load account_tags %}
 {% load i18n %}
-{% load bootstrap %}
+{% load bootstrap3 %}
 
 {% block body_class %}account account-signup{% endblock %}
 {% block head_title %}{% trans "Sign up" %}{% endblock %}
 
-{% block body %}
+{% block main %}
 <div class="container">
     <div class="row justify-content-around mt-5 mb-5">
         <div class="col-md-4">
             <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <legend>{% trans "Sign up" %}</legend>
                 {% csrf_token %}
-                {{ form|bootstrap }}
+                {% bootstrap_form form %}
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
@@ -34,13 +34,13 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock main%}
 
-{% block scripts %}
+{% block footer_scripts %}
     {{ block.super }}
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#id_username').focus();
+            $('#id_email').focus();
         });
     </script>
-{% endblock %}
+{% endblock footer_scripts %}

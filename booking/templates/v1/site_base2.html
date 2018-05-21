@@ -1,0 +1,43 @@
+{% load staticfiles %}
+{% load sass_tags %}
+{% load repeatedblocks %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% repeated_block head_title_base %}Opus | {% block head_title %}{% endblock %}{% endblock %}</title>
+
+    {% block og %}
+    <meta property="og:title" content="{% repeat head_title_base %}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ absolute_url }}" />
+    {% endblock og %}
+
+    {% block assets %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous" defer></script>
+    <script src="{% static 'js/jquery.main.js' %}" defer></script>
+
+    <link rel="stylesheet" href="{% sass_src 'scss/bootstrap.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'scss/artist-profile.scss' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    {% endblock %}
+
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+        {% include "_header.html" %}
+        <main id="main">
+            {% block main %}{% endblock %}
+        </main>
+        {% include "_footer.html" %}
+    </div>
+    {% block footer_scripts %}{% endblock %}
+</body>
+</html>

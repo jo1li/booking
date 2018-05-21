@@ -1,0 +1,46 @@
+{% extends "site_base2.html" %}
+{% load bootstrap3 %}
+{% load cloudinary %}
+
+{% block head_title %}Musician Audio Editor{% endblock %}
+
+{% block assets %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+{% endblock %}
+
+{% block main %}
+<div class="container mt-5 mb-5">
+    <h1>Musician Audio Editor</h1>
+
+    <div class="container">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% bootstrap_form formset.management_form %}
+            {% for form in formset %}
+                {% bootstrap_form form %}
+            {% endfor %}
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock main %}

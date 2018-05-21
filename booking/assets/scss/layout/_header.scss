@@ -1,0 +1,124 @@
+#header {
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+	position: relative;
+	z-index: 70;
+	background-color: $primary-blue-dark;
+	padding: 12px 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+
+	.container {
+		position: relative;
+	}
+}
+
+.logo {
+	// margin: rem-calc(0 0 0 30);
+
+	// @include media ('>=tablet') {
+	// 	margin: rem-calc(0 0 0 40);
+	// }
+}
+
+.menu-opener {
+	width: 18px;
+	height: 12px;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	z-index: 100;
+	color:white;
+
+	&.close {
+		background-image: url(../images/menu-close.png);
+		float: none;
+		width: 14px;
+		height: 14px;
+		opacity: 1;
+		display: block;
+		margin-bottom: 25px;
+	}
+
+	&.burger {
+		position: absolute;
+		left: 15px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.overlay {
+	position: absolute;
+	z-index: 80;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	opacity: 0;
+	visibility: hidden;
+	@include animate(opacity visibility);
+}
+
+.sidebar-menu {
+	width: 270px;
+	height: 100vh;
+	overflow: hidden;
+	background-color: $primary-blue-dark;
+	padding: 25px 30px;
+	position: fixed;
+	right: 100%;
+	top: 0;
+	z-index: 99;
+	@include animate(transform);
+
+	@include media ('>=tablet') {
+		width: 320px;
+	}
+}
+
+.sidebar-nav {
+
+	a {
+		color: $white;
+		display: block;
+		width: 100%;
+		padding: 7px 0;
+		text-transform: uppercase;
+		font-size: 14px;
+		line-height: 21px;
+		font-weight: 700;
+		@include animate(color);
+
+		&:hover,
+		&:focus {
+			color: $orange;
+		}
+
+		&.out {
+			color: $orange;
+		}
+	}
+}
+
+hr {
+	border-top: 2px solid $white;
+	margin: 40px 0;
+}
+
+html {
+
+	&.menu-active {
+
+		.sidebar-menu {
+			transform: translateX(100%);
+		}
+
+		.overlay {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

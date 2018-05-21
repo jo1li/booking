@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'cloudinary',
 
     'macros',
-    'bootstrapform',
     'pinax_theme_bootstrap',
     'django_extensions',
     'account',
@@ -60,6 +59,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'social_django',
     'bootstrap3',
+    'bootstrapform',
+    'ordered_model',
 
     'home',
     'musicians',

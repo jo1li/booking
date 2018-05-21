@@ -1,0 +1,80 @@
+.heading-xxl {
+	font-family: $font-family-sans-serif;
+	font-size: 56px;
+	font-weight: 400;
+	color: $text-black;
+	line-height: 84px;
+}
+
+.heading-xl {
+	font-family: $font-family-sans-serif;
+	font-size: 34px;
+	font-weight: 400;
+	color: $text-black;
+	line-height: 51px;
+}
+
+.headline {
+	font-family: $font-family-sans-serif;
+	font-size: 24px;
+	font-weight: 400;
+	color: $text-black;
+	line-height: 36px;
+}
+
+.title {
+	font-family: $font-family-sans-serif;
+	font-size: 20px;
+	font-weight: 500;
+	color: $text-black;
+	line-height: 30px;
+}
+
+.subheading {
+	font-family: $font-family-sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	color: $text-black;
+	line-height: 24px;
+}
+
+.body-text {
+	font-family: $font-family-sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	color: $text-black;
+	line-height: 21px;
+
+	&.regular {
+		font-weight: 400;
+	}
+}
+
+.caption {
+	font-family: $font-family-sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	color: $text-black;
+	line-height: 18px;
+}
+
+.bold-text {
+	font-family: $font-family-sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 21px;
+	text-transform: uppercase;
+	color: $text-black;
+}
+
+.heading-secondary {
+	color: $secondary-blue;
+}
+
+.heading-light {
+	color: $white;
+}
+
+.heading-orange {
+	color: $orange;
+}
