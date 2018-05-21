@@ -1,6 +1,7 @@
 {% extends "site_base2.html" %}
 {% load staticfiles %}
 {% load repeatedblocks %}
+{% load cloudinary %}
 
 {% block head_title %}Musician Profile{% endblock %}
 
@@ -10,7 +11,7 @@
 {% endblock og %}
 
 {% block main %}
-<section class="artist-placeholder" style="background-image: url('{% static 'images/artist.jpg' %}');">
+<section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
             <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
@@ -19,7 +20,7 @@
     <div class="artist-name-box fixed-on-scroll" id="artist-scroll">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="heading-xl heading-light">Run River North</h1>
+                <h1 class="heading-xl heading-light">{{ musician.stage_name }}</h1>
                 <div class="action-btn">
                     <a href="#" class="btn"><i class="far fa-comment-alt"></i><span class="mobile-hidden">Message Artist</span></a>
                     <a href="#" class="btn"><i class="far fa-star"></i><span class="mobile-hidden">Follow Artist</span></a>
@@ -34,37 +35,39 @@
             <div class="col-md-4 js-container">
                 <aside class="sidebar">
                     <div class="edit-box">
+                        {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
+                        {% endif %}
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
                     <div class="artist-photo text-center">
-                        <img src="{% static 'images/rounded-image.png' %}" alt="">
+                        {% cloudinary musician.image.name width=180 height=180 crop="thumb" gravity="face" class="rounded-circle" %}
                     </div>
 
                     <ul class="social-subscribe">
                         <li>
-                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="{{ musician.facebook }}"><i class="fab fa-facebook"></i></a>
                             <span class="subscribers-count">36.3K</span>
                         </li>
                         <li>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <span class="subscribers-count">13.6K</span>
+                            <a href="{{ musician.instagram }}"><i class="fab fa-instagram"></i></a>
+                            <span class="subscribers-count">{{ musician.instagram_followers }}</span>
                         </li>
                         <li>
-                            <a href="#"><i class="fab fa-spotify"></i></a>
-                            <span class="subscribers-count">120.5K</span>
+                            <a href="{{ musician.spotify }}"><i class="fab fa-spotify"></i></a>
+                            <span class="subscribers-count">{{ musician.spotify_followers }}</span>
                         </li>
                     </ul>
 
                     <div class="info text-center">
-                        <p class="body-text">San Fernando Valley, CA</p>
+                        <p class="body-text">{{ musician.hometown }}</p>
                         <p class="body-text">Alternative / Indie</p>
-                        <p class="body-text regular"><a href="#">www.runeivernorth.com</a></p>
+                        <p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>
                     </div>
 
                     <div class="about">
-                        <p class="body-text regular">Based in California's San Fernando Valley, Run River North is a six-member indie pop ensemble that originally formed in 2011 under the name Monsters Calling Home.</p>
+                        <p class="body-text regular">{{ musician.bio_short }}</p>
                     </div>
 
                     <a href="#biography-long" class="bold-text heading-secondary">See Full Bio</a>
@@ -79,7 +82,7 @@
 
                     <div class="slide-gallery">
                         <div class="slide">
-                            <iframe height="352" src="https://www.youtube.com/embed/4D0zgtXxEs0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            {{ musician.musicianvideo_set.first.code | safe }}
                         </div>
                     </div>
 
@@ -105,7 +108,7 @@
 
                     <div class="slide-gallery">
                         <div class="slide">
-                            <img src="{% static 'images/slider-placeholder2.jpg' %}" alt="">
+                            {{ musician.musicianaudio_set.first.code | safe }}
                         </div>
                     </div>
 
