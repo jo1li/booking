@@ -19,9 +19,16 @@ def index(request):
             'range': range(10)
         })
 
+def about(request):
+    return opus_render(request, "home/about.html")
+
 
 def privacy(request):
     return opus_render(request, "home/privacy.html")
+
+
+def terms(request):
+    return opus_render(request, "home/terms.html")
 
 
 def logout(request):

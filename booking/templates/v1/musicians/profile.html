@@ -3,7 +3,7 @@
 {% load repeatedblocks %}
 {% load cloudinary %}
 
-{% block head_title %}Musician Profile{% endblock %}
+{% block head_title %}{{ musician.stage_name }}{% endblock %}
 
 {% block og %}
   {{ block.super }}
@@ -253,7 +253,7 @@
                         <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
                     </div>
 
-                    <p>The Los Angeles-based, indie outfit Run River North release sophomore album Drinking From A Salt Pond led by lead single “Run Or Hide.” The album lands at #6 on the Billboard Heatseekers’ chart and #3 on the Alternative New Artist Albums’ chart. Working with producer Lars Stalfors (Cold War Kids, Deap Vally, HEALTH, Matt and Kim), the band leaves behind its familiar folksy roots to craft an ambitious rock album. The band performed ... the single for NBC’s Late Night with Seth Meyers,</p>
+                    <p>{{ musician.bio }}</p>
                     <a href="#" class="bold-text heading-secondary">show more</a>
                     </div>
                 </div>

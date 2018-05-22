@@ -6,8 +6,8 @@
                 <ul class="footer-list">
                     <li><a href="#">Why Opus</a></li>
                     <li><a href="#">How Does It Work</a></li>
-                    <li><a href="#">Sign Up</a></li>
-                    <li><a href="#">Sign In</a></li>
+                    <li><a href="{% url 'opus_signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'account_login' %} ">Sign In</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -22,23 +22,24 @@
             <div class="footer-col">
                 <h3 class="title heading-light">Company</h3>
                 <ul class="footer-list">
-                    <li><a href="#">About</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <!--
                     <li><a href="#">Press</a></li>
                     <li><a href="#">Team</a></li>
-                    <li><a href="#">Terms &amp; Conditions</a></li>
-                    <li><a href="#">Privacy</a></li>
+                    -->
+                    <li><a href="{% url 'terms' %}">Terms &amp; Conditions</a></li>
+                    <li><a href="{% url 'privacy' %}">Privacy</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3 class="title heading-light">Stay In Touch</h3>
                 <ul class="footer-list social">
-                    <li><a href="#"><img src="images/mail.png" alt=""></a></li>
-                    <li><a href="#"><img src="images/facebook-white.png" alt=""></a></li>
-                    <li><a href="#"><img src="images/instagram-white.png" alt=""></a></li>
-                    <li><a href="#"><img src="images/twitter.png" alt=""></a></li>
+                    <li><a href="mailto:info@opuslive.io"><i class="fa fa-envelope"></i></a></li>
+                    <li><a href="https://www.facebook.com/opuslivemusic/"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://www.instagram.com/opuslive/"><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>
-        <p class="body-text regular heading-light copyright">&copy; 2018 <a href="#">Opus Apps Inc.</a></p>
+        <p class="body-text regular heading-light copyright">&copy; {% now "Y" %} <a href="#">Opus Apps Inc.</a></p>
     </div>
 </footer>
