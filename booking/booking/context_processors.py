@@ -8,6 +8,7 @@ def template_version(request):
 
 def common_words(request):
     return {
+        # For this one, see if we can't use metadata from the model, since we'll need to change names in the backend as well
         'shows_word': 'Events'
     }
 
