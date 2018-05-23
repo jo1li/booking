@@ -6,6 +6,11 @@ def template_version(request):
         'design_version': settings.TEMPLATES_DESIGN_VERSION,
     }
 
+def common_words(request):
+    return {
+        'shows_word': 'Events'
+    }
+
 def home_url(request):
 
     if request.user.is_anonymous:

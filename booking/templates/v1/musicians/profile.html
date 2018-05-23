@@ -22,8 +22,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="heading-xl heading-light">{{ musician.stage_name }}</h1>
                 <div class="action-btn">
-                    <a href="#" class="btn"><i class="far fa-comment-alt"></i><span class="mobile-hidden">Message Artist</span></a>
-                    <a href="#" class="btn"><i class="far fa-star"></i><span class="mobile-hidden">Follow Artist</span></a>
+                    <a href="#" class="btn"><i class="far fa-comment-alt"></i><span class="mobile-hidden">Message</span></a>
+                    <a href="#" class="btn"><i class="far fa-star"></i><span class="mobile-hidden">Follow</span></a>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
 
                 <div class="slider-section">
                     <div class="category edit-box">
-                        <h2 class="subheading">Performances</h2>
+                        <h2 class="subheading">{{ shows_word }}</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
@@ -165,7 +165,7 @@
                         <table class="table table-sm">
                             <!-- <caption align="top">Upcoming Shows</caption> -->
                             <thead>
-                                <th colspan="2">Upcoming Shows</th>
+                                <th colspan="2">Upcoming {{ shows_word }}</th>
                                 <th colspan="2" class="booked">Booked on Opus <img src="{% static 'images/bookmark-copy.png' %}" alt=""></th>
                             </thead>
                             <tbody>
@@ -207,7 +207,7 @@
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
-                                <th colspan="2">Past Shows</th>
+                                <th colspan="2">Past {{ shows_word }}</th>
                                 <th colspan="2" class="booked">Booked on Opus <img src="images/bookmark-copy.png" alt=""></th>
                             </thead>
                             <tbody>
