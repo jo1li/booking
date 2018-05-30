@@ -19,13 +19,21 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import routers
+
 from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
-from musicians.views import SignupView
+from musicians.views import SignupView, ArtistViewSet
 
+from .utils import v_url
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(v_url('artists'), ArtistViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('', index, name="home"),
     path('', include('social_django.urls', namespace='social')),
     path('about', about, name="about"),
@@ -41,4 +49,5 @@ urlpatterns = [
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),
+    path('api-auth/', include('rest_framework.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

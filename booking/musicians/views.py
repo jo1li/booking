@@ -8,6 +8,18 @@ import account.views
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 
+from rest_framework import serializers, viewsets
+
+class ArtistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Musician
+        fields = '__all__'
+
+
+class ArtistViewSet(viewsets.ModelViewSet):
+    queryset = Musician.objects.all()
+    serializer_class = ArtistSerializer
+
 
 def profile(request, slug=None):
 
