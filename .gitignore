@@ -104,3 +104,4 @@ mysql-data
 booking/static/*
 !booking/static/images
 !booking/static/js
+booking/static/js/vue/node_modules

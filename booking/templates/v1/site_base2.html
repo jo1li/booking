@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{% sass_src 'scss/bootstrap.scss' %}">
     <link rel="stylesheet" href="{% sass_src 'scss/artist-profile.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <script src="{% static 'js/vue/dist/build.js' %}" defer></script>
     {% endblock %}
 
 </head>
@@ -34,6 +35,7 @@
         <div class="overlay"></div>
         {% include "_header.html" %}
         <main id="main">
+            <div  style="visibility: hidden" v-bind:style="{ visibility: message ? 'visible' : '' }">[[ message ]]</div>
             {% block main %}{% endblock %}
         </main>
         {% include "_footer.html" %}
