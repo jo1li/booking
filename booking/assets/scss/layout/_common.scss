@@ -132,7 +132,6 @@ $border-radius: 5px;
 	padding: 22px 32px;
 	margin: 0 -15px 26px;
 	text-align: center;
-	border-radius: $border-radius;
 
 	@media only screen and (max-height: 800px) and (min-width: 768px) {
 		// max-height: 450px;
@@ -142,6 +141,7 @@ $border-radius: 5px;
 	@include media ('>=tablet') {
 		margin: 0 auto;
 		text-align: left;
+		border-radius: $border-radius;
 	}
 
 	.edit-box {
