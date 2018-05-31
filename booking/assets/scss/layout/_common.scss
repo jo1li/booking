@@ -125,11 +125,14 @@ a {
 
 /*============== Sidebar ==============*/
 
+$border-radius: 5px;
+
 .sidebar {
 	background-color: rgba(0, 0, 0, 0.05);
 	padding: 22px 32px;
 	margin: 0 -15px 26px;
 	text-align: center;
+	border-radius: $border-radius;
 
 	@media only screen and (max-height: 800px) and (min-width: 768px) {
 		// max-height: 450px;
