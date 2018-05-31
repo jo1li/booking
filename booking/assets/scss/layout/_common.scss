@@ -125,6 +125,8 @@ a {
 
 /*============== Sidebar ==============*/
 
+$border-radius: 5px;
+
 .sidebar {
 	background-color: rgba(0, 0, 0, 0.05);
 	padding: 22px 32px;
@@ -139,6 +141,7 @@ a {
 	@include media ('>=tablet') {
 		margin: 0 auto;
 		text-align: left;
+		border-radius: $border-radius;
 	}
 
 	.edit-box {

@@ -197,8 +197,9 @@ function initMobileNav() {
 
 	'use strict';
 
-	function StickyScrollBlock($stickyBox, options) {
+	function StickyScrollBlock(stickyBox, $stickyBox, options) {
 		this.options = options;
+		this.stickyBox = stickyBox;
 		this.$stickyBox = $stickyBox;
 		this.init();
 	}
@@ -348,7 +349,10 @@ function initMobileNav() {
 				// sticky box width/height
 				boxFullHeight: this.$stickyBox.outerHeight(true),
 				boxHeight: this.$stickyBox.outerHeight(),
-				boxWidth: this.$stickyBox.outerWidth()
+				// Use native widely-supported getComputedStyle because jQuery
+				// double-added padding erroneously on occasion. Switch back
+				// to jQuery if a better solution is found.
+				boxWidth: getComputedStyle(this.stickyBox).width
 			};
 		},
 
@@ -554,7 +558,7 @@ function initMobileNav() {
 
 			if (typeof opt === 'object' || typeof opt === 'undefined') {
 				StickyScrollBlock.prototype = $.extend(stickyMethods[options.positionType], StickyScrollBlockPrototype);
-				$stickyBox.data('StickyScrollBlock', new StickyScrollBlock($stickyBox, options));
+				$stickyBox.data('StickyScrollBlock', new StickyScrollBlock(this, $stickyBox, options));
 			} else if (typeof method === 'string' && instance) {
 				if (typeof instance[method] === 'function') {
 					args.shift();
