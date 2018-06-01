@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -8,7 +9,7 @@ import account.views
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, mixins
 
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,9 +17,13 @@ class ArtistSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ArtistViewSet(viewsets.ModelViewSet):
+class ArtistViewSet(mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
+
 
 
 def profile(request, slug=None):

@@ -30,7 +30,7 @@ from .utils import v_url
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(v_url('artists'), ArtistViewSet)
+router.register(v_url('artists'), ArtistViewSet, base_name='artist')
 
 urlpatterns = [
     path('', include(router.urls)),
