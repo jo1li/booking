@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
+from django.urls import reverse
 
 from ordered_model.models import OrderedModel
 
@@ -51,6 +52,10 @@ class Musician(TimeStampedModel):
     soundcloud = models.CharField(max_length=256, null=True, blank=True)
     bandcamp = models.CharField(max_length=256, null=True, blank=True)
     spotify = models.CharField(max_length=256, null=True, blank=True)
+
+
+    def url(self):
+        return reverse('musician_profile', kwargs={'slug': self.slug})
 
 
     def spotify_followers(self):

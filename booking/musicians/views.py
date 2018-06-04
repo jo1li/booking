@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.conf import settings as _settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -9,9 +9,27 @@ import account.views
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 
-from rest_framework import serializers, viewsets, mixins
+from rest_framework import serializers, viewsets, mixins, renderers
 
-class ArtistSerializer(serializers.ModelSerializer):
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+
+class APIRoot(APIView):
+
+    _ignore_model_permissions = True
+
+    def get(self, request, version=_settings.DEFAULT_VERSION):
+        return Response({
+            'artists': reverse('artist-list', kwargs={'version': _settings.DEFAULT_VERSION}, request=request),
+        })
+
+
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+
+    url = serializers.URLField()
+
     class Meta:
         model = Musician
         fields = '__all__'

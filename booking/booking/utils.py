@@ -53,4 +53,4 @@ def opus_get_template_path(request, template, version=None):
 
 def v_url(pattern):
     vs = "|".join(settings.ALLOWED_VERSIONS)
-    return r"^(?P<version>(%s))/%s" % (vs, pattern)
+    return "(?P<version>[%s]+)/%s" % (vs, pattern)
