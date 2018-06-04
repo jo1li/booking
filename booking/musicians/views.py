@@ -27,12 +27,66 @@ class APIRoot(APIView):
 
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
 
-    url = serializers.URLField()
+    image = serializers.ImageField(required=False, allow_empty_file=False)
+    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
+
 
     class Meta:
         model = Musician
-        fields = '__all__'
+        fields = (
+            'stage_name',
+            'url_fq',
+            'url_api',
+            'image',
+            'image_hero',
+            'on_tour',
+            'hometown',
+            'bio',
+            'bio_short',
+            'website',
+            'facebook',
+            'instagram',
+            'instagram_followers',
+            'twitter',
+            'twitter_followers',
+            'spotify',
+            'spotify_followers',
+            'youtube',
+            'soundcloud',
+            'bandcamp',
+        )
+
+
+class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
+    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
+
+    class Meta:
+        model = Musician
+        fields = (
+            'stage_name',
+            'url_fq',
+            'url_api',
+            'image',
+            'image_hero',
+            'on_tour',
+            'hometown',
+            'bio',
+            'bio_short',
+            'website',
+            'facebook',
+            'instagram',
+            'instagram_followers',
+            'twitter',
+            'twitter_followers',
+            'spotify',
+            'spotify_followers',
+            'youtube',
+            'soundcloud',
+            'bandcamp',
+        )
+
 
 
 class ArtistViewSet(mixins.ListModelMixin,
@@ -41,6 +95,16 @@ class ArtistViewSet(mixins.ListModelMixin,
                     viewsets.GenericViewSet):
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
+
+
+    def list(self, *args, **kwargs):
+        self.serializer_class = ArtistListSerializer
+        return mixins.ListModelMixin.list(self, *args, **kwargs)
+
+
+    def retrieve(self, *args, **kwargs):
+        self.serializer_class = ArtistSerializer
+        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
 
 
 

@@ -54,8 +54,12 @@ class Musician(TimeStampedModel):
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
 
-    def url(self):
+    def url_fq(self):
         return reverse('musician_profile', kwargs={'slug': self.slug})
+
+
+    def url_api(self):
+        return reverse('artist-detail', kwargs={'version': settings.DEFAULT_VERSION, 'pk': self.pk})
 
 
     def spotify_followers(self):
@@ -98,6 +102,9 @@ class Musician(TimeStampedModel):
 
 
     def twitter_followers(self):
+
+        if not self.twitter:
+            return None
 
         twitter_username = parse.urlparse(self.twitter).path.lstrip('/')
 
