@@ -8,6 +8,15 @@ services:
     ports:
       - "3306:3306"
 
+  web-js:
+    build:
+      dockerfile: Dockerfile.js
+      context: .
+    env_file: .env
+    volumes:
+      - ./booking:/app/static/js/vue
+    command: ["/usr/local/bin/npm", "run", "build"]
+
   web:
     build:
       dockerfile: Dockerfile
