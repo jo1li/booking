@@ -14,8 +14,8 @@ services:
       context: .
     env_file: .env
     volumes:
-      - ./booking:/app/static/js/vue
-    command: ["/usr/local/bin/npm", "run", "build"]
+      - ./booking/static/js/vue/:/app/static/js/vue
+    command: ["/usr/local/bin/npm", "run", "dev"]
 
   web:
     build:
