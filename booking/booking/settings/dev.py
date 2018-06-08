@@ -20,6 +20,8 @@ DATABASES = {
     },
 }
 
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')
+
 SITE_SSL_AVAILABLE = False
 SITE_DOMAIN = 'localhost'
 
