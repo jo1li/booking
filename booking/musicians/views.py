@@ -8,6 +8,7 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistVideoSerializer
 
 from rest_framework import serializers, viewsets, mixins, renderers
 
@@ -15,48 +16,20 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-artist_fields = (
-            'stage_name',
-            'url_fq',
-            'url_api',
-            'image',
-            'image_hero',
-            'on_tour',
-            'hometown',
-            'bio',
-            'bio_short',
-            'website',
-            'facebook',
-            'instagram',
-            'instagram_followers',
-            'twitter',
-            'twitter_followers',
-            'spotify',
-            'spotify_followers',
-            'youtube',
-            'soundcloud',
-            'bandcamp',
-        )
 
+class ArtistVideoViewSet(mixins.ListModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/artists/<id>/videos/:
+    Return a list of an artists videos.
 
-class ArtistSerializer(serializers.HyperlinkedModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
+    PUT /v1/artists/<id>/videos/id:
+    Update a single artist video instance.
+    """
 
-    image = serializers.ImageField(required=False, allow_empty_file=False)
-    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
-
-
-    class Meta:
-        model = Musician
-        fields = artist_fields
-
-
-class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
-
-    class Meta:
-        model = Musician
-        fields = artist_fields
+    queryset = MusicianVideo.objects.all()
+    serializer_class = ArtistVideoSerializer
 
 
 class ArtistViewSet(mixins.ListModelMixin,
