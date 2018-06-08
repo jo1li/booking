@@ -18,13 +18,17 @@ from rest_framework.reverse import reverse
 
 
 class ArtistVideoViewSet(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
     """
     GET /v1/artists/<id>/videos/:
     Return a list of an artists videos.
 
-    PUT /v1/artists/<id>/videos/id:
+    POST /v1/artists/<id>/videos/:
+    Create an artist video instance.
+
+    PUT /v1/artists/<id>/videos/<id>:
     Update a single artist video instance.
     """
 
