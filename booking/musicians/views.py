@@ -63,6 +63,18 @@ class ArtistViewSet(mixins.ListModelMixin,
                     mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
+    """
+    GET /v1/artists/:
+    Return a list of all the existing artists.
+
+    GET /v1/artists/<id>:
+    Retrieve a single artist instance.
+
+    PUT /v1/artists/<id>:
+    Update a single artist instance.
+    """
+
+
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
 
@@ -76,6 +88,10 @@ class ArtistViewSet(mixins.ListModelMixin,
         self.serializer_class = ArtistSerializer
         return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
 
+
+    def update(self, *args, **kwargs):
+        self.serializer_class = ArtistSerializer
+        return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
 def profile(request, slug=None):
