@@ -98,10 +98,10 @@ a, .link {
 	align-items: center;
 	flex-wrap: nowrap;
 
-	@include media ('>=phone') {
-       .svg-inline--fa {
-               margin-right:23px;
-       }
+	@include media ('>=tablet') {
+		.svg-inline--fa {
+			margin-right:23px;
+		}
 	}
 
 	.btn {
