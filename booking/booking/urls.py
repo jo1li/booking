@@ -24,7 +24,7 @@ from rest_framework import routers
 from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
-from musicians.views import SignupView, ArtistViewSet, APIRoot
+from musicians.views import SignupView, ArtistViewSet
 
 from .utils import v_url
 
@@ -34,9 +34,7 @@ router.register('artists', ArtistViewSet, base_name='artist')
 
 urlpatterns = [
     path('', index, name="home"),
-    re_path(v_url('^$'), APIRoot.as_view(), name='api-root'),
     re_path(v_url(''), include(router.urls)),
-    re_path('api-auth/', include('rest_framework.urls')),
     path('', include('social_django.urls', namespace='social')),
     path('about', about, name="about"),
     path('privacy', privacy, name="privacy"),

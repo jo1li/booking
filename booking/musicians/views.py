@@ -39,16 +39,6 @@ artist_fields = (
         )
 
 
-class APIRoot(APIView):
-
-    _ignore_model_permissions = True
-
-    def get(self, request, version=_settings.DEFAULT_VERSION):
-        return Response({
-            'artists': reverse('artist-list', kwargs={'version': _settings.DEFAULT_VERSION}, request=request),
-        })
-
-
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
 
