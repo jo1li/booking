@@ -29,7 +29,7 @@ from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet
 from .utils import v_url
 
 # Routers provide an easy way of automatically determining the URL conf.
-artist_router = routers.SimpleRouter()
+artist_router = routers.DefaultRouter()
 artist_router.register('artists', ArtistViewSet, base_name='artists')
 
 artist_videos_router = routers.NestedSimpleRouter(artist_router, r'artists', lookup='artist')
