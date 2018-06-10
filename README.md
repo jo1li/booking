@@ -62,9 +62,16 @@ To follow along with logs like `tail -f`, run `docker-compose logs -f <service>`
 
 To open a shell to the web container, run `docker-compose exec web /bin/bash`
 
+The app will be hosted at either `localhost` or `192.168.99.100`.
+
 ### Common Issues
 
 As teammates update this repo, you'll need to take a few steps to ensure your local environment is up to date. After pulling in code from others, be sure to look for new different dependencies (`requirements.txt`) new configuration (in the `.env`). Changes to either will require some action your part. If you encounter errors after pulling, especially `<package> not found` or config errors, one of these steps should help you resolve the issue.
 
 * Rebuild your containers, to get new dependencies. (`docker-compose build`)
 * Stop, remove and start to get new env variables. (`docker-compose stop && docker-compose rm && docker-compose up`)
+
+If you get any of the following errors when running `docker-compose up`, try the suggested solutions.
+* `[ERROR] InnoDB: Operating system error number 22 in a file operation.` Remove `docker-compose.override.yaml`. (Note that if you do this, every time you run `docker-compose down`, any data you've written will be gone; consider running `docker-compose stop` instead.)
+* `[ERROR] --initialize specified but the data directory has files in it. Aborting.` Run `rm -r mysql-data`. (This file is gitignored.)
+*  `_mysql_exceptions.OperationalError: (2059, "Authentication plugin 'caching_sha2_password' cannot be loaded: /usr/lib/mysql/plugin/caching_sha2_password.so: cannot open shared object file: No such file or directory")` Change `mysql:latest` to `mysql:5.7` in `docker-compose.yaml`.

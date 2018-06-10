@@ -1,6 +1,6 @@
 #header {
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
-	position: relative;
+	box-sizing: content-box;
 	z-index: 70;
 	background-color: $primary-blue-dark;
 	padding: 12px 0;
@@ -81,7 +81,7 @@
 
 .sidebar-nav {
 
-	a {
+	a, .link {
 		color: $white;
 		display: block;
 		width: 100%;

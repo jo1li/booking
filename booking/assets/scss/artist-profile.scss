@@ -47,3 +47,7 @@ body {
 	min-width: $base-min-width;
 }
 
+#biography-long-content {
+	/* Preserve line breaks in user-supplied full bio text */
+	white-space: pre-line;
+}
