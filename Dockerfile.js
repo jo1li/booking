@@ -7,4 +7,6 @@ WORKDIR /app/static/js/vue
 RUN npm install
 RUN npm run build
 
+EXPOSE 8888
+
 CMD ["/usr/local/bin/npm run build"]

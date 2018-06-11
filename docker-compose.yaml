@@ -13,6 +13,8 @@ services:
       dockerfile: Dockerfile.js
       context: .
     env_file: .env
+    ports:
+      - "8887:8888"
     volumes:
       - ./booking/static/js/vue/:/app/static/js/vue
     command: ["/usr/local/bin/npm", "run", "dev"]

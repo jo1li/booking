@@ -6,7 +6,10 @@ from .base import *
 ALLOWED_HOSTS = [
     "localhost",
     "booking.localopuslive.io",
-    "opus.ngrok.io"
+    "opus.ngrok.io",
+    "127.0.0.1",
+    "0.0.0.0",
+    "localhost:8888"
 ]
 
 DATABASES = {

@@ -11,6 +11,12 @@
 {% endblock og %}
 
 {% block main %}
+<user-edit-form
+    v-if="editBioOpen"
+    name="{{ musician.stage_name }}"
+    v-bind:submit="closeBioOpen"
+    v-bind:clear="closeBioOpen"
+></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
@@ -38,7 +44,7 @@
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                        <div class="edit"><img v-on:click="openEditBio" src="{% static 'images/edit.png' %}" alt=""></div>
                     </div>
 
                     <div class="artist-photo text-center">
