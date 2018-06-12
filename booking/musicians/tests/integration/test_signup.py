@@ -40,3 +40,15 @@ class SignupArtistTest(WebTest, TransactionTestCase):
         with self.assertRaises(ObjectDoesNotExist):
             m = Musician.objects.get(user=u)
 
+        self.app.session.flush()
+
+        # Ensure a signup with the same email errors
+        signup_page = self.app.get("/account/signup/")
+        signup_form = signup_page.forms['signup_form']
+
+        signup_form['email'] = email
+        signup_form['password'] = password
+
+        signup_result = signup_form.submit()
+        signup_result.mustcontain('A user is registered with this email address.')
+
