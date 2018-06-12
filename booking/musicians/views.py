@@ -247,6 +247,10 @@ class SignupView(account.views.SignupView):
     form_class = SignupForm
     identifier_field = 'email'
 
+    def get_success_url(self, fallback_url=None, **kwargs):
+        return reverse('musician_dash')
+
+
     def generate_username(self, form):
         # do something to generate a unique username (required by the
         # Django User model, unfortunately)
