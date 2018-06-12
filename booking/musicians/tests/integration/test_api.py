@@ -1,3 +1,4 @@
+from django.test import TransactionTestCase
 from django_webtest import WebTest
 from django.conf import settings
 from django.urls import reverse
@@ -5,6 +6,7 @@ from django.urls import reverse
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 
+from musicians.tests.mommy_recipes import musician_recipe
 
 import sure
 from sure import expect
@@ -28,12 +30,17 @@ class ApiTest(WebTest):
         result.status_code.should.equal(404)
 
 
-class ApiArtistTest(WebTest):
+class ApiArtistTest(WebTest, TransactionTestCase):
 
     def test_artist_list(self):
 
+        musician_recipe.make()
+
         result = self.app.get(reverse('artists-list', kwargs={'version': settings.DEFAULT_VERSION}))
         result.status_code.should.equal(200)
+
+        result.json["count"].should.equal(1)
+        result.json["results"].should.have.length_of(1)
 
 
     def test_artist_create(self):

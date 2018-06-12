@@ -4,3 +4,4 @@
 django-webtest==1.9.3
 django-nose==1.4.5
 sure==1.4.11
+model-mommy==1.6.0
