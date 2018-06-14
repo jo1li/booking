@@ -63,6 +63,7 @@ class ApiArtistTest(WebTest, TransactionTestCase):
 
         result = self.app.put(artist_list_url, expect_errors=True)
         result.status_code.should.equal(403)
+        result.json["detail"].should.equal("Authentication credentials were not provided.")
 
         result = self.app.get('/', user=a.username)
         csrf_token = self.get_csrf_from_headers(result)
@@ -70,9 +71,8 @@ class ApiArtistTest(WebTest, TransactionTestCase):
         create_headers = {
             'X-CSRFToken': csrf_token
         }
-
         result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=a.username)
-        result.json["detail"].should.equal('You do not have permission to perform this action.')
+        result.json["detail"].should.equal("You do not have permission to perform this action.")
 
 
 
