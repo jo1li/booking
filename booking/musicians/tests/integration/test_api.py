@@ -1,11 +1,10 @@
-from django.test import TransactionTestCase
-from django_webtest import WebTest
 from django.conf import settings
 from django.urls import reverse
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 
 from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
+from musicians.tests.utils import OpusTestCase
 
 from home.models import OpusUser
 
@@ -14,7 +13,7 @@ from sure import expect
 
 from collections import OrderedDict
 
-class ApiTest(WebTest):
+class ApiTest(OpusTestCase):
 
     def test_api_root(self):
         result = self.app.get(reverse('api-root', kwargs={'version': settings.DEFAULT_VERSION}))
@@ -32,7 +31,7 @@ class ApiTest(WebTest):
         result.status_code.should.equal(404)
 
 
-class ApiArtistTest(WebTest, TransactionTestCase):
+class ApiArtistTest(OpusTestCase):
 
     def get_csrf_from_headers(self, result):
 

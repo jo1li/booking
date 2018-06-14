@@ -1,8 +1,8 @@
-from django.test import TransactionTestCase
-from django_webtest import WebTest
 from django.conf import settings
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+
+from musicians.tests.utils import OpusTestCase
 
 from home.models import OpusUser
 from musicians.models import Musician
@@ -12,7 +12,7 @@ from sure import expect
 
 from musicians.tests.mommy_recipes import musician_recipe
 
-class ArtistExperienceTest(WebTest, TransactionTestCase):
+class ArtistExperienceTest(OpusTestCase):
 
     def test_logo_link(self):
 

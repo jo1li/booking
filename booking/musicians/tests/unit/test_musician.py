@@ -1,10 +1,11 @@
-from django.test import TransactionTestCase
 from django.utils.text import slugify
+
+from musicians.tests.utils import OpusTestCase
 
 from home.models import OpusUser
 from musicians.models import Musician
 
-class MusicianTest(TransactionTestCase):
+class MusicianTest(OpusTestCase):
 
     def test_slug_creation(self):
 

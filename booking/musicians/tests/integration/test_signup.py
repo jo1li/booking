@@ -1,5 +1,3 @@
-from django.test import TransactionTestCase
-from django_webtest import WebTest
 from django.conf import settings
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,11 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from home.models import OpusUser
 from musicians.models import Musician
 
+from musicians.tests.utils import OpusTestCase
+
 import sure
 from sure import expect
 
 
-class SignupArtistTest(WebTest, TransactionTestCase):
+class SignupArtistTest(OpusTestCase):
 
     def test_signup(self):
 
