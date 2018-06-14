@@ -1,7 +1,7 @@
 #main {
 	padding-top: 64px;
 }
-a {
+a, .link {
 	color: $secondary-blue;
 	@include animate (color);
 
@@ -98,10 +98,10 @@ a {
 	align-items: center;
 	flex-wrap: nowrap;
 
-	@include media ('>=phone') {
-       .svg-inline--fa {
-               margin-right:23px;
-       }
+	@include media ('>=tablet') {
+		.svg-inline--fa {
+			margin-right:23px;
+		}
 	}
 
 	.btn {
@@ -116,6 +116,21 @@ a {
 	}
 }
 
+/* Reset button default styles to prepare to use anchor styles instead */
+button.link {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	border: 0;
+	background-color: transparent;
+	text-align: left;
+	cursor: pointer;
+}
+
+.link.sign-out {
+	color: $orange;
+}
+
 .main-content {
 
 	@include media ('>=tablet') {
@@ -124,6 +139,8 @@ a {
 }
 
 /*============== Sidebar ==============*/
+
+$border-radius: 5px;
 
 .sidebar {
 	background-color: rgba(0, 0, 0, 0.05);
@@ -139,6 +156,7 @@ a {
 	@include media ('>=tablet') {
 		margin: 0 auto;
 		text-align: left;
+		border-radius: $border-radius;
 	}
 
 	.edit-box {

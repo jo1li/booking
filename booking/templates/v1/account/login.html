@@ -1,9 +1,9 @@
-{% extends "account/login.html" %}
+{% extends "site_base2.html" %}
 
 {% load i18n %}
 {% load bootstrap3 %}
 
-{% block body %}
+{% block main %}
 <div class="container">
     <div class="row justify-content-around mt-5 mb-5">
         <div class="col-md-4">
@@ -11,11 +11,6 @@
                 <legend>{% trans "Log in" %}</legend>
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <p class="signup-social">
-                    <i class="fab fa-facebook"></i>&nbsp;<a href="{% url "social:begin" "facebook" %}">Facebook</a>&nbsp;&nbsp;
-                    <i class="fab fa-instagram"></i>&nbsp;<a href="{% url "social:begin" "instagram" %}">Instagram</a>
-                    <i class="fab fa-spotify"></i>&nbsp;<a href="{% url "social:begin" "spotify" %}">Spotify</a>
-                </p>
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
@@ -28,4 +23,4 @@
         </div>
     </div>
 </div>
-{% endblock body %}
+{% endblock main %}

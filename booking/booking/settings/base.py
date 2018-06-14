@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrapform',
     'ordered_model',
+    'rest_framework',
 
     'home',
     'musicians',
@@ -99,9 +100,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
+
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
                 "booking.context_processors.absolute_url",
+                "booking.context_processors.common_words",
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
@@ -190,6 +193,28 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+
+####################################
+# REST FRAMEWORK CONFIG
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 40
+}
+
+DEFAULT_VERSION = 'v1'
+ALLOWED_VERSIONS = ['v1']
+# END REST FRAMEWORK CONFIG
+####################################
 
 # Account settings
 ACCOUNT_EMAIL_UNIQUE = True

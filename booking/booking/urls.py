@@ -14,19 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import routers
+
 from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
-from musicians.views import SignupView
+from musicians.views import SignupView, ArtistViewSet
 
+from .utils import v_url
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register('artists', ArtistViewSet, base_name='artist')
 
 urlpatterns = [
     path('', index, name="home"),
+    re_path(v_url(''), include(router.urls)),
     path('', include('social_django.urls', namespace='social')),
     path('about', about, name="about"),
     path('privacy', privacy, name="privacy"),

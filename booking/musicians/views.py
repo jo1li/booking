@@ -1,3 +1,4 @@
+from django.conf import settings as _settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -7,6 +8,90 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
+
+from rest_framework import serializers, viewsets, mixins, renderers
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+artist_fields = (
+            'stage_name',
+            'url_fq',
+            'url_api',
+            'image',
+            'image_hero',
+            'on_tour',
+            'hometown',
+            'bio',
+            'bio_short',
+            'website',
+            'facebook',
+            'instagram',
+            'instagram_followers',
+            'twitter',
+            'twitter_followers',
+            'spotify',
+            'spotify_followers',
+            'youtube',
+            'soundcloud',
+            'bandcamp',
+        )
+
+
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
+
+    image = serializers.ImageField(required=False, allow_empty_file=False)
+    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
+
+
+    class Meta:
+        model = Musician
+        fields = artist_fields
+
+
+class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
+    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
+
+    class Meta:
+        model = Musician
+        fields = artist_fields
+
+
+class ArtistViewSet(mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/artists/:
+    Return a list of all the existing artists.
+
+    GET /v1/artists/<id>:
+    Retrieve a single artist instance.
+
+    PUT /v1/artists/<id>:
+    Update a single artist instance.
+    """
+
+
+    queryset = Musician.objects.all()
+    serializer_class = ArtistSerializer
+
+
+    def list(self, *args, **kwargs):
+        self.serializer_class = ArtistListSerializer
+        return mixins.ListModelMixin.list(self, *args, **kwargs)
+
+
+    def retrieve(self, *args, **kwargs):
+        self.serializer_class = ArtistSerializer
+        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
+
+
+    def update(self, *args, **kwargs):
+        self.serializer_class = ArtistSerializer
+        return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
 def profile(request, slug=None):
