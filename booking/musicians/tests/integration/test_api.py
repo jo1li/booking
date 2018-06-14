@@ -42,8 +42,6 @@ class ApiArtistTest(OpusTestCase):
 
     def test_artist_list(self):
 
-        m = musician_recipe.make()
-
         result = self.app.get(self.reverse_api('artists-list'))
         result.status_code.should.equal(200)
 
@@ -53,22 +51,19 @@ class ApiArtistTest(OpusTestCase):
 
     def test_artist_create(self):
 
-        a = admin_user_recipe.make()
-
-        m = musician_recipe.make()
         artist_list_url = self.reverse_api('artists-list')
 
         result = self.app.put(artist_list_url, expect_errors=True)
         result.status_code.should.equal(403)
         result.json["detail"].should.equal("Authentication credentials were not provided.")
 
-        result = self.app.get('/', user=a.username)
+        result = self.app.get('/', user=self.a.username)
         csrf_token = self.get_csrf_from_headers(result)
 
         create_headers = {
             'X-CSRFToken': csrf_token
         }
-        result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=a.username)
+        result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=self.a.username)
         result.json["detail"].should.equal("You do not have permission to perform this action.")
 
 

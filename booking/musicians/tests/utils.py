@@ -4,8 +4,14 @@ from django.urls import reverse
 from django.test import TransactionTestCase
 from django_webtest import WebTest
 
+from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
 
 class OpusTestCase(WebTest, TransactionTestCase):
+
+
+    def setUp(self):
+        self.a = admin_user_recipe.make()
+        self.m = musician_recipe.make()
 
 
     def reverse_api(self, name, **kwargs):
@@ -19,6 +25,7 @@ class OpusTestCase(WebTest, TransactionTestCase):
             kwargs = v_kwarg
 
         return reverse(name, kwargs=kwargs)
+
 
     def get_csrf_from_headers(self, result):
 
