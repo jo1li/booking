@@ -1,26 +1,85 @@
 <template>
-
-  <v-form v-model="valid" class="modal-test">
-    <v-text-field
-      v-model="name"
-      :rules="nameRules"
-      :counter="10"
-      label="Name"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
-    <v-btn
-      @click="submit"
-    >
-      submit
-    </v-btn>
-    <v-btn @click="clear">clear</v-btn>
-  </v-form>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="500px">
+      <v-card class="btn-fix">
+        <v-card-title>
+          <span class="headline">Edit Basic Info</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field v-model="avatar" label="PROFILE AVATAR" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field v-model="facebook" label="FACEBOOK PROFILE" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field v-model="instagram" label="INSTAGRAM PROFILE" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field v-model="spotify" label="CONNECT SPOTIFY ACCOUNT" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm8>
+                <v-text-field v-model="town" label="HOME TOWN" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm4>
+                <v-select
+                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  label="STATE"
+                  required
+                  v-model="state"
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-select
+                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+                  label="GENRE"
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-select
+                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+                  label="GENRE"
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-select
+                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+                  label="GENRE"
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-text-field v-model="website" label="WEBSITE" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-text-field
+                label="SUMMERY"
+                :counter="300"
+                textarea
+                light
+                v-model="summery"
+              ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn round outline color="indigo" flat @click.native="submit">
+            <v-icon left dark>close</v-icon>
+            Close
+          </v-btn>
+          <v-btn round color="blue primary" @click.native="submit" dark>
+            <v-icon left dark>save</v-icon>
+            Save
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 </template>
 <script>
 import Vue from 'vue';
@@ -39,8 +98,19 @@ Vue.use(Vuetify, {
         password: String,
         clear: Function,
         submit: Function,
+        dialog: Boolean,
     },
     data: () => ({
+      avatar: this.avatar,
+      facebook: this.facebook,
+      instagram: this.instagram,
+      spotify: this.spotify,
+      town: this.town,
+      genera: this.genera,
+      state: this.state,
+      website: this.website,
+      summery: this.summery,
+
       valid: false,
       name: this.name,
       nameRules: [
@@ -66,7 +136,7 @@ Vue.use(Vuetify, {
     padding: 10px;
 
   }
-  .modal-test  .btn {
+  .btn-fix  .btn {
       padding: 0;
   }
 </style>

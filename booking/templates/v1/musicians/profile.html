@@ -11,11 +11,12 @@
 {% endblock og %}
 
 {% block main %}
+
 <user-edit-form
-    v-if="editBioOpen"
+    :dialog="editBioOpen"
     name="{{ musician.stage_name }}"
-    v-bind:submit="closeBioOpen"
-    v-bind:clear="closeBioOpen"
+    :submit="closeBioOpen"
+    :clear="closeBioOpen"
 ></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
