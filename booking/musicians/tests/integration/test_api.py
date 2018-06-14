@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.urls import reverse
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 
@@ -16,7 +14,7 @@ from collections import OrderedDict
 class ApiTest(OpusTestCase):
 
     def test_api_root(self):
-        result = self.app.get(reverse('api-root', kwargs={'version': settings.DEFAULT_VERSION}))
+        result = self.app.get(self.reverse_api('api-root'))
 
         result.content_type.should.equal('application/json')
         result.status_code.should.equal(200)
@@ -46,7 +44,7 @@ class ApiArtistTest(OpusTestCase):
 
         m = musician_recipe.make()
 
-        result = self.app.get(reverse('artists-list', kwargs={'version': settings.DEFAULT_VERSION}))
+        result = self.app.get(self.reverse_api('artists-list'))
         result.status_code.should.equal(200)
 
         result.json["count"].should.equal(1)
@@ -58,7 +56,7 @@ class ApiArtistTest(OpusTestCase):
         a = admin_user_recipe.make()
 
         m = musician_recipe.make()
-        artist_list_url = reverse('artists-list', kwargs={'version': settings.DEFAULT_VERSION})
+        artist_list_url = self.reverse_api('artists-list')
 
         result = self.app.put(artist_list_url, expect_errors=True)
         result.status_code.should.equal(403)
