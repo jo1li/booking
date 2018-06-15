@@ -67,4 +67,19 @@ class ApiArtistTest(OpusTestCase):
         result.json["detail"].should.equal("You do not have permission to perform this action.")
 
 
+    def test_artist_update(self):
 
+        artist_api_url = self.reverse_api('artists-detail', kwargs={'pk': self.m.pk})
+
+        result = self.app.get('/', user=self.m.user.username)
+        csrf_token = self.get_csrf_from_headers(result)
+
+        headers = {
+            'X-CSRFToken': csrf_token
+        }
+        params = {
+            'hometown': 'bumblefort'
+        }
+        result = self.app.put(artist_api_url, params=params, headers=headers, expect_errors=True, user=self.m.user.username)
+
+        print(result)

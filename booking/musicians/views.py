@@ -67,6 +67,11 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def update(self, *args, **kwargs):
+
+        print("ERHERERERE")
+        print(args)
+        print(kwargs)
+
         self.serializer_class = ArtistSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 

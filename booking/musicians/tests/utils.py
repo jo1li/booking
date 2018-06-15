@@ -14,13 +14,13 @@ class OpusTestCase(WebTest, TransactionTestCase):
         self.m = musician_recipe.make()
 
 
-    def reverse_api(self, name, **kwargs):
+    def reverse_api(self, name, kwargs=None):
         v_kwarg = {
             'version': settings.DEFAULT_VERSION
         }
 
-        if kwargs:
-            kwargs = kwargs.update(v_kwarg)
+        if kwargs is not None:
+            kwargs.update(v_kwarg)
         else:
             kwargs = v_kwarg
 
