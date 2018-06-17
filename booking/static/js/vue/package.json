@@ -20,6 +20,7 @@
     "mustache-loader": "^1.4.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
+    "superagent": "^3.8.3",
     "vue": "^2.5.11",
     "vue-form-generator": "^2.2.2",
     "vue-loader": "^13.0.5",

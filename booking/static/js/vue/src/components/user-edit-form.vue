@@ -1,141 +1,186 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-card class="btn-fix">
-        <v-card-title>
-          <span class="headline">Edit Basic Info</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12>
-                <v-text-field v-model="avatar" label="PROFILE AVATAR" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field v-model="facebook" label="FACEBOOK PROFILE" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field v-model="instagram" label="INSTAGRAM PROFILE" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field v-model="spotify" label="CONNECT SPOTIFY ACCOUNT" required></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm8>
-                <v-text-field v-model="town" label="HOME TOWN" required></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm4>
-                <v-select
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="STATE"
-                  required
-                  v-model="state"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
-                  label="GENRE"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
-                  label="GENRE"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
-                  label="GENRE"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <v-text-field v-model="website" label="WEBSITE" required></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <v-text-field
-                label="SUMMERY"
-                :counter="300"
-                textarea
-                light
-                v-model="summery"
-              ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn round outline color="indigo" flat @click.native="submit">
-            <v-icon left dark>close</v-icon>
-            Close
+  <Dialog
+    :dialog="dialog"
+    headline="Edit Basic Info"
+    :submit="submit"
+    :cancel="cancel"
+  >
+      <v-layout wrap>
+        <v-flex xl11 md11 sm11 xs12>
+          <v-text-field
+            v-model.trim="form.avatar"
+            label="PROFILE AVATAR"
+            placeholder=" "
+            class="input-label input-placeholder input-border"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xl1 md1 sm1 xs12 class="text-right text-xs-center buttons-container">
+            <v-btn fab outline color="primary" small>
+              <v-icon dark>cloud_upload</v-icon>
           </v-btn>
-          <v-btn round color="blue primary" @click.native="submit" dark>
-            <v-icon left dark>save</v-icon>
-            Save
+        </v-flex>
+        <v-flex xs12>
+          <small>SOCIAL PRIFILES</small>
+        </v-flex>
+        <v-flex xl10 md10 sm10 xs12 >
+          <v-text-field
+            v-model.trim="form.facebook"
+            placeholder="Facebook profile"
+            class="input-label input-placeholder input-border"
+
+          ></v-text-field>
+        </v-flex>
+        <v-flex xl2 md2 sm2 xs12 class="text-right text-xs-center buttons-container">
+          <v-btn fab outline color="primary" small>
+              <v-icon dark>add</v-icon>
           </v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-layout>
+            <v-btn fab outline color="primary" small>
+              <v-icon dark>delete</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xl10 md10 sm10 xs12 align-content-end>
+          <v-text-field
+            v-model.trim="form.instagram"
+            placeholder="Instagram profile"
+            class="no-padding input-label input-placeholder input-border"
+            ></v-text-field>
+        </v-flex>
+        <v-flex xl2 md2 sm2 xs12 class="text-right text-xs-center buttons-container">
+          <v-btn fab outline color="primary" small>
+              <v-icon dark>add</v-icon>
+          </v-btn>
+            <v-btn fab outline color="primary" small>
+              <v-icon dark>delete</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xl10 md10 sm10 xs12>
+          <v-text-field
+            v-model.trim="form.spotify"
+            placeholder="Connect spotify account"
+            class="no-padding input-label input-placeholder input-border"
+            ></v-text-field>
+        </v-flex>
+          <v-flex xl2 md2 sm2 xs12 class="text-right text-xs-center buttons-container">
+          <v-btn fab outline color="primary" small>
+              <v-icon dark>add</v-icon>
+          </v-btn>
+            <v-btn fab outline color="primary" small>
+              <v-icon dark>delete</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 sm8>
+          <small>HOME TOWN</small>
+          <v-text-field
+            v-model.trim="form.town"
+            placeholder="What is your hometown"
+            class="input-label input-placeholder input-border"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xs12 sm4>
+          <small>STATE</small>
+          <v-select
+            :items="states"
+            placeholder="Select your state"
+            v-model="form.state"
+            append-icon="expand_more"
+            class="input-label input-placeholder icon-arrow input-border"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <small>GENERA</small>
+          <v-select
+            v-model="form.generas[0]"
+            :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+            placeholder="Select a genera"
+            append-icon="expand_more"
+            class="input-label input-placeholder icon-arrow  input-border"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-select
+            v-model="form.generas[1]"
+            :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+            placeholder="Select a genera"
+            append-icon="expand_more"
+            class="no-padding input-label input-placeholder icon-arrow input-border"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-select
+            v-model="form.generas[2]"
+            :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
+            placeholder="Select a genera"
+            append-icon="expand_more"
+            class="no-padding input-label input-placeholder icon-arrow input-border"
+          ></v-select>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-text-field
+            v-model.trim="form.website"
+            label="WEBSITE"
+            placeholder="What is your website"
+            class="input-label input-placeholder input-border"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <small>SUMMERY</small>
+          <v-text-field
+          placeholder=" "
+          :counter="300"
+          textarea
+          light
+          class="no-padding input-label input-placeholder summery-border"
+          v-model.trim="form.summery"
+        ></v-text-field>
+        </v-flex>
+      </v-layout>
+  </Dialog>
 </template>
 <script>
 import Vue from 'vue';
-import Vuetify from 'vuetify'
+import { Dialog } from './higherOrderComponents/modals';
+import states from '../utils/states';
 
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#E53935',
-    secondary: '#FFCDD2',
-    accent: '#3F51B5',
-  }
-})
-  export default {
+export default {
     props: {
         name: String,
         password: String,
-        clear: Function,
+        cancel: Function,
         submit: Function,
         dialog: Boolean,
+        test: String,
+    },
+    components: {
+      Dialog,
     },
     data: () => ({
-      avatar: this.avatar,
-      facebook: this.facebook,
-      instagram: this.instagram,
-      spotify: this.spotify,
-      town: this.town,
-      genera: this.genera,
-      state: this.state,
-      website: this.website,
-      summery: this.summery,
-
+      states: states,
       valid: false,
-      name: this.name,
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters'
-      ],
-      email: this.email,
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-      ]
+      form: {
+        avatar: this.avatar,
+        facebook: this.facebook,
+        instagram: this.instagram,
+        spotify: this.spotify,
+        town: this.town,
+        generas: this.generas || [],
+        state: this.state,
+        website: this.website,
+        summery: this.summery,
+      }
     }),
+    methods: {
+      submit: function () {
+
+      }
+    },
+    watch: {
+      'form.avatar': function () {
+        console.log('this', this)
+      }
+    }
   }
 </script>
 <style>
-  .modal-test {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: white;
-    padding: 10px;
-
-  }
   .btn-fix  .btn {
       padding: 0;
   }
