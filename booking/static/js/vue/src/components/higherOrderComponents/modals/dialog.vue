@@ -18,7 +18,14 @@
             <v-icon left dark>close</v-icon>
             CANCEL
           </v-btn>
-          <v-btn round color="blue primary" @click.native="submit" dark>
+          <v-btn
+            :loading="loading"
+            :disabled="disabled"
+            round
+            color="blue primary"
+            @click.native="submit"
+            dark
+          >
             <v-icon left dark>save</v-icon>
              SAVE
             </v-btn>
@@ -36,6 +43,8 @@ export default {
       cancel: Function,
       dialog: Boolean,
       headline: String,
+      loading: Boolean,
+      disabled: Boolean,
     },
   }
 </script>

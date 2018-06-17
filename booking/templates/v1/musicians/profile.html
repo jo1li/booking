@@ -15,7 +15,7 @@
 <user-edit-form
     :dialog="editBioOpen"
     name="{{ musician.stage_name }}"
-    test="{{ musician }}"
+    test="{{ musician.Id }}"
     avatar="{{ musician.avatar}}"
     facebook="{{ musician.facebook}}"
     instagram="{{ musician.instagram}}"
@@ -25,8 +25,7 @@
     stat="{{ musician.state}}"
     website="{{ musician.website}}"
     summery="{{ musician.summery}}"
-    :submit="closeBioOpen"
-    :cancel="closeBioOpen"
+    :close="closeBioOpen"
 ></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">

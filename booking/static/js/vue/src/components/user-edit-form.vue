@@ -3,7 +3,9 @@
     :dialog="dialog"
     headline="Edit Basic Info"
     :submit="submit"
-    :cancel="cancel"
+    :cancel="close"
+    :loading="loading"
+
   >
       <v-layout wrap>
         <v-flex xl11 md11 sm11 xs12>
@@ -145,8 +147,7 @@ export default {
     props: {
         name: String,
         password: String,
-        cancel: Function,
-        submit: Function,
+        close: Function,
         dialog: Boolean,
         test: String,
     },
@@ -156,6 +157,7 @@ export default {
     data: () => ({
       states: states,
       valid: false,
+      loading: false,
       form: {
         avatar: this.avatar,
         facebook: this.facebook,
@@ -171,6 +173,11 @@ export default {
     methods: {
       submit: function () {
 
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          this.close()
+        }, 2000);
       }
     },
     watch: {
