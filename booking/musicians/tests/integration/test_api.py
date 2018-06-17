@@ -64,7 +64,7 @@ class ApiArtistTest(OpusTestCase):
             'X-CSRFToken': csrf_token
         }
         result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=self.a.username)
-        result.json["detail"].should.equal("You do not have permission to perform this action.")
+        result.json["detail"].should.equal('Method "PUT" not allowed.')
 
 
     def test_artist_update(self):
@@ -73,13 +73,21 @@ class ApiArtistTest(OpusTestCase):
 
         result = self.app.get('/', user=self.m.user.username)
         csrf_token = self.get_csrf_from_headers(result)
+        sessionid = self.get_session_from_headers(result)
 
-        headers = {
-            'X-CSRFToken': csrf_token
-        }
+        headers = { 'X-CSRFToken': csrf_token }
+        cookies = { 'sessionid': sessionid }
         params = {
+            'stage_name': 'stage name',
             'hometown': 'bumblefort'
         }
-        result = self.app.put(artist_api_url, params=params, headers=headers, expect_errors=True, user=self.m.user.username)
 
-        print(result)
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
+
+        result.json()['stage_name'].should.equal(params['stage_name'])
+        result.json()['hometown'].should.equal(params['hometown'])
+
+        self.m.refresh_from_db()
+        self.m.stage_name.should.equal(params['stage_name'])
+        self.m.hometown.should.equal(params['hometown'])

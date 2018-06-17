@@ -15,6 +15,8 @@ from rest_framework import serializers, viewsets, mixins, renderers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework import permissions
+
 
 
 class ArtistVideoViewSet(mixins.ListModelMixin,
@@ -51,6 +53,7 @@ class ArtistViewSet(mixins.ListModelMixin,
     Update a single artist instance.
     """
 
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
@@ -67,11 +70,6 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def update(self, *args, **kwargs):
-
-        print("ERHERERERE")
-        print(args)
-        print(kwargs)
-
         self.serializer_class = ArtistSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
