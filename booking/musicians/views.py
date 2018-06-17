@@ -34,6 +34,8 @@ class ArtistVideoViewSet(mixins.ListModelMixin,
     Update a single artist video instance.
     """
 
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
     queryset = MusicianVideo.objects.all()
     serializer_class = ArtistVideoSerializer
 

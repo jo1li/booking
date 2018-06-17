@@ -91,3 +91,28 @@ class ApiArtistTest(OpusTestCase):
         self.m.refresh_from_db()
         self.m.stage_name.should.equal(params['stage_name'])
         self.m.hometown.should.equal(params['hometown'])
+
+
+class ApiArtistVideoTest(OpusTestCase):
+
+    def test_create(self):
+
+        artist_video_create_api_url = self.reverse_api('artist-videos-list', kwargs={'artist_pk': self.m.pk})
+
+        print(artist_video_create_api_url)
+
+        result = self.app.get('/', user=self.m.user.username)
+        csrf_token = self.get_csrf_from_headers(result)
+        sessionid = self.get_session_from_headers(result)
+
+        headers = { 'X-CSRFToken': csrf_token }
+        cookies = { 'sessionid': sessionid }
+        params = {
+            'musician': self.m.pk,
+            'code': '<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+        }
+
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.post(artist_video_create_api_url, params, format="json", headers=headers)
+
+        print(result.json())
