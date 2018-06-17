@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 
 from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
 
-class OpusTestCase(WebTest):
+class OpusTestCase(WebTest, TransactionTestCase):
 
 
     def setUp(self):
