@@ -92,6 +92,12 @@ def profile_template(request):
 
 
 @login_required
+def api_test(request):
+
+    return opus_render(request, "musicians/api_test.html", {})
+
+
+@login_required
 def social(request):
 
     # TODO: set up a better way of listing social integrations based on existing context_processor

@@ -31,6 +31,18 @@ class OpusTestCase(WebTest, TransactionTestCase):
         return reverse(name, kwargs=kwargs)
 
 
+    def get_api_reqs(self):
+
+        result = self.app.get('/', user=self.m.user.username)
+        csrf_token = self.get_csrf_from_headers(result)
+        sessionid = self.get_session_from_headers(result)
+
+        headers = { 'X-CSRFToken': csrf_token }
+        cookies = { 'sessionid': sessionid }
+
+        return headers, cookies
+
+
     def get_csrf_from_headers(self, result):
 
         for header in result.headerlist:
