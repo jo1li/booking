@@ -142,6 +142,7 @@
 import Vue from 'vue';
 import { Dialog } from './higherOrderComponents/modals';
 import states from '../utils/states';
+import { updateUserBio } from '../request/requests';
 
 export default {
     props: {
@@ -149,7 +150,7 @@ export default {
         password: String,
         close: Function,
         dialog: Boolean,
-        test: String,
+        id: String,
     },
     components: {
       Dialog,
@@ -174,10 +175,14 @@ export default {
       submit: function () {
 
         this.loading = true;
-        setTimeout(() => {
-          this.loading = false;
-          this.close()
-        }, 2000);
+        updateUserBio(this.form, this.id)
+          .then(res => {
+            this.close();
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          })
       }
     },
     watch: {
