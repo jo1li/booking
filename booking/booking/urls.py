@@ -19,22 +19,26 @@ from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from rest_framework import routers
+from rest_framework_nested import routers as routers
 
 from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
-from musicians.views import SignupView, ArtistViewSet
+from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet
 
 from .utils import v_url
 
 # Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register('artists', ArtistViewSet, base_name='artist')
+artist_router = routers.DefaultRouter()
+artist_router.register('artists', ArtistViewSet, base_name='artists')
+
+artist_videos_router = routers.NestedSimpleRouter(artist_router, r'artists', lookup='artist')
+artist_videos_router.register(r'videos', ArtistVideoViewSet, base_name='artist-videos')
 
 urlpatterns = [
     path('', index, name="home"),
-    re_path(v_url(''), include(router.urls)),
+    re_path(v_url(''), include(artist_router.urls)),
+    re_path(v_url(''), include(artist_videos_router.urls)),
     path('', include('social_django.urls', namespace='social')),
     path('about', about, name="about"),
     path('privacy', privacy, name="privacy"),

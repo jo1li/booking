@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import path, include
 
-from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social
+from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social, api_test
 
 urlpatterns = [
+    path('api_test', api_test, name="api_test"),
     path('dashboard', dashboard, name="musician_dash"),
     path('editor', editor, name="musician_editor"),
     path('editor/audio', editor_audio, name="musician_editor_audio"),
