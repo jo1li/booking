@@ -34,7 +34,7 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class GenreSerializer(serializers.ModelSerializer):
+class ArtistGenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genres
@@ -48,7 +48,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     image_hero = serializers.ImageField(required=False, allow_empty_file=False)
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
-    genres = GenreSerializer(many=True, required=False)
+    genres = ArtistGenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Musician

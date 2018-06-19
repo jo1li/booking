@@ -10,6 +10,9 @@ fi
 # Run migrations
 python manage.py migrate --noinput
 
+echo "Loading initial tags!!1!"
+python manage.py load_initial
+
 # Move static assets into place
 if [[ $* != *--skip-collect* ]]
 then

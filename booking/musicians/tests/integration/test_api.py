@@ -74,7 +74,7 @@ class ApiArtistTest(OpusTestCase):
         headers, cookies = self.get_api_reqs()
         params = {
             'stage_name': 'stage name',
-            'hometown': 'bumblefort'
+            'hometown': 'bumblefort',
         }
 
         self.app_api.force_authenticate(user=self.m.user)

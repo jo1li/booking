@@ -15,6 +15,7 @@ class MusicianVideoAdmin(admin.ModelAdmin):
     pass
 
 # Register your models here.
+tagulous.admin.register(Genres)
 tagulous.admin.register(Musician, MusicianAdmin)
 admin.site.register(MusicianAudio, MusicianAudioAdmin)
 admin.site.register(MusicianVideo, MusicianVideoAdmin)
