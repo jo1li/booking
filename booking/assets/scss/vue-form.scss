@@ -26,7 +26,7 @@ small {
 	color: $color-primary!important
 }
 
-.summery-border .input-group__input {
+.summary-border .input-group__input {
 	border: 1px solid rgba(0, 0, 0, 0.05)!important;
 }
 
@@ -49,5 +49,9 @@ small {
 	button:last-child {
 		margin-right: 0px;
 		margin-left: 4px;
+	}
+
+	button:disabled {
+		background-color: transparent!important;
 	}
 }

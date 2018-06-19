@@ -3,16 +3,15 @@
     :dialog="dialog"
     headline="Edit Basic Info"
     :submit="submit"
-    :cancel="close"
+    :cancel="onCancel"
     :loading="loading"
-
   >
       <v-layout wrap>
         <v-flex xl11 md11 sm11 xs12>
           <v-text-field
             v-model.trim="form.avatar"
             label="PROFILE AVATAR"
-            placeholder=" "
+            placeholder="Avatar"
             class="input-label input-placeholder input-border"
           ></v-text-field>
         </v-flex>
@@ -36,7 +35,7 @@
           <v-btn fab outline color="primary" small>
               <v-icon dark>add</v-icon>
           </v-btn>
-            <v-btn fab outline color="primary" small>
+            <v-btn @click="resetFacebook" :disabled="!form.facebook" fab outline color="primary" small>
               <v-icon dark>delete</v-icon>
           </v-btn>
         </v-flex>
@@ -44,14 +43,14 @@
           <v-text-field
             v-model.trim="form.instagram"
             placeholder="Instagram profile"
-            class="no-padding input-label input-placeholder input-border"
+            class="input-label input-placeholder input-border"
             ></v-text-field>
         </v-flex>
         <v-flex xl2 md2 sm2 xs12 class="text-right text-xs-center buttons-container">
           <v-btn fab outline color="primary" small>
               <v-icon dark>add</v-icon>
           </v-btn>
-            <v-btn fab outline color="primary" small>
+            <v-btn @click="resetInstagram" :disabled="!form.instagram" fab outline color="primary" small>
               <v-icon dark>delete</v-icon>
           </v-btn>
         </v-flex>
@@ -59,21 +58,21 @@
           <v-text-field
             v-model.trim="form.spotify"
             placeholder="Connect spotify account"
-            class="no-padding input-label input-placeholder input-border"
+            class="input-label input-placeholder input-border"
             ></v-text-field>
         </v-flex>
           <v-flex xl2 md2 sm2 xs12 class="text-right text-xs-center buttons-container">
           <v-btn fab outline color="primary" small>
               <v-icon dark>add</v-icon>
           </v-btn>
-            <v-btn fab outline color="primary" small>
+            <v-btn @click="resetSpotify" :disabled="!form.spotify" fab outline color="primary" small>
               <v-icon dark>delete</v-icon>
           </v-btn>
         </v-flex>
         <v-flex xs12 sm8>
           <small>HOME TOWN</small>
           <v-text-field
-            v-model.trim="form.town"
+            v-model.trim="form.hometown"
             placeholder="What is your hometown"
             class="input-label input-placeholder input-border"
           ></v-text-field>
@@ -91,7 +90,7 @@
         <v-flex xs12 sm12>
           <small>GENERA</small>
           <v-select
-            v-model="form.generas[0]"
+            v-model="form.genres[0]"
             :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
             placeholder="Select a genera"
             append-icon="expand_more"
@@ -100,7 +99,7 @@
         </v-flex>
         <v-flex xs12 sm12>
           <v-select
-            v-model="form.generas[1]"
+            v-model="form.genres[1]"
             :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
             placeholder="Select a genera"
             append-icon="expand_more"
@@ -109,7 +108,7 @@
         </v-flex>
         <v-flex xs12 sm12>
           <v-select
-            v-model="form.generas[2]"
+            v-model="form.genres[2]"
             :items="['Alternative', 'Indie', 'jazz', 'punk', 'R&B', 'hiphop']"
             placeholder="Select a genera"
             append-icon="expand_more"
@@ -125,15 +124,16 @@
           ></v-text-field>
         </v-flex>
         <v-flex xs12 sm12>
-          <small>SUMMERY</small>
+          <small>SUMMARY</small>
           <v-text-field
-          placeholder=" "
-          :counter="300"
-          textarea
-          light
-          class="no-padding input-label input-placeholder summery-border"
-          v-model.trim="form.summery"
-        ></v-text-field>
+            placeholder=" "
+            :counter="300"
+            textarea
+            light
+            class="no-padding input-label input-placeholder summary-border"
+            v-model.trim="bio"
+            rows="3"
+          ></v-text-field>
         </v-flex>
       </v-layout>
   </Dialog>
@@ -151,42 +151,85 @@ export default {
         close: Function,
         dialog: Boolean,
         id: String,
+        stage_name: String,
+        hometown: String,
+        facebook: String,
+        instagram: String,
+        spotify: String,
+        website: String,
+        bio: String,
+        state: String,
+        genres: Array,
     },
     components: {
       Dialog,
     },
-    data: () => ({
-      states: states,
-      valid: false,
-      loading: false,
-      form: {
-        avatar: this.avatar,
-        facebook: this.facebook,
-        instagram: this.instagram,
-        spotify: this.spotify,
-        town: this.town,
-        generas: this.generas || [],
-        state: this.state,
-        website: this.website,
-        summery: this.summery,
-      }
-    }),
-    methods: {
-      submit: function () {
+    computed: {
 
+    },
+    data: function() {
+      return {
+        states: states,
+        valid: false,
+        loading: false,
+        stage_name: 'test',
+        form: {
+          stage_name: this.stage_name,
+          avatar: this.avatar,
+          facebook: this.facebook,
+          instagram: this.instagram,
+          spotify: this.spotify,
+          hometown: this.hometown,
+          genres: this.genres || [],
+          state: this.state,
+          website: this.website,
+          bio: this.bio,
+        }
+      }
+    },
+    methods: {
+      resetFacebook: function () {this.form.facebook = ''},
+      resetInstagram: function () {this.form.instagram = ''},
+      resetSpotify: function () {this.form.spotify = ''},
+      onCancel: function () {
+
+        // leave time for dialog to animate close before resetting
+        setTimeout(() => {
+          this.form = {
+            stage_name: '',
+            avatar: '',
+            facebook: '',
+            instagram: '',
+            spotify: '',
+            hometown: '',
+            genres: '',
+            state: '',
+            website: '',
+            bio: '',
+          }
+        }, 500);
+
+        this.close();
+      },
+      submit: function () {
         this.loading = true;
+
+        // TODO throttle click
         updateUserBio(this.form, this.id)
           .then(res => {
             this.close();
             this.loading = false;
           })
           .catch(() => {
+
+            // TODO needs error handling for client
             this.loading = false;
+            this.snackbarError = true;
           })
       }
     },
     watch: {
-      'form.avatar': function () {
+      ' avatar': function () {
         console.log('this', this)
       }
     }
