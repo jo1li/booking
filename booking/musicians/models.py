@@ -140,12 +140,12 @@ class Musician(TimeStampedModel):
 
 
 class MusicianAudio(TimeStampedModel, OrderedModel):
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='audios')
     code = models.TextField()
 
 
 class MusicianVideo(TimeStampedModel, OrderedModel):
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='videos')
     code = models.TextField()
 
 
