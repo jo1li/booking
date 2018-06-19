@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'localflavor',
     'phonenumber_field',
+    'tagulous',
     'social_django',
     'bootstrap3',
     'bootstrapform',

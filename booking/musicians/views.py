@@ -161,6 +161,8 @@ def editor(request):
         musician.user = request.user
         musician.save()
 
+        form.save_m2m()
+
         # Show a success message
         messages.success(request, 'Profile details updated. Yay.')
 

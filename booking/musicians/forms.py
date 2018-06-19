@@ -30,6 +30,7 @@ class MusicianForm(ModelForm):
             'hometown',
             'state',
             'on_tour',
+            'genres',
             'website',
             'bio',
             'bio_short',
