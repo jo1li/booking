@@ -80,6 +80,8 @@ class ApiArtistTest(OpusTestCase):
         self.app_api.force_authenticate(user=self.m.user)
         result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
 
+        result.status_code.should.equal(200)
+
         result.json()['stage_name'].should.equal(params['stage_name'])
         result.json()['hometown'].should.equal(params['hometown'])
 
