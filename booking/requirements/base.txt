@@ -23,3 +23,4 @@ spotipy==2.4.4
 django-ordered-model==1.4.3
 djangorestframework==3.8.2
 drf-nested-routers==0.90.2
+django-localflavor==2.0

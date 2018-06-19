@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'account',
     'sass_processor',
+    'localflavor',
     'phonenumber_field',
     'social_django',
     'bootstrap3',

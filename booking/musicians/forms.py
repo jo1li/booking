@@ -28,6 +28,7 @@ class MusicianForm(ModelForm):
             'image_hero',
             'stage_name',
             'hometown',
+            'state',
             'on_tour',
             'website',
             'bio',

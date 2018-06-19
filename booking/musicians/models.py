@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from django.urls import reverse
 
+from localflavor.us.models import USStateField
 from ordered_model.models import OrderedModel
 
 from home.models import OpusUser
@@ -40,6 +41,7 @@ class Musician(TimeStampedModel):
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)
+    state = USStateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 

@@ -10,6 +10,7 @@ artist_fields = (
             'image_hero',
             'on_tour',
             'hometown',
+            'state',
             'bio',
             'bio_short',
             'website',
