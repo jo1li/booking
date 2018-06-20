@@ -1,34 +1,8 @@
 import Vue from 'vue'
-import App from './App.js'
-import VueFormGenerator from "vue-form-generator";
-import UserEditForm from './components/user-edit-form.vue'
-import Vuetify from 'vuetify'
-var VueCookie = require('vue-cookie');
+import App from './App.vue'
 
-Vue.use(VueCookie);
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#00b9d1',
-    secondary: '#00b9d1',
-    accent: '#00b9d1',
-  }
-})
+Vue.config.productionTip = false
 
 new Vue({
-  delimiters: ['[[', ']]'],
-  el: '#wrapper',
-  data: {
-    editBioOpen: true,
-  },
-  components: {
-    UserEditForm
-  },
-  methods: {
-    openEditBio: function () {
-      this.editBioOpen = true;
-    },
-    closeBioOpen: function () {
-      this.editBioOpen = false;
-    }
-  }
-})
+  render: h => h(App)
+}).$mount('#app')
