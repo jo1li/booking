@@ -1,4 +1,4 @@
-from .models import Musician, MusicianAudio, MusicianVideo, Genres
+from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from rest_framework import serializers, viewsets, mixins, renderers
 
 
@@ -34,10 +34,10 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ArtistGenreSerializer(serializers.ModelSerializer):
+class ArtistGenreTagSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Genres
+        model = GenreTag
         fields = ('id', 'name', 'slug',)
 
 
@@ -48,7 +48,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     image_hero = serializers.ImageField(required=False, allow_empty_file=False)
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
-    genres = ArtistGenreSerializer(many=True, read_only=True)
+    genres = ArtistGenreTagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Musician

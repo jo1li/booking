@@ -22,7 +22,7 @@ import spotipy
 import spotipy.util as util
 from urllib import parse
 
-class Genres(tagulous.models.TagModel):
+class GenreTag(tagulous.models.TagModel):
     class TagMeta:
         genres = [
             "African",
@@ -30,7 +30,7 @@ class Genres(tagulous.models.TagModel):
             "Ambient",
             "Americana",
             "Asian",
-            "Avant-garde",
+            "Avant-Garde",
             "Blues",
             "Caribbean",
             "Christian",
@@ -44,7 +44,7 @@ class Genres(tagulous.models.TagModel):
             "Latin",
             "Metal",
             "Pop",
-            "R&amp;B",
+            "R&B",
             "Rock",
             "Spoken Word",
             "World",
@@ -68,7 +68,7 @@ class Musician(TimeStampedModel):
     # Need to think of a better name for band/individual
     # type =
 
-    genres = tagulous.models.TagField(to=Genres, blank=True)
+    genres = tagulous.models.TagField(to=GenreTag, blank=True)
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)

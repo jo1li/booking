@@ -6,17 +6,25 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo
+from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistVideoSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
 
-from rest_framework import serializers, viewsets, mixins, renderers
-
-from rest_framework.views import APIView
+from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework import permissions
 
+
+class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    GET /v1/genres/:
+    Return a list of protected genres
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    serializer_class = ArtistGenreTagSerializer
+    queryset = GenreTag.objects.filter(protected=True)
 
 
 class ArtistVideoViewSet(mixins.ListModelMixin,

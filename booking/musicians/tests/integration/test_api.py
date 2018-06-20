@@ -108,3 +108,5 @@ class ApiArtistVideoTest(OpusTestCase):
 
         result.json()['code'].should.equal(params['code'])
         result.json()['musician'].should.equal(params['musician'])
+
+
