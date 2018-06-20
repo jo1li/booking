@@ -8,7 +8,7 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
 
 from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
@@ -61,6 +61,10 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     PUT /v1/artists/<id>:
     Update a single artist instance.
+
+    Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
+        When this call returns, it will return a string, but Get calls will return an array of objects.
+
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -80,7 +84,7 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def update(self, *args, **kwargs):
-        self.serializer_class = ArtistSerializer
+        self.serializer_class = ArtistUpdateSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
