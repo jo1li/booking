@@ -1,3 +1,5 @@
+from django.core.management import call_command
+
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 
@@ -5,6 +7,7 @@ from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
 from musicians.tests.utils import OpusTestCase
 
 from home.models import OpusUser
+from musicians.models import GenreTag
 
 import sure
 from sure import expect
@@ -109,4 +112,16 @@ class ApiArtistVideoTest(OpusTestCase):
         result.json()['code'].should.equal(params['code'])
         result.json()['musician'].should.equal(params['musician'])
 
+
+class ApiGenreTagTest(OpusTestCase):
+
+    def test_get(self):
+
+        # This loads protected tags
+        call_command('initial_tags')
+
+        genres_list_url = self.reverse_api('genres-list')
+        result = self.app.get(genres_list_url)
+
+        result.json['count'].should.equal(len(GenreTag.TagMeta.genres))
 
