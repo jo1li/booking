@@ -8,7 +8,11 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from django.urls import reverse
 
+from localflavor.us.models import USStateField
 from ordered_model.models import OrderedModel
+
+import tagulous
+from tagulous.models import TagField
 
 from home.models import OpusUser
 
@@ -17,6 +21,36 @@ import twitter
 import spotipy
 import spotipy.util as util
 from urllib import parse
+
+class GenreTag(tagulous.models.TagModel):
+    class TagMeta:
+        genres = [
+            "African",
+            "Alternative",
+            "Ambient",
+            "Americana",
+            "Asian",
+            "Avant-Garde",
+            "Blues",
+            "Caribbean",
+            "Christian",
+            "Classical",
+            "Comedy",
+            "Country",
+            "Electronic",
+            "Folk",
+            "Hip Hop",
+            "Jazz",
+            "Latin",
+            "Metal",
+            "Pop",
+            "R&B",
+            "Rock",
+            "Spoken Word",
+            "World",
+        ]
+        initial = ','.join(genres)
+
 
 class Musician(TimeStampedModel):
 
@@ -34,12 +68,11 @@ class Musician(TimeStampedModel):
     # Need to think of a better name for band/individual
     # type =
 
-    # When we get tagging in, we should implement here
-    # instrument # Only if an individual
-    # genre
+    genres = tagulous.models.TagField(to=GenreTag, blank=True)
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)
+    state = USStateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 
@@ -53,6 +86,9 @@ class Musician(TimeStampedModel):
     bandcamp = models.CharField(max_length=256, null=True, blank=True)
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
+
+    def __str__(self):
+        return self.stage_name
 
     def url_fq(self):
         return reverse('musician_profile', kwargs={'slug': self.slug})

@@ -1,3 +1,5 @@
+from django.core.management import call_command
+
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 
@@ -5,6 +7,7 @@ from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
 from musicians.tests.utils import OpusTestCase
 
 from home.models import OpusUser
+from musicians.models import GenreTag
 
 import sure
 from sure import expect
@@ -74,11 +77,13 @@ class ApiArtistTest(OpusTestCase):
         headers, cookies = self.get_api_reqs()
         params = {
             'stage_name': 'stage name',
-            'hometown': 'bumblefort'
+            'hometown': 'bumblefort',
         }
 
         self.app_api.force_authenticate(user=self.m.user)
         result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
+
+        result.status_code.should.equal(200)
 
         result.json()['stage_name'].should.equal(params['stage_name'])
         result.json()['hometown'].should.equal(params['hometown'])
@@ -106,3 +111,36 @@ class ApiArtistVideoTest(OpusTestCase):
 
         result.json()['code'].should.equal(params['code'])
         result.json()['musician'].should.equal(params['musician'])
+
+
+class ApiGenreTagTest(OpusTestCase):
+
+    def test_get(self):
+
+        # This loads protected tags
+        call_command('initial_tags')
+
+        genres_list_url = self.reverse_api('genres-list')
+        result = self.app.get(genres_list_url)
+
+        result.json['count'].should.equal(len(GenreTag.TagMeta.genres))
+
+
+    def test_update(self):
+
+        artist_api_url = self.reverse_api('artists-detail', kwargs={'pk': self.m.pk})
+
+        headers, cookies = self.get_api_reqs()
+        params = {
+            'stage_name': 'poop bucket head',
+            'genres': 'Rock, Electronic',
+        }
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
+
+        result = self.app_api.get(artist_api_url, headers=headers)
+
+        print("TEST")
+        print(result.json())
+
+        result.json()['genres'].should.have.length_of(2)
