@@ -6,17 +6,25 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo
+from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistVideoSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
 
-from rest_framework import serializers, viewsets, mixins, renderers
-
-from rest_framework.views import APIView
+from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework import permissions
 
+
+class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    GET /v1/genres/:
+    Return a list of protected genres
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    serializer_class = ArtistGenreTagSerializer
+    queryset = GenreTag.objects.filter(protected=True)
 
 
 class ArtistVideoViewSet(mixins.ListModelMixin,
@@ -53,6 +61,10 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     PUT /v1/artists/<id>:
     Update a single artist instance.
+
+    Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
+        When this call returns, it will return a string, but Get calls will return an array of objects.
+
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -72,7 +84,7 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def update(self, *args, **kwargs):
-        self.serializer_class = ArtistSerializer
+        self.serializer_class = ArtistUpdateSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
@@ -160,6 +172,8 @@ def editor(request):
         musician = form.save(commit=False)
         musician.user = request.user
         musician.save()
+
+        form.save_m2m()
 
         # Show a success message
         messages.success(request, 'Profile details updated. Yay.')

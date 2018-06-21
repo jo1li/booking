@@ -24,19 +24,21 @@ from rest_framework_nested import routers as routers
 from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
 
 from venues.views_admin import create
-from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet
+from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, GenreTagViewSet
 
 from .utils import v_url
 
 # Routers provide an easy way of automatically determining the URL conf.
 artist_router = routers.DefaultRouter()
 artist_router.register('artists', ArtistViewSet, base_name='artists')
+artist_router.register('genres', GenreTagViewSet, base_name='genres')
 
 artist_videos_router = routers.NestedSimpleRouter(artist_router, r'artists', lookup='artist')
 artist_videos_router.register(r'videos', ArtistVideoViewSet, base_name='artist-videos')
 
 urlpatterns = [
     path('', index, name="home"),
+    # re_path(v_url(''), include(genres_router.urls)),
     re_path(v_url(''), include(artist_router.urls)),
     re_path(v_url(''), include(artist_videos_router.urls)),
     path('', include('social_django.urls', namespace='social')),
