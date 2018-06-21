@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.js'
 import VueFormGenerator from "vue-form-generator";
 import UserEditForm from './components/user-edit-form.vue'
+import VideoCarousel from './components/video-carousel.vue'
 import Vuetify from 'vuetify'
 var VueCookie = require('vue-cookie');
 
@@ -18,10 +19,11 @@ new Vue({
   delimiters: ['[[', ']]'],
   el: '#wrapper',
   data: {
-    editBioOpen: true,
+    editBioOpen: false,
   },
   components: {
-    UserEditForm
+    UserEditForm,
+    VideoCarousel,
   },
   methods: {
     openEditBio: function () {
