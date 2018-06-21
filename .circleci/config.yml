@@ -1,0 +1,65 @@
+version: 2
+
+jobs:
+
+  build:
+    machine: true
+    working_directory: ~/booking
+    steps:
+
+      # NOTE: Circle has an outdated version of docker-compose, this will install
+      #   a more modern version.
+      # However, Circle seems to lock down the `/usr/local/bin` directory, hence the non-standard install location
+      # Know that all docker-compose commands will need to use this path.
+      - run:
+          name: Install Docker Compose
+          command: |
+            set -x
+            sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ~/backend/docker-compose
+            sudo chmod +x ~/backend/docker-compose
+
+      - run:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p ~/backend/tmp/coverage
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/backend/tmp/cc-test-reporter
+            chmod +x ~/backend/tmp/cc-test-reporter
+
+      - persist_to_workspace:
+          root: ~/backend
+          paths:
+            - docker-compose
+            - tmp/coverage
+            - tmp/cc-test-reporter
+
+  unit:
+    machine: true
+    working_directory: ~/backend
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: ~/backend
+
+      - run:
+          name: Docker check
+          command: |
+              docker --version
+              ~/backend/docker-compose --version
+
+      - run:
+          name: Set up env_vars and get rid of override file
+          command: |
+            set -x
+            # cp .env.example .env
+            rm docker-compose.override.yaml
+
+
+      - run:
+          command: sudo ~/backend/docker-compose build
+
+      - run:
+          name: Run Tests!!!!!1!!
+          command: |
+              sudo ~/backend/docker-compose run web ./scripts/cmd-test.sh
+
