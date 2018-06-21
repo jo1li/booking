@@ -52,11 +52,11 @@
                         </li>
                         <li>
                             <a href="{{ musician.instagram }}"><i class="fab fa-instagram"></i></a>
-                            <span class="subscribers-count">{{ musician.instagram_followers }}</span>
+                            <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
                         </li>
                         <li>
                             <a href="{{ musician.spotify }}"><i class="fab fa-spotify"></i></a>
-                            <span class="subscribers-count">{{ musician.spotify_followers }}</span>
+                            <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
                         </li>
                     </ul>
 
