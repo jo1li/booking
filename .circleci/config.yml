@@ -54,7 +54,6 @@ jobs:
             # cp .env.example .env
             rm docker-compose.override.yaml
 
-
       - run:
           command: sudo ~/backend/docker-compose build
 
@@ -62,4 +61,3 @@ jobs:
           name: Run Tests!!!!!1!!
           command: |
               sudo ~/backend/docker-compose run web ./scripts/cmd-test.sh
-
