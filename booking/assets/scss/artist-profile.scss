@@ -55,3 +55,54 @@ body {
 	/* Preserve line breaks in user-supplied full bio text */
 	white-space: pre-line;
 }
+
+.video-carousel {
+	&.carousel {
+		height: 450px;
+		padding-bottom: 50px;
+		box-shadow: none;
+	}
+
+	.jumbotron {
+		padding: 0;
+		background-color: transparent;
+	}
+
+	.carousel__left, .carousel__right {
+		position: absolute;
+		top: 420px;
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-size: contain;
+		opacity: 1;
+		@include animate (opacity);
+
+		&:hover,
+		&:focus {
+			opacity: 0.5;
+		}
+
+		button {
+			border: 0;
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			border-radius: 0;
+			background-image: url(../images/prev.svg);
+			vertical-align: top;
+		}
+
+		.btn__content {
+			display: none;
+		}
+	}
+
+	.carousel__left {
+		background-image: url(../images/prev.svg);
+	}
+
+	.carousel__right {
+		background-image: url(../images/next.svg);
+	}
+}
