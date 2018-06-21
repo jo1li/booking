@@ -194,7 +194,7 @@ export default {
       onCancel: function () {
 
         // leave time for dialog to animate close before resetting
-        setTimeout(() => {
+        setTimeout(function() {
           this.form = {
             stage_name: '',
             avatar: '',
@@ -216,11 +216,11 @@ export default {
 
         // TODO throttle click
         updateUserBio(this.form, this.id)
-          .then(res => {
+          .then(function(res) {
             this.close();
             this.loading = false;
           })
-          .catch(() => {
+          .catch(function() {
 
             // TODO needs error handling for client
             this.loading = false;
