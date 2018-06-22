@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'ordered_model',
     'rest_framework',
 
+    'booking',
     'home',
     'musicians',
     'venues',

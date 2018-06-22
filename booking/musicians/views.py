@@ -92,6 +92,8 @@ def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
 
+    print(musician.genres)
+
     context = {
         "musician": musician,
     }
