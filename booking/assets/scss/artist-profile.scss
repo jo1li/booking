@@ -36,6 +36,10 @@ $media-expressions: (
 @import 'layout/footer';
 
 @import 'vendors/fonts';
+@import 'variables';
+@import 'modals';
+@import 'vue-form';
+
 
 #wrapper {
 	max-width: 100%;
