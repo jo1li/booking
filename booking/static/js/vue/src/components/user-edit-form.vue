@@ -131,7 +131,7 @@
             textarea
             light
             class="no-padding input-label input-placeholder summary-border"
-            v-model.trim="bio"
+            v-model.trim="form.bio"
             rows="3"
           ></v-text-field>
         </v-flex>
@@ -139,10 +139,11 @@
   </Dialog>
 </template>
 <script>
-import Vue from 'vue';
 import { Dialog } from './higherOrderComponents/modals';
 import states from '../utils/states';
 import { updateUserBio } from '../request/requests';
+import { removeNone } from '../utils/djangoClean';
+import _ from "lodash";
 
 export default {
     props: {
@@ -159,31 +160,29 @@ export default {
         website: String,
         bio: String,
         state: String,
-        genres: Array,
+        genres: String,
     },
     components: {
       Dialog,
-    },
-    computed: {
-
     },
     data: function() {
       return {
         states: states,
         valid: false,
         loading: false,
-        stage_name: 'test',
         form: {
-          stage_name: this.stage_name,
-          avatar: this.avatar,
-          facebook: this.facebook,
-          instagram: this.instagram,
-          spotify: this.spotify,
-          hometown: this.hometown,
-          genres: this.genres || [],
-          state: this.state,
-          website: this.website,
-          bio: this.bio,
+          stage_name: removeNone(this.stage_name),
+          avatar: removeNone(this.avatar),
+          facebook: removeNone(this.facebook),
+          instagram: removeNone(this.instagram),
+          spotify: removeNone(this.spotify),
+          hometown: removeNone(this.hometown),
+
+          // Move split out of this file
+          genres: removeNone(this.genres).split(', ') || [],
+          state: removeNone(this.state),
+          website: removeNone(this.website),
+          bio: removeNone(this.bio),
         }
       }
     },
@@ -191,6 +190,7 @@ export default {
       resetFacebook: function () {this.form.facebook = ''},
       resetInstagram: function () {this.form.instagram = ''},
       resetSpotify: function () {this.form.spotify = ''},
+
       onCancel: function () {
 
         // leave time for dialog to animate close before resetting
@@ -208,15 +208,18 @@ export default {
             bio: '',
           }
         }, 500);
-
         this.close();
       },
       submit: function () {
         this.loading = true;
 
         // TODO throttle click
-        updateUserBio(this.form, this.id)
-          .then(res => {
+        const formData = _.assign({}, this.form, {
+          genres: this.form.genres.join(",")
+        });
+
+        updateUserBio(formData, this.id)
+          .then(() => {
             this.close();
             this.loading = false;
           })
@@ -224,15 +227,9 @@ export default {
 
             // TODO needs error handling for client
             this.loading = false;
-            this.snackbarError = true;
           })
       }
     },
-    watch: {
-      ' avatar': function () {
-        console.log('this', this)
-      }
-    }
   }
 </script>
 <style>

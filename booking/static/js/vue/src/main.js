@@ -16,7 +16,7 @@ new Vue({
   delimiters: ['[[', ']]'],
   el: '#wrapper',
   data: {
-    editBioOpen: true,
+    editBioOpen: false,
   },
   components: {
     UserEditForm
