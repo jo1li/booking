@@ -1,8 +1,9 @@
 <template>
-    <v-carousel class="video-carousel" :cycle="false" hide-delimiters v-on:input="refreshIframe">
+    <v-carousel class="video-carousel" :cycle="false" hide-delimiters v-on:input="onPan" ref="video-carousel">
       <v-carousel-item v-for="(item,i) in items" :key="i">
         <iframe width="100%" height="400px" frameborder="0" seamless="seamless" :src="item.src" ref="video-carousel-items"></iframe>
       </v-carousel-item>
+      <div class="index-indicator" ref="index-indicator"></div>
     </v-carousel>
 </template>
 <script>
@@ -28,6 +29,10 @@ export default {
     };
   },
   methods: {
+    onPan: function(itemIndex) {
+      this.refreshIframe(itemIndex);
+      this.updateIndexIndicator(itemIndex);
+    },
     refreshIframe: function(itemIndex) {
       const previousItemIndex = this.previousItemIndex || 0;
       const previousIframe = this.$refs['video-carousel-items'][previousItemIndex];
@@ -37,6 +42,11 @@ export default {
       previousIframe.src = '';
       previousIframe.src = src;
       this.previousItemIndex = itemIndex;
+      this.currentIndex = itemIndex;
+    },
+    updateIndexIndicator: function(itemIndex) {
+      const indexIndicatorEl = this.$refs['index-indicator'];
+      indexIndicatorEl.innerText = `${itemIndex + 1}/${this.videos.length}`;
     }
   }
 }
