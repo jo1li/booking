@@ -57,22 +57,36 @@ body {
 }
 
 .video-carousel {
+	$video-aspect-ratio: 56%;
+	$carousel-nav-height: 50px;
+	$carousel-nav-button-size: 20px;
+
 	&.carousel {
-		height: 450px;
-		padding-bottom: 50px;
 		box-shadow: none;
+		padding-top: calc(#{$video-aspect-ratio} + #{$carousel-nav-height});
+		height: auto;
 	}
 
 	.jumbotron {
 		padding: 0;
 		background-color: transparent;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.jumbotron__content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
 	}
 
 	.carousel__left, .carousel__right {
 		position: absolute;
-		top: 420px;
-		width: 20px;
-		height: 20px;
+		top: calc(100% - 28px);
+		width: $carousel-nav-button-size;
+		height: $carousel-nav-button-size;
 		background-repeat: no-repeat;
 		background-size: contain;
 		opacity: 1;
@@ -104,5 +118,24 @@ body {
 
 	.carousel__right {
 		background-image: url(../images/next.svg);
+	}
+
+	.index-indicator {
+		position: absolute;
+		left: 50%;
+		transform: translate-x(-50%);
+		top: calc(100% - 34px);
+		font-size: 12px;
+		color: $font-color-light;
+		line-height: 18px;
+	}
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: calc(100% - #{$carousel-nav-height});
+		border: 0;
 	}
 }
