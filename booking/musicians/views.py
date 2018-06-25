@@ -6,57 +6,46 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo
+from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
 
-from rest_framework import serializers, viewsets, mixins, renderers
-
-from rest_framework.views import APIView
+from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-artist_fields = (
-            'stage_name',
-            'url_fq',
-            'url_api',
-            'image',
-            'image_hero',
-            'on_tour',
-            'hometown',
-            'bio',
-            'bio_short',
-            'website',
-            'facebook',
-            'instagram',
-            'instagram_followers',
-            'twitter',
-            'twitter_followers',
-            'spotify',
-            'spotify_followers',
-            'youtube',
-            'soundcloud',
-            'bandcamp',
-        )
+
+class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    GET /v1/genres/:
+    Return a list of protected genres
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    serializer_class = ArtistGenreTagSerializer
+    queryset = GenreTag.objects.filter(protected=True)
 
 
-class ArtistSerializer(serializers.HyperlinkedModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
+class ArtistVideoViewSet(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/artists/<id>/videos/:
+    Return a list of an artists videos.
 
-    image = serializers.ImageField(required=False, allow_empty_file=False)
-    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
+    POST /v1/artists/<id>/videos/:
+    Create an artist video instance.
 
+    PUT /v1/artists/<id>/videos/<id>:
+    Update a single artist video instance.
+    """
 
-    class Meta:
-        model = Musician
-        fields = artist_fields
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-
-class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='artist-detail')
-
-    class Meta:
-        model = Musician
-        fields = artist_fields
+    queryset = MusicianVideo.objects.all()
+    serializer_class = ArtistVideoSerializer
 
 
 class ArtistViewSet(mixins.ListModelMixin,
@@ -72,8 +61,13 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     PUT /v1/artists/<id>:
     Update a single artist instance.
+
+    Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
+        When this call returns, it will return a string, but Get calls will return an array of objects.
+
     """
 
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
@@ -90,13 +84,15 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def update(self, *args, **kwargs):
-        self.serializer_class = ArtistSerializer
+        self.serializer_class = ArtistUpdateSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
+
+    print(musician.genres)
 
     context = {
         "musician": musician,
@@ -107,6 +103,12 @@ def profile(request, slug=None):
 
 def profile_template(request):
     return opus_render(request, "musicians/profile_template.html")
+
+
+@login_required
+def api_test(request):
+
+    return opus_render(request, "musicians/api_test.html", {})
 
 
 @login_required
@@ -172,6 +174,8 @@ def editor(request):
         musician = form.save(commit=False)
         musician.user = request.user
         musician.save()
+
+        form.save_m2m()
 
         # Show a success message
         messages.success(request, 'Profile details updated. Yay.')
@@ -269,6 +273,10 @@ class SignupView(account.views.SignupView):
 
     form_class = SignupForm
     identifier_field = 'email'
+
+    def get_success_url(self, fallback_url=None, **kwargs):
+        return reverse('musician_dash')
+
 
     def generate_username(self, form):
         # do something to generate a unique username (required by the

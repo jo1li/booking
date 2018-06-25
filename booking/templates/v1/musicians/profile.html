@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load repeatedblocks %}
 {% load cloudinary %}
+{% load booking_extras %}
 
 {% block head_title %}{{ musician.stage_name }}{% endblock %}
 
@@ -42,7 +43,7 @@
                     </div>
 
                     <div class="artist-photo text-center">
-                        {% cloudinary musician.image.name width=180 height=180 crop="thumb" gravity="face" class="rounded-circle" %}
+                        {% cloudinary musician.image.name width=180 height=180 crop="thumb" class="rounded-circle" %}
                     </div>
 
                     <ul class="social-subscribe">
@@ -52,18 +53,18 @@
                         </li>
                         <li>
                             <a href="{{ musician.instagram }}"><i class="fab fa-instagram"></i></a>
-                            <span class="subscribers-count">{{ musician.instagram_followers }}</span>
+                            <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
                         </li>
                         <li>
                             <a href="{{ musician.spotify }}"><i class="fab fa-spotify"></i></a>
-                            <span class="subscribers-count">{{ musician.spotify_followers }}</span>
+                            <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
                         </li>
                     </ul>
 
                     <div class="info text-center">
-                        <p class="body-text">{{ musician.hometown }}</p>
-                        <p class="body-text">Alternative / Indie</p>
-                        <p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>
+                        <p class="body-text">{{ musician.hometown }}, {{ musician.state }}</p>
+                        <p class="body-text">{{ musician.genres|opus_replace:"search=, &replace= / " }}</p>
+                        {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>{% endif %}
                     </div>
 
                     <div class="about">

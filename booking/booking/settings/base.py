@@ -56,13 +56,16 @@ INSTALLED_APPS = [
     'django_extensions',
     'account',
     'sass_processor',
+    'localflavor',
     'phonenumber_field',
+    'tagulous',
     'social_django',
     'bootstrap3',
     'bootstrapform',
     'ordered_model',
     'rest_framework',
 
+    'booking',
     'home',
     'musicians',
     'venues',
@@ -194,6 +197,20 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
+####################################
+# Test CONFIG
+INSTALLED_APPS += (
+    'django_nose',
+)
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '-s'
+]
+
+####################################
+
 
 ####################################
 # REST FRAMEWORK CONFIG
@@ -201,8 +218,12 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
