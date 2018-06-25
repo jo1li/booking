@@ -12,6 +12,24 @@
 {% endblock og %}
 
 {% block main %}
+
+<user-edit-form
+    :dialog="editBioOpen"
+    id="user-edit-form"
+    musicianId="{{ musician.pk }}"
+    stage_name="{{ musician.stage_name }}"
+    avatar="{{ musician.avatar}}"
+    facebook="{{ musician.facebook }}"
+    instagram="{{ musician.instagram }}"
+    spotify="{{ musician.spotify }}"
+    hometown="{{ musician.hometown }}"
+    genres="{{ musician.genres }}"
+    state="{{ musician.state}}"
+    website="{{ musician.website }}"
+    summery="{{ musician.summery }}"
+    bio="{{ musician.bio }}"
+    :close="closeBioOpen"
+></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
@@ -39,7 +57,7 @@
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                        <div class="edit"><img v-on:click="openEditBio" id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
                     </div>
 
                     <div class="artist-photo text-center">
@@ -63,8 +81,13 @@
 
                     <div class="info text-center">
                         <p class="body-text">{{ musician.hometown }}, {{ musician.state }}</p>
+<<<<<<< Updated upstream
                         <p class="body-text">{{ musician.genres|opus_replace:"search=, &replace= / " }}</p>
                         {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>{% endif %}
+=======
+                        <p class="body-text">Alternative / Indie</p>
+                        <p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>
+>>>>>>> Stashed changes
                     </div>
 
                     <div class="about">

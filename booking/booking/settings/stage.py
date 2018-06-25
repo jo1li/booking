@@ -1,7 +1,8 @@
 from .base import *
 
 ALLOWED_HOSTS = [
-    'opus-booking-stage.appspot.com'
+    'opus-booking-stage.appspot.com',
+    '127.0.0.1',
 ]
 
 # Database
