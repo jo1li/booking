@@ -36,6 +36,8 @@ $media-expressions: (
 @import 'layout/footer';
 
 @import 'vendors/fonts';
+@import 'variables';
+
 
 #wrapper {
 	max-width: 100%;
@@ -50,4 +52,51 @@ body {
 #biography-long-content {
 	/* Preserve line breaks in user-supplied full bio text */
 	white-space: pre-line;
+}
+
+#video-carousel {
+	$video-aspect-ratio: 56%;
+	$carousel-button-size: 20px;
+
+	display: block;
+	position: relative;
+
+	.react-swipeable-view-container > div {
+		padding-top: $video-aspect-ratio;
+		height: auto;
+		position: relative;
+	}
+
+	.carousel-nav-button-img {
+		height: $carousel-button-size;
+		width: $carousel-button-size;
+	}
+
+	.carousel-nav {
+		background-color: transparent;
+	}
+
+	.step-indicator {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 14px;
+		font-size: 12px;
+		color: $font-color-light;
+		line-height: 18px;
+		user-select: none;
+	}
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.hidden {
+		display: none;
+	}
 }
