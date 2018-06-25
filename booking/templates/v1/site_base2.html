@@ -26,19 +26,24 @@
     <link rel="stylesheet" href="{% sass_src 'scss/bootstrap.scss' %}">
     <link rel="stylesheet" href="{% sass_src 'scss/artist-profile.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
     <script src="{% static 'js/vue/dist/build.js' %}" defer></script>
+    <script src="http://localhost:3000/static/js/bundle.js" defer></script>
     {% endblock %}
 
 </head>
 <body>
     <div id="wrapper">
-        <div class="overlay"></div>
-        {% include "_header.html" %}
-        <main id="main">
-            <div  style="visibility: hidden" v-bind:style="{ visibility: message ? 'visible' : '' }">[[ message ]]</div>
-            {% block main %}{% endblock %}
-        </main>
-        {% include "_footer.html" %}
+        <v-app light>
+
+            <div class="overlay"></div>
+            {% include "_header.html" %}
+            <main id="main">
+                {% block main %}{% endblock %}
+            </main>
+            {% include "_footer.html" %}
+        </v-app>
     </div>
     {% block footer_scripts %}{% endblock %}
 </body>
