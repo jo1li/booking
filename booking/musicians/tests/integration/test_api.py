@@ -140,7 +140,4 @@ class ApiGenreTagTest(OpusTestCase):
 
         result = self.app_api.get(artist_api_url, headers=headers)
 
-        print("TEST")
-        print(result.json())
-
         result.json()['genres'].should.have.length_of(2)

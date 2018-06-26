@@ -13,6 +13,7 @@ from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSer
 from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.parsers import JSONParser, FileUploadParser
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -67,6 +68,7 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     """
 
+    parser_classes = (JSONParser, FileUploadParser,)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
@@ -91,8 +93,6 @@ class ArtistViewSet(mixins.ListModelMixin,
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
-
-    print(musician.genres)
 
     context = {
         "musician": musician,
