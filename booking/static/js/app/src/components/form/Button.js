@@ -16,12 +16,15 @@ function ContainedButtons(props) {
   const {
     classes,
     children,
-    onClick
+    onClick,
+    type,
   } = props;
+
   return (
     <Button
       variant="outlined"
       color="secondary"
+      type={type}
       className={classes.button}
       onClick={onClick}
     >

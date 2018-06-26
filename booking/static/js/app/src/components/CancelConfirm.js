@@ -33,15 +33,18 @@ class CancelConfirm  extends Component {
         return (
             <div className={classes.contaner}>
                 <Grid container spacing={24}>
-                    <Grid xs={12} lg={12}>
+                    <Grid item xs={12} lg={12}>
                         {children}
                     </Grid>
-                    <Grid className={classes.buttonContainer} item alignContent="center" xs={12} sm={12} md={12} lg={12}>
+                    <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
                         <Button onClick={onClickCancel}>
                             <Close />
                             Cancel
                         </Button>
-                        <RaisedButton onClick={onClickConfirm}>
+                        <RaisedButton
+                            type="submit"
+                            onClick={onClickConfirm}
+                        >
                             <Save />
                             Confirm
                         </RaisedButton>

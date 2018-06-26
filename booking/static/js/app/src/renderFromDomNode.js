@@ -24,27 +24,27 @@ const theme = createMuiTheme({
     }
 });
 
-class DomLifeCycleEvents extends Component {
-    constructor () {
-        super();
-        this.state = {}
-    }
-    componentWillMount() {
-        this.props.onMount && this.props.onMount(newState => this.setState(newState), this.state);
-    }
+// class DomLifeCycleEvents extends Component {
+//     constructor () {
+//         super();
+//         this.state = {}
+//     }
+//     componentWillMount() {
+//         this.props.onMount && this.props.onMount(newState => this.setState(newState), this.state);
+//     }
 
-    componentWillUnmount() {
-        this.props.onUnMount && this.props.onUnMount(this.state);
-    }
+//     componentWillUnmount() {
+//         this.props.onUnMount && this.props.onUnMount(this.state);
+//     }
 
-    render() {
-        const {
-            componentProps,
-            Component
-        } = this.props;
-        return <Component {...componentProps} {...this.state}/>
-    }
-}
+//     render() {
+//         const {
+//             componentProps,
+//             Component
+//         } = this.props;
+//         return <Component {...componentProps} {...this.state}/>
+//     }
+// }
 
 const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     const domNode = document.getElementById(node);
@@ -55,11 +55,8 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     ReactDOM.render(
         <Provider store={store}>
             <MuiThemeProvider theme={theme}>
-                <DomLifeCycleEvents
-                    onMount={onMount}
-                    onUnMount={onUnMount}
-                    componentProps={componentProps}
-                    Component={Component}
+                <Component
+                    {...componentProps}
                 />
             </MuiThemeProvider>
         </Provider>
