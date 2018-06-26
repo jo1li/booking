@@ -90,6 +90,13 @@ class ArtistViewSet(mixins.ListModelMixin,
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
 
 
+    def perform_update(self, serializer):
+        print("HERERER")
+        print(self.request.data)
+        # the file key seems wrong. not sure why it's set to that
+        serializer.save(image=self.request.data.get('file'))
+
+
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
