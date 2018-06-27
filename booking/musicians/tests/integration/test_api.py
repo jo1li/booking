@@ -100,18 +100,16 @@ class ApiArtistTest(OpusTestCase):
 
         headers, cookies = self.get_api_reqs()
         data = self.get_test_file()
-        extra = {
-            # This appears to be a bug of some sort in DRF, the header name should be Content-Disposition
-            'HTTP_CONTENT_DISPOSITION': 'attachment; filename="filename.jpg"'
-        }
+        data.update(self.get_test_file('image_hero', 'data/_DSC1617.JPG'))
 
         self.app_api.force_authenticate(user=self.m.user)
 
-        response = self.app_api.put(artist_api_url, data, format='multipart', **extra)
+        response = self.app_api.put(artist_api_url, data, format='multipart')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # Ensure the image comes back with a cloudinary URL
         response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
+        response.json()['image_hero'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
 
 
 
