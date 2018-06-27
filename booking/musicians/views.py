@@ -13,7 +13,7 @@ from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSer
 from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework.parsers import JSONParser, FileUploadParser
+from rest_framework.parsers import JSONParser, MultiPartParser
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -68,7 +68,7 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     """
 
-    parser_classes = (JSONParser, FileUploadParser,)
+    parser_classes = (JSONParser, MultiPartParser,)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
@@ -91,10 +91,11 @@ class ArtistViewSet(mixins.ListModelMixin,
 
 
     def perform_update(self, serializer):
-        print("HERERER")
-        print(self.request.data)
-        # the file key seems wrong. not sure why it's set to that
-        serializer.save(image=self.request.data.get('file'))
+        if self.request.data.get('image'):
+            serializer.image = self.request.data.get('image')
+
+        return mixins.UpdateModelMixin.perform_update(self, serializer)
+
 
 
 def profile(request, slug=None):
@@ -182,6 +183,7 @@ def editor(request):
         musician.user = request.user
         musician.save()
 
+        # for genres
         form.save_m2m()
 
         # Show a success message

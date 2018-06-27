@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.urls import reverse
 
@@ -59,3 +61,11 @@ class OpusTestCase(WebTest, TransactionTestCase):
                 if 'sessionid' in header[1]:
                     tokenstr = header[1].split(';')[0]
                     return tokenstr.replace('sessionid=', '').strip()
+
+
+    def get_test_file(self):
+
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+        f = open(os.path.join(dir_path, 'data/IMG_1201.JPG'), 'rb')
+        return {'image': f}
