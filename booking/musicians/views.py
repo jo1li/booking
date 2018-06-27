@@ -63,9 +63,11 @@ class ArtistViewSet(mixins.ListModelMixin,
     PUT /v1/artists/<id>:
     Update a single artist instance.
 
+    To upload `image` and `image_hero` the API call must be sent as a MultiPartForm
+        https://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean
+
     Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
         When this call returns, it will return a string, but Get calls will return an array of objects.
-
     """
 
     parser_classes = (JSONParser, MultiPartParser,)
