@@ -20,6 +20,17 @@ class OpusTestCase(WebTest, TransactionTestCase):
         self.app_api = APIClient()
 
 
+    def tearDown(self):
+        self.a.delete()
+
+        self.m.refresh_from_db()
+
+        self.m.image.delete()
+        self.m.image_hero.delete()
+
+        self.m.delete()
+
+
     def reverse_api(self, name, kwargs=None):
         v_kwarg = {
             'version': settings.DEFAULT_VERSION
