@@ -74,7 +74,7 @@ class OpusTestCase(WebTest, TransactionTestCase):
                     return tokenstr.replace('sessionid=', '').strip()
 
 
-    def get_test_file(self, key='image', file='data/IMG_1201.JPG'):
+    def get_test_file(self, key='image', file='data/test_image.jpg'):
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
