@@ -54,7 +54,8 @@ body {
 	white-space: pre-line;
 }
 
-#video-carousel {
+/* TODO: get "themes" working to clean up this sass */
+#video-carousel, #audio-carousel {
 	$video-aspect-ratio: 56%;
 	$carousel-button-size: 20px;
 
@@ -98,5 +99,15 @@ body {
 
 	.hidden {
 		display: none;
+	}
+}
+
+#audio-carousel {
+	$video-aspect-ratio: 72%;
+
+	.react-swipeable-view-container > div {
+		padding-top: $video-aspect-ratio;
+		height: auto;
+		position: relative;
 	}
 }
