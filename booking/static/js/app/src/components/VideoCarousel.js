@@ -1,12 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { compose } from 'redux'
-import logo from '../logo.svg';
-import BindDomEvent from './HOCComponents/BindDomEvents';
-import Paper from '@material-ui/core/Paper';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { Display1 } from './typography';
 
