@@ -198,6 +198,12 @@ class MusicianAudio(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='audios')
     code = models.TextField()
 
+    @property
+    def src(self):
+        parser = HtmlSrcGetter()
+        parser.feed(self.code)
+        return parser.src
+
 class MusicianVideo(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='videos')
     code = models.TextField()
