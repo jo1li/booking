@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles';
-import Save from '@material-ui/icons/Save';
-import Close from '@material-ui/icons/Close';
+import { Save, Close } from './icons';
 import Button from './form/Button';
 import RaisedButton from './form/RaisedButton';
 import Grid from '@material-ui/core/Grid';

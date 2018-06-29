@@ -27,6 +27,7 @@ function ContainedButtons(props) {
       type={type}
       className={classes.button}
       onClick={onClick}
+      {...props}
     >
         { children }
     </Button>

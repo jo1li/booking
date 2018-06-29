@@ -17,14 +17,17 @@ function RaisedButtons(props) {
     classes,
     children,
     onClick,
+    type,
   } = props;
 
   return (
     <Button
+      type={type}
       variant="contained"
       color="secondary"
       className={classes.button}
-       onClick={onClick}
+      onClick={onClick}
+      {...props}
     >
         { children }
     </Button>

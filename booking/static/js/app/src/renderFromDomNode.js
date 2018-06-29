@@ -53,13 +53,13 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     const componentProps = _.mapValues(mappedKeys, value => domNode.getAttribute(value.nodeName))
 
     ReactDOM.render(
-        <Provider store={store}>
             <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
                 <Component
                     {...componentProps}
                 />
-            </MuiThemeProvider>
         </Provider>
+            </MuiThemeProvider>
         , domNode);
 }
 
