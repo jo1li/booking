@@ -48,15 +48,15 @@
 
                     <ul class="social-subscribe">
                         <li>
-                            <a href="{{ musician.facebook }}"><i class="fab fa-facebook"></i></a>
+                            <a href="{{ musician.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
                             <span class="subscribers-count">36.3K</span>
                         </li>
                         <li>
-                            <a href="{{ musician.instagram }}"><i class="fab fa-instagram"></i></a>
+                            <a href="{{ musician.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
                             <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
                         </li>
                         <li>
-                            <a href="{{ musician.spotify }}"><i class="fab fa-spotify"></i></a>
+                            <a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i></a>
                             <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
                         </li>
                     </ul>
