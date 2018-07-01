@@ -33,10 +33,14 @@ class VideoCarousel extends Component {
   }
 
   render() {
-    const { videosourcesjson } = this.props;
-    const { activeStep } = this.state;
 
-    const videoSources = JSON.parse(videosourcesjson);
+    const { activeStep } = this.state;
+    const { videosourcesjson } = this.props;
+
+    var videoSources = [];
+    if( videosourcesjson ) {
+      var videoSources = JSON.parse(videosourcesjson);
+    }
 
     const maxSteps = videoSources.length;
     const nextBtnIsDisabled = activeStep === maxSteps - 1;
