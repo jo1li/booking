@@ -75,31 +75,19 @@
                 </aside>
             </div>
             <div class="col-md-8">
+
+                {% if videos %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
-
-                    <div class="slide-gallery">
-                        <div class="slide">
-                            {{ musician.musicianvideo_set.first.code | safe }}
-                        </div>
-                    </div>
-
-                    <div class="slider-pagination">
-                        <a href="#" class="slider-arrow prev"></a>
-                        <ul class="pagination-list">
-                            <li class="active"><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                        <a href="#" class="slider-arrow next"></a>
+                    <div
+                        id="video-carousel"
+                        videosourcesjson="{{ videos_json }}">
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="slider-section">
                     <div class="category edit-box">
@@ -262,4 +250,5 @@
         </div>
     </div>
 </section>
+<script src="http://localhost:3000/static/js/bundle.js"></script>
 {% endblock %}
