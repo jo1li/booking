@@ -96,7 +96,7 @@ class ArtistViewSet(mixins.ListModelMixin,
 
         for i in ['image', 'image_hero']:
             if self.request.data.get(i):
-                serializer.image = self.request.data.get(i)
+                setattr(serializer, i, self.request.data.get(i))
 
         return mixins.UpdateModelMixin.perform_update(self, serializer)
 
