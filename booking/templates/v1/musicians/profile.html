@@ -63,15 +63,15 @@
 
                     <ul class="social-subscribe">
                         <li>
-                            <a href="{{ musician.facebook }}"><i class="fab fa-facebook"></i></a>
+                            <a href="{{ musician.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
                             <span class="subscribers-count">36.3K</span>
                         </li>
                         <li>
-                            <a href="{{ musician.instagram }}"><i class="fab fa-instagram"></i></a>
+                            <a href="{{ musician.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
                             <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
                         </li>
                         <li>
-                            <a href="{{ musician.spotify }}"><i class="fab fa-spotify"></i></a>
+                            <a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i></a>
                             <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
                         </li>
                     </ul>
@@ -90,31 +90,19 @@
                 </aside>
             </div>
             <div class="col-md-8">
+
+                {% if videos %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
-
-                    <div class="slide-gallery">
-                        <div class="slide">
-                            {{ musician.musicianvideo_set.first.code | safe }}
-                        </div>
-                    </div>
-
-                    <div class="slider-pagination">
-                        <a href="#" class="slider-arrow prev"></a>
-                        <ul class="pagination-list">
-                            <li class="active"><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                        <a href="#" class="slider-arrow next"></a>
+                    <div
+                        id="video-carousel"
+                        videosourcesjson="{{ videos_json }}">
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="slider-section">
                     <div class="category edit-box">
@@ -277,4 +265,5 @@
         </div>
     </div>
 </section>
+<script src="http://localhost:3000/static/js/bundle.js"></script>
 {% endblock %}
