@@ -76,17 +76,13 @@ class UserEditForm extends Component {
     data = filterUndefined(data);
 
     return updateUserBio(data, musicianid).then(res => {
-      console.log("HERERER")
-      console.log("maybe refresh the page for now....")
-      console.log(res)
-
       // TODO: Prob a better to check for this
       if(res.status == 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
         //    temporary stopgap to allow team members to test w/ out
         setTimeout(() => {
           window.location.reload(true);
-        }, 2000);
+        }, 1000);
       }
 
     });
