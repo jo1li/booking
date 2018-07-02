@@ -105,6 +105,17 @@ class Musician(TimeStampedModel):
         return reverse('artist-detail', kwargs={'version': settings.DEFAULT_VERSION, 'pk': self.pk})
 
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
+    @property
+    def image_hero_url(self):
+        if self.image_hero and hasattr(self.image_hero, 'url'):
+            return self.image_hero.url
+
+
     def spotify_followers(self):
 
         try:
