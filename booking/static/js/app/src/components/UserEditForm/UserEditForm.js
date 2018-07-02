@@ -1,227 +1,292 @@
 import React, { Component } from 'react';
 import { compose } from 'redux'
 import { connect } from 'react-redux';
-import { Field, reduxForm, Form } from 'redux-form';
-import { required } from 'redux-form-validators';
+import {
+  Field,
+  reduxForm,
+  Form,
+  formValueSelector,
+  getFormValues,
+} from 'redux-form';
+import { required, url } from 'redux-form-validators';
+import autoBind from 'auto-bind';
 import Grid from '@material-ui/core/Grid';
-// import autobind from 'react-autobind';
+import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash'
+
 import CancelConfirm from '../CancelConfirm';
 import BindDomEvent from '../HOComponents/BindDomEvents';
 import FullScreenDialog from '../modal/FullScreenDialog';
-import Input from '../form/Input';
-import { Display1 } from '../typography';
+
+import { Display1, Caption } from '../typography';
+
 import InputButtons from './InputButtons';
-import { ExpandMore } from '../icons';
 import {
   UploadButton,
   DeleteButton,
   AddButton,
 } from '../form/FabButton';
-import { Caption } from '../typography';
-import AdjustButton from './AdjustButton';
+
+import Input from '../form/Input';
 import Select from '../form/Select';
 import TextArea from '../form/TextArea';
+import SelectState from '../form/SelectState';
+import ImageUploadContainer from '../form/ImageUploadContainer';
+import { filterUndefined } from '../../utils/formHelpers';
+import TextCount from '../form/TextCount';
+
+import {
+  updateUserBio,
+  getGenres,
+} from '../../request/requests';
+import styles from './styles';
+
 import TextField from '@material-ui/core/TextField';
+
+// TODO put in constants file
+const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
+const MAX_BIO_INPUT_LENGTH = 300;
 
 class UserEditForm extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      genres: [],
+    }
 
     props.bindDomEvent({
         domId: 'open-edit-user-profile',
         eventType: 'click',
         callback: props.openDialog
     })
+
+    autoBind(this);
   }
+
+  componentWillMount() {
+
+    // TODO MOVE THIS! this is not the correct way to get data
+    this.props.getGenres().then(res => {
+      this.setState({
+        genres: res.data.results.map(result => result.name)
+      })
+    })
+  }
+
+  submit(values) {
+    const {
+      musicianid,
+      updateUserBio,
+    } = this.props;
+
+    let data = Object.assign({}, values, {
+      genres: values.genres,
+      image_hero: _.get(values, 'image_hero.file'),
+    });
+
+    data = filterUndefined(data);
+
+    return updateUserBio(data, musicianid);
+  }
+
   render() {
     const {
         closeDialog,
+        change,
+        image_hero_file_object,
+        error,
+        submitting,
+        handleSubmit,
+        classes,
+        currentValues,
+        submitSucceeded,
     } = this.props;
-    const { error, submitting, handleSubmit } = this.props;
 
+    const {
+      genres
+    } = this.state;
+
+    console.log("this.props", this.props);
     return (
-      <form onSubmit={() => console.log('submitted')}>
+      <form onSubmit={handleSubmit(this.submit)}>
         <CancelConfirm
             onClickCancel={closeDialog}
+            isLoading={submitting}
+            success={submitSucceeded}
         >
-          <Display1>Edit Basic Info</Display1>
           <Grid container spacing={24} direction="row">
+            <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
+              <Display1>Edit Basic Info</Display1>
+            </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Caption>PICTURE AVATAR</Caption>
+              <Caption >PICTURE AVATAR</Caption>
             </Grid>
              <InputButtons
                 component={Input}
-                id="email"
-                label="Email"
-                labelClass="sr-only"
-                name="email"
-                placeholder="Email"
-                type="email"
-                validate={[required()]}
+                id="image_hero"
+                label="image_hero"
+                name="image_hero.name"
+                placeholder="Your Avatar"
+                type="text"
               >
-                <UploadButton/>
+                <ImageUploadContainer
+                  onUpload={values => change('image_hero', values)}
+                >
+                  <UploadButton/>
+                </ImageUploadContainer>
               </InputButtons>
+
+              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+                <Caption >SOCIAL PROFILES</Caption>
+              </Grid>
              <InputButtons
                 component={Input}
-                id="email"
-                label="Email"
-                labelClass="sr-only"
-                name="email"
-                placeholder="Email"
-                type="email"
+                id="facebook"
+                label="facebook"
+                name="facebook"
+                placeholder="Connect Facebook account"
+                type="text"
                 validate={[required()]}
               >
                 <AddButton/>
-                <DeleteButton/>
+                <DeleteButton
+                  disabled={!currentValues.facebook}
+                  onClick={() => change('facebook', '')}
+                />
               </InputButtons>
              <InputButtons
                 component={Input}
-                id="email"
-                label="Email"
-                labelClass="sr-only"
-                name="email"
-                placeholder="Email"
-                type="email"
+                id="instagram"
+                label="instagram"
+                name="instagram"
+                placeholder="Connect Instagram account"
+                type="text"
                 validate={[required()]}
               >
                 <AddButton/>
-                <DeleteButton/>
+                <DeleteButton
+                  disabled={!currentValues.instagram}
+                  onClick={() => change('instagram', '')}
+                />
               </InputButtons>
              <InputButtons
                 component={Input}
-                id="email"
-                label="Email"
-                labelClass="sr-only"
-                name="email"
-                placeholder="Email"
-                type="email"
+                id="spotify"
+                label="spotify"
+                name="spotify"
+                placeholder="Connect Spotify account"
                 validate={[required()]}
               >
                 <AddButton/>
-                <DeleteButton/>
+                <DeleteButton
+                  disabled={!currentValues.spotify}
+                  onClick={() => change('spotify', '')}
+                />
               </InputButtons>
+            <Grid className={classes.caption}  item xs={12} sm={8} md={8} lg={8}>
+              <Caption >HOME TOWN</Caption>
+            </Grid>
+             <Grid className={classes.caption} item xs={12} sm={4} md={4} lg={4}>
+              <Caption >STATE</Caption>
+            </Grid>
             <Grid item xs={12} sm={8} md={8} lg={8}>
-              <Caption>HOME TOWN</Caption>
               <Field
-                  component={Select}
-                  id="state"
-                  label="state"
-                  labelClass="sr-only"
-                  name="state"
-                  placeholder="state"
-                  type="select"
-                  items={['one', 'two', 'three']}
-                  validate={[required()]}
-                  IconComponent={ExpandMore}
+                  component={Input}
+                  id="hometown"
+                  label="hometown"
+                  name="hometown"
+                  placeholder="What is your home town"
+                  type="text"
               />
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Caption>STATE</Caption>
               <Field
-                  component={Select}
+                  component={SelectState}
                   id="state"
                   label="state"
-                  labelClass="sr-only"
                   name="state"
                   placeholder="state"
                   type="select"
-                  items={['one', 'two', 'three']}
                   validate={[required()]}
-                  IconComponent={ExpandMore}
               />
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Caption>GENRE</Caption>
+            <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+              <Caption >GENRE</Caption>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Field
                   component={Select}
-                  id="state"
-                  label="state"
-                  labelClass="sr-only"
-                  name="state"
-                  placeholder="state"
-                  type="select"
-                  items={['one', 'two', 'three']}
-                  validate={[required()]}
-                  IconComponent={ExpandMore}
+                  id="genre"
+                  label="genre"
+                  name="genres.0"
+                  placeholder="genre"
+                  items={genres}
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Field
                   component={Select}
-                  id="state"
-                  label="state"
-                  labelClass="sr-only"
-                  name="state"
-                  placeholder="state"
-                  type="select"
-                  items={['one', 'two', 'three']}
-                  validate={[required()]}
-                  IconComponent={ExpandMore}
+                  id="genre"
+                  label="genre"
+                  name="genres.1"
+                  placeholder="genre"
+                  items={genres}
                 />
               </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Field
                   component={Select}
-                  id="state"
-                  label="state"
-                  labelClass="sr-only"
-                  name="state"
-                  placeholder="state"
-                  type="select"
-                  items={['one', 'two', 'three']}
-                  validate={[required()]}
-                  IconComponent={ExpandMore}
+                  id="genre"
+                  label="genre"
+                  name="genres.2"
+                  placeholder="genre"
+                  items={genres}
                 />
+              </Grid>
+              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+                <Caption >WEBSITE</Caption>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>WEBSITE</Caption>
                 <Field
                   component={Input}
                   id="website"
                   label="website"
-                  labelClass="sr-only"
                   name="website"
                   placeholder="website"
                   type="text"
                   validate={[required()]}
                 />
             </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>WEBSITE</Caption>
-                <Field
-                  component={Input}
-                  id="website"
-                  label="website"
-                  labelClass="sr-only"
-                  name="website"
-                  placeholder="website"
-                  type="textarea"
-                  validate={[required()]}
-                />
-            </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>WEBSITE</Caption>
-                <Field
-                  component={TextField}
-                  id="website"
-                  label="website"
-                  name="website"
-                  placeholder="website"
-                  type="textarea"
-                  validate={[required()]}
-                  multiline
-                  fullWidth
-                />
-            </Grid>
-             <Field
-                  component={TextField}
+              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+                <Caption>SUMMARY</Caption>
+                <TextCount
+                  maxLength={MAX_BIO_INPUT_LENGTH}
+                  currentLength={currentValues.bio.length}
+                >
+                  <Field
+                    component={TextArea}
+                    id="bio"
+                    label="bio"
+                    name="bio"
+                    placeholder="bio"
+                    type="textarea"
+                    onChange={changeObj => {
 
-                  multiline
-                  fullWidth
-                />
-            <TextField multiline fullWidth rows={6}/>
+                      // TODO move this out of the onChange function
+                      // prevent input form going beyond MAX_BIO_INPUT_LENGTH in characters
+                      if (changeObj.target.value.length > MAX_BIO_INPUT_LENGTH) {
+                        change('bio', changeObj.target.value.subString(0, MAX_BIO_INPUT_LENGTH))
+                      }
+
+                        return changeObj
+                      }
+                    }
+                    multiline
+                    fullWidth
+                  />
+                </TextCount>
+              </Grid>
           </Grid>
         </CancelConfirm>
       </form>
@@ -229,7 +294,8 @@ class UserEditForm extends Component {
   }
 }
 
-
+// TODO these can probably be combined
+UserEditForm = withStyles(styles)(UserEditForm)
 
 UserEditForm = compose(
     BindDomEvent,
@@ -237,82 +303,30 @@ UserEditForm = compose(
 )(UserEditForm);
 
 UserEditForm = reduxForm({
-  form: 'loginForm',
+  form: EDIT_BASIC_INFO,
 })(UserEditForm);
 
-export default connect()(UserEditForm);
-/*
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
-import { required } from 'redux-form-validators';
-import autobind from 'react-autobind';
+const mapStateToProps = (state, props) => ({
 
+  // TODO add defaults value function
+  initialValues: {
+    stage_name: props.stage_name,
+    image_hero: props.avatar,
+    facebook: props.facebook,
+    instagram: props.instagram,
+    spotify: props.spotify,
+    hometown: props.hometown,
+    genres: props.genres.split(', ') || [],
+    state: props.state,
+    website: props.website,
+    bio: props.bio,
+  },
+  currentValues: getFormValues(EDIT_BASIC_INFO)(state),
 
-export class LoginForm extends React.Component {
-  static propTypes = {
-    submitting: PropTypes.bool,
-    error: PropTypes.string,
-    handleSubmit: PropTypes.func.isRequired,
-  }
+  // TODO this should go into bindActionCreators and be used as an action
+  updateUserBio: updateUserBio,
+  getGenres: getGenres,
+  musicianId: props.musicianId,
+})
 
-  static defaultProps = {
-    submitting: false,
-    error: '',
-  }
-
-  constructor(props) {
-    super(props);
-
-    autobind(this);
-  }
-
-  submit (values, dispatch) {
-    return dispatch(login(values));
-  }
-
-  render() {
-    const { error, submitting, handleSubmit } = this.props;
-
-    return (
-      <div className="row">
-        <div className="col">
-          <Gate permitted={!!error}>
-            <div className="alert alert-danger">{error}</div>
-          </Gate>
-          <Form className="row justify-content-center" onSubmit={handleSubmit(this.submit)}>
-            <Field
-              containerClass="col col-sm-5"
-              className="form-control mb-2 mr-sm-2 mb-sm-0"
-              component={FormField}
-              id="email"
-              label="Email"
-              labelClass="sr-only"
-              name="email"
-              placeholder="Email"
-              type="email"
-              validate={[required()]}
-            />
-            <Field
-              containerClass="col col-sm-5"
-              className="form-control mb-2 mr-sm-2 mb-sm-0"
-              component={FormField}
-              id="password"
-              label="Password"
-              labelClass="sr-only"
-              name="password"
-              placeholder="Password"
-              type="password"
-              validate={[required()]}
-            />
-            <Button type="submit" color="primary" className="h-100" disabled={submitting}>Log In</Button>
-          </Form>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default reduxForm({
-  form: 'loginForm',
-})(LoginForm);*/
+export default connect(mapStateToProps)(UserEditForm);

@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
 import { Field } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
-import AdjustButton from './AdjustButton';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
 
 const InputButtons = (props) => {
     const {
         children,
+        classes
     } = props;
 
     const fullWidth = 12;
     const count = React.Children.count(children);
-    console.log("count", count);
 
     const mediumInput = fullWidth - count;
     const smallInput = mediumInput - Math.floor(count * 0.5);
@@ -33,7 +34,7 @@ const InputButtons = (props) => {
                 >
                   {
                     React.Children.map(children, child =>
-                        <AdjustButton>{React.cloneElement(child)}</AdjustButton>
+                        React.cloneElement(child, {className: classes.button})
                     )
                   }
               </Grid>
@@ -42,4 +43,4 @@ const InputButtons = (props) => {
     )
 }
 
-export default InputButtons;
+export default withStyles(styles)(InputButtons);

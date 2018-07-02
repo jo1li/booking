@@ -1,10 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { withStyles, withTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../../theme';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { createMuiTheme } from '@material-ui/core/styles';
+import Select from '@material-ui/core/Select';
+
+import theme from '../../theme';
+import { ExpandMore } from '../icons';
+
+const styles = theme => ({
+  icon: {
+    color: theme.palette.secondary.main,
+  },
+  underline: {
+    '&:after': {
+        borderBottom: `2px solid ${theme.palette.secondary.dark}`,
+    },
+    '&:before': {
+        borderBottom: `2px solid ${theme.palette.grey[200]}`,
+    },
+  }
+});
 
 // TOOD add docs on redux form  and material ui
 // https://redux-form.com/6.7.0/docs/api/form.md/
@@ -12,6 +29,7 @@ const ReduxFormSelect = ({
   input,
   label,
   placeholder,
+  classes,
   className,
   items,
   IconComponent,
@@ -19,9 +37,13 @@ const ReduxFormSelect = ({
   ...custom
 }) => {
   return (
-      <NativeSelect
+      <Select
           className={className}
-          IconComponent={IconComponent}
+          classes={{
+            icon: classes.icon,
+            underline: classes.underline,
+          }}
+          IconComponent={IconComponent || ExpandMore}
           fullWidth
           {...input}
           {...custom}
@@ -33,12 +55,12 @@ const ReduxFormSelect = ({
               items.map(child => {
                   const placeholder = _.isObject(child) ? child.placeholder : child;
                   const value = _.isObject(child) ? child.value : child;
-                  return <option value={value}>{placeholder}</option>
+                  return <option key={value} value={value}>{placeholder}</option>
                 }
               )
             }
-      </NativeSelect>
+      </Select>
     )
   }
 
-export default ReduxFormSelect;
+export default withStyles(styles)(ReduxFormSelect);

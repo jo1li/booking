@@ -28,7 +28,6 @@ class BindEvents extends Component {
         } = this.props;
 
         const childrenWithProps = React.Children.map(children, child => {
-            console.log('child', child.props)
             return React.cloneElement(child, { bindDomEvent: this.bind })
         });
 
@@ -37,7 +36,6 @@ class BindEvents extends Component {
 }
 
 const WrapBindEvents = WrappedComponent => props => {
-    console.log("WrappedComponent!!!!! props", props)
         return (
             <BindEvents>
                 <WrappedComponent {...props} />

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
-// import CloudUpload from '@material-ui/icons/CloudUpload';
 import { CloudUpload } from '../icons';
-// import Icon from '@material-ui/core/Icon';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

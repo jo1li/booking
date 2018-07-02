@@ -1,35 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { withStyles, withTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../../theme';
-import Input from '@material-ui/core/Input';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { createMuiTheme } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
 import ReduxFromField from '../HOComponents/ReduxFormField';
 
 
 const styles = theme => ({
   textArea: {
-    height: '30px',
+    height: '100px',
+    border: `2px solid ${theme.palette.grey[200]}`,
+    padding: theme.spacing.unit,
   },
+ underline: {
+    '&:after': {
+        borderBottom: `0px`,
+    },
+    '&:before': {
+        borderBottom: `0px`,
+    },
+    '&:hover:not($disabled):not($focused):not($error):before': {
+        borderBottom: `0px`,
+    }
+  },
+  input: {
+    height: '100%',
+  }
 });
 
 let TextArea = (props) => {
   const {
-    classes
-  } = props
+    classes,
+  } = props;
+
   return (
-        <TextField
+        <Input
             multiline
             fullWidth
-            rows={4}
             {...props}
+            rows={10}
+            type="textArea"
+            classes={{
+              underline: classes.underline,
+              input: classes.input
+            }}
             className={classes.textArea}
         />
     )
   }
 
-TextArea = withStyles(styles)(TextArea);
 
-export default compose(ReduxFromField)(TextField);
+export default compose(
+  ReduxFromField,
+   withStyles(styles)
+)(TextArea);

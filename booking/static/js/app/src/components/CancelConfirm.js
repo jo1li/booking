@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles';
-import { Save, Close } from './icons';
+import {
+    Save,
+    Close,
+    CheckCircle
+} from './icons';
 import Button from './form/Button';
 import RaisedButton from './form/RaisedButton';
 import Grid from '@material-ui/core/Grid';
+import { CircularProgress } from './form/ProgressIndicators';
 
 const styles = theme => ({
   contaner: {
@@ -27,6 +32,8 @@ class CancelConfirm  extends Component {
             children,
             onClickCancel,
             onClickConfirm,
+            isLoading,
+            success,
         } = this.props;
 
         return (
@@ -38,14 +45,22 @@ class CancelConfirm  extends Component {
                     <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
                         <Button onClick={onClickCancel}>
                             <Close />
-                            Cancel
+                            { !success ? 'Cancel' : 'Close' }
                         </Button>
                         <RaisedButton
                             type="submit"
                             onClick={onClickConfirm}
                         >
-                            <Save />
-                            Confirm
+
+                            {/* TODO refactor this, this is awful*/}
+                            { isLoading ? <CircularProgress /> : null }
+                            { !isLoading && success ? <CheckCircle /> : null }
+                            { !isLoading && !success ?
+                                <Fragment>
+                                    <Save />
+                                    Confirm
+                                </Fragment>: null
+                            }
                         </RaisedButton>
                     </Grid>
                 </Grid>

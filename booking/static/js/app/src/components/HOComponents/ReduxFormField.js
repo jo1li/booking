@@ -13,12 +13,14 @@ const ReduxFormFieldWrapper = WrappedComponent => ({
   input,
   label,
   meta: { touched, error },
-  ...custom
+  ...custom,
+  onChange,
 }) => {
   return (
         <WrappedComponent
-          hintText={label}
+
           errorText={touched && error}
+          onChange={onChange}
           {...input}
           {...custom}
           fullWidth
