@@ -242,6 +242,7 @@ $border-radius: 5px;
 		right: 0;
 		top: 0;
 		opacity: 1;
+		cursor: pointer;
 		@include animate (opacity);
 
 		&:hover,
