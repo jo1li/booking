@@ -1,6 +1,6 @@
 
 reload=True
-timeout=60
+timeout=120
 workers=3
 loglevel="debug"
 capture_output=True
