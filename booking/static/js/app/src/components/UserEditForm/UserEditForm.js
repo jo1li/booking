@@ -39,7 +39,7 @@ import styles from './styles';
 
 // TODO put in constants file
 const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
-const MAX_BIO_INPUT_LENGTH = 300;
+const MAX_BIO_SHORT_INPUT_LENGTH = 300;
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -251,22 +251,22 @@ class UserEditForm extends Component {
               <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
                 <Caption>SUMMARY</Caption>
                 <TextCount
-                  maxLength={MAX_BIO_INPUT_LENGTH}
-                  currentLength={currentValues.bio.length}
+                  maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                  currentLength={currentValues.bio_short.length}
                 >
                   <Field
                     component={TextArea}
-                    id="bio"
-                    label="bio"
-                    name="bio"
-                    placeholder="bio"
+                    id="bio_short"
+                    label="bio_short"
+                    name="bio_short"
+                    placeholder="bio_short"
                     type="textarea"
                     onChange={changeObj => {
 
                       // TODO move this out of the onChange function
-                      // prevent input form going beyond MAX_BIO_INPUT_LENGTH in characters
-                      if (changeObj.target.value.length > MAX_BIO_INPUT_LENGTH) {
-                        change('bio', changeObj.target.value.subString(0, MAX_BIO_INPUT_LENGTH))
+                      // prevent input form going beyond MAX_BIO_SHORT_INPUT_LENGTH in characters
+                      if (changeObj.target.value.length > MAX_BIO_SHORT_INPUT_LENGTH) {
+                        change('bio_short', changeObj.target.value.subString(0, MAX_BIO_SHORT_INPUT_LENGTH))
                       }
 
                         return changeObj
@@ -308,7 +308,7 @@ const mapStateToProps = (state, props) => ({
     genres: props.genres.split(', ') || [],
     state: props.state,
     website: props.website,
-    bio: props.bio,
+    bio_short: props.bio_short,
   },
   currentValues: getFormValues(EDIT_BASIC_INFO)(state),
 

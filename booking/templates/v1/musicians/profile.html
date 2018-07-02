@@ -25,7 +25,7 @@
     genres="{{ musician.genres|default_if_none:"" }}"
     state="{{ musician.state|default_if_none:""}}"
     website="{{ musician.website|default_if_none:"" }}"
-    bio="{{ musician.bio|default_if_none:"" }}"
+    bio_short="{{ musician.bio_short|default_if_none:"" }}"
 ></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
