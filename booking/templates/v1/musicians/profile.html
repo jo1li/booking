@@ -15,17 +15,17 @@
 
 <user-edit-form
     id="user-edit-form"
-    musicianId="{{ musician.pk }}"
+    musicianId="{{ musician.pk|default_if_none:"" }}"
     stage_name="{{ musician.stage_name }}"
     image_hero="{{ musician.image_hero.url }}"
-    facebook="{{ musician.facebook }}"
-    instagram="{{ musician.instagram }}"
-    spotify="{{ musician.spotify }}"
-    hometown="{{ musician.hometown }}"
-    genres="{{ musician.genres }}"
-    state="{{ musician.state}}"
-    website="{{ musician.website }}"
-    bio="{{ musician.bio }}"
+    facebook="{{ musician.facebook|default_if_none:"" }}"
+    instagram="{{ musician.instagram|default_if_none:"" }}"
+    spotify="{{ musician.spotify|default_if_none:"" }}"
+    hometown="{{ musician.hometown|default_if_none:"" }}"
+    genres="{{ musician.genres|default_if_none:"" }}"
+    state="{{ musician.state|default_if_none:""}}"
+    website="{{ musician.website|default_if_none:"" }}"
+    bio="{{ musician.bio|default_if_none:"" }}"
 ></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
@@ -265,5 +265,4 @@
         </div>
     </div>
 </section>
-<script src="http://localhost:3000/static/js/bundle.js"></script>
 {% endblock %}
