@@ -7,7 +7,6 @@ ALLOWED_HOSTS = [
     "localhost",
     "booking.localopuslive.io",
     "opus.ngrok.io",
-    "127.0.0.1",
 ]
 
 DATABASES = {
