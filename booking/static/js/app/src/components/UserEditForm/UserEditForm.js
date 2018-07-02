@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import {
   Field,
   reduxForm,
-  Form,
-  formValueSelector,
   getFormValues,
 } from 'redux-form';
-import { required, url } from 'redux-form-validators';
+import { required } from 'redux-form-validators';
 import autoBind from 'auto-bind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -40,8 +38,6 @@ import {
   getGenres,
 } from '../../request/requests';
 import styles from './styles';
-
-import TextField from '@material-ui/core/TextField';
 
 // TODO put in constants file
 const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
@@ -94,8 +90,6 @@ class UserEditForm extends Component {
     const {
         closeDialog,
         change,
-        image_hero_file_object,
-        error,
         submitting,
         handleSubmit,
         classes,
@@ -107,7 +101,6 @@ class UserEditForm extends Component {
       genres
     } = this.state;
 
-    console.log("this.props", this.props);
     return (
       <form onSubmit={handleSubmit(this.submit)}>
         <CancelConfirm
@@ -220,7 +213,7 @@ class UserEditForm extends Component {
                   id="genre"
                   label="genre"
                   name="genres.0"
-                  placeholder="genre"
+                  placeholder="Select a genre"
                   items={genres}
                 />
             </Grid>
@@ -230,7 +223,7 @@ class UserEditForm extends Component {
                   id="genre"
                   label="genre"
                   name="genres.1"
-                  placeholder="genre"
+                  placeholder="Select a genre"
                   items={genres}
                 />
               </Grid>
@@ -240,7 +233,7 @@ class UserEditForm extends Component {
                   id="genre"
                   label="genre"
                   name="genres.2"
-                  placeholder="genre"
+                  placeholder="Select a genre"
                   items={genres}
                 />
               </Grid>

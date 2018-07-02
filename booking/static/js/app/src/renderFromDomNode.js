@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
@@ -23,28 +23,6 @@ const theme = createMuiTheme({
         }
     }
 });
-
-// class DomLifeCycleEvents extends Component {
-//     constructor () {
-//         super();
-//         this.state = {}
-//     }
-//     componentWillMount() {
-//         this.props.onMount && this.props.onMount(newState => this.setState(newState), this.state);
-//     }
-
-//     componentWillUnmount() {
-//         this.props.onUnMount && this.props.onUnMount(this.state);
-//     }
-
-//     render() {
-//         const {
-//             componentProps,
-//             Component
-//         } = this.props;
-//         return <Component {...componentProps} {...this.state}/>
-//     }
-// }
 
 const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     const domNode = document.getElementById(node);

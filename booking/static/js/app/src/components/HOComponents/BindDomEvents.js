@@ -19,7 +19,7 @@ class BindEvents extends Component {
     }
 
     componentWillUnmount() {
-        this.unbind
+        this.unbind();
     }
 
     render() {

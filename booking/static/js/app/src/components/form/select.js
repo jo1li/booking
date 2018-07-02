@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import _ from 'lodash';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import Select from '@material-ui/core/Select';
-
-import theme from '../../theme';
 import { ExpandMore } from '../icons';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
   icon: {
@@ -20,6 +17,11 @@ const styles = theme => ({
     '&:before': {
         borderBottom: `2px solid ${theme.palette.grey[200]}`,
     },
+  },
+  menuItem: {
+    '&:disabled': {
+      opacity: '0.4',
+    }
   }
 });
 
@@ -47,15 +49,16 @@ const ReduxFormSelect = ({
           fullWidth
           {...input}
           {...custom}
+          displayEmpty
           >
-          <option value="" disabled>
+          <MenuItem value="" disabled classes={{root: classes.menuItem}}>
               {placeholder}
-          </option>
+          </MenuItem>
            {
               items.map(child => {
                   const placeholder = _.isObject(child) ? child.placeholder : child;
                   const value = _.isObject(child) ? child.value : child;
-                  return <option key={value} value={value}>{placeholder}</option>
+                  return <MenuItem key={value} value={value}>{placeholder}</MenuItem>
                 }
               )
             }

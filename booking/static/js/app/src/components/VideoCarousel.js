@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { compose } from 'redux'
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
-import { Display1 } from './typography';
 
 class VideoCarousel extends Component {
   constructor(props) {
@@ -37,9 +35,9 @@ class VideoCarousel extends Component {
     const { activeStep } = this.state;
     const { videosourcesjson } = this.props;
 
-    var videoSources = [];
+    let videoSources = [];
     if( videosourcesjson ) {
-      var videoSources = JSON.parse(videosourcesjson);
+      videoSources = JSON.parse(videosourcesjson);
     }
 
     const maxSteps = videoSources.length;

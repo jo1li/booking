@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles';
 import {
     Save,

@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { withStyles, withTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../../theme';
+import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import { createMuiTheme } from '@material-ui/core/styles';
 import ReduxFromField from '../HOComponents/ReduxFormField';
 
 const styles = theme => ({
@@ -19,6 +17,10 @@ const styles = theme => ({
 });
 
 const InputInternal = (props) => {
+    const {
+        classes,
+    } = props;
+
     return <Input
         classes={classes}
         {...props}
@@ -28,4 +30,4 @@ const InputInternal = (props) => {
 export default compose(
     ReduxFromField,
     withStyles(styles)
-)(Input);
+)(InputInternal);

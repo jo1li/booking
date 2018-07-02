@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
 import ReduxFromField from '../HOComponents/ReduxFormField';
-
 
 const styles = theme => ({
   textArea: {

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import './index.css';
 import VideoCarousel from './components/VideoCarousel';
 import UserEditForm from './components/UserEditForm';
 import RenderFromDomNode from './renderFromDomNode';
+console.log("here")
 
 RenderFromDomNode({
     Component: UserEditForm,
