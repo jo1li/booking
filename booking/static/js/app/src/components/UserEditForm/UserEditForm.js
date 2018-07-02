@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
-import BindDomEvent from '../HOComponents/BindDomEvents';
+// import BindDomEvent from '../HOComponents/BindDomEvents';
 import FullScreenDialog from '../modal/FullScreenDialog';
 
 import { Display1, Caption } from '../typography';
@@ -51,11 +51,11 @@ class UserEditForm extends Component {
       genres: [],
     }
 
-    props.bindDomEvent({
-        domId: 'open-edit-user-profile',
-        eventType: 'click',
-        callback: props.openDialog
-    })
+    // props.bindDomEvent({
+    //     domId: 'open-edit-user-profile',
+    //     eventType: 'click',
+    //     callback: props.openDialog
+    // })
 
     autoBind(this);
   }
@@ -291,7 +291,7 @@ class UserEditForm extends Component {
 UserEditForm = withStyles(styles)(UserEditForm)
 
 UserEditForm = compose(
-    BindDomEvent,
+    // BindDomEvent,
     FullScreenDialog,
 )(UserEditForm);
 

@@ -27,16 +27,20 @@ const theme = createMuiTheme({
 const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     const domNode = document.getElementById(node);
 
+    if (!domNode) {
+        return;
+    }
+
     const mappedKeys = _.mapKeys(domNode.attributes, value => value.nodeName)
     const componentProps = _.mapValues(mappedKeys, value => domNode.getAttribute(value.nodeName))
 
     ReactDOM.render(
             <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
-                <Component
-                    {...componentProps}
-                />
-        </Provider>
+                <Provider store={store}>
+                        <Component
+                            {...componentProps}
+                        />
+                </Provider>
             </MuiThemeProvider>
         , domNode);
 }

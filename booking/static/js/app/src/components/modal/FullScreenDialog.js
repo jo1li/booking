@@ -4,6 +4,7 @@ import DialogBase from './DialogBase';
 const FullScreenDialog = WrappedComponent => props => {
         return (
             <DialogBase
+                onMount={props.onMount}
                 fullWidth
                 maxWidth={false}
                 fullScreen

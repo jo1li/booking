@@ -52,7 +52,10 @@ const ReduxFormSelect = ({
           displayEmpty
           >
           <MenuItem value="" disabled classes={{root: classes.menuItem}}>
+            {/* temporary work around becuase the disabled prop above is not activating styles properly */}
+            <div style={{opacity: '0.4'}}>
               {placeholder}
+            </div>
           </MenuItem>
            {
               items.map(child => {

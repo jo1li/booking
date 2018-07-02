@@ -6,11 +6,15 @@ class DialogBase extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: true,
+      open: false,
     }
 
     autoBind(this)
   };
+
+  componentWillMount() {
+    this.props.onMount && this.props.onMount(this.open, this.close);
+  }
 
   open() {
     this.setState({ open: true });
