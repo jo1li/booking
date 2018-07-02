@@ -6,14 +6,12 @@ import {
   reduxForm,
   getFormValues,
 } from 'redux-form';
-import { required } from 'redux-form-validators';
 import autoBind from 'auto-bind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
-// import BindDomEvent from '../HOComponents/BindDomEvents';
 import FullScreenDialog from '../modal/FullScreenDialog';
 
 import { Display1, Caption } from '../typography';
@@ -50,12 +48,6 @@ class UserEditForm extends Component {
     this.state = {
       genres: [],
     }
-
-    // props.bindDomEvent({
-    //     domId: 'open-edit-user-profile',
-    //     eventType: 'click',
-    //     callback: props.openDialog
-    // })
 
     autoBind(this);
   }
@@ -140,7 +132,6 @@ class UserEditForm extends Component {
                 name="facebook"
                 placeholder="Connect Facebook account"
                 type="text"
-                validate={[required()]}
               >
                 <AddButton/>
                 <DeleteButton
@@ -155,7 +146,6 @@ class UserEditForm extends Component {
                 name="instagram"
                 placeholder="Connect Instagram account"
                 type="text"
-                validate={[required()]}
               >
                 <AddButton/>
                 <DeleteButton
@@ -169,7 +159,6 @@ class UserEditForm extends Component {
                 label="spotify"
                 name="spotify"
                 placeholder="Connect Spotify account"
-                validate={[required()]}
               >
                 <AddButton/>
                 <DeleteButton
@@ -201,7 +190,6 @@ class UserEditForm extends Component {
                   name="state"
                   placeholder="state"
                   type="select"
-                  validate={[required()]}
               />
             </Grid>
             <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
@@ -248,7 +236,6 @@ class UserEditForm extends Component {
                   name="website"
                   placeholder="website"
                   type="text"
-                  validate={[required()]}
                 />
             </Grid>
               <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
@@ -291,7 +278,6 @@ class UserEditForm extends Component {
 UserEditForm = withStyles(styles)(UserEditForm)
 
 UserEditForm = compose(
-    // BindDomEvent,
     FullScreenDialog,
 )(UserEditForm);
 
