@@ -14,11 +14,10 @@
 {% block main %}
 
 <user-edit-form
-    :dialog="editBioOpen"
     id="user-edit-form"
     musicianId="{{ musician.pk }}"
     stage_name="{{ musician.stage_name }}"
-    avatar="{{ musician.avatar}}"
+    image_hero="{{ musician.image_hero.url }}"
     facebook="{{ musician.facebook }}"
     instagram="{{ musician.instagram }}"
     spotify="{{ musician.spotify }}"
@@ -26,9 +25,7 @@
     genres="{{ musician.genres }}"
     state="{{ musician.state}}"
     website="{{ musician.website }}"
-    summery="{{ musician.summery }}"
     bio="{{ musician.bio }}"
-    :close="closeBioOpen"
 ></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
