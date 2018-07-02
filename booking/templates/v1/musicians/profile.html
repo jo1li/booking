@@ -17,7 +17,7 @@
     id="user-edit-form"
     musicianId="{{ musician.pk|default_if_none:"" }}"
     stage_name="{{ musician.stage_name }}"
-    image_hero="{{ musician.image_hero.url }}"
+    image="{{ musician.image_url }}"
     facebook="{{ musician.facebook|default_if_none:"" }}"
     instagram="{{ musician.instagram|default_if_none:"" }}"
     spotify="{{ musician.spotify|default_if_none:"" }}"

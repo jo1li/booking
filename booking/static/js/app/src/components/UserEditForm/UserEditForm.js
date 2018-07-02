@@ -70,7 +70,7 @@ class UserEditForm extends Component {
 
     let data = Object.assign({}, values, {
       genres: values.genres,
-      image_hero: _.get(values, 'image_hero.file'),
+      image: _.get(values, 'image.file'),
     });
 
     data = filterUndefined(data);
@@ -109,14 +109,14 @@ class UserEditForm extends Component {
             </Grid>
              <InputButtons
                 component={Input}
-                id="image_hero"
-                label="image_hero"
-                name="image_hero.name"
+                id="image"
+                label="image"
+                name="image.name"
                 placeholder="Your Avatar"
                 type="text"
               >
                 <ImageUploadContainer
-                  onUpload={values => change('image_hero', values)}
+                  onUpload={values => change('image', values)}
                 >
                   <UploadButton/>
                 </ImageUploadContainer>
@@ -290,7 +290,7 @@ const mapStateToProps = (state, props) => ({
   // TODO add defaults value function
   initialValues: {
     stage_name: props.stage_name,
-    image_hero: props.avatar,
+    image: props.avatar,
     facebook: props.facebook,
     instagram: props.instagram,
     spotify: props.spotify,
