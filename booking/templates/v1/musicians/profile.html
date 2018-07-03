@@ -12,6 +12,21 @@
 {% endblock og %}
 
 {% block main %}
+
+<user-edit-form
+    id="user-edit-form"
+    musicianId="{{ musician.pk|default_if_none:"" }}"
+    stage_name="{{ musician.stage_name }}"
+    image="{{ musician.image_url }}"
+    facebook="{{ musician.facebook|default_if_none:"" }}"
+    instagram="{{ musician.instagram|default_if_none:"" }}"
+    spotify="{{ musician.spotify|default_if_none:"" }}"
+    hometown="{{ musician.hometown|default_if_none:"" }}"
+    genres="{{ musician.genres|default_if_none:"" }}"
+    state="{{ musician.state|default_if_none:""}}"
+    website="{{ musician.website|default_if_none:"" }}"
+    bio_short="{{ musician.bio_short|default_if_none:"" }}"
+></user-edit-form>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
@@ -39,7 +54,7 @@
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                        <div class="edit"><img v-on:click="openEditBio" id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
                     </div>
 
                     <div class="artist-photo text-center">
@@ -64,7 +79,7 @@
                     <div class="info text-center">
                         <p class="body-text">{{ musician.hometown }}, {{ musician.state }}</p>
                         <p class="body-text">{{ musician.genres|opus_replace:"search=, &replace= / " }}</p>
-                        {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}">{{ musician.website }}</a></p>{% endif %}
+                        {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}" target="_blank">{{ musician.website }}</a></p>{% endif %}
                     </div>
 
                     <div class="about">
@@ -250,5 +265,4 @@
         </div>
     </div>
 </section>
-<script src="http://localhost:3000/static/js/bundle.js"></script>
 {% endblock %}
