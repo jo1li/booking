@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindDomEvent } from '../../utils/domHelpers';
-import autoBind from 'auto-bind';
+import autoBind from 'react-autobind';
 
 class BindEvents extends Component {
     constructor(props) {

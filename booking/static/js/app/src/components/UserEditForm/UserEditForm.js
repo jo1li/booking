@@ -6,7 +6,7 @@ import {
   reduxForm,
   getFormValues,
 } from 'redux-form';
-import autoBind from 'auto-bind';
+import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash'

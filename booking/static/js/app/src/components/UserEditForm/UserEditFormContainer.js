@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import BindDomEvent from '../HOComponents/BindDomEvents';
 import UserEditForm from './UserEditForm';
-import autoBind from 'auto-bind';
+import autoBind from 'react-autobind';
 
 class UserEditFormContainer extends Component {
     constructor() {

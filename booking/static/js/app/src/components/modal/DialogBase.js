@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import autoBind from 'auto-bind';
+import autoBind from 'react-autobind';
 
 class DialogBase extends React.Component {
   constructor(props) {

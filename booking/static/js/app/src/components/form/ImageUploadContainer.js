@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import autoBind from 'auto-bind';
+import autoBind from 'react-autobind';
 
 /**
  * Input that Handles uploading an image and correctly orienting the image.
