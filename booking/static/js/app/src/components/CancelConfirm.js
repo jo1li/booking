@@ -57,7 +57,7 @@ class CancelConfirm  extends Component {
                             { !isLoading && !success ?
                                 <Fragment>
                                     <Save />
-                                    Confirm
+                                    Save
                                 </Fragment>: null
                             }
                         </RaisedButton>
