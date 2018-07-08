@@ -2,13 +2,18 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
+from html.parser import HTMLParser
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.urls import reverse
 
+from localflavor.us.models import USStateField
 from ordered_model.models import OrderedModel
+
+import tagulous
+from tagulous.models import TagField
 
 from home.models import OpusUser
 
@@ -17,6 +22,42 @@ import twitter
 import spotipy
 import spotipy.util as util
 from urllib import parse
+
+class GenreTag(tagulous.models.TagModel):
+    class TagMeta:
+        genres = [
+            "African",
+            "Alternative",
+            "Ambient",
+            "Americana",
+            "Asian",
+            "Avant-Garde",
+            "Blues",
+            "Caribbean",
+            "Christian",
+            "Classical",
+            "Comedy",
+            "Country",
+            "Electronic",
+            "Folk",
+            "Hip Hop",
+            "Jazz",
+            "Latin",
+            "Metal",
+            "Pop",
+            "R&B",
+            "Rock",
+            "Spoken Word",
+            "World",
+        ]
+        initial = ','.join(genres)
+
+class HtmlSrcGetter(HTMLParser):
+    """Used to extract `src` attribute from iframes provided by the user"""
+    def handle_starttag(self, tag, attrs):
+        for name, value in attrs:
+            if name == 'src':
+                self.src = value
 
 class Musician(TimeStampedModel):
 
@@ -34,12 +75,11 @@ class Musician(TimeStampedModel):
     # Need to think of a better name for band/individual
     # type =
 
-    # When we get tagging in, we should implement here
-    # instrument # Only if an individual
-    # genre
+    genres = tagulous.models.TagField(to=GenreTag, blank=True)
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)
+    state = USStateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 
@@ -54,12 +94,26 @@ class Musician(TimeStampedModel):
     spotify = models.CharField(max_length=256, null=True, blank=True)
 
 
+    def __str__(self):
+        return self.stage_name
+
     def url_fq(self):
         return reverse('musician_profile', kwargs={'slug': self.slug})
 
 
     def url_api(self):
         return reverse('artist-detail', kwargs={'version': settings.DEFAULT_VERSION, 'pk': self.pk})
+
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
+    @property
+    def image_hero_url(self):
+        if self.image_hero and hasattr(self.image_hero, 'url'):
+            return self.image_hero.url
 
 
     def spotify_followers(self):
@@ -140,14 +194,18 @@ class Musician(TimeStampedModel):
 
 
 class MusicianAudio(TimeStampedModel, OrderedModel):
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='audios')
     code = models.TextField()
-
 
 class MusicianVideo(TimeStampedModel, OrderedModel):
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='videos')
     code = models.TextField()
 
+    @property
+    def src(self):
+        parser = HtmlSrcGetter()
+        parser.feed(self.code)
+        return parser.src
 
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):
