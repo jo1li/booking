@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import VideoCarousel from './components/VideoCarousel';
+import IframeCarousel from './components/IframeCarousel';
 import UserEditForm from './components/UserEditForm';
 import RenderFromDomNode from './renderFromDomNode';
 
@@ -10,6 +10,13 @@ RenderFromDomNode({
 })
 
 RenderFromDomNode({
-    Component: VideoCarousel,
+    Component: IframeCarousel,
     node: 'video-carousel',
+    className: 'iframe-carousel',
+})
+
+RenderFromDomNode({
+    Component: IframeCarousel,
+    node: 'audio-carousel',
+    className: 'iframe-carousel',
 })
