@@ -24,12 +24,12 @@ const InputButtons = (props) => {
 
     return (
         <Fragment>
-          <Grid item xs={12} sm={smallInput} md={mediumInput} lg={11}>
+          <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>
                 <Field
                   {...props}
                 />
             </Grid>
-            <Grid item zeroMinWidth xs={12} sm={smallButtons} md={mediumButtons} lg={1}>
+            <Grid item zeroMinWidth xs={12} sm={smallButtons} md={mediumButtons} lg={2}>
                <Grid
                   container
                   justify={isNotMobile ? "flex-end" : "center"}
