@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
+import { compose } from 'redux'
 import { Field } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import styles from './styles';
 
 const InputButtons = (props) => {
@@ -10,6 +12,7 @@ const InputButtons = (props) => {
         classes
     } = props;
 
+    const isNotMobile = isWidthUp('sm', props.width)
     const fullWidth = 12;
     const count = React.Children.count(children);
 
@@ -26,10 +29,10 @@ const InputButtons = (props) => {
                   {...props}
                 />
             </Grid>
-            <Grid item xs={12} sm={smallButtons} md={mediumButtons} lg={1}>
+            <Grid item zeroMinWidth xs={12} sm={smallButtons} md={mediumButtons} lg={1}>
                <Grid
                   container
-                  justify="flex-end"
+                  justify={isNotMobile ? "flex-end" : "center"}
                   direction="row"
                 >
                   {
@@ -43,4 +46,7 @@ const InputButtons = (props) => {
     )
 }
 
-export default withStyles(styles)(InputButtons);
+export default compose(
+    withStyles(styles),
+    withWidth(),
+)(InputButtons);

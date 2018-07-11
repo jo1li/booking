@@ -7,7 +7,6 @@ const FullScreenDialog = WrappedComponent => props => {
                 onMount={props.onMount}
                 fullWidth
                 maxWidth={false}
-                fullScreen
             >
                 <WrappedComponent {...props}/>
             </DialogBase>
