@@ -45,6 +45,7 @@ class GenreTag(tagulous.models.TagModel):
             "Latin",
             "Metal",
             "Pop",
+            "Punk",
             "R&B",
             "Rock",
             "Spoken Word",
