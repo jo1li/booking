@@ -12,6 +12,7 @@ from musicians.models import GenreTag
 import sure
 from sure import expect
 
+from http import HTTPStatus
 from collections import OrderedDict
 
 class ApiTest(OpusTestCase):
@@ -83,7 +84,7 @@ class ApiArtistTest(OpusTestCase):
         self.app_api.force_authenticate(user=self.m.user)
         result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
 
-        result.status_code.should.equal(200)
+        result.status_code.should.equal(HTTPStatus.OK)
 
         result.json()['stage_name'].should.equal(params['stage_name'])
         result.json()['hometown'].should.equal(params['hometown'])
@@ -91,6 +92,25 @@ class ApiArtistTest(OpusTestCase):
         self.m.refresh_from_db()
         self.m.stage_name.should.equal(params['stage_name'])
         self.m.hometown.should.equal(params['hometown'])
+
+
+    def test_artist_cloudinary_upload(self):
+
+        artist_api_url = self.reverse_api('artists-detail', kwargs={'pk': self.m.pk}) + "?filename=filename.jpg"
+
+        headers, cookies = self.get_api_reqs()
+        data = self.get_test_file()
+        data.update(self.get_test_file('image_hero', 'data/test_hero.jpg'))
+
+        self.app_api.force_authenticate(user=self.m.user)
+
+        response = self.app_api.put(artist_api_url, data, format='multipart')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        # Ensure the image comes back with a cloudinary URL
+        response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
+        response.json()['image_hero'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
+
 
 
 class ApiArtistVideoTest(OpusTestCase):
@@ -139,8 +159,5 @@ class ApiGenreTagTest(OpusTestCase):
         result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
 
         result = self.app_api.get(artist_api_url, headers=headers)
-
-        print("TEST")
-        print(result.json())
 
         result.json()['genres'].should.have.length_of(2)

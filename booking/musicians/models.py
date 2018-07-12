@@ -4,7 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 from django.db import models
 from html.parser import HTMLParser
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.urls import reverse
@@ -215,6 +215,15 @@ def signal_musician_pre_save(sender, **kwargs):
 
     if not instance.slug and instance.stage_name:
         instance.slug = slugify(instance.stage_name)
+
+
+@receiver(pre_delete, sender=Musician)
+def signal_musician_pre_delete(sender, **kwargs):
+
+    instance = kwargs['instance']
+
+    instance.image.delete()
+    instance.image_hero.delete()
 
 
 # Both of these fields would be better implemented as tags
