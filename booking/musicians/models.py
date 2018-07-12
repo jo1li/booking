@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
+from html.parser import HTMLParser
 
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
@@ -44,6 +45,7 @@ class GenreTag(tagulous.models.TagModel):
             "Latin",
             "Metal",
             "Pop",
+            "Punk",
             "R&B",
             "Rock",
             "Spoken Word",
@@ -51,6 +53,12 @@ class GenreTag(tagulous.models.TagModel):
         ]
         initial = ','.join(genres)
 
+class HtmlSrcGetter(HTMLParser):
+    """Used to extract `src` attribute from iframes provided by the user"""
+    def handle_starttag(self, tag, attrs):
+        for name, value in attrs:
+            if name == 'src':
+                self.src = value
 
 class Musician(TimeStampedModel):
 
@@ -96,6 +104,17 @@ class Musician(TimeStampedModel):
 
     def url_api(self):
         return reverse('artist-detail', kwargs={'version': settings.DEFAULT_VERSION, 'pk': self.pk})
+
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
+    @property
+    def image_hero_url(self):
+        if self.image_hero and hasattr(self.image_hero, 'url'):
+            return self.image_hero.url
 
 
     def spotify_followers(self):
@@ -179,11 +198,15 @@ class MusicianAudio(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='audios')
     code = models.TextField()
 
-
 class MusicianVideo(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='videos')
     code = models.TextField()
 
+    @property
+    def src(self):
+        parser = HtmlSrcGetter()
+        parser.feed(self.code)
+        return parser.src
 
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):

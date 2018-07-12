@@ -2,6 +2,7 @@ from django.conf import settings as _settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
+import json
 from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
@@ -105,9 +106,12 @@ class ArtistViewSet(mixins.ListModelMixin,
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
+    videos = musician.videos.all()
 
     context = {
         "musician": musician,
+        "videos": videos,
+        "videos_json": json.dumps([video.src for video in videos]),
     }
 
     return opus_render(request, "musicians/profile.html", context)

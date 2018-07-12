@@ -1,42 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import configureStore from './store';
 
-class DomLifeCycleEvents extends Component {
-    constructor () {
-        super();
-        this.state = {}
-    }
-    componentWillMount() {
-        this.props.onMount && this.props.onMount(newState => this.setState(newState), this.state);
-    }
+const store = configureStore();
 
-    componentWillUnmount() {
-        this.props.onUnMount && this.props.onUnMount(this.state);
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: "#7f9ca8",
+            main: "#526e79",
+            dark: "#27434d",
+            contrastText: "#fff",
+        },
+        secondary: {
+            light: "#53ecfd",
+            main: "#00b9d1",
+            dark: "#0089a0",
+            contrastText: "#fff",
+        }
     }
-
-    render() {
-        const {
-            componentProps,
-            Component
-        } = this.props;
-        return <Component {...componentProps} {...this.state}/>
-    }
-}
+});
 
 const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
     const domNode = document.getElementById(node);
+
+    if (!domNode) {
+        return;
+    }
 
     const mappedKeys = _.mapKeys(domNode.attributes, value => value.nodeName)
     const componentProps = _.mapValues(mappedKeys, value => domNode.getAttribute(value.nodeName))
 
     ReactDOM.render(
-        <DomLifeCycleEvents
-            onMount={onMount}
-            onUnMount={onUnMount}
-            componentProps={componentProps}
-            Component={Component}
-        />, domNode);
+            <MuiThemeProvider theme={theme}>
+                <Provider store={store}>
+                        <Component
+                            {...componentProps}
+                        />
+                </Provider>
+            </MuiThemeProvider>
+        , domNode);
 }
 
 export default RenderFromDomNode;
