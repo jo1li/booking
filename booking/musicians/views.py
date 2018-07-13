@@ -13,6 +13,7 @@ from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSer
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework.exceptions import PermissionDenied
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -31,6 +32,18 @@ class ArtistMediaViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
+
+
+    def perform_create(self, serializer):
+
+        musician_url = Musician.objects.get(pk=self.kwargs['artist_pk'])
+        logged_in_m = Musician.objects.get(user=self.request.user)
+
+        if musician_url != logged_in_m:
+            raise PermissionDenied(detail="Bad authorization")
+
+        serializer.save(musician=musician_url)
+
 
     def get_queryset(self):
         """
@@ -58,10 +71,7 @@ class ArtistVideoViewSet(ArtistMediaViewSet):
     serializer_class = ArtistVideoSerializer
 
 
-class ArtistAudioViewSet(mixins.ListModelMixin,
-                    mixins.CreateModelMixin,
-                    mixins.UpdateModelMixin,
-                    viewsets.GenericViewSet):
+class ArtistAudioViewSet(ArtistMediaViewSet):
     """
     GET /v1/artists/<id>/audios/:
     Return a list of an artists audios.
