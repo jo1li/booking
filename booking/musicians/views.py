@@ -8,7 +8,7 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
@@ -27,10 +27,22 @@ class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = GenreTag.objects.filter(protected=True)
 
 
-class ArtistVideoViewSet(mixins.ListModelMixin,
+class ArtistMediaViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the videos for
+        the user as determined by the <id> portion of the URL.
+        """
+
+        m = get_object_or_404(Musician, pk=self.kwargs['artist_pk'])
+        return self.serializer_class.Meta.model.objects.filter(musician=m)
+
+
+class ArtistVideoViewSet(ArtistMediaViewSet):
     """
     GET /v1/artists/<id>/videos/:
     Return a list of an artists videos.
@@ -43,8 +55,6 @@ class ArtistVideoViewSet(mixins.ListModelMixin,
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    queryset = MusicianVideo.objects.all()
     serializer_class = ArtistVideoSerializer
 
 
