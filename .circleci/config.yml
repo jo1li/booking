@@ -52,7 +52,7 @@ jobs:
           command: |
             set -x
             # cp .env.example .env
-            rm docker-compose.override.yaml
+            # rm docker-compose.override.yaml
 
       - run:
           command: sudo ~/booking/docker-compose build

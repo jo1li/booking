@@ -1,17 +1,26 @@
 import React from 'react';
 import DialogBase from './DialogBase';
+import withWidth from '@material-ui/core/withWidth';
 
-const FullScreenDialog = WrappedComponent => props => {
+let FullScreenDialog = ({ children, onMount, width }) => {
         return (
             <DialogBase
-                onMount={props.onMount}
-                fullWidth
+                onMount={onMount}
                 maxWidth={false}
-                fullScreen
+                fullScreen={width === 'sm'}
             >
-                <WrappedComponent {...props}/>
+                { children }
             </DialogBase>
         )
     }
 
-export default FullScreenDialog;
+FullScreenDialog = withWidth()(FullScreenDialog);
+
+const FullScreenDialogContainer = WrappedComponent => props =>
+    <FullScreenDialog
+        onMount={props.onMount}
+    >
+        <WrappedComponent {...props}/>
+    </FullScreenDialog>
+
+export default FullScreenDialogContainer;

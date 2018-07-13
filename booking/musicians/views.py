@@ -14,6 +14,7 @@ from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSer
 from rest_framework import serializers, viewsets, mixins, renderers, permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.parsers import JSONParser, MultiPartParser
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -63,11 +64,14 @@ class ArtistViewSet(mixins.ListModelMixin,
     PUT /v1/artists/<id>:
     Update a single artist instance.
 
+    To upload `image` and `image_hero` the API call must be sent as a MultiPartForm
+        https://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean
+
     Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
         When this call returns, it will return a string, but Get calls will return an array of objects.
-
     """
 
+    parser_classes = (JSONParser, MultiPartParser,)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
@@ -87,6 +91,16 @@ class ArtistViewSet(mixins.ListModelMixin,
     def update(self, *args, **kwargs):
         self.serializer_class = ArtistUpdateSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
+
+
+    def perform_update(self, serializer):
+
+        for i in ['image', 'image_hero']:
+            if self.request.data.get(i):
+                setattr(serializer, i, self.request.data.get(i))
+
+        return mixins.UpdateModelMixin.perform_update(self, serializer)
+
 
 
 def profile(request, slug=None):
@@ -180,6 +194,7 @@ def editor(request):
         musician.user = request.user
         musician.save()
 
+        # for genres
         form.save_m2m()
 
         # Show a success message

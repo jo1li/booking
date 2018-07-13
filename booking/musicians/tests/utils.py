@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.urls import reverse
 
@@ -16,6 +18,17 @@ class OpusTestCase(WebTest, TransactionTestCase):
         self.m = musician_recipe.make()
 
         self.app_api = APIClient()
+
+
+    def tearDown(self):
+        self.a.delete()
+
+        self.m.refresh_from_db()
+
+        self.m.image.delete()
+        self.m.image_hero.delete()
+
+        self.m.delete()
 
 
     def reverse_api(self, name, kwargs=None):
@@ -59,3 +72,11 @@ class OpusTestCase(WebTest, TransactionTestCase):
                 if 'sessionid' in header[1]:
                     tokenstr = header[1].split(';')[0]
                     return tokenstr.replace('sessionid=', '').strip()
+
+
+    def get_test_file(self, key='image', file='data/test_image.jpg'):
+
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+        f = open(os.path.join(dir_path, file), 'rb')
+        return {key: f}

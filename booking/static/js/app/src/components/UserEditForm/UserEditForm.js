@@ -5,6 +5,7 @@ import {
   Field,
   reduxForm,
   getFormValues,
+  SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +15,7 @@ import _ from 'lodash'
 import CancelConfirm from '../CancelConfirm';
 import FullScreenDialog from '../modal/FullScreenDialog';
 
-import { Display1, Caption } from '../typography';
+import { Caption } from '../typography';
 
 import InputButtons from './InputButtons';
 import {
@@ -23,12 +24,13 @@ import {
   AddButton,
 } from '../form/FabButton';
 
+import Button from '../form/Button';
+
 import Input from '../form/Input';
 import Select from '../form/Select';
 import TextArea from '../form/TextArea';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
-import { filterUndefined } from '../../utils/formHelpers';
 import TextCount from '../form/TextCount';
 
 import {
@@ -68,12 +70,10 @@ class UserEditForm extends Component {
       updateUserBio,
     } = this.props;
 
-    let data = Object.assign({}, values, {
+    const data = Object.assign({}, values, {
       genres: values.genres,
       image: _.get(values, 'image.file'),
     });
-
-    data = filterUndefined(data);
 
     return updateUserBio(data, musicianid).then(res => {
       // TODO: Prob a better to check for this
@@ -85,6 +85,12 @@ class UserEditForm extends Component {
         }, 1000);
       }
 
+    })
+    .catch(errors => {
+      console.log('errors', errors);
+      // throw new SubmissionError({
+      //   image: errors.image.join(', ')
+      // })
     });
   }
 
@@ -104,16 +110,15 @@ class UserEditForm extends Component {
     } = this.state;
 
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
         <CancelConfirm
             onClickCancel={closeDialog}
+            onClickConfirm={handleSubmit(this.submit)}
             isLoading={submitting}
             success={submitSucceeded}
+            title={'Edit Basic Info'}
         >
+      <form onSubmit={handleSubmit(this.submit)}>
           <Grid container spacing={24} direction="row">
-            <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
-              <Display1>Edit Basic Info</Display1>
-            </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Caption >PICTURE AVATAR</Caption>
             </Grid>
@@ -132,7 +137,7 @@ class UserEditForm extends Component {
                 </ImageUploadContainer>
               </InputButtons>
 
-              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+              <Grid  item xs={12} sm={12} md={12} lg={12}>
                 <Caption >SOCIAL PROFILES</Caption>
               </Grid>
              <InputButtons
@@ -143,8 +148,9 @@ class UserEditForm extends Component {
                 placeholder="Connect Facebook account"
                 type="text"
               >
-                <AddButton/>
+                <AddButton mobileText="CONNECT"/>
                 <DeleteButton
+                  mobileText="DISCONNECT"
                   disabled={!currentValues.facebook}
                   onClick={() => change('facebook', '')}
                 />
@@ -157,8 +163,9 @@ class UserEditForm extends Component {
                 placeholder="Connect Instagram account"
                 type="text"
               >
-                <AddButton/>
+                <AddButton mobileText="CONNECT"/>
                 <DeleteButton
+                  mobileText="DISCONNECT"
                   disabled={!currentValues.instagram}
                   onClick={() => change('instagram', '')}
                 />
@@ -170,16 +177,17 @@ class UserEditForm extends Component {
                 name="spotify"
                 placeholder="Connect Spotify account"
               >
-                <AddButton/>
+                <AddButton mobileText="CONNECT"/>
                 <DeleteButton
+                  mobileText="DISCONNECT"
                   disabled={!currentValues.spotify}
                   onClick={() => change('spotify', '')}
                 />
               </InputButtons>
-            <Grid className={classes.caption}  item xs={12} sm={8} md={8} lg={8}>
+            <Grid   item xs={12} sm={8} md={8} lg={8}>
               <Caption >HOME TOWN</Caption>
             </Grid>
-             <Grid className={classes.caption} item xs={12} sm={4} md={4} lg={4}>
+             <Grid  item xs={12} sm={4} md={4} lg={4}>
               <Caption >STATE</Caption>
             </Grid>
             <Grid item xs={12} sm={8} md={8} lg={8}>
@@ -202,7 +210,7 @@ class UserEditForm extends Component {
                   type="select"
               />
             </Grid>
-            <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+            <Grid  item xs={12} sm={12} md={12} lg={12}>
               <Caption >GENRE</Caption>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -235,7 +243,7 @@ class UserEditForm extends Component {
                   items={genres}
                 />
               </Grid>
-              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+              <Grid  item xs={12} sm={12} md={12} lg={12}>
                 <Caption >WEBSITE</Caption>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -248,7 +256,7 @@ class UserEditForm extends Component {
                   type="text"
                 />
             </Grid>
-              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Caption>SUMMARY</Caption>
                 <TextCount
                   maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
@@ -259,7 +267,7 @@ class UserEditForm extends Component {
                     id="bio_short"
                     label="bio_short"
                     name="bio_short"
-                    placeholder="bio_short"
+                    placeholder="Your bio"
                     type="textarea"
                     onChange={changeObj => {
 
@@ -278,8 +286,8 @@ class UserEditForm extends Component {
                 </TextCount>
               </Grid>
           </Grid>
-        </CancelConfirm>
       </form>
+        </CancelConfirm>
     );
   }
 }
