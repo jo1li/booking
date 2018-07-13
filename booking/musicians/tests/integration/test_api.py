@@ -1,6 +1,7 @@
 from django.core.management import call_command
 
 from musicians.tests.utils import OpusTestCase
+from musicians.tests.mommy_recipes import musician_recipe
 
 from musicians.models import GenreTag
 
@@ -106,7 +107,6 @@ class ApiArtistTest(OpusTestCase):
         response.json()['image_hero'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
 
 
-
 class ApiArtistVideoTest(OpusTestCase):
 
     def test_create(self):
@@ -125,6 +125,30 @@ class ApiArtistVideoTest(OpusTestCase):
 
         result.json()['code'].should.equal(params['code'])
         result.json()['musician'].should.equal(params['musician'])
+
+
+    def test_list(self):
+
+        # create a video for our user
+        self.m.videos.create(code="<iframe></iframe>")
+        self.m.save()
+
+        # set up a 2nd user
+        m2 = musician_recipe.make()
+        m2.videos.create(code="<iframe></iframe>")
+        m2.save()
+
+        artist_video_list_url = self.reverse_api('artist-videos-list', kwargs={'artist_pk': m2.pk})
+        headers, cookies = self.get_api_reqs()
+
+        self.app_api.force_authenticate(user=m2.user)
+        result = self.app_api.get(artist_video_list_url, {}, format="json", headers=headers)
+
+        result.json()['count'].should.equal(1)
+
+        result_ids = [r['id'] for r in result.json()['results']]
+        user_vid_ids = [v.pk for v in m2.videos.all()]
+        result_ids.should.equal(user_vid_ids)
 
 
 class ApiGenreTagTest(OpusTestCase):
