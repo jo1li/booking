@@ -34,6 +34,13 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ArtistAudioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MusicianAudio
+        fields = '__all__'
+
+
 class ArtistGenreTagSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False)

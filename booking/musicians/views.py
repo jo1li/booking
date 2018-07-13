@@ -8,7 +8,7 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
@@ -56,6 +56,27 @@ class ArtistVideoViewSet(ArtistMediaViewSet):
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = ArtistVideoSerializer
+
+
+class ArtistAudioViewSet(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/artists/<id>/audios/:
+    Return a list of an artists audios.
+
+    POST /v1/artists/<id>/audios/:
+    Create an artist audio instance.
+
+    PUT /v1/artists/<id>/audios/<id>:
+    Update a single artist video instance.
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = MusicianAudio.objects.all()
+    serializer_class = ArtistAudioSerializer
 
 
 class ArtistViewSet(mixins.ListModelMixin,
@@ -108,7 +129,6 @@ class ArtistViewSet(mixins.ListModelMixin,
                 setattr(serializer, i, self.request.data.get(i))
 
         return mixins.UpdateModelMixin.perform_update(self, serializer)
-
 
 
 def profile(request, slug=None):
