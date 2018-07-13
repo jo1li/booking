@@ -9,6 +9,7 @@ import Button from './form/Button';
 import RaisedButton from './form/RaisedButton';
 import Grid from '@material-ui/core/Grid';
 import { CircularProgress } from './form/ProgressIndicators';
+import { Display1 } from './typography';
 
 const styles = theme => ({
   contaner: {
@@ -18,6 +19,15 @@ const styles = theme => ({
     padding: '20px',
     paddingTop: '40px',
     paddingBottom: '40px',
+  },
+  caption: {
+    color: theme.palette.grey['A400'],
+  },
+  captionTop: {
+    margin: '0 12px',
+    padding: '12px 0px 5px!important',
+    color: theme.palette.grey['A400'],
+    borderBottom: `1px solid ${theme.palette.grey[200]}`,
   },
   buttonContainer: {
     textAlign: 'center',
@@ -33,11 +43,15 @@ class CancelConfirm  extends Component {
             onClickConfirm,
             isLoading,
             success,
+            title
         } = this.props;
 
         return (
             <div className={classes.contaner}>
                 <Grid container spacing={24}>
+                    <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
+                        <Display1 className={classes.caption} >{title}</Display1>
+                    </Grid>
                     <Grid item xs={12} lg={12}>
                         {children}
                     </Grid>
@@ -56,7 +70,7 @@ class CancelConfirm  extends Component {
                             { !isLoading && success ? <CheckCircle /> : null }
                             { !isLoading && !success ?
                                 <Fragment>
-                                    <Save />
+                                    <Save spaceRight />
                                     Save
                                 </Fragment>: null
                             }

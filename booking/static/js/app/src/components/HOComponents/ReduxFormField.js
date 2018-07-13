@@ -12,8 +12,7 @@ const ReduxFormFieldWrapper = WrappedComponent => ({
 }) => {
   return (
         <WrappedComponent
-
-          errorText={touched && error}
+          error={touched && error}
           onChange={onChange}
           {...input}
           {...custom}

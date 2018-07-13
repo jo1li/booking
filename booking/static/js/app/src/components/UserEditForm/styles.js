@@ -2,13 +2,10 @@ const styles = theme => ({
   button: {
     position: 'relative',
     top: '-15px',
-    marginLeft: '20px',
+    marginLeft: '15px',
     '&:first-child': {
       marginLeft: '0px',
     }
-  },
-  caption: {
-      marginTop: '20px',
   },
   captionTop: {
       margin: '0 12px',

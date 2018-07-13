@@ -10,6 +10,7 @@ const styles = theme => ({
     width: '44px',
     minWidth: '44px',
     borderRadius: '100%',
+    outline: 'none',
     borderColor: theme.palette.secondary.main,
     '&:disabled': {
         opacity: '0.2',

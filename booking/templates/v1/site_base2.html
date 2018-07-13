@@ -32,15 +32,12 @@
 </head>
 <body>
     <div id="wrapper">
-        <v-app light>
-
-            <div class="overlay"></div>
-            {% include "_header.html" %}
-            <main id="main">
-                {% block main %}{% endblock %}
-            </main>
-            {% include "_footer.html" %}
-        </v-app>
+        <div class="overlay"></div>
+        {% include "_header.html" %}
+        <main id="main">
+            {% block main %}{% endblock %}
+        </main>
+        {% include "_footer.html" %}
     </div>
     {% block footer_scripts %}{% endblock %}
 </body>
