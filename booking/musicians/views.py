@@ -1,4 +1,3 @@
-from django.conf import settings as _settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -11,8 +10,7 @@ from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
 from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
 
-from rest_framework import serializers, viewsets, mixins, renderers, permissions
-from rest_framework.response import Response
+from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
 
