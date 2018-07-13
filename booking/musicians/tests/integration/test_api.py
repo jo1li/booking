@@ -1,19 +1,13 @@
 from django.core.management import call_command
 
-from rest_framework.test import APIRequestFactory
-from rest_framework.test import force_authenticate
-
-from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
 from musicians.tests.utils import OpusTestCase
 
-from home.models import OpusUser
 from musicians.models import GenreTag
 
 import sure
 from sure import expect
 
 from http import HTTPStatus
-from collections import OrderedDict
 
 class ApiTest(OpusTestCase):
 
