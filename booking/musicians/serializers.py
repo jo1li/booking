@@ -1,5 +1,5 @@
 from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
-from rest_framework import serializers, viewsets, mixins, renderers
+from rest_framework import serializers
 
 
 artist_fields = (
