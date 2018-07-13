@@ -29,9 +29,11 @@ artist_fields = (
 
 class ArtistVideoSerializer(serializers.ModelSerializer):
 
+    artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+
     class Meta:
         model = MusicianVideo
-        fields = '__all__'
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
 
 
 class ArtistAudioSerializer(serializers.ModelSerializer):
@@ -40,7 +42,7 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianAudio
-        fields = ('code', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
 
 
 class ArtistGenreTagSerializer(serializers.ModelSerializer):

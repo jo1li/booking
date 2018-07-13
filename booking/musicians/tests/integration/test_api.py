@@ -116,7 +116,6 @@ class ApiArtistVideoTest(OpusTestCase):
         headers, cookies = self.get_api_reqs()
 
         params = {
-            'musician': self.m.pk,
             'code': '<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
         }
 
@@ -124,7 +123,7 @@ class ApiArtistVideoTest(OpusTestCase):
         result = self.app_api.post(artist_video_create_api_url, params, format="json", headers=headers)
 
         result.json()['code'].should.equal(params['code'])
-        result.json()['musician'].should.equal(params['musician'])
+        result.json()['artist'].should.equal(self.m.pk)
 
 
     def test_list(self):
