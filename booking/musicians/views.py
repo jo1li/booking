@@ -6,9 +6,9 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
+from .models import Musician, MusicianAudio, MusicianVideo, MusicianPhoto, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistPhotoSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
@@ -87,6 +87,33 @@ class ArtistAudioViewSet(ArtistMediaViewSet):
 
     queryset = MusicianAudio.objects.all()
     serializer_class = ArtistAudioSerializer
+
+
+class ArtistPhotoViewSet(ArtistMediaViewSet):
+    """
+    GET /v1/artists/<id>/photos/:
+    Return a list of an artists photos.
+
+    POST /v1/artists/<id>/photos/:
+    Create an artist photo instance.
+
+    PUT /v1/artists/<id>/photos/<id>:
+    Update a single artist photo instance.
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = MusicianPhoto.objects.all()
+    serializer_class = ArtistPhotoSerializer
+
+    def perform_create(self, serializer):
+        serializer.image = self.request.data.get('image')
+        return mixins.CreateModelMixin.perform_create(self, serializer)
+
+
+    def perform_update(self, serializer):
+        serializer.image = self.request.data.get('image')
+        return mixins.UpdateModelMixin.perform_update(self, serializer)
 
 
 class ArtistViewSet(mixins.ListModelMixin,

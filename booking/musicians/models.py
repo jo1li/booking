@@ -212,6 +212,11 @@ class MusicianVideo(TimeStampedModel, OrderedModel):
         return parser.src
 
 
+class MusicianPhoto(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
+    image = models.ImageField(upload_to='media/', blank=True)
+
+
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):
 
