@@ -106,9 +106,10 @@ class ArtistPhotoViewSet(ArtistMediaViewSet):
     queryset = MusicianPhoto.objects.all()
     serializer_class = ArtistPhotoSerializer
 
+
     def perform_create(self, serializer):
         serializer.image = self.request.data.get('image')
-        return mixins.CreateModelMixin.perform_create(self, serializer)
+        return super(ArtistPhotoViewSet, self).perform_create(serializer)
 
 
     def perform_update(self, serializer):

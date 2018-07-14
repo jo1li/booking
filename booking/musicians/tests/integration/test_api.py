@@ -211,6 +211,25 @@ class ApiArtistAudioTest(OpusTestCase):
         result_ids.should.equal(user_vid_ids)
 
 
+class ApiArtistPhotoTest(OpusTestCase):
+
+
+    def test_create(self):
+
+        artist_photos_api_url = self.reverse_api('artist-photos-list', kwargs={'artist_pk': self.m.pk})
+
+        headers, cookies = self.get_api_reqs()
+        data = self.get_test_file()
+
+        self.app_api.force_authenticate(user=self.m.user)
+
+        response = self.app_api.post(artist_photos_api_url, data, format='multipart')
+        self.assertEqual(response.status_code, HTTPStatus.CREATED)
+
+        # Ensure the image comes back with a cloudinary URL
+        response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
+
+
 class ApiGenreTagTest(OpusTestCase):
 
     def test_get(self):
