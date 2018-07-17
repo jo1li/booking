@@ -1,6 +1,12 @@
 from django.conf import settings
 from django.urls import reverse
 
+def static_js(request):
+    return {
+        'STATIC_JS_APP_BASE_URL': settings.STATIC_JS_APP_BASE_URL,
+        'STATIC_JS_APP_BUNDLE': settings.STATIC_JS_APP_BUNDLE
+    }
+
 def template_version(request):
     return {
         'design_version': settings.TEMPLATES_DESIGN_VERSION,

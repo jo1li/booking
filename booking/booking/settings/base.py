@@ -16,11 +16,14 @@ import os
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
-def get_env_variable(var_name):
+def get_env_variable(var_name, default=None):
     """ Get the environment variable or return exception """
     try:
         return os.environ[var_name]
     except KeyError:
+        if default is not None:
+            return default
+
         error_msg = "Set the %s env variable" % var_name
         raise Exception("ImproperlyConfigured {}".format(error_msg))
 
@@ -104,6 +107,7 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
 
+                "booking.context_processors.static_js",
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
                 "booking.context_processors.absolute_url",
@@ -177,6 +181,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder'
 ]
+
+STATIC_JS_APP_BASE_URL = 'http://localhost:3000/static/js/'
+STATIC_JS_APP_BUNDLE = get_env_variable('STATIC_JS_APP_BUNDLE', default='bundle.js')
 
 # Cloudinary
 # TODO: Eventually move to CLOUDINARY_URL
