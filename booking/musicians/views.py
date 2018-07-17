@@ -6,9 +6,9 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo, MusicianPhoto, GenreTag
+from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistPhotoSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
@@ -89,7 +89,7 @@ class ArtistAudioViewSet(ArtistMediaViewSet):
     serializer_class = ArtistAudioSerializer
 
 
-class ArtistPhotoViewSet(ArtistMediaViewSet):
+class ArtistImageViewSet(ArtistMediaViewSet):
     """
     GET /v1/artists/<id>/photos/:
     Return a list of an artists photos.
@@ -103,13 +103,13 @@ class ArtistPhotoViewSet(ArtistMediaViewSet):
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    queryset = MusicianPhoto.objects.all()
-    serializer_class = ArtistPhotoSerializer
+    queryset = MusicianImage.objects.all()
+    serializer_class = ArtistImageSerializer
 
 
     def perform_create(self, serializer):
         serializer.image = self.request.data.get('image')
-        return super(ArtistPhotoViewSet, self).perform_create(serializer)
+        return super(ArtistImageViewSet, self).perform_create(serializer)
 
 
     def perform_update(self, serializer):
