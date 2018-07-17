@@ -99,6 +99,10 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
     PUT /v1/artists/<id>/photos/<id>:
     Update a single artist photo instance.
+
+    NOTE: The image field is a Cloudinary image field. On GET, will return a
+        Cloudinary URL suitable for injecting directly into a src attribute. On
+        POST, this needs to be an image.
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

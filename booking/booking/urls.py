@@ -36,7 +36,7 @@ artist_router.register('genres', GenreTagViewSet, base_name='genres')
 artist_videos_router = routers.NestedSimpleRouter(artist_router, r'artists', lookup='artist')
 artist_videos_router.register(r'videos', ArtistVideoViewSet, base_name='artist-videos')
 artist_videos_router.register(r'audios', ArtistAudioViewSet, base_name='artist-audios')
-artist_videos_router.register(r'images', ArtistImageViewSet, base_name='artist-photos')
+artist_videos_router.register(r'photos', ArtistImageViewSet, base_name='artist-photos')
 
 urlpatterns = [
     path('', index, name="home"),
