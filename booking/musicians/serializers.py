@@ -1,4 +1,4 @@
-from .models import Musician, MusicianAudio, MusicianVideo, MusicianPhoto, GenreTag
+from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from rest_framework import serializers
 
 
@@ -45,12 +45,12 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
         fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
 
 
-class ArtistPhotoSerializer(serializers.ModelSerializer):
+class ArtistImageSerializer(serializers.ModelSerializer):
 
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
 
     class Meta:
-        model = MusicianPhoto
+        model = MusicianImage
         fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
 
 
@@ -74,7 +74,9 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
     audios = ArtistAudioSerializer(many=True, read_only=True)
-    photos = ArtistPhotoSerializer(many=True, read_only=True)
+
+    # Could be images, but plural images doesn't seem to work with singular image field
+    photos = ArtistImageSerializer(many=True, read_only=True)
     genres = ArtistGenreTagSerializer(many=True, read_only=True)
 
     class Meta:
