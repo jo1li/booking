@@ -30,7 +30,6 @@ export function updateMusicianVideos({musicianId, code}) {
 export function getMusicianVideos({musicianId}) {
     return (dispatch, getState) => {
         const request = requests.getVideos({musicianId}).then(res => {
-            debugger;
             // TODO: checking whether res is a 2xx status is built in right?
             dispatch(ActionCreators.videosCreateOrUpdate(res.data.results));
         });

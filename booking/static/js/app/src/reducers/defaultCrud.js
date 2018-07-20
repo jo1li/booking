@@ -39,27 +39,25 @@ import {
  */
 const defaultCrud = function (reducerName, configs) {
   const key = (configs && configs.key) || 'id';
-  return createReducer(
-    Immute.set({}),
-    {
+  const initialState = {};
+  return createReducer(initialState,
+  {
       [`${reducerName.toUpperCase()}${_CREATE_OR_UPDATE}`]: (state, action) => {
         // will merge an array of items or an individual object
         if (isArray(action.data)) {
-          state = Immute.set(Object.assign({}, state, keyBy(action.data, key)))
+          state = Object.assign({}, state, keyBy(action.data, key))
         } else if (isObject(action.data) && action.data[key]) {
           state = Immute.assign(state, action.data[key], action.data);
         } else if (!action.data[key]) {
           //TODO prevent this from blowing away data if there is already data in state
-          state = Immute.set(Object.assign({}, state, action.data));
+          state = Object.assign({}, state, action.data);
         }
 
-        debugger;
 
         return state;
       },
 
       [`${reducerName.toUpperCase()}${_DELETE}`]: (state, action) => {
-        state = Immute.set(state);
         if (isArray(action.data)) {
           each(action.data, (obj) => {
             state = Immute.del(state, obj[key]);
@@ -67,7 +65,7 @@ const defaultCrud = function (reducerName, configs) {
         } else if (isObject(action.data) && action.data[key]) {
           state = Immute.del(state, action.data[key]);
         } else {
-          state = Immute.set({});
+          state = {};
         }
 
         return state;

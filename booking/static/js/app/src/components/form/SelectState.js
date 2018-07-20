@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from './select';
+import Select from './Select';
 import states from '../../utils/states';
 
 const SelectState = (props) =>

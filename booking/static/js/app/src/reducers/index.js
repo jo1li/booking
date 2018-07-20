@@ -40,10 +40,6 @@ const combineReducerConfigs = {
  */
 export function createReducers(reducerConfigs, reducerConstants) {
     const reducersFromConstants = _.reduce(reducerConstants, (obj, key) => (obj[key] = defaultCrud(key), obj), {});
-
-    console.log(reducersFromConstants);
-    debugger;
-
     return combineReducers({
         ...reducersFromConstants,
         ...reducerConfigs,

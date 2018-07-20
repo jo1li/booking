@@ -86,9 +86,6 @@ const actionPartialsActionCreators =  fromPairs(
     },[])
 );
 
-console.log(actionPartialsActionCreators)
-debugger;
-
 const actionCreators =  merge(actionTypsActionCreators, actionPartialsActionCreators);
 
 export default actionCreators;
