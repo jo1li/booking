@@ -27,7 +27,7 @@ import {
 import Button from '../form/Button';
 
 import Input from '../form/Input';
-import Select from '../form/Select';
+import Select from '../form/select';
 import TextArea from '../form/TextArea';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
