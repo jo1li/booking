@@ -266,4 +266,11 @@
         </div>
     </div>
 </section>
+<script>
+    window.initialState = {
+        profile: {
+            id: "{{ musician.pk|default_if_none:"" }}",
+        },
+    };
+</script>
 {% endblock %}
