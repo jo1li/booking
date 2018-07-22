@@ -1,8 +1,4 @@
-import fromPairs from 'lodash/fromPairs';
-import map from 'lodash/map';
-import camelCase from 'lodash/camelCase';
-import merge from 'lodash/merge';
-import reduce from 'lodash/reduce';
+import _ from 'lodash';
 import * as ActionPartials from '../constants/actionPartials';
 import * as Reducers from '../constants/reducers';
 
@@ -51,16 +47,16 @@ const createAction = (type) => {
  *
  * see reducers/defaultCrud.js for more.
  */
-const actionPartialsActionCreators =  fromPairs(
-     reduce(Reducers, (arr, type) =>  {
-        let upperCaseType = type.toUpperCase()
-        let updateAction = `${upperCaseType}${ActionPartials._CREATE_OR_UPDATE}`;
-        let deleteAction = `${upperCaseType}${ActionPartials._DELETE}`;
-       arr.push([ camelCase(updateAction), createAction(updateAction)]);
-       arr.push([ camelCase(deleteAction), createAction(deleteAction)]);
+const actionPartialsActionCreators = _.fromPairs(
+  _.reduce(Reducers, (arr, type) => {
+    let upperCaseType = type.toUpperCase()
+    let updateAction = `${upperCaseType}${ActionPartials._CREATE_OR_UPDATE}`;
+    let deleteAction = `${upperCaseType}${ActionPartials._DELETE}`;
+    arr.push([_.camelCase(updateAction), createAction(updateAction)]);
+    arr.push([_.camelCase(deleteAction), createAction(deleteAction)]);
 
-       return arr;
-    },[])
+    return arr;
+  },[])
 );
 
 export default actionPartialsActionCreators;
