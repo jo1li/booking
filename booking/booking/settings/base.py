@@ -108,6 +108,7 @@ TEMPLATES = [
                 "booking.context_processors.home_url",
                 "booking.context_processors.absolute_url",
                 "booking.context_processors.common_words",
+                "booking.context_processors.env_vars",
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',

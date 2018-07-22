@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.urls import reverse
+import os
 
 def template_version(request):
     return {
@@ -43,3 +44,7 @@ def absolute_url(request):
     return {
         'absolute_url': "{0}://{1}{2}".format(proto, domain, path),
     }
+
+def env_vars(request):
+    env_vars = {}
+    return env_vars
