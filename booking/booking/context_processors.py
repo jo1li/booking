@@ -47,4 +47,5 @@ def absolute_url(request):
 
 def env_vars(request):
     env_vars = {}
+    env_vars['CLIENT_HOST'] = os.environ['CLIENT_HOST']
     return env_vars
