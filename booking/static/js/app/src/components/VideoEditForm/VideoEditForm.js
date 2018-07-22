@@ -70,6 +70,7 @@ class VideoEditForm extends Component {
       profile,
       updateMusicianVideo,
       createMusicianVideo,
+      closeDialog,
     } = this.props;
 
     const videosToUpdate = this.getChangedVideos();
