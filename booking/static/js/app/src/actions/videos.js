@@ -16,7 +16,7 @@ export function createMusicianVideo({musicianId, code}) {
 export function updateMusicianVideo({musicianId, videoId, code}) {
     return (dispatch, getState) => {
         const request = requests.updateVideo({musicianId, videoId, code}).then(res => {
-            dispatch(ActionCreators.videosCreateOrUpdate(res.data.results));
+            dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         })
     }
 }
