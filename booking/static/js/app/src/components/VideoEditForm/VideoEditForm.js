@@ -1,5 +1,8 @@
 // TODO: There is a lot of duplication between this module and UserEditForm.
 //       Plenty to DRY up.
+// TODO: This form isn't accessible if the user doesn't have any videos,
+//       because we only show the carousel with its heading and edit buttons
+//       if the user has videos. What should the entrypoint be for first videos?
 
 import React, { Component } from 'react';
 import { bindActionCreators, compose } from 'redux'
