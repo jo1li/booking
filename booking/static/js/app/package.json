@@ -10,6 +10,7 @@
     "cookie-machine": "^0.1.1",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
+    "object-path-immutable": "^3.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-autobind": "^1.0.6",
