@@ -27,6 +27,7 @@
     website="{{ musician.website|default_if_none:"" }}"
     bio_short="{{ musician.bio_short|default_if_none:"" }}"
 ></user-edit-form>
+<div id="video-edit-form"></div>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
@@ -95,7 +96,7 @@
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                        <div class="edit"><img id="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
                     </div>
                     <div
                         id="video-carousel"
