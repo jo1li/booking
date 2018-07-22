@@ -111,9 +111,9 @@ def profile(request, slug=None):
 
     context = {
         "musician": musician,
-        "videos": videos,
+        "videos_present": bool(videos),
         "videos_json": json.dumps([video.src for video in videos]),
-        "audios": audios,
+        "audios_present": bool(audios),
         "audios_json": json.dumps([audio.src for audio in audios]),
     }
 
