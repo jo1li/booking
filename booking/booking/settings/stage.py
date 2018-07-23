@@ -19,6 +19,8 @@ DATABASES = {
     }
 }
 
+STATIC_JS_APP_BASE_URL = '/static/js/app/build/static/js/'
+
 SITE_SSL_AVAILABLE = True
 SITE_DOMAIN = 'opus-booking-stage.appspot.com'
 

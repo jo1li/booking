@@ -1,5 +1,5 @@
-from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
-from rest_framework import serializers, viewsets, mixins, renderers
+from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
+from rest_framework import serializers
 
 
 artist_fields = (
@@ -29,9 +29,30 @@ artist_fields = (
 
 class ArtistVideoSerializer(serializers.ModelSerializer):
 
+    artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+
     class Meta:
         model = MusicianVideo
-        fields = '__all__'
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+
+
+class ArtistAudioSerializer(serializers.ModelSerializer):
+
+    artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+
+    class Meta:
+        model = MusicianAudio
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+
+
+class ArtistImageSerializer(serializers.ModelSerializer):
+
+    artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+
+    class Meta:
+        model = MusicianImage
+        fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
+
 
 
 class ArtistGenreTagSerializer(serializers.ModelSerializer):
@@ -52,11 +73,15 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     image_hero = serializers.ImageField(required=False, allow_empty_file=False)
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
+    audios = ArtistAudioSerializer(many=True, read_only=True)
+
+    # Could be images, but plural images doesn't seem to work with singular image field
+    photos = ArtistImageSerializer(many=True, read_only=True)
     genres = ArtistGenreTagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Musician
-        fields = artist_fields + ('videos', 'genres',)
+        fields = artist_fields + ('audios', 'videos', 'photos', 'genres',)
 
 
 class ArtistUpdateSerializer(ArtistSerializer):
