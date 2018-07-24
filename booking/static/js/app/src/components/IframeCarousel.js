@@ -86,7 +86,7 @@ class IframeCarousel extends Component {
   render() {
 
     const { activeStep } = this.state;
-    const { videosourcesjson, classes, id } = this.props;
+    const { videosourcesjson, classes, id, IMAGES_URL } = this.props;
 
     let videoSources = [];
     if( videosourcesjson ) {
@@ -132,7 +132,7 @@ class IframeCarousel extends Component {
               <img
                 alt="carousel next button"
                 className={`${classes.navButtonIcon} ${nextBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/next.svg" />
+                src={IMAGES_URL + "next.svg"} />
             </Button>
           }
           backButton={
@@ -140,7 +140,7 @@ class IframeCarousel extends Component {
               <img
                 alt="carousel back button"
                 className={`${classes.navButtonIcon} ${prevBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/prev.svg" />
+                src={IMAGES_URL + "/prev.svg"} />
             </Button>
           }
         />

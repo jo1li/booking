@@ -9,4 +9,4 @@ export { default as Add } from '@material-ui/icons/Add';
 export { default as ExpandMore } from '@material-ui/icons/ExpandMore';
 export { default as CheckCircle } from '@material-ui/icons/CheckCircle';
 
-export const Save = IconImg('/static/images/save.svg')
+export const Save = IconImg(CONFIGS.IMAGES_URL + 'save.svg')
