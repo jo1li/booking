@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css';
 import VideoCarousel from './components/VideoCarousel';
 import UserEditForm from './components/UserEditForm';
 import VideoEditForm from './components/VideoEditForm';

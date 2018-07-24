@@ -74,12 +74,14 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
     audios = ArtistAudioSerializer(many=True, read_only=True)
-    images = ArtistImageSerializer(many=True, read_only=True)
+
+    # Could be images, but plural images doesn't seem to work with singular image field
+    photos = ArtistImageSerializer(many=True, read_only=True)
     genres = ArtistGenreTagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Musician
-        fields = artist_fields + ('audios', 'videos', 'images', 'genres',)
+        fields = artist_fields + ('audios', 'videos', 'photos', 'genres',)
 
 
 class ArtistUpdateSerializer(ArtistSerializer):
