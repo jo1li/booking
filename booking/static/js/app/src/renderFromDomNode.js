@@ -36,6 +36,7 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) =
 
     const mappedKeys = _.mapKeys(domNode.attributes, value => value.nodeName)
     const componentProps = _.mapValues(mappedKeys, value => domNode.getAttribute(value.nodeName))
+    const allComponentProps = _.merge(componentProps, CONFIGS)
 
     ReactDOM.render(
             <MuiThemeProvider theme={theme}>
