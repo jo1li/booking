@@ -177,11 +177,14 @@ def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
     videos = musician.videos.all()
+    audios = musician.audios.all()
 
     context = {
         "musician": musician,
-        "videos": videos,
+        "videos_present": bool(videos),
         "videos_json": json.dumps([video.src for video in videos]),
+        "audios_present": bool(audios),
+        "audios_json": json.dumps([audio.src for audio in audios]),
     }
 
     return opus_render(request, "musicians/profile.html", context)

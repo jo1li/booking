@@ -24,11 +24,14 @@ const theme = createMuiTheme({
     }
 });
 
-const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
+const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) => {
     const domNode = document.getElementById(node);
-
     if (!domNode) {
         return;
+    }
+
+    if(className) {
+        domNode.classList.add(className);
     }
 
     const mappedKeys = _.mapKeys(domNode.attributes, value => value.nodeName)
@@ -39,6 +42,7 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount }) => {
                 <Provider store={store}>
                         <Component
                             {...componentProps}
+                            className={className || ''}
                         />
                 </Provider>
             </MuiThemeProvider>

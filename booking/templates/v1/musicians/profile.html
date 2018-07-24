@@ -91,7 +91,7 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos %}
+                {% if videos_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
@@ -104,28 +104,19 @@
                 </div>
                 {% endif %}
 
+
+                {% if audios_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
-
-                    <div class="slide-gallery">
-                        <div class="slide">
-                            {{ musician.musicianaudio_set.first.code | safe }}
-                        </div>
-                    </div>
-
-                    <div class="slider-pagination">
-                        <a href="#" class="slider-arrow prev"></a>
-                        <ul class="pagination-list">
-                            <li class="active"><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                        <a href="#" class="slider-arrow next"></a>
+                    <div
+                        id="audio-carousel"
+                        videosourcesjson="{{ audios_json }}">
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="slider-section">
                     <div class="category edit-box">
