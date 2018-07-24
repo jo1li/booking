@@ -1,4 +1,3 @@
-from django.conf import settings as _settings
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
@@ -7,14 +6,14 @@ from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
 
-from .models import Musician, MusicianAudio, MusicianVideo, GenreTag
+from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
 
-from rest_framework import serializers, viewsets, mixins, renderers, permissions
-from rest_framework.response import Response
+from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework.exceptions import PermissionDenied
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -29,10 +28,34 @@ class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = GenreTag.objects.filter(protected=True)
 
 
-class ArtistVideoViewSet(mixins.ListModelMixin,
+class ArtistMediaViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
+
+
+    def perform_create(self, serializer):
+
+        musician_url = Musician.objects.get(pk=self.kwargs['artist_pk'])
+        logged_in_m = Musician.objects.get(user=self.request.user)
+
+        if musician_url != logged_in_m:
+            raise PermissionDenied(detail="Bad authorization")
+
+        serializer.save(musician=musician_url)
+
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the videos for
+        the user as determined by the <id> portion of the URL.
+        """
+
+        m = get_object_or_404(Musician, pk=self.kwargs['artist_pk'])
+        return self.serializer_class.Meta.model.objects.filter(musician=m)
+
+
+class ArtistVideoViewSet(ArtistMediaViewSet):
     """
     GET /v1/artists/<id>/videos/:
     Return a list of an artists videos.
@@ -45,9 +68,57 @@ class ArtistVideoViewSet(mixins.ListModelMixin,
     """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    queryset = MusicianVideo.objects.all()
     serializer_class = ArtistVideoSerializer
+
+
+class ArtistAudioViewSet(ArtistMediaViewSet):
+    """
+    GET /v1/artists/<id>/audios/:
+    Return a list of an artists audios.
+
+    POST /v1/artists/<id>/audios/:
+    Create an artist audio instance.
+
+    PUT /v1/artists/<id>/audios/<id>:
+    Update a single artist video instance.
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = MusicianAudio.objects.all()
+    serializer_class = ArtistAudioSerializer
+
+
+class ArtistImageViewSet(ArtistMediaViewSet):
+    """
+    GET /v1/artists/<id>/photos/:
+    Return a list of an artists photos.
+
+    POST /v1/artists/<id>/photos/:
+    Create an artist photo instance.
+
+    PUT /v1/artists/<id>/photos/<id>:
+    Update a single artist photo instance.
+
+    NOTE: The image field is a Cloudinary image field. On GET, will return a
+        Cloudinary URL suitable for injecting directly into a src attribute. On
+        POST, this needs to be an image.
+    """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = MusicianImage.objects.all()
+    serializer_class = ArtistImageSerializer
+
+
+    def perform_create(self, serializer):
+        serializer.image = self.request.data.get('image')
+        return super(ArtistImageViewSet, self).perform_create(serializer)
+
+
+    def perform_update(self, serializer):
+        serializer.image = self.request.data.get('image')
+        return mixins.UpdateModelMixin.perform_update(self, serializer)
 
 
 class ArtistViewSet(mixins.ListModelMixin,
@@ -102,16 +173,18 @@ class ArtistViewSet(mixins.ListModelMixin,
         return mixins.UpdateModelMixin.perform_update(self, serializer)
 
 
-
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
     videos = musician.videos.all()
+    audios = musician.audios.all()
 
     context = {
         "musician": musician,
-        "videos": videos,
+        "videos_present": bool(videos),
         "videos_json": json.dumps([video.src for video in videos]),
+        "audios_present": bool(audios),
+        "audios_json": json.dumps([audio.src for audio in audios]),
     }
 
     return opus_render(request, "musicians/profile.html", context)
