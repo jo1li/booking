@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css';
 import IframeCarousel from './components/IframeCarousel';
 import UserEditForm from './components/UserEditForm';
 import RenderFromDomNode from './renderFromDomNode';

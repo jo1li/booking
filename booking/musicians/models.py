@@ -23,6 +23,7 @@ import spotipy
 import spotipy.util as util
 from urllib import parse
 
+
 class GenreTag(tagulous.models.TagModel):
     class TagMeta:
         genres = [
@@ -53,12 +54,14 @@ class GenreTag(tagulous.models.TagModel):
         ]
         initial = ','.join(genres)
 
+
 class HtmlSrcGetter(HTMLParser):
     """Used to extract `src` attribute from iframes provided by the user"""
     def handle_starttag(self, tag, attrs):
         for name, value in attrs:
             if name == 'src':
                 self.src = value
+
 
 class Musician(TimeStampedModel):
 
@@ -76,7 +79,7 @@ class Musician(TimeStampedModel):
     # Need to think of a better name for band/individual
     # type =
 
-    genres = tagulous.models.TagField(to=GenreTag, blank=True)
+    genres = TagField(to=GenreTag, blank=True)
 
     on_tour = models.NullBooleanField()
     hometown = models.CharField(max_length=256, null=True, blank=True)
@@ -193,7 +196,6 @@ class Musician(TimeStampedModel):
         return graph.get_object("me/accounts")
 
 
-
 class MusicianAudio(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='audios')
     code = models.TextField()
@@ -214,6 +216,12 @@ class MusicianVideo(TimeStampedModel, OrderedModel):
         parser.feed(self.code)
         return parser.src
 
+
+class MusicianImage(TimeStampedModel, OrderedModel):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
+    image = models.ImageField(upload_to='media/', blank=True)
+
+
 @receiver(pre_save, sender=Musician)
 def signal_musician_pre_save(sender, **kwargs):
 
@@ -231,10 +239,6 @@ def signal_musician_pre_delete(sender, **kwargs):
     instance.image.delete()
     instance.image_hero.delete()
 
-
-# Both of these fields would be better implemented as tags
-class Instrument(models.Model):
-    pass
 
 class Genre(models.Model):
     pass
