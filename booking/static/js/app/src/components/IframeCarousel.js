@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
+import CONFIGS from '../configs';
 
 const VIDEO_ASPECT_RATIO = 56;
 const AUDIO_ASPECT_RATIO = 72;
@@ -86,7 +89,7 @@ class IframeCarousel extends Component {
   render() {
 
     const { activeStep } = this.state;
-    const { videosourcesjson, classes, id } = this.props;
+    const { videosourcesjson, classes, id, CONFIGS } = this.props;
 
     let videoSources = [];
     if( videosourcesjson ) {
@@ -132,7 +135,7 @@ class IframeCarousel extends Component {
               <img
                 alt="carousel next button"
                 className={`${classes.navButtonIcon} ${nextBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/next.svg" />
+                src={`${CONFIGS.IMAGES_URL}/next.svg`} />
             </Button>
           }
           backButton={
@@ -140,7 +143,7 @@ class IframeCarousel extends Component {
               <img
                 alt="carousel back button"
                 className={`${classes.navButtonIcon} ${prevBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/prev.svg" />
+                src={`${CONFIGS.IMAGES_URL}/prev.svg`} />
             </Button>
           }
         />
@@ -152,4 +155,11 @@ class IframeCarousel extends Component {
   }
 }
 
-export default withStyles(styles)(IframeCarousel);
+const mapStateToProps = (state, props) => ({
+  CONFIGS,
+})
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps),
+)(IframeCarousel);
