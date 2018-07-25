@@ -11,17 +11,17 @@ RenderFromDomNode({
 RenderFromDomNode({
     Component: VideoCarousel,
     node: 'video-carousel',
-    className: 'iframe-carousel',
+    className: 'carousel',
 });
 
 RenderFromDomNode({
     Component: AudioCarousel,
     node: 'audio-carousel',
-    className: 'iframe-carousel',
+    className: 'carousel',
 });
 
 RenderFromDomNode({
     Component: ImageCarousel,
     node: 'photo-carousel',
-    className: 'iframe-carousel',
+    className: 'carousel',
 });
