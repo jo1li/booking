@@ -22,3 +22,13 @@ services:
     env_file: ./.env
     depends_on:
       - web-mysql
+
+  web-js:
+    build:
+      dockerfile: Dockerfile.js
+      context: .
+    volumes:
+      - ./booking/static/js/app/:/app
+    env_file: ./.env
+    ports:
+      - "3000:3000"
