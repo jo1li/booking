@@ -178,6 +178,7 @@ def profile(request, slug=None):
     musician = get_object_or_404(Musician, slug=slug)
     videos = musician.videos.all()
     audios = musician.audios.all()
+    photos = musician.photos.all()
 
     context = {
         "musician": musician,
@@ -185,6 +186,9 @@ def profile(request, slug=None):
         "videos_json": json.dumps([video.src for video in videos]),
         "audios_present": bool(audios),
         "audios_json": json.dumps([audio.src for audio in audios]),
+        "photos_present": bool(photos),
+        # TODO: Not sure if this will actually work. No entry point to test yet.
+        "photos_json": json.dumps([image for photo in photos]),
     }
 
     return opus_render(request, "musicians/profile.html", context)
