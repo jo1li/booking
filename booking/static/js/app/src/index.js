@@ -19,3 +19,9 @@ RenderFromDomNode({
     node: 'audio-carousel',
     className: 'iframe-carousel',
 });
+
+RenderFromDomNode({
+    Component: ImageCarousel,
+    node: 'photo-carousel',
+    className: 'iframe-carousel',
+});
