@@ -1,21 +1,21 @@
 import React from 'react';
-import IframeCarousel from './components/IframeCarousel';
+import { AudioCarousel, ImageCarousel, VideoCarousel } from './components/Carousels';
 import UserEditForm from './components/UserEditForm';
 import RenderFromDomNode from './renderFromDomNode';
 
 RenderFromDomNode({
     Component: UserEditForm,
     node: 'user-edit-form',
-})
+});
 
 RenderFromDomNode({
-    Component: IframeCarousel,
+    Component: VideoCarousel,
     node: 'video-carousel',
     className: 'iframe-carousel',
-})
+});
 
 RenderFromDomNode({
-    Component: IframeCarousel,
+    Component: AudioCarousel,
     node: 'audio-carousel',
     className: 'iframe-carousel',
-})
+});
