@@ -3,7 +3,7 @@ import * as ActionPartials from '../constants/actionPartials';
 import * as Reducers from '../constants/reducers';
 
 /**
- * creates equivilant function as:
+ * creates equivalent function as:
  *
  * function functionName(data) {
  *  return {
