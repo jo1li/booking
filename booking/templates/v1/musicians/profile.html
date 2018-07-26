@@ -269,7 +269,7 @@
 <script>
     window.initialState = {
         profile: {
-            id: "{{ musician.pk|default_if_none:"" }}",
+            id: {{ musician.pk }},
         },
     };
 </script>
