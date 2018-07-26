@@ -30,6 +30,26 @@ import styles from './styles';
 
 import { EDIT_VIDEOS } from '../../constants/forms';
 
+const VideoCodeInput = (props) => {
+  const { video, path, canBeDeleted, change } = props;
+
+  return (
+    <InputButtons
+      component={TextArea}
+      key={`input-${path}`}
+      name={`${path}.code`}
+      value=''
+      placeholder="Copy and paste video player embed code here."
+    >
+      <DeleteButton
+        caption="clear"
+        disabled={!canBeDeleted}
+        onClick={() => change(path, '')}
+      />
+    </InputButtons>
+  );
+}
+
 class VideoEditForm extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +63,16 @@ class VideoEditForm extends Component {
     } = this.props;
 
     getArtistVideos({artistId: profile.id});
+  }
+
+  ensureBlankInputAvailable() {
+    const { currentValues, change } = this.props;
+    const newVideos = currentValues.newVideos;
+    const allVideosHaveCodes = _.every(newVideos, v => !!v.code);
+
+    if(allVideosHaveCodes) {
+      change(`newVideos[${_.size(newVideos)}]`, {});
+    }
   }
 
   getVideosByAction() {
@@ -89,10 +119,25 @@ class VideoEditForm extends Component {
     Promise.all(requests).then(closeDialog);
   }
 
+  renderExistingVideoInputs() {
+    const { currentValues, change } = this.props;
+
+    return _.map(currentValues.videos, (video, videoId) => {
+      return <VideoCodeInput video={video} path={`videos[${videoId}]`} change={change} />;
+    });
+  }
+
+  renderNewVideoInputs() {
+    const { currentValues, change } = this.props;
+
+    return _.map(currentValues.newVideos, (video, videoIdx) => {
+      return <VideoCodeInput video={video} path={`newVideos[${videoIdx}]`} change={change} />;
+    });
+  }
+
   render() {
     const {
         closeDialog,
-        change,
         submitting,
         handleSubmit,
         classes,
@@ -100,12 +145,13 @@ class VideoEditForm extends Component {
         submitSucceeded,
     } = this.props;
 
-    // TODO: Do we want to add multiple videos? Not in design specs but seems right
     // TODO: Design specs list a "move" button, which is doable, but backend
     //       doesn't have a notion of orthogonal video order.
     // TODO: Design specs list a "help" button - what do we want this to do/say?
     //       How does user interact with it on mobile and on desktop?
     // TODO: Buttons should have text, and should be above the "code" textarea
+
+    this.ensureBlankInputAvailable();
 
     return (
       <form onSubmit={handleSubmit(this.submit)}>
@@ -121,39 +167,8 @@ class VideoEditForm extends Component {
               { /* TODO: this is a spacing/style hack, remove */ }
               <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
               </Grid>
-              {
-                _.map(_.get(currentValues, 'videos', {}), (video, videoId) => {
-                  return (
-                    <InputButtons
-                      component={TextArea}
-                      key={`iframe-input-${videoId}`}
-                      id={`iframe-input-${videoId}`}
-                      label={`iframe-input-${videoId}`}
-                      name={`videos[${videoId}].code`}
-                      placeholder="Copy and paste video player embed code here."
-                    >
-                      <DeleteButton
-                        caption="clear"
-                        disabled={!_.get(currentValues, `videos[${videoId}]`, '')}
-                        onClick={() => change(`videos[${videoId}]`, '')}
-                      />
-                    </InputButtons>
-                  );
-                })
-              }
-              { /* One more, for adding a new video */ }
-              <InputButtons
-                component={TextArea}
-                id='iframe-input-last'
-                label='iframe-input-last'
-                name='new_video.code'
-                placeholder="Copy and paste video player embed code here."
-              >
-                <DeleteButton
-                  disabled={!_.get(currentValues, `new_video`, '')}
-                  onClick={() => change(`new_video`, '')}
-                />
-              </InputButtons>
+              { this.renderExistingVideoInputs() }
+              { this.renderNewVideoInputs() }
           </Grid>
         </CancelConfirm>
       </form>
@@ -176,6 +191,7 @@ VideoEditForm = reduxForm({
 const mapStateToProps = (state, props) => ({
   initialValues: {
     videos: state.videos,
+    newVideos: { 0: {} }, // Start with an empty field for the user to add a new video
   },
   videos: state.videos,
   profile: state.profile,
