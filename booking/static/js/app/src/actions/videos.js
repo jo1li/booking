@@ -28,3 +28,11 @@ export function getArtistVideos({artistId}) {
         });
     }
 }
+
+export function destroyArtistVideo({artistId, videoId}) {
+    return (dispatch, getState) => {
+        const request = requests.destroyVideo({artistId, videoId}).then(res => {
+            dispatch(ActionCreators.videosDelete(videoId));
+        });
+    }
+}

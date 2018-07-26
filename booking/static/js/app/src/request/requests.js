@@ -18,4 +18,8 @@ export const createVideo = ({artistId, code}) => {
     return request.post(`/v1/artists/${artistId}/videos/`, {code});
 }
 
+export const destroyVideo = ({artistId, videoId}) => {
+    return request.delete(`/v1/artists/${artistId}/videos/${videoId}`);
+}
+
 export const getGenres = (data, id) => request.get(`/v1/genres/`);

@@ -17,13 +17,12 @@ import FullScreenDialog from '../modal/FullScreenDialog';
 
 import { Display1, Caption } from '../typography';
 
+import TextArea from '../form/TextArea';
 import InputButtons from './InputButtons';
 import {
   DeleteButton,
   AddButton,
 } from '../form/FabButton';
-
-import TextArea from '../form/TextArea';
 
 import * as VideoActions from '../../actions/videos';
 import styles from './styles';
@@ -31,20 +30,19 @@ import styles from './styles';
 import { EDIT_VIDEOS } from '../../constants/forms';
 
 const VideoCodeInput = (props) => {
-  const { video, path, canBeDeleted, change } = props;
+  const { video, path, idx, canBeDeleted, destroy } = props;
 
   return (
     <InputButtons
       component={TextArea}
-      key={`input-${path}`}
-      name={`${path}.code`}
+      key={`input-${path}[${idx}]`}
+      name={`${path}[${idx}].code`}
       value=''
       placeholder="Copy and paste video player embed code here."
     >
       <DeleteButton
         caption="clear"
-        disabled={!canBeDeleted}
-        onClick={() => change(path, '')}
+        onClick={() => destroy({path, idx})}
       />
     </InputButtons>
   );
@@ -75,6 +73,14 @@ class VideoEditForm extends Component {
     }
   }
 
+  // Redux form doesn't expose an easier way to do this unfortunately.
+  removeVideoFromForm({path, idx}) {
+    const { currentValues, change } = this.props;
+    const existingVideos = _.clone(currentValues[path]);
+    delete existingVideos[idx];
+    change(path, existingVideos);
+  }
+
   getUpdatedVideos() {
     const {
       currentValues: { videos: currentVideos },
@@ -94,16 +100,31 @@ class VideoEditForm extends Component {
     return _.filter(newVideos, v => !!v.code);
   }
 
+  getDestroyedVideos() {
+    const {
+      currentValues: { videos: currentVideos },
+      initialValues: { videos: initialVideos },
+    } = this.props;
+
+    return _.transform(initialVideos, (diff, video, videoId) => {
+      if (!_.has(currentVideos, videoId)) {
+        diff[videoId] = video;
+      }
+    });
+  }
+
   submit(values) {
     const {
       profile,
       updateArtistVideo,
       createArtistVideo,
+      destroyArtistVideo,
       closeDialog,
     } = this.props;
 
     const videosToUpdate = this.getUpdatedVideos();
     const videosToCreate = this.getCreatedVideos();
+    const videosToDestroy = this.getDestroyedVideos();
 
     const updateRequests = _.map(videosToUpdate, (video) => {
       updateArtistVideo({
@@ -120,25 +141,33 @@ class VideoEditForm extends Component {
       });
     });
 
-    const requests = _.concat(updateRequests, createRequests);
+    const destroyRequests = _.map(videosToDestroy, (video) => {
+      destroyArtistVideo({
+        videoId: video.id,
+        artistId: profile.id,
+      });
+    });
+
+    const requests = _.concat(updateRequests, createRequests, destroyRequests);
 
     // TODO: handle error
     Promise.all(requests).then(closeDialog);
   }
 
   renderExistingVideoInputs() {
-    const { currentValues, change } = this.props;
+    const { currentValues, array } = this.props;
 
     return _.map(currentValues.videos, (video, videoId) => {
-      return <VideoCodeInput video={video} path={`videos[${videoId}]`} change={change} />;
+      return <VideoCodeInput video={video} path='videos' idx={videoId} destroy={(args) => this.removeVideoFromForm(args)} />;
     });
   }
 
   renderNewVideoInputs() {
-    const { currentValues, change } = this.props;
+    const { currentValues, change, destroy } = this.props;
+    // debugger;
 
     return _.map(currentValues.newVideos, (video, videoIdx) => {
-      return <VideoCodeInput video={video} path={`newVideos[${videoIdx}]`} change={change} />;
+      return <VideoCodeInput video={video} path='newVideos' idx={videoIdx} destroy={(args) => this.removeVideoFromForm(args)} />;
     });
   }
 
@@ -209,6 +238,7 @@ const mapDispatchToProps = (dispatch) => {
     getArtistVideos: VideoActions.getArtistVideos,
     updateArtistVideo: VideoActions.updateArtistVideo,
     createArtistVideo: VideoActions.createArtistVideo,
+    destroyArtistVideo: VideoActions.destroyArtistVideo,
   }, dispatch);
 };
 
