@@ -1,4 +1,4 @@
-import ActionCreators from './ActionCreators';
+import ActionCreators from './actionCreators';
 import * as requests from '../request/requests';
 import crudConfigs from '../reducers/crudConfigs';
 
