@@ -104,6 +104,23 @@
                 </div>
                 {% endif %}
 
+                {# if not videos_present and is_owner_viewing  #}
+                <div class="slider-section">
+                    <div class="category edit-box">
+                        <h2 class="subheading">Videos</h2>
+                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                    </div>
+                    <div class="empty-state">
+                        <p>Videos help to showcase your profile to venues!</p>
+                        <label>
+                            Add a Video!
+                            <div id="user-video-empty-add" children="" mobileText="Add a Video!" text="Add a Video!"></div>
+                        </label>
+                    </div>
+                </div>
+                {# endif #}
+
+
 
                 {% if audios_present %}
                 <div class="slider-section">
