@@ -152,8 +152,7 @@ class VideoEditForm extends Component {
         submitSucceeded,
     } = this.props;
 
-    // TODO: Design specs list a "move" button, which is doable, but backend
-    //       doesn't have a notion of orthogonal video order.
+    // TODO: Implement "move".
     // TODO: Design specs list a "help" button - what do we want this to do/say?
     //       How does user interact with it on mobile and on desktop?
     // TODO: Buttons should have text, and should be above the "code" textarea
