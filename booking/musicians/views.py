@@ -176,11 +176,15 @@ class ArtistViewSet(mixins.ListModelMixin,
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
+    is_owner_viewing = (request.user == musician.user)
+
     videos = musician.videos.all()
     audios = musician.audios.all()
 
+
     context = {
         "musician": musician,
+        "is_owner_viewing": is_owner_viewing,
         "videos_present": bool(videos),
         "videos_json": json.dumps([video.src for video in videos]),
         "audios_present": bool(audios),
