@@ -75,20 +75,23 @@ class VideoEditForm extends Component {
     }
   }
 
-  getVideosByAction() {
+  getUpdatedVideos() {
     const {
-      currentValues,
-      initialValues,
+      currentValues: { videos: currentVideos },
+      initialValues: { videos: initialVideos },
     } = this.props;
 
-    const currentVideos = currentValues.videos;
-    const initialVideos = initialValues.videos;
-
     return _.transform(currentVideos, (diff, video, videoId) => {
-      if (!_.isEqual(video.code, initialVideos[videoId].code)) {
+      if (video.code !== initialVideos[videoId].code) {
         diff[videoId] = video;
       }
     });
+  }
+
+  getCreatedVideos() {
+    const { currentValues: { newVideos } } = this.props;
+    // Only provide for creation if a code was entered for the video
+    return _.filter(newVideos, v => !!v.code);
   }
 
   submit(values) {
@@ -99,9 +102,10 @@ class VideoEditForm extends Component {
       closeDialog,
     } = this.props;
 
-    const videosToUpdate = this.getChangedVideos();
+    const videosToUpdate = this.getUpdatedVideos();
+    const videosToCreate = this.getCreatedVideos();
 
-    let requests = _.map(videosToUpdate, (video) => {
+    const updateRequests = _.map(videosToUpdate, (video) => {
       updateArtistVideo({
         videoId: video.id,
         code: video.code,
@@ -109,11 +113,14 @@ class VideoEditForm extends Component {
       });
     });
 
-    if(_.get(values, 'new_video.code')) {
-      requests.append(
-        createArtistVideo({code: values.new_video.code, artistId: profile.id});
-      );
-    }
+    const createRequests = _.map(videosToCreate, (video) => {
+      createArtistVideo({
+        code: video.code,
+        artistId: profile.id,
+      });
+    });
+
+    const requests = _.concat(updateRequests, createRequests);
 
     // TODO: handle error
     Promise.all(requests).then(closeDialog);
