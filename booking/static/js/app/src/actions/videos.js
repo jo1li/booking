@@ -4,26 +4,26 @@ import crudConfigs from '../reducers/crudConfigs';
 
 // TODO: error handling
 
-export function createMusicianVideo({musicianId, code}) {
+export function createArtistVideo({artistId, code}) {
     return (dispatch, getState) => {
-        const request = requests.createVideo({musicianId, code}).then(res => {
+        const request = requests.createVideo({artistId, code}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         });
         return request;
     }
 }
 
-export function updateMusicianVideo({musicianId, videoId, code}) {
+export function updateArtistVideo({artistId, videoId, code}) {
     return (dispatch, getState) => {
-        const request = requests.updateVideo({musicianId, videoId, code}).then(res => {
+        const request = requests.updateVideo({artistId, videoId, code}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         })
     }
 }
 
-export function getMusicianVideos({musicianId}) {
+export function getArtistVideos({artistId}) {
     return (dispatch, getState) => {
-        const request = requests.getVideos({musicianId}).then(res => {
+        const request = requests.getVideos({artistId}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data.results));
         });
     }

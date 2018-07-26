@@ -6,16 +6,16 @@ export const updateUserBio = (data, id) => {
     return request.put(`/v1/artists/${id}/`, getFormData(data));
 }
 
-export const getVideos = ({musicianId}) => {
-    return request.get(`/v1/artists/${musicianId}/videos/`);
+export const getVideos = ({artistId}) => {
+    return request.get(`/v1/artists/${artistId}/videos/`);
 }
 
-export const updateVideo = ({musicianId, videoId, code}) => {
-    return request.put(`/v1/artists/${musicianId}/videos/${videoId}/`, {code});
+export const updateVideo = ({artistId, videoId, code}) => {
+    return request.put(`/v1/artists/${artistId}/videos/${videoId}/`, {code});
 }
 
-export const createVideo = ({musicianId, code}) => {
-    return request.post(`/v1/artists/${musicianId}/videos/`, {code});
+export const createVideo = ({artistId, code}) => {
+    return request.post(`/v1/artists/${artistId}/videos/`, {code});
 }
 
 export const getGenres = (data, id) => request.get(`/v1/genres/`);

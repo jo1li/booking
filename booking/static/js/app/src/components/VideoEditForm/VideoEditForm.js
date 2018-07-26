@@ -42,14 +42,14 @@ class VideoEditForm extends Component {
 
   componentWillMount() {
     const {
-      getMusicianVideos,
+      getArtistVideos,
       profile,
     } = this.props;
 
-    getMusicianVideos({musicianId: profile.id});
+    getArtistVideos({artistId: profile.id});
   }
 
-  getChangedVideos() {
+  getVideosByAction() {
     const {
       currentValues,
       initialValues,
@@ -68,24 +68,24 @@ class VideoEditForm extends Component {
   submit(values) {
     const {
       profile,
-      updateMusicianVideo,
-      createMusicianVideo,
+      updateArtistVideo,
+      createArtistVideo,
       closeDialog,
     } = this.props;
 
     const videosToUpdate = this.getChangedVideos();
 
     let requests = _.map(videosToUpdate, (video) => {
-      updateMusicianVideo({
+      updateArtistVideo({
         videoId: video.id,
         code: video.code,
-        musicianId: profile.id,
+        artistId: profile.id,
       });
     });
 
     if(_.get(values, 'new_video.code')) {
       requests.append(
-        createMusicianVideo({code: values.new_video.code, musicianId: profile.id})
+        createArtistVideo({code: values.new_video.code, artistId: profile.id});
       );
     }
 
@@ -188,9 +188,9 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getMusicianVideos: VideoActions.getMusicianVideos,
-    updateMusicianVideo: VideoActions.updateMusicianVideo,
-    createMusicianVideo: VideoActions.createMusicianVideo,
+    getArtistVideos: VideoActions.getArtistVideos,
+    updateArtistVideo: VideoActions.updateArtistVideo,
+    createArtistVideo: VideoActions.createArtistVideo,
   }, dispatch);
 };
 
