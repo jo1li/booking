@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import configureStore from './store';
 
-const store = configureStore();
+const store = configureStore(window.initialState || {});
 
 const theme = createMuiTheme({
     palette: {
