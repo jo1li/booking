@@ -14,28 +14,12 @@ import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
 import FullScreenDialog from '../modal/FullScreenDialog';
-
-import { Caption } from '../typography';
-
-import InputButtons from './InputButtons';
-import {
-  UploadButton,
-  DeleteButton,
-  AddButton,
-} from '../form/FabButton';
-
-import Button from '../form/Button';
-
-import Input from '../form/Input';
-import Select from '../form/Select';
 import TextArea from '../form/TextArea';
-import SelectState from '../form/SelectState';
-import ImageUploadContainer from '../form/ImageUploadContainer';
-import TextCount from '../form/TextCount';
 
 import {
   updateUserBio,
 } from '../../request/requests';
+
 import styles from './styles';
 
 // TODO put in constants file
@@ -46,10 +30,6 @@ class EditBioForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      genres: [],
-    }
-
     autoBind(this);
   }
 
@@ -59,21 +39,12 @@ class EditBioForm extends Component {
       updateUserBio,
     } = this.props;
 
-    const data = Object.assign({}, values, {
-      genres: values.genres,
-      image: _.get(values, 'image.file'),
-    });
-
-    return updateUserBio(data, musicianid).then(res => {
-      // TODO: Prob a better to check for this
-      if(res.status == 200) {
+    return updateUserBio(values, musicianid).then(res => {
         // TODO: Don't *actually* refresh the page, but update with submitted values
         //    temporary stopgap to allow team members to test w/ out
         setTimeout(() => {
           window.location.reload(true);
         }, 1000);
-      }
-
     })
     .catch(errors => {
       console.log('errors', errors);
