@@ -29,7 +29,7 @@
 ></user-edit-form>
 <div id="edit-bio-form"
     musicianId="{{ musician.pk|default_if_none:"" }}"
-    bio_short="{{ musician.bio_short|default_if_none:"" }}"
+    bio="{{ musician.bio|default_if_none:"" }}"
 ></div>
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">

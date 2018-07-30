@@ -24,7 +24,6 @@ import styles from './styles';
 
 // TODO put in constants file
 const EDIT_BIO = 'EDIT_BIO';
-const MAX_BIO_SHORT_INPUT_LENGTH = 300;
 
 class EditBioForm extends Component {
   constructor(props) {
@@ -78,22 +77,11 @@ class EditBioForm extends Component {
               <Grid item xs={12} sm={12} md={12} lg={12}>
                   <Field
                     component={TextArea}
-                    id="bio_short"
-                    label="bio_short"
-                    name="bio_short"
+                    id="bio"
+                    label="bio"
+                    name="bio"
                     placeholder="Your bio"
                     type="textarea"
-                    onChange={changeObj => {
-
-                      // TODO move this out of the onChange function
-                      // prevent input form going beyond MAX_BIO_SHORT_INPUT_LENGTH in characters
-                      if (changeObj.target.value.length > MAX_BIO_SHORT_INPUT_LENGTH) {
-                        change('bio_short', changeObj.target.value.subString(0, MAX_BIO_SHORT_INPUT_LENGTH))
-                      }
-
-                        return changeObj
-                      }
-                    }
                     multiline
                     fullWidth
                   />
@@ -120,7 +108,7 @@ const mapStateToProps = (state, props) => ({
 
   // TODO add defaults value function
   initialValues: {
-    bio_short: props.bio_short,
+    bio: props.bio,
   },
   currentValues: getFormValues(EDIT_BIO)(state),
 
