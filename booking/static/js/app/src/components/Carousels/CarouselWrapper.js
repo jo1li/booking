@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
-import CONFIGS from '../configs';
+import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
   constructor(props) {
