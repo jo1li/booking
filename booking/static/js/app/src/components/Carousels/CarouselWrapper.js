@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
+import CONFIGS from '../configs';
 
 class CarouselWrapper extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class CarouselNav extends Component {
               <img
                 alt="carousel next button"
                 className={`${classes.navButtonIcon} ${nextBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/next.svg" />
+                src={`${CONFIGS.IMAGES_URL}/next.svg`} />
             </Button>
           }
           backButton={
@@ -75,7 +76,7 @@ class CarouselNav extends Component {
               <img
                 alt="carousel back button"
                 className={`${classes.navButtonIcon} ${prevBtnIsDisabled ? classes.hidden : ''}`}
-                src="/static/images/prev.svg" />
+                src={`${CONFIGS.IMAGES_URL}/prev.svg`} />
             </Button>
           }
         />
@@ -87,4 +88,8 @@ class CarouselNav extends Component {
   }
 }
 
-export default CarouselWrapper;
+const mapStateToProps = (state, props) => ({
+  CONFIGS,
+})
+
+export default connect(mapStateToProps)(CarouselWrapper);
