@@ -23,7 +23,7 @@ const styles = theme => ({
       position: 'relative',
     }
   },
-  imageCarouselSwipeableView: {
+  photoCarouselSwipeableView: {
     '& .react-swipeable-view-container > div': {
       'padding-top': `${IMAGE_ASPECT_RATIO}%`,
       height: 'auto',
@@ -42,8 +42,7 @@ const styles = theme => ({
     height: '100%',
     border: '0',
   },
-  // TODO: name better
-  image: {
+  photo: {
     position: 'absolute',
     'max-height': '100%',
     'max-width': '100%',

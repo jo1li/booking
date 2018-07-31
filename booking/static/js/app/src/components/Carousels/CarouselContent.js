@@ -50,12 +50,12 @@ class IframeCarouselContent extends Component {
   }
 }
 
-class ImageCarouselContent extends Component {
+class PhotoCarouselContent extends Component {
   render() {
     const {
       className,
       classes,
-      imageSources,
+      photoSources,
       activeStep,
     } = this.props;
 
@@ -66,9 +66,9 @@ class ImageCarouselContent extends Component {
         enableMouseEvents
         className={className}
       >
-        {imageSources.map((src, idx) => (
+        {photoSources.map((src, idx) => (
           <img
-            className={classes.image}
+            className={classes.photo}
             frameBorder="0"
             seamless="seamless"
             key={idx}
@@ -79,4 +79,4 @@ class ImageCarouselContent extends Component {
   }
 }
 
-export { IframeCarouselContent, ImageCarouselContent };
+export { IframeCarouselContent, PhotoCarouselContent };

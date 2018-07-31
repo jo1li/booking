@@ -1,5 +1,5 @@
 import React from 'react';
-import { AudioCarousel, ImageCarousel, VideoCarousel } from './components/Carousels';
+import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import UserEditForm from './components/UserEditForm';
 import RenderFromDomNode from './renderFromDomNode';
 
@@ -21,7 +21,7 @@ RenderFromDomNode({
 });
 
 RenderFromDomNode({
-    Component: ImageCarousel,
+    Component: PhotoCarousel,
     node: 'photo-carousel',
     className: 'carousel',
 });
