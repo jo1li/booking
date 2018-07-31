@@ -187,8 +187,7 @@ def profile(request, slug=None):
         "audios_present": bool(audios),
         "audios_json": json.dumps([audio.src for audio in audios]),
         "photos_present": bool(photos),
-        # TODO: Not sure if this will actually work. No entry point to test yet.
-        "photos_json": json.dumps([image for photo in photos]),
+        "photos_json": json.dumps([photo.image.url for photo in photos]),
     }
 
     return opus_render(request, "musicians/profile.html", context)
