@@ -67,8 +67,6 @@ class PhotoCarouselContent extends Component {
         {photoSources.map((src, idx) => (
           <img
             className={classes.photo}
-            frameBorder="0"
-            seamless="seamless"
             key={idx}
             src={src}
             alt={src}
