@@ -72,9 +72,7 @@ class ImageCarouselContent extends Component {
             frameBorder="0"
             seamless="seamless"
             key={idx}
-            src={src}
-            alt={src}
-            title={src} />
+            src={src} />
         ))}
       </SwipeableViews>
     );
