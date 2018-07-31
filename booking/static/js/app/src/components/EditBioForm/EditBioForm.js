@@ -77,6 +77,7 @@ class EditBioForm extends Component {
               <Grid item xs={12} sm={12} md={12} lg={12}>
                   <Field
                     component={TextArea}
+                    className={classes.textArea}
                     id="bio"
                     label="bio"
                     name="bio"

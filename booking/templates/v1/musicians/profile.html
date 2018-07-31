@@ -86,9 +86,6 @@
                         {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}" target="_blank">{{ musician.website }}</a></p>{% endif %}
                     </div>
 
-                    <div class="edit-box">
-                        <div class="edit"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></div>
-                    </div>
                     <div class="about"  id="temp-edit-bio-form">
                         <p class="body-text regular">{{ musician.bio_short }}</p>
                     </div>
@@ -250,9 +247,10 @@
                 </div>
 
                 <div class="slider-section">
+
                     <div class="category edit-box">
                         <h2 id="biography-long" class="subheading">Biography</h2>
-                        <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
+                        <a href="#" class="edit"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
                     <p id="biography-long-content">{{ musician.bio }}</p>
