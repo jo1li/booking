@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import ReduxFromField from '../HOComponents/ReduxFormField';
+import classNames from 'classnames'
 
 const styles = theme => ({
   textArea: {
@@ -30,6 +31,7 @@ const styles = theme => ({
 let TextArea = (props) => {
   const {
     classes,
+    className,
   } = props;
 
   return (
@@ -43,7 +45,7 @@ let TextArea = (props) => {
               underline: classes.underline,
               input: classes.input
             }}
-            className={classes.textArea}
+            className={classNames(classes.textArea, className)}
         />
     )
   }

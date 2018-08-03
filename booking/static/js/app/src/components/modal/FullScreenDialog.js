@@ -7,7 +7,7 @@ let FullScreenDialog = ({ children, onMount, width }) => {
             <DialogBase
                 onMount={onMount}
                 maxWidth={false}
-                fullScreen={width === 'sm'}
+                fullScreen={width === 'sm' || width === 'xs'}
             >
                 { children }
             </DialogBase>

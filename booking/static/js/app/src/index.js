@@ -1,12 +1,18 @@
 import React from 'react';
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import UserEditForm from './components/UserEditForm';
+import EditBioForm from './components/EditBioForm';
 import RenderFromDomNode from './renderFromDomNode';
 
 RenderFromDomNode({
     Component: UserEditForm,
     node: 'user-edit-form',
 });
+
+RenderFromDomNode({
+    Component: EditBioForm,
+    node: 'edit-bio-form',
+})
 
 RenderFromDomNode({
     Component: VideoCarousel,
