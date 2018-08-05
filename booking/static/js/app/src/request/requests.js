@@ -10,12 +10,12 @@ export const getVideos = ({artistId}) => {
     return request.get(`/v1/artists/${artistId}/videos/`);
 }
 
-export const updateVideo = ({artistId, videoId, code}) => {
-    return request.put(`/v1/artists/${artistId}/videos/${videoId}/`, {code});
+export const updateVideo = ({artistId, videoId, code, order}) => {
+    return request.put(`/v1/artists/${artistId}/videos/${videoId}/`, {code, order});
 }
 
-export const createVideo = ({artistId, code}) => {
-    return request.post(`/v1/artists/${artistId}/videos/`, {code});
+export const createVideo = ({artistId, code, order}) => {
+    return request.post(`/v1/artists/${artistId}/videos/`, {code, order});
 }
 
 export const destroyVideo = ({artistId, videoId}) => {

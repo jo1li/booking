@@ -1,8 +1,11 @@
 // TODO: There is a lot of duplication between this module and UserEditForm.
 //       Plenty to DRY up.
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux';
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 import {
   reduxForm,
   getFormValues,
@@ -15,13 +18,12 @@ import _ from 'lodash'
 import CancelConfirm from '../CancelConfirm';
 import FullScreenDialog from '../modal/FullScreenDialog';
 
-import { Display1, Caption } from '../typography';
+import { Display1 } from '../typography';
 
 import TextArea from '../form/TextArea';
 import InputButtons from './InputButtons';
 import {
   DeleteButton,
-  AddButton,
 } from '../form/FabButton';
 
 import * as VideoActions from '../../actions/videos';
@@ -29,23 +31,28 @@ import styles from './styles';
 
 import { EDIT_VIDEOS } from '../../constants/forms';
 
-const VideoCodeInput = (props) => {
-  const { video, path, idx, canBeDeleted, destroy } = props;
+class VideoCodeInput extends Component {
+  render() {
+    const { order, destroy, isDragging, innerRef, dndProvidedProps } = this.props;
 
-  return (
-    <InputButtons
-      component={TextArea}
-      key={`input-${path}[${idx}]`}
-      name={`${path}[${idx}].code`}
-      value=''
-      placeholder="Copy and paste video player embed code here."
-    >
-      <DeleteButton
-        caption="clear"
-        onClick={() => destroy({path, idx})}
-      />
-    </InputButtons>
-  );
+    return <div
+      ref={innerRef}
+      {...dndProvidedProps.draggableProps}
+      {...dndProvidedProps.dragHandleProps}>
+        <InputButtons
+          component={TextArea}
+          key={`input-videos-[${order}]`}
+          name={`videos[${order}].code`}
+          placeholder="Copy and paste video player embed code here."
+          style={{opacity: isDragging ? 0.5 : 1}}
+        >
+          <DeleteButton
+            caption="clear"
+            onClick={() => destroy(order)}
+          />
+        </InputButtons>
+      </div>;
+  }
 }
 
 class VideoEditForm extends Component {
@@ -65,52 +72,61 @@ class VideoEditForm extends Component {
 
   ensureBlankInputAvailable() {
     const { currentValues, change } = this.props;
-    const newVideos = currentValues.newVideos;
-    const allVideosHaveCodes = _.every(newVideos, v => !!v.code);
+    const lastVideoHasCode = !!(_.last(currentValues.videos) || {}).code;
 
-    if(allVideosHaveCodes) {
-      change(`newVideos[${_.size(newVideos)}]`, {});
+    if(lastVideoHasCode) {
+      const order = _.size(currentValues.videos);
+      change(`videos[${order}]`, {order});
     }
   }
 
-  // Redux form doesn't expose an easier way to do this unfortunately.
-  removeVideoFromForm({path, idx}) {
+  removeVideoFromForm(order) {
     const { currentValues, change } = this.props;
-    const existingVideos = _.clone(currentValues[path]);
-    delete existingVideos[idx];
-    change(path, existingVideos);
+    let remainingVideos = _.clone(currentValues.videos);
+    delete remainingVideos[order];
+    remainingVideos = _.map(remainingVideos, (v, idx) => {return {...v, order: idx}});
+    change('videos', remainingVideos);
   }
 
-  getUpdatedVideos() {
-    const {
-      currentValues: { videos: currentVideos },
-      initialValues: { videos: initialVideos },
-    } = this.props;
+  getUpdatedVideos(currentVideos) {
+    const { initialValues } = this.props;
+    const initialVideos = initialValues.videos;
 
-    return _.transform(currentVideos, (diff, video, videoId) => {
-      if (video.code !== initialVideos[videoId].code) {
-        diff[videoId] = video;
-      }
+    const initialVideosByID = _.keyBy(initialVideos, 'id');
+
+    return _.filter(currentVideos, (video) => {
+      // Videos not yet on the server can't be updated.
+      if (!video.id) return false;
+
+      const initialState = initialVideosByID[video.id];
+      const codeWasChanged = video.code !== initialState.code;
+      const orderWasChanged = video.order !== initialState.order;
+      return codeWasChanged || orderWasChanged;
     });
   }
 
-  getCreatedVideos() {
-    const { currentValues: { newVideos } } = this.props;
-    // Only provide for creation if a code was entered for the video
-    return _.filter(newVideos, v => !!v.code);
+  getCreatedVideos(currentVideos) {
+    return _.filter(currentVideos, v => !v.id);
   }
 
-  getDestroyedVideos() {
-    const {
-      currentValues: { videos: currentVideos },
-      initialValues: { videos: initialVideos },
-    } = this.props;
+  getDestroyedVideos(currentVideos) {
+    const { initialValues } = this.props;
+    const initialVideos = initialValues.videos;
 
-    return _.transform(initialVideos, (diff, video, videoId) => {
-      if (!_.has(currentVideos, videoId)) {
-        diff[videoId] = video;
-      }
+    const currentVideosByID = _.keyBy(currentVideos, 'id');
+
+    return _.filter(initialVideos, (video) => {
+      // Videos not yet on the server can't be destroyed.
+      return !!video.id && !_.has(currentVideosByID, video.id);
     });
+  }
+
+  getVideosWithCodes() {
+    const { currentValues } = this.props;
+    const videosWithCodes = _.filter(currentValues.videos, v => !!v.code);
+    // Update the order of each video so there will be no gaps
+    const orderedVideosWithCodes = _.sortBy(videosWithCodes, v => v.order);
+    return _.map(orderedVideosWithCodes, (v, idx) => {return {...v, order: idx}});
   }
 
   submit(values) {
@@ -122,14 +138,19 @@ class VideoEditForm extends Component {
       closeDialog,
     } = this.props;
 
-    const videosToUpdate = this.getUpdatedVideos();
-    const videosToCreate = this.getCreatedVideos();
-    const videosToDestroy = this.getDestroyedVideos();
+    // Treat videos with no value in the `code` field as absent,
+    // and ensure no gaps in `order` attributes.
+    const videosWithCodes = this.getVideosWithCodes();
+
+    const videosToUpdate = this.getUpdatedVideos(videosWithCodes);
+    const videosToCreate = this.getCreatedVideos(videosWithCodes);
+    const videosToDestroy = this.getDestroyedVideos(videosWithCodes);
 
     const updateRequests = _.map(videosToUpdate, (video) => {
       updateArtistVideo({
         videoId: video.id,
         code: video.code,
+        order: video.order,
         artistId: profile.id,
       });
     });
@@ -137,6 +158,7 @@ class VideoEditForm extends Component {
     const createRequests = _.map(videosToCreate, (video) => {
       createArtistVideo({
         code: video.code,
+        order: video.order,
         artistId: profile.id,
       });
     });
@@ -154,21 +176,45 @@ class VideoEditForm extends Component {
     Promise.all(requests).then(closeDialog);
   }
 
-  renderExistingVideoInputs() {
-    const { currentValues, array } = this.props;
-
-    return _.map(currentValues.videos, (video, videoId) => {
-      return <VideoCodeInput video={video} path='videos' idx={videoId} destroy={(args) => this.removeVideoFromForm(args)} />;
-    });
+  renderVideoInputs() {
+    const { currentValues } = this.props;
+    return _.map(currentValues.videos, (props, idx) => {
+      return <Draggable key={`video-code-input-${idx}`} draggableId={`videos[${props.order}]`} index={idx}>
+        {(provided, snapshot) => (
+          <Fragment>
+            <VideoCodeInput
+              {...props}
+              dndProvidedProps={provided}
+              innerRef={provided.innerRef}
+              destroy={(args) => this.removeVideoFromForm(args)} />
+            {provided.placeholder}
+          </Fragment>
+        )}
+      </Draggable>;
+    })
   }
 
-  renderNewVideoInputs() {
-    const { currentValues, change, destroy } = this.props;
-    // debugger;
+  getReorderedVideos(videosFromForm, startIndex, endIndex) {
+    let reorderedVideos = Array.from(videosFromForm);
+    const [displacedVideo] = reorderedVideos.splice(startIndex, 1);
+    reorderedVideos.splice(endIndex, 0, displacedVideo);
+    reorderedVideos = _.map(reorderedVideos, (v, idx) => {return {...v, order: idx}});
+    return reorderedVideos;
+  };
 
-    return _.map(currentValues.newVideos, (video, videoIdx) => {
-      return <VideoCodeInput video={video} path='newVideos' idx={videoIdx} destroy={(args) => this.removeVideoFromForm(args)} />;
-    });
+  onDragEnd(result) {
+    const { currentValues, change } = this.props;
+
+    // Dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    change('videos', this.getReorderedVideos(
+      currentValues.videos,
+      result.source.index,
+      result.destination.index,
+    ));
   }
 
   render() {
@@ -177,11 +223,10 @@ class VideoEditForm extends Component {
         submitting,
         handleSubmit,
         classes,
-        currentValues,
         submitSucceeded,
     } = this.props;
 
-    // TODO: Implement "move".
+    // TODO: Implement "move" handle.
     // TODO: Design specs list a "help" button - what do we want this to do/say?
     //       How does user interact with it on mobile and on desktop?
     // TODO: Buttons should have text, and should be above the "code" textarea
@@ -189,46 +234,38 @@ class VideoEditForm extends Component {
     this.ensureBlankInputAvailable();
 
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
-        <CancelConfirm
-          onClickCancel={closeDialog}
-          isLoading={submitting}
-          success={submitSucceeded}
-        >
-          <Grid container spacing={24} direction="row">
-            <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
-              <Display1>Edit Videos</Display1>
-            </Grid>
-              { /* TODO: this is a spacing/style hack, remove */ }
-              <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
-              </Grid>
-              { this.renderExistingVideoInputs() }
-              { this.renderNewVideoInputs() }
-          </Grid>
-        </CancelConfirm>
-      </form>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="VideoEditForm">
+          {(provided, snapshot) => (
+            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
+              <CancelConfirm
+                onClickCancel={closeDialog}
+                isLoading={submitting}
+                success={submitSucceeded}
+              >
+                <Grid container spacing={24} direction="column">
+                  <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
+                    <Display1>Edit Videos</Display1>
+                  </Grid>
+                  { /* TODO: this is a spacing/style hack, remove */ }
+                  <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
+                  </Grid>
+                  { this.renderVideoInputs() }
+                </Grid>
+              </CancelConfirm>
+            </form>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
   }
 }
 
-VideoEditForm = withStyles(styles)(VideoEditForm)
-
-VideoEditForm = compose(
-    FullScreenDialog,
-)(VideoEditForm);
-
-VideoEditForm = reduxForm({
-  form: EDIT_VIDEOS,
-  // This allows `initialValues` to be updated below
-  enableReinitialize: true,
-})(VideoEditForm);
-
 const mapStateToProps = (state, props) => ({
   initialValues: {
-    videos: state.videos,
-    newVideos: { 0: {} }, // Start with an empty field for the user to add a new video
+    videos: _.sortBy(_.values(state.videos), v => v.order),
   },
-  videos: state.videos,
+  videos: _.sortBy(_.values(state.videos), v => v.order),
   profile: state.profile,
   currentValues: getFormValues(EDIT_VIDEOS)(state),
 })
@@ -241,5 +278,15 @@ const mapDispatchToProps = (dispatch) => {
     destroyArtistVideo: VideoActions.destroyArtistVideo,
   }, dispatch);
 };
+
+VideoEditForm = compose(
+  reduxForm({
+    form: EDIT_VIDEOS,
+    // This allows `initialValues` to be updated below
+    enableReinitialize: true,
+  }),
+  withStyles(styles),
+  FullScreenDialog,
+)(VideoEditForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoEditForm);

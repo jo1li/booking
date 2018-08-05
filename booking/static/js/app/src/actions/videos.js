@@ -4,18 +4,18 @@ import crudConfigs from '../reducers/crudConfigs';
 
 // TODO: error handling
 
-export function createArtistVideo({artistId, code}) {
+export function createArtistVideo({artistId, code, order}) {
     return (dispatch, getState) => {
-        const request = requests.createVideo({artistId, code}).then(res => {
+        const request = requests.createVideo({artistId, code, order}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         });
         return request;
     }
 }
 
-export function updateArtistVideo({artistId, videoId, code}) {
+export function updateArtistVideo({artistId, videoId, code, order}) {
     return (dispatch, getState) => {
-        const request = requests.updateVideo({artistId, videoId, code}).then(res => {
+        const request = requests.updateVideo({artistId, videoId, code, order}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         })
     }
