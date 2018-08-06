@@ -1,5 +1,5 @@
 from musicians.tests.utils import OpusTestCase
-from musicians.tests.mommy_recipes import musician_recipe
+from musicians.tests.mommy_recipes import musician_recipe, random_video
 
 import sure
 
@@ -107,6 +107,47 @@ class ApiArtistAudioTest(OpusTestCase):
         result_ids = [r['id'] for r in result.json()['results']]
         user_vid_ids = [v.pk for v in m2.videos.all()]
         result_ids.should.equal(user_vid_ids)
+
+
+    def test_order(self):
+
+        # TODO: See if there's a way to get model_mommy to not inject a random value
+
+        # create 3 videos for our user
+        # video_recipe.make(musician=self.m)
+        # video_recipe.make(musician=self.m)
+        # video_recipe.make(musician=self.m)
+
+        # create a video for our user
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        # set up a 2nd user
+        m2 = musician_recipe.make()
+        m2.videos.create(code=random_video())
+        m2.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+
+        artist_video_list_url = self.reverse_api('artist-videos-list', kwargs={'artist_pk': self.m.pk})
+        headers, cookies = self.get_api_reqs()
+
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.get(artist_video_list_url, {}, format="json", headers=headers)
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(result.json())
+
+        # Check that self.m has order values of 0,1,2. In order.
+        allowed_orders = [0,1,2]
+        for v in result.json()['results']:
+            allowed_orders.should.contain(v['order'])
 
 
 class ApiArtistPhotoTest(OpusTestCase):
