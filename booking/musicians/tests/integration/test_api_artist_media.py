@@ -140,14 +140,11 @@ class ApiArtistAudioTest(OpusTestCase):
         self.app_api.force_authenticate(user=self.m.user)
         result = self.app_api.get(artist_video_list_url, {}, format="json", headers=headers)
 
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(result.json())
-
         # Check that self.m has order values of 0,1,2. In order.
         allowed_orders = [0,1,2]
-        for v in result.json()['results']:
-            allowed_orders.should.contain(v['order'])
+        results = result.json()['results']
+        order_results = [v['order'] for v in results]
+        order_results.should.equal(allowed_orders)
 
 
 class ApiArtistPhotoTest(OpusTestCase):
