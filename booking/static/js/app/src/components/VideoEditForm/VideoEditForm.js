@@ -251,7 +251,6 @@ class VideoEditForm extends Component {
         submitSucceeded,
     } = this.props;
 
-    // TODO: Implement "move" handle.
     // TODO: Design specs list a "help" button - what do we want this to do/say?
     //       How does user interact with it on mobile and on desktop?
     // TODO: Buttons should have text, and should be above the "code" textarea
