@@ -178,11 +178,17 @@ def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
     videos = musician.videos.all()
+    audios = musician.audios.all()
+    photos = musician.photos.all()
 
     context = {
         "musician": musician,
-        "videos": videos,
+        "videos_present": bool(videos),
         "videos_json": json.dumps([video.src for video in videos]),
+        "audios_present": bool(audios),
+        "audios_json": json.dumps([audio.src for audio in audios]),
+        "photos_present": bool(photos),
+        "photos_json": json.dumps([photo.image.url for photo in photos]),
     }
 
     return opus_render(request, "musicians/profile.html", context)

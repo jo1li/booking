@@ -5,6 +5,9 @@ set -ex
 # ensure containers are up
 docker-compose up -d
 
+# Clean out the build folder
+rm -Rfv booking/static/js/app/build
+
 # Run the react-scripts build
 docker-compose exec web-js npm run build
 

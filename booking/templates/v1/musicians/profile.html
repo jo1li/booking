@@ -28,6 +28,11 @@
     bio_short="{{ musician.bio_short|default_if_none:"" }}"
 ></user-edit-form>
 <div id="video-edit-form"></div>
+<div id="edit-bio-form"
+    musicianId="{{ musician.pk|default_if_none:"" }}"
+    bio="{{ musician.bio|default_if_none:"" }}"
+></div>
+
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
         <div class="edit-box">
@@ -55,7 +60,7 @@
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}
-                        <div class="edit"><img v-on:click="openEditBio" id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
+                        <div class="edit"><img id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
                     </div>
 
                     <div class="artist-photo text-center">
@@ -83,7 +88,7 @@
                         {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}" target="_blank">{{ musician.website }}</a></p>{% endif %}
                     </div>
 
-                    <div class="about">
+                    <div class="about"  id="temp-edit-bio-form">
                         <p class="body-text regular">{{ musician.bio_short }}</p>
                     </div>
 
@@ -92,7 +97,7 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos %}
+                {% if videos_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
@@ -105,60 +110,32 @@
                 </div>
                 {% endif %}
 
+
+                {% if audios_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
-
-                    <div class="slide-gallery">
-                        <div class="slide">
-                            {{ musician.musicianaudio_set.first.code | safe }}
-                        </div>
-                    </div>
-
-                    <div class="slider-pagination">
-                        <a href="#" class="slider-arrow prev"></a>
-                        <ul class="pagination-list">
-                            <li class="active"><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                        <a href="#" class="slider-arrow next"></a>
+                    <div
+                        id="audio-carousel"
+                        audiosourcesjson="{{ audios_json }}">
                     </div>
                 </div>
+                {% endif %}
 
+                {% if photos_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Photos</h2>
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
-
-                    <div class="slide-gallery">
-                        <div class="slide">
-                            <img src="{% static 'images/slider-placeholder3.jpg' %}" alt="">
-                        </div>
-                    </div>
-
-                    <div class="slider-pagination">
-                        <a href="#" class="slider-arrow prev"></a>
-                        <ul class="pagination-list">
-                            <li class="active"><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                        <a href="#" class="slider-arrow next"></a>
+                    <div
+                        id="photo-carousel"
+                        photosourcesjson="{{ photos_json }}">
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="slider-section">
                     <div class="category edit-box">
@@ -253,9 +230,10 @@
                 </div>
 
                 <div class="slider-section">
+
                     <div class="category edit-box">
                         <h2 id="biography-long" class="subheading">Biography</h2>
-                        <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
+                        <a href="#" class="edit"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
                     <p id="biography-long-content">{{ musician.bio }}</p>

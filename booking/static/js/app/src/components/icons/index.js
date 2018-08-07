@@ -1,5 +1,6 @@
 import React from 'react';
 import IconImg from './IconImg';
+import CONFIGS from '../../configs';
 
 export { default as Add } from '@material-ui/icons/Add';
 export { default as CheckCircle } from '@material-ui/icons/CheckCircle';
@@ -10,4 +11,4 @@ export { default as ExpandMore } from '@material-ui/icons/ExpandMore';
 // TODO: Change these to be the icons we have in zeplin
 export { default as Help } from '@material-ui/icons/HelpOutline';
 export { default as Move } from '@material-ui/icons/OpenWith';
-export const Save = IconImg('/static/images/save.svg')
+export const Save = IconImg(`${CONFIGS.IMAGES_URL}/save.svg`);

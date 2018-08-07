@@ -18,18 +18,18 @@ import {
  * for a slice of state really easy to spin up.
  *
  * given a reducerName default CRUD actions will be created.
- * For example given a reducerName of 'todos' you will get actions:
+ * For example given a reducerName of 'videos' you will get actions:
  *
- * 1. TODOS_CREATE_OR_UPDATE
- * 2. TODOS_DELETE
+ * 1. VIDEOS_CREATE_OR_UPDATE
+ * 2. VIDEOS_DELETE
  *
- * dispatches to TODOS_CREATE_OR_UPDATE can accept:
+ * dispatches to VIDEOS_CREATE_OR_UPDATE can accept:
  *
  * 1. an array of records where each record has an id. This will create records in state.
  * 2. an object with an id. this will create or update a record in state
  * 3. an an object without an id. this will create or update an object in state
  *
- * dispatches to TODOS_DELETE can accept:
+ * dispatches to VIDEOS_DELETE can accept:
  *
  * 1. an array of objects with id. this will delete those records in state.
  * 2. an object with an id. this will delete that record.
