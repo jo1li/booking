@@ -147,6 +147,62 @@ class ApiArtistAudioTest(OpusTestCase):
         order_results.should.equal(allowed_orders)
 
 
+    def test_order_update(self):
+
+        # create videos for our user
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        last_vid = self.m.videos.all().first()
+
+        code = "<code></code>"
+        params = {
+            'code': code,
+            'order': 0
+        }
+
+        artist_video_detail_url = self.reverse_api('artist-videos-detail', kwargs={'artist_pk': self.m.pk, 'pk': last_vid.pk})
+        headers, cookies = self.get_api_reqs()
+
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.put(artist_video_detail_url, params, format="json", headers=headers)
+
+        result.json()['order'].should.equal(0)
+        result.json()['code'].should.equal(code)
+
+        artist_video_list_url = self.reverse_api('artist-videos-list', kwargs={'artist_pk': self.m.pk})
+        headers, cookies = self.get_api_reqs()
+
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.get(artist_video_list_url, {}, format="json", headers=headers)
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(result.json())
+
+        # Check that self.m has order values of 0,1,2. In order.
+        allowed_orders = [0,1,2]
+        results = result.json()['results']
+        order_results = [v['order'] for v in results]
+        order_results.should.equal(allowed_orders)
+
+        # Find last_vid and check the order is set correctly
+        checked = False
+        for r in results:
+            if r['id'] == last_vid.pk:
+                r['order'].should.equal(0)
+                checked = True
+
+        if not checked:
+            self.fail("last_vid not in result")
+
+
 class ApiArtistPhotoTest(OpusTestCase):
 
 

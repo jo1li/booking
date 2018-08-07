@@ -30,10 +30,19 @@ artist_fields = (
 class ArtistVideoSerializer(serializers.ModelSerializer):
 
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+    order = serializers.IntegerField()
 
     class Meta:
         model = MusicianVideo
         fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+
+
+    def update(self, instance, validated_data):
+
+        instance.to(validated_data.get('order'))
+        instance = super(ArtistVideoSerializer, self).update(instance, validated_data)
+
+        return instance
 
 
 class ArtistAudioSerializer(serializers.ModelSerializer):
@@ -52,7 +61,6 @@ class ArtistImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicianImage
         fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
-
 
 
 class ArtistGenreTagSerializer(serializers.ModelSerializer):
