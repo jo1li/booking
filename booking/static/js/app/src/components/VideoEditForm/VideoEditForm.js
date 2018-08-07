@@ -1,6 +1,6 @@
 // TODO: There is a lot of duplication between this module and UserEditForm.
 //       Plenty to DRY up.
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux';
 
@@ -23,7 +23,9 @@ import { Display1 } from '../typography';
 import TextArea from '../form/TextArea';
 import InputButtons from './InputButtons';
 import {
+  HelpButton,
   DeleteButton,
+  MoveButton,
 } from '../form/FabButton';
 
 import * as VideoActions from '../../actions/videos';
@@ -33,25 +35,50 @@ import { EDIT_VIDEOS } from '../../constants/forms';
 
 class VideoCodeInput extends Component {
   render() {
-    const { order, destroy, isDragging, innerRef, dndProvidedProps } = this.props;
+    const { order, destroy, innerRef, dndProvidedProps, classes } = this.props;
 
-    return <div
-      ref={innerRef}
-      {...dndProvidedProps.draggableProps}
-      {...dndProvidedProps.dragHandleProps}>
-        <InputButtons
-          component={TextArea}
-          key={`input-videos-[${order}]`}
-          name={`videos[${order}].code`}
-          placeholder="Copy and paste video player embed code here."
-          style={{opacity: isDragging ? 0.5 : 1}}
-        >
-          <DeleteButton
-            caption="clear"
-            onClick={() => destroy(order)}
-          />
-        </InputButtons>
-      </div>;
+    // NB: Classname on highest div includes plain string
+    // so it can be referred to within the `styles`.
+    return (
+      <div
+          ref={innerRef}
+          className={`${classes['video-code-input']} video-code-input`}
+          {...dndProvidedProps.draggableProps} >
+        <Grid container direction="row">
+          <InputButtons
+              innerRef={innerRef}
+              component={TextArea}
+              key={`input-videos-[${order}]`}
+              name={`videos[${order}].code`}
+              placeholder="Copy and paste video player embed code here." >
+            <HelpButton
+                mobileText="help"
+                onClick={() => {}} />
+            <DeleteButton
+                mobileText="clear"
+                onClick={() => destroy(order)} />
+            <div
+                {...dndProvidedProps.dragHandleProps}
+                className={classes.moveButton} >
+              <MoveButton
+                  {...dndProvidedProps.dragHandleProps}
+                  onMouseDown={(e) => {
+                    /**
+                     * We can't implement movebutton as a drag handle in the
+                     * usual way because of some features we are using on
+                     * fabbutton, but we can wrap it and ask the movebutton to
+                     * send its mousedown to the parent.
+                     * NB: target on lhs and currentTarget on rhs is intentional.
+                     */
+                    e.target = e.currentTarget.parentNode;
+                    return dndProvidedProps.dragHandleProps.onMouseDown(e);
+                  }}
+                  mobileText="move" />
+            </div>
+          </InputButtons>
+        </Grid>
+      </div>
+    );
   }
 }
 
@@ -177,18 +204,16 @@ class VideoEditForm extends Component {
   }
 
   renderVideoInputs() {
-    const { currentValues } = this.props;
+    const { currentValues, classes } = this.props;
     return _.map(currentValues.videos, (props, idx) => {
       return <Draggable key={`video-code-input-${idx}`} draggableId={`videos[${props.order}]`} index={idx}>
         {(provided, snapshot) => (
-          <Fragment>
-            <VideoCodeInput
-              {...props}
-              dndProvidedProps={provided}
-              innerRef={provided.innerRef}
-              destroy={(args) => this.removeVideoFromForm(args)} />
-            {provided.placeholder}
-          </Fragment>
+          <VideoCodeInput
+            {...props}
+            dndProvidedProps={provided}
+            innerRef={provided.innerRef}
+            classes={classes}
+            destroy={(args) => this.removeVideoFromForm(args)} />
         )}
       </Draggable>;
     })
@@ -243,15 +268,14 @@ class VideoEditForm extends Component {
                 isLoading={submitting}
                 success={submitSucceeded}
               >
-                <Grid container spacing={24} direction="column">
+                <Grid container spacing={24} direction="row">
                   <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
                     <Display1>Edit Videos</Display1>
                   </Grid>
-                  { /* TODO: this is a spacing/style hack, remove */ }
-                  <Grid className={classes.caption} item xs={12} sm={12} md={12} lg={12}>
-                  </Grid>
-                  { this.renderVideoInputs() }
                 </Grid>
+                <div className={classes['video-code-input-parent']}>
+                  { this.renderVideoInputs() }
+                </div>
               </CancelConfirm>
             </form>
           )}
