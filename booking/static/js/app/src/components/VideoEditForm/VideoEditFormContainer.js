@@ -4,7 +4,7 @@ import BindDomEvent from '../HOComponents/BindDomEvents';
 import VideoEditForm from './VideoEditForm';
 import autoBind from 'react-autobind';
 
-class UserEditFormContainer extends Component {
+class VideoEditFormContainer extends Component {
     constructor() {
         super();
 
@@ -26,4 +26,4 @@ class UserEditFormContainer extends Component {
 
 export default compose(
     BindDomEvent,
-)(UserEditFormContainer)
+)(VideoEditFormContainer)
