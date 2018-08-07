@@ -30,7 +30,7 @@ artist_fields = (
 class ArtistVideoSerializer(serializers.ModelSerializer):
 
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
-    order = serializers.IntegerField()
+    order = serializers.IntegerField(required=False)
 
     class Meta:
         model = MusicianVideo
@@ -39,7 +39,9 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        instance.to(validated_data.get('order'))
+        if 'order' in validated_data.keys():
+            instance.to(validated_data.get('order'))
+
         instance = super(ArtistVideoSerializer, self).update(instance, validated_data)
 
         return instance
