@@ -1,13 +1,14 @@
 import React from 'react';
 import DialogBase from './DialogBase';
 import withWidth from '@material-ui/core/withWidth';
+import includes from 'lodash/includes';
 
 let FullScreenDialog = ({ children, onMount, width }) => {
         return (
             <DialogBase
                 onMount={onMount}
                 maxWidth={false}
-                fullScreen={width === 'sm'}
+                fullScreen={includes(['xs', 'sm'], width)}
             >
                 { children }
             </DialogBase>
