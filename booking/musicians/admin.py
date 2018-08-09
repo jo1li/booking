@@ -12,7 +12,7 @@ class MusicianAudioAdmin(admin.ModelAdmin):
 
 
 class MusicianVideoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['musician', 'order']
 
 # Register your models here.
 tagulous.admin.register(GenreTag)
