@@ -5,6 +5,7 @@ import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import withWidth from '@material-ui/core/withWidth';
 
 import {
   reduxForm,
@@ -35,7 +36,7 @@ import { EDIT_VIDEOS } from '../../constants/forms';
 
 class VideoCodeInput extends Component {
   render() {
-    const { order, destroy, innerRef, dndProvidedProps, classes } = this.props;
+    const { order, destroy, innerRef, dndProvidedProps, classes, width } = this.props;
 
     // NB: Classname on highest div includes plain string
     // so it can be referred to within the `styles`.
@@ -50,7 +51,9 @@ class VideoCodeInput extends Component {
               component={TextArea}
               key={`input-videos-[${order}]`}
               name={`videos[${order}].code`}
-              placeholder="Copy and paste video player embed code here." >
+              placeholder="Copy and paste video player embed code here."
+              isMobile={'xs' === width}
+            >
             <HelpButton
                 mobileText="help"
                 onClick={() => {}} />
@@ -204,7 +207,7 @@ class VideoEditForm extends Component {
   }
 
   renderVideoInputs() {
-    const { currentValues, classes } = this.props;
+    const { currentValues, classes, width } = this.props;
     return _.map(currentValues.videos, (props, idx) => {
       return <Draggable key={`video-code-input-${idx}`} draggableId={`videos[${props.order}]`} index={idx}>
         {(provided, snapshot) => (
@@ -213,6 +216,7 @@ class VideoEditForm extends Component {
             dndProvidedProps={provided}
             innerRef={provided.innerRef}
             classes={classes}
+            width={width}
             destroy={(args) => this.removeVideoFromForm(args)} />
         )}
       </Draggable>;
@@ -309,6 +313,7 @@ VideoEditForm = compose(
     enableReinitialize: true,
   }),
   withStyles(styles),
+  withWidth(),
   FullScreenDialog,
 )(VideoEditForm);
 
