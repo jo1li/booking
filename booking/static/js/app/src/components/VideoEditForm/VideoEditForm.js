@@ -43,7 +43,7 @@ class VideoCodeInput extends Component {
     return (
       <div
           ref={innerRef}
-          className={`${classes['video-code-input']} video-code-input`}
+          className={`${classes.videoCodeInput} video-code-input`}
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
           <InputButtons
@@ -279,7 +279,7 @@ class VideoEditForm extends Component {
                     <Display1>Edit Videos</Display1>
                   </Grid>
                 </Grid>
-                <div className={classes['video-code-input-parent']}>
+                <div className={classes.videoCodeInputParent}>
                   { this.renderVideoInputs() }
                 </div>
               </CancelConfirm>

@@ -1,12 +1,12 @@
 const styles = theme => ({
-  'video-code-input-parent': {
+  videoCodeInputParent: {
     '& > div:not(.video-code-input)': {
       // react-beautiful-dnd and material-ui are stepping on each other's toes
       // this keeps the react-beautiful-dnd 'placeholder' from widening the dialog
       width: '0!important'
     }
   },
-  'video-code-input': {
+  videoCodeInput: {
     padding: '12px 0',
   },
   button: {
@@ -16,13 +16,13 @@ const styles = theme => ({
     '&:first-child': {
       marginLeft: '0px',
     },
-    'background-color': 'white', // Looks better when moving over other items
+    backgroundColor: 'white', // Looks better when moving over other items
   },
   buttonContainer: {
     marginLeft: '10px',
   },
   buttonsContainer: {
-    'padding-bottom': '10px',
+    paddingBottom: '10px',
   },
   captionTop: {
     margin: '0 12px 32px',
@@ -30,7 +30,7 @@ const styles = theme => ({
     borderBottom: `1px solid ${theme.palette.grey[200]}`,
   },
   textArea: {
-    'background-color': 'white', // Looks better when moving over other items
+    backgroundColor: 'white', // Looks better when moving over other items
   },
 
   [theme.breakpoints.down('xs')]: {
