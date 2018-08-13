@@ -268,7 +268,6 @@ class VideoEditForm extends Component {
 
     // TODO: Design specs list a "help" button - what do we want this to do/say?
     //       How does user interact with it on mobile and on desktop?
-    // TODO: Buttons should have text, and should be above the "code" textarea
 
     this.ensureBlankInputAvailable();
 
