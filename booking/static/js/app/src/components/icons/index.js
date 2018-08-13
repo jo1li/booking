@@ -6,9 +6,9 @@ export { default as Add } from '@material-ui/icons/Add';
 export { default as CheckCircle } from '@material-ui/icons/CheckCircle';
 export { default as Close } from '@material-ui/icons/Close';
 export { default as CloudUpload } from '@material-ui/icons/CloudUpload';
-export { default as Delete } from '@material-ui/icons/Delete';
+export { Trash2 as Delete } from 'react-feather';
 export { default as ExpandMore } from '@material-ui/icons/ExpandMore';
 // TODO: Change these to be the icons we have in zeplin
 export { default as Help } from '@material-ui/icons/HelpOutline';
-export { default as Move } from '@material-ui/icons/OpenWith';
+export { Move } from 'react-feather';
 export const Save = IconImg(`${CONFIGS.IMAGES_URL}/save.svg`);
