@@ -28,14 +28,15 @@ const InputButtons = (props) => {
           <Grid item xs={12} sm={smallInput} md={8} lg={8}>
             <Field {...props} />
           </Grid>
-          <Grid item xs={12} sm={smallButtons} md={4} lg={4}>
+          <Grid item xs={12} sm={smallButtons} md={4} lg={4} className={classes.buttonsContainer}>
             <Grid
                 container
-                justify="flex-end"
+                justify={isMobile ? "space-between" : "flex-end"}
+                wrap="nowrap"
                 direction="row" >
               {
                 React.Children.map(children, child =>
-                    React.cloneElement(child, {className: `${classes.button} ${child.props.className}`})
+                    React.cloneElement(child)
                 )
               }
             </Grid>

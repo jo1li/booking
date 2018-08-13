@@ -7,19 +7,22 @@ const styles = theme => ({
     }
   },
   'video-code-input': {
-    padding: '12px',
+    padding: '12px 0',
   },
   button: {
+    minWidth: '0px',
     position: 'relative',
-    marginLeft: '20px',
+    marginLeft: '10px',
     '&:first-child': {
       marginLeft: '0px',
     },
     'background-color': 'white', // Looks better when moving over other items
   },
-  moveButton: {
-    cursor: 'grab',
-    display: 'flex',
+  buttonContainer: {
+    marginLeft: '10px',
+  },
+  buttonsContainer: {
+    'padding-bottom': '10px',
   },
   captionTop: {
     margin: '0 12px 32px',
@@ -28,7 +31,17 @@ const styles = theme => ({
   },
   textArea: {
     'background-color': 'white', // Looks better when moving over other items
-  }
+  },
+
+  [theme.breakpoints.down('xs')]: {
+    button: {
+      marginLeft: 0,
+      padding: '8px 12px',
+    },
+    buttonContainer: {
+      marginLeft: 0,
+    }
+  },
 });
 
 export default styles;

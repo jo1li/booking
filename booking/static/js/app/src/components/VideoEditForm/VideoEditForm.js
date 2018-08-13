@@ -56,13 +56,15 @@ class VideoCodeInput extends Component {
             >
             <HelpButton
                 mobileText="help"
-                onClick={() => {}} />
+                onClick={() => {}}
+                className={classes.button} />
             <DeleteButton
                 mobileText="clear"
-                onClick={() => destroy(order)} />
+                onClick={() => destroy(order)}
+                className={classes.button} />
             <div
                 {...dndProvidedProps.dragHandleProps}
-                className={classes.moveButton} >
+                className={classes.buttonContainer} >
               <MoveButton
                   {...dndProvidedProps.dragHandleProps}
                   onMouseDown={(e) => {
@@ -76,7 +78,8 @@ class VideoCodeInput extends Component {
                     e.target = e.currentTarget.parentNode;
                     return dndProvidedProps.dragHandleProps.onMouseDown(e);
                   }}
-                  mobileText="move" />
+                  mobileText="move"
+                  className={`${classes.moveButton} ${classes.button}`} />
             </div>
           </InputButtons>
         </Grid>
