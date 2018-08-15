@@ -31,6 +31,7 @@ class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class ArtistMediaViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
                     viewsets.GenericViewSet):
 
 

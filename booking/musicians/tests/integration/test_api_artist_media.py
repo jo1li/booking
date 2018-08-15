@@ -138,6 +138,39 @@ class ApiArtistVideoTest(OpusTestCase):
             self.fail("last_vid not in result")
 
 
+    def test_order_delete(self):
+
+        # create videos for our user
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        self.m.videos.create(code=random_video())
+        self.m.save()
+
+        all_vid = self.m.videos.all()
+        middle_vid_to_delete = all_vid[1]
+
+        artist_video_delete_url = self.reverse_api('artist-videos-detail', kwargs={'artist_pk': self.m.pk, 'pk': middle_vid_to_delete.pk})
+        headers, cookies = self.get_api_reqs()
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.delete(artist_video_delete_url, {}, format="json", headers=headers)
+        result.status_code.should.equal(204)
+
+        artist_video_list_url = self.reverse_api('artist-videos-list', kwargs={'artist_pk': self.m.pk})
+        headers, cookies = self.get_api_reqs()
+        self.app_api.force_authenticate(user=self.m.user)
+        result = self.app_api.get(artist_video_list_url, {}, format="json", headers=headers)
+
+        # Check that self.m has order values of 0,1,2. In order.
+        allowed_orders = [0,1]
+        results = result.json()['results']
+        order_results = [v['order'] for v in results]
+        order_results.should.equal(allowed_orders)
+
+
 class ApiArtistAudioTest(OpusTestCase):
 
     def test_create(self):
