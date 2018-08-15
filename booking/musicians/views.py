@@ -53,7 +53,7 @@ class ArtistMediaViewSet(mixins.ListModelMixin,
         """
 
         m = get_object_or_404(Musician, pk=self.kwargs['artist_pk'])
-        return self.serializer_class.Meta.model.objects.filter(musician=m)
+        return self.serializer_class.Meta.model.objects.filter(musician=m).order_by('order')
 
 
 class ArtistVideoViewSet(ArtistMediaViewSet):

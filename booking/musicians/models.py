@@ -206,9 +206,13 @@ class MusicianAudio(TimeStampedModel, OrderedModel):
         parser.feed(self.code)
         return parser.src
 
+
 class MusicianVideo(TimeStampedModel, OrderedModel):
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='videos')
     code = models.TextField()
+
+    # Keeps order per-user
+    order_with_respect_to = 'musician'
 
     @property
     def src(self):
