@@ -34,7 +34,7 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianVideo
-        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified', 'src')
 
 
     def update(self, instance, validated_data):
@@ -53,7 +53,7 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianAudio
-        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified', 'src')
 
 
 class ArtistImageSerializer(serializers.ModelSerializer):
