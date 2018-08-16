@@ -69,6 +69,9 @@ class VideoCodeInput extends Component {
                      * fabbutton, but we can wrap it and ask the movebutton to
                      * send its mousedown to the parent.
                      * NB: target on lhs and currentTarget on rhs is intentional.
+                     * `target` needs to be the drag handle with the props;
+                     * `currentTarget` will be the move button, and its parent
+                     * will be the drag handle.
                      */
                     e.target = e.currentTarget.parentNode;
                     return dndProvidedProps.dragHandleProps.onMouseDown(e);
