@@ -20,6 +20,7 @@ const styles = theme => ({
   },
   buttonContainer: {
     marginLeft: '10px',
+    display: 'flex', // Allows inner button to fill container
   },
   buttonsContainer: {
     paddingBottom: '10px',
@@ -35,11 +36,16 @@ const styles = theme => ({
 
   [theme.breakpoints.down('xs')]: {
     button: {
-      marginLeft: 0,
       padding: '8px 12px',
+      width: '127px',
     },
     buttonContainer: {
-      marginLeft: 0,
+      width: '127px',
+      marginLeft: '26px',
+      '& button': {
+        marginLeft: 0,
+        flex: 1,
+      },
     }
   },
 });
