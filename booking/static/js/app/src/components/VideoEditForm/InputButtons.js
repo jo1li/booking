@@ -21,17 +21,16 @@ const InputButtons = (props) => {
     const mediumButtons = fullWidth - mediumInput;
     const smallButtons = fullWidth - smallInput;
 
-    // TODO: Magic numbers, and not using variables above
     return (
       <Fragment>
         <Reverse If={isMobile}>
-          <Grid item xs={12} sm={smallInput} md={8} lg={8}>
+          <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>
             <Field {...props} />
           </Grid>
-          <Grid item xs={12} sm={smallButtons} md={4} lg={4} className={classes.buttonsContainer}>
+          <Grid item xs={12} sm={smallButtons} md={mediumButtons} lg={2} className={classes.buttonsContainer}>
             <Grid
                 container
-                justify={isMobile ? "space-between" : "flex-end"}
+                justify={isMobile ? "center" : "flex-end"}
                 wrap="nowrap"
                 direction="row" >
               {
