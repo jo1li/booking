@@ -24,7 +24,6 @@ import { Display1 } from '../typography';
 import TextArea from '../form/TextArea';
 import InputButtons from './InputButtons';
 import {
-  HelpButton,
   DeleteButton,
   MoveButton,
 } from '../form/FabButton';
@@ -54,10 +53,6 @@ class VideoCodeInput extends Component {
               placeholder="Copy and paste video player embed code here."
               isMobile={'xs' === width}
             >
-            <HelpButton
-                mobileText="help"
-                onClick={() => {}}
-                className={classes.button} />
             <DeleteButton
                 mobileText="clear"
                 onClick={() => destroy(order)}
@@ -266,8 +261,7 @@ class VideoEditForm extends Component {
         submitSucceeded,
     } = this.props;
 
-    // TODO: Design specs list a "help" button - what do we want this to do/say?
-    //       How does user interact with it on mobile and on desktop?
+    // TODO: Add the "help" tab
 
     this.ensureBlankInputAvailable();
 
