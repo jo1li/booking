@@ -177,9 +177,9 @@ class ArtistViewSet(mixins.ListModelMixin,
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
-    videos = musician.videos.all()
-    audios = musician.audios.all()
-    photos = musician.photos.all()
+    videos = musician.videos.all().order_by('order')
+    audios = musician.audios.all().order_by('order')
+    photos = musician.photos.all().order_by('order')
 
     context = {
         "musician": musician,
