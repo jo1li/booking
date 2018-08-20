@@ -19,7 +19,7 @@ class EditBioFormContainer extends Component {
     }
 
     render() {
-        return <EditBioForm onMount={this.onMount} {...this.props}/>
+        return <EditBioForm onDialogMount={this.onMount} {...this.props}/>
     }
 }
 

@@ -3,7 +3,12 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+/* eslint-disable */
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
+
 import configureStore from './store';
+import { getDomAttributesAsProps } from './utils/domHelpers';
 
 // Not sure if this is the best place for default states.
 var windowState = window.initialState || {};
@@ -43,17 +48,22 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) =
         domNode.classList.add(className);
     }
 
-    const mappedKeys = _.mapKeys(domNode.attributes, value => value.nodeName)
-    const componentProps = _.mapValues(mappedKeys, value => domNode.getAttribute(value.nodeName))
+    // Get DOM node attributes to pass into the component as props
+    const componentProps = getDomAttributesAsProps(domNode);
+    const children = domNode.innerHTML;
 
     ReactDOM.render(
             <MuiThemeProvider theme={theme}>
-                <Provider store={store}>
-                        <Component
-                            {...componentProps}
-                            className={className || ''}
-                        />
-                </Provider>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Provider store={store}>
+                            <Component
+                                {...componentProps}
+                                className={className || ''}
+                            >
+                                {children}
+                            </Component>
+                    </Provider>
+                </MuiPickersUtilsProvider>
             </MuiThemeProvider>
         , domNode);
 }

@@ -1,9 +1,13 @@
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import EditBioForm from './components/EditBioForm';
+import ShowsEditForm from './components/ShowsEditForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import PhotoCountIndicator from './components/PhotoCountIndicator';
 import RenderFromDomNode from './renderFromDomNode';
+
+// console.log('ShowsEditForm', ShowsEditForm)
+console.log("here")
 
 RenderFromDomNode({
     Component: UserEditForm,
@@ -46,4 +50,9 @@ RenderFromDomNode({
 RenderFromDomNode({
     Component: PhotoCountIndicator,
     node: 'photo-count-indicator',
+});
+
+RenderFromDomNode({
+    Component: ShowsEditForm,
+    node: 'show-edit-modal',
 });

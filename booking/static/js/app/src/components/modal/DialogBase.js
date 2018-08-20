@@ -28,7 +28,7 @@ class DialogBase extends React.Component {
   };
 
   componentWillMount() {
-    this.props.onMount && this.props.onMount(this.open, this.close);
+    this.props.onDialogMount && this.props.onDialogMount(this.open, this.close);
   }
 
   open() {

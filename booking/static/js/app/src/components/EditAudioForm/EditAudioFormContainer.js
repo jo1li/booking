@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import BindDomEvent from '../HOComponents/BindDomEvents';
-import UserEditForm from './UserEditForm';
+import EditBioForm from './EditBioForm';
 import autoBind from 'react-autobind';
 
-class UserEditFormContainer extends Component {
+class EditBioFormContainer extends Component {
     constructor() {
         super();
-
+        console.log("construcor")
         autoBind(this);
     }
 
     onMount(open) {
-          this.props.bindDomEvent({
-            domSelector: '#open-edit-user-profile',
+        console.log("onMount")
+        this.props.bindDomEvent({
+            domSelector: '#open-edit-biography',
             eventType: 'click',
             callback: open
         })
     }
 
     render() {
-        return <UserEditForm onDialogMount={this.onMount} {...this.props}/>
+        return <EditBioForm onDialogMount={this.onMount} {...this.props}/>
     }
 }
 
 export default compose(
     BindDomEvent,
-)(UserEditFormContainer)
+)(EditBioFormContainer)
