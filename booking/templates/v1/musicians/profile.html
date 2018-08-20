@@ -143,6 +143,7 @@
                         <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
+                    <div id="show-edit-modal"></div>
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <!-- <caption align="top">Upcoming Shows</caption> -->
@@ -151,31 +152,43 @@
                                 <th colspan="2" class="booked">Booked on Opus <img src="{% static 'images/bookmark-copy.png' %}" alt=""></th>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr
+                                    class="open-show-edit-modal"
+                                    venue="super cool place"
+                                    state="Id"
+                                    city="San Diego"
+                                    description="Do we need a limit on the descriptoin?"
+                                >
                                     <td>4/6/18</td>
                                     <td class="show-name">Crawford Auditorium</td>
                                     <td>Grove City, PA</td>
                                     <td class="booked"></td>
                                 </tr>
-                                <tr>
+                                <tr
+                                    class="open-show-edit-modal"
+                                    venue="the underground"
+                                    state="WA"
+                                    city="Seattle"
+                                    description="Do we need a limit on the descriptoin again?"
+                                >
                                     <td>4/7/18</td>
                                     <td class="show-name">Baby's All Right</td>
                                     <td>New York, NY</td>
                                     <td></td>
                                 </tr>
-                                <tr>
+                                <tr class="open-show-edit-modal">
                                     <td>4/8/18</td>
                                     <td class="show-name">Union Stage</td>
                                     <td>Washington, DC</td>
                                     <td class="booked"></td>
                                 </tr>
-                                <tr>
+                                <tr class="open-show-edit-modal">
                                     <td>4/9/18</td>
                                     <td class="show-name">Sonia</td>
                                     <td>Cambridge, MA</td>
                                     <td></td>
                                 </tr>
-                                <tr>
+                                <tr class="open-show-edit-modal">
                                     <td>4/10/18</td>
                                     <td class="show-name">World Cafe Live</td>
                                     <td>Philadelphia, PA</td>

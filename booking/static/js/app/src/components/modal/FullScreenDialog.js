@@ -3,10 +3,10 @@ import DialogBase from './DialogBase';
 import withWidth from '@material-ui/core/withWidth';
 import includes from 'lodash/includes';
 
-let FullScreenDialog = ({ children, onMount, width }) => {
+let FullScreenDialog = ({ children, onDialogMount, width }) => {
         return (
             <DialogBase
-                onMount={onMount}
+                onDialogMount={onDialogMount}
                 maxWidth={false}
                 fullScreen={includes(['xs', 'sm'], width)}
             >
@@ -19,7 +19,7 @@ FullScreenDialog = withWidth()(FullScreenDialog);
 
 const FullScreenDialogContainer = WrappedComponent => props =>
     <FullScreenDialog
-        onMount={props.onMount}
+        onDialogMount={props.onDialogMount}
     >
         <WrappedComponent {...props}/>
     </FullScreenDialog>

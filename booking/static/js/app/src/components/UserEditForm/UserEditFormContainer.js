@@ -13,14 +13,14 @@ class UserEditFormContainer extends Component {
 
     onMount(open) {
           this.props.bindDomEvent({
-            domId: 'open-edit-user-profile',
+            domSelector: '#open-edit-user-profile',
             eventType: 'click',
             callback: open
         })
     }
 
     render() {
-        return <UserEditForm onMount={this.onMount} {...this.props}/>
+        return <UserEditForm onDialogMount={this.onMount} {...this.props}/>
     }
 }
 

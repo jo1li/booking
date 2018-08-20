@@ -13,14 +13,14 @@ class VideoEditFormContainer extends Component {
 
     onMount(open) {
         this.props.bindDomEvent({
-            domId: 'open-edit-videos',
+            domSelector: '#open-edit-videos',
             eventType: 'click',
             callback: open
         })
     }
 
     render() {
-        return <VideoEditForm onMount={this.onMount} {...this.props}/>
+        return <VideoEditForm onDialogMount={this.onMount} {...this.props}/>
     }
 }
 

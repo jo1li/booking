@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Directives =  ({
+const Directives = ({
   If,
   children
 }) => {
