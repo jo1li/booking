@@ -1,7 +1,7 @@
 const styles = theme => ({
   container: {
     maxWidth: '100%',
-    width: '100%',
+    width: '668px',
     height: '100%',
     padding: '20px',
     paddingTop: '40px',
