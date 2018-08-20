@@ -1,4 +1,12 @@
 const styles = theme => ({
+  container: {
+    maxWidth: '100%',
+    width: '100%',
+    height: '100%',
+    padding: '20px',
+    paddingTop: '40px',
+    paddingBottom: '40px',
+  },
   videoCodeInputParent: {
     '& > div:not(.video-code-input)': {
       // react-beautiful-dnd and material-ui are stepping on each other's toes
