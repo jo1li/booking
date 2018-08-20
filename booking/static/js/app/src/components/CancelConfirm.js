@@ -12,7 +12,7 @@ import { CircularProgress } from './form/ProgressIndicators';
 import { Display1 } from './typography';
 
 const styles = theme => ({
-  contaner: {
+  container: {
     maxWidth: '100%',
     width: '100%',
     height: '100%',
@@ -41,6 +41,7 @@ class CancelConfirm  extends Component {
     render() {
         const {
             classes,
+            isContainer, // TODO: Change this, very hacky. Nothing should assume such specific styles.
             children,
             onClickCancel,
             onClickConfirm,
@@ -50,11 +51,14 @@ class CancelConfirm  extends Component {
         } = this.props;
 
         return (
-            <div className={classes.contaner}>
+            <div className={isContainer ? classes.container : ''}>
                 <Grid container spacing={24}>
-                    <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-                        <Display1 className={classes.caption} >{title}</Display1>
-                    </Grid>
+                    {
+                        isContainer &&
+                        <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
+                            <Display1 className={classes.caption} >{title}</Display1>
+                        </Grid>
+                    }
                     <Grid item xs={12} lg={12}>
                         {children}
                     </Grid>
