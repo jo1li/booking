@@ -41,6 +41,24 @@ const styles = theme => ({
   textArea: {
     backgroundColor: 'white', // Looks better when moving over other items
   },
+  helpScreenshotContainer: {
+    textAlign: 'center',
+    border: '2px solid #eeeeee',
+    height: '150px',
+    // TODO: get real images, then remove this
+    '& img': {
+      height: '100%',
+      width: 'auto',
+    }
+  },
+  helpTextContainer: {
+    paddingLeft: '24px',
+  },
+  tab: {
+    '&:focus': { // TODO: clean this up, just getting specificity bc reboot.scss really wants us to have outlines
+      outline: 'none', // TODO: figure out a better solution that doesn't mess with accessibility
+    }
+  },
 
   [theme.breakpoints.down('xs')]: {
     button: {

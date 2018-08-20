@@ -14,6 +14,8 @@ import {
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
@@ -86,10 +88,82 @@ class VideoCodeInput extends Component {
   }
 }
 
+const VideoCodeInputs = (props) => {
+  const { currentValues, classes, width, removeVideoFromForm, isVisible } = props;
+
+  return (
+    <div className={classes.videoCodeInputParent}>
+    {
+      _.map(currentValues.videos, (props, idx) => {
+        return <Draggable key={`video-code-input-${idx}`} draggableId={`videos[${props.order}]`} index={idx}>
+          {(provided, snapshot) => (
+            <VideoCodeInput
+              {...props}
+              dndProvidedProps={provided}
+              innerRef={provided.innerRef}
+              classes={classes}
+              width={width}
+              destroy={removeVideoFromForm} />
+          )}
+        </Draggable>;
+      })
+    }
+    </div>
+  );
+}
+
+const VideoFormHelpSection = (props) => {
+  const { classes } = props;
+  const copyRows = [
+    [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      'Go to the YouTube page of the video you want to add and click on the “SHARE” button.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      'Select the “Embed” option to display the embed video code.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      'Click “COPY” to copy the entire embed video code.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      'Go back to the “Embed” tab, paste the embed code into the box and click “SAVE”. The video is now added to your Opus profile!',
+    ]
+  ];
+
+  return <Grid container direction="column" spacing={24}>
+    <Grid item xs={12} sm={8} md={8} lg={8} style={{fontWeight: 'bold'}}>How to embed YouTube Video</Grid>
+    {
+      _.map(copyRows, row => {
+        return <Grid item container direction="row">
+          <Grid item xs={12} sm={6} md={6} lg={6} className={classes.helpScreenshotContainer}>{row[0]}</Grid>
+          <Grid item xs={12} sm={6} md={6} lg={6} className={classes.helpTextContainer}>{row[1]}</Grid>
+        </Grid>;
+      })
+    }
+  </Grid>;
+}
+
+const VideoFormTabbedHeader = (props) => {
+  const { classes, selectedTabIndex, changeTab } = props;
+
+  return (
+    <Grid container spacing={24} direction="row">
+      <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
+        <Display1>Edit Videos</Display1>
+        <Tabs value={selectedTabIndex} onChange={changeTab} >
+          <Tab disableRipple label="embed" className={classes.tab} />
+          <Tab disableRipple label="help" className={classes.tab} />
+        </Tabs>
+      </Grid>
+    </Grid>
+  );
+}
+
 class VideoEditForm extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = { selectedTabIndex: 0 };
   }
 
   componentWillMount() {
@@ -257,14 +331,16 @@ class VideoEditForm extends Component {
 
   render() {
     const {
+        currentValues,
         closeDialog,
         submitting,
         handleSubmit,
         classes,
         submitSucceeded,
+        width,
     } = this.props;
 
-    // TODO: Add the "help" tab
+    const { selectedTabIndex } = this.state;
 
     this.ensureBlankInputAvailable();
 
