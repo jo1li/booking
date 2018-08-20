@@ -13,6 +13,9 @@ const styles = theme => ({
   },
   icon: {
     colorPrimary: theme.palette.primary.main
+  },
+  paper: {
+    maxWidth: '668px',
   }
 });
 
@@ -65,6 +68,7 @@ class DialogBase extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          className={classes.dialog}
         >
           <div className={classes.iconContainer}>
             <Close
