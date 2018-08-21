@@ -1,38 +1,39 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash';
 
 import CarouselWrapper from './CarouselWrapper';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
 const AudioCarousel = withStyles(styles)(props => {
-  const { classes, audiosourcesjson  } = props;
-  const audioSources = audiosourcesjson ? JSON.parse(audiosourcesjson) : [];
+  const { classes, audiosjson  } = props;
+  const audios = audiosjson ? JSON.parse(audiosjson) : [];
 
   return (
     <CarouselWrapper
         classes={classes}
-        itemCount={audioSources.length}>
+        itemCount={audios.length}>
       <IframeCarouselContent
           className={classes.audioCarouselSwipeableView}
           classes={classes}
-          iframeSources={audioSources}/>
+          iframeSources={_.map(audios, a => a.src)}/>
     </CarouselWrapper>
   );
 });
 
 const VideoCarousel = withStyles(styles)(props => {
-  const { classes, videosourcesjson } = props;
-  const videoSources = videosourcesjson ? JSON.parse(videosourcesjson) : [];
+  const { classes, videosjson } = props;
+  const videos = videosjson ? JSON.parse(videosjson) : [];
 
   return (
     <CarouselWrapper
         classes={classes}
-        itemCount={videoSources.length}>
+        itemCount={videos.length}>
       <IframeCarouselContent
           className={classes.videoCarouselSwipeableView}
           classes={classes}
-          iframeSources={videoSources}/>
+          iframeSources={_.map(videos, v => v.src)}/>
     </CarouselWrapper>
   );
 });
@@ -41,17 +42,17 @@ const VideoCarousel = withStyles(styles)(props => {
 //       consisting of a shaded version of the user's profile image scaled to
 //       at least full width, once redux is in to gives this access to it.
 const PhotoCarousel = withStyles(styles)(props => {
-  const { classes, photosourcesjson } = props;
-  const photoSources = photosourcesjson ? JSON.parse(photosourcesjson) : [];
+  const { classes, photosjson } = props;
+  const photos = photosjson ? JSON.parse(photosjson) : [];
 
   return (
     <CarouselWrapper
         classes={classes}
-        itemCount={photoSources.length}>
+        itemCount={photos.length}>
       <PhotoCarouselContent
           className={classes.photoCarouselSwipeableView}
           classes={classes}
-          photoSources={photoSources}/>
+          photoSources={_.map(photos, p => p.image)}/>
     </CarouselWrapper>
   );
 });
