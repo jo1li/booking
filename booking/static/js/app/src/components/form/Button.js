@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 const styles = theme => ({
   button: {
     borderRadius: '22px',
-    minWidth: '137px',
     height: '44px',
     borderRadius: '22px',
     border: `solid 1px ${theme.palette.secondary.main}`,

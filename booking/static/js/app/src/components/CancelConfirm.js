@@ -31,7 +31,10 @@ const styles = theme => ({
   },
   buttonContainer: {
     textAlign: 'center',
-  }
+  },
+  wideButton: {
+    minWidth: '137px',
+  },
 });
 
 class CancelConfirm  extends Component {
@@ -56,13 +59,14 @@ class CancelConfirm  extends Component {
                         {children}
                     </Grid>
                     <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
-                        <Button onClick={onClickCancel}>
+                        <Button onClick={onClickCancel} className={classes.wideButton}>
                             <Close />
                             { !success ? 'Cancel' : 'Close' }
                         </Button>
                         <RaisedButton
                             type="submit"
                             onClick={onClickConfirm}
+                            className={classes.wideButton}
                         >
 
                             {/* TODO refactor this, this is awful*/}
