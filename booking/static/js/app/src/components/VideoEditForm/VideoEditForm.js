@@ -329,6 +329,10 @@ class VideoEditForm extends Component {
     ));
   }
 
+  changeTab(event, value){
+    this.setState({ selectedTabIndex: value });
+  }
+
   render() {
     const {
         currentValues,
