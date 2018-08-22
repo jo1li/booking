@@ -204,15 +204,7 @@ class VideoEditForm extends Component {
     const requests = _.concat(updateRequests, createRequests, destroyRequests);
 
     // TODO: handle error
-    Promise.all(requests).then(closeDialog).then(() => {
-
-        // TODO: get sources into the returned json for videos so we can just
-        // use redux state as authority of current video state
-        setTimeout(() => {
-          window.location.reload(true);
-        }, 1000);
-      }
-    );
+    Promise.all(requests).then(closeDialog);
   }
 
   renderVideoInputs() {
