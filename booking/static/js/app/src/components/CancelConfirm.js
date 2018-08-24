@@ -9,26 +9,8 @@ import Button from './form/Button';
 import RaisedButton from './form/RaisedButton';
 import Grid from '@material-ui/core/Grid';
 import { CircularProgress } from './form/ProgressIndicators';
-import { Display1 } from './typography';
 
 const styles = theme => ({
-  container: {
-    maxWidth: '100%',
-    width: '100%',
-    height: '100%',
-    padding: '20px',
-    paddingTop: '40px',
-    paddingBottom: '40px',
-  },
-  caption: {
-    color: theme.palette.grey['A400'],
-  },
-  captionTop: {
-    margin: '0 12px',
-    padding: '12px 0px 5px!important',
-    color: theme.palette.grey['A400'],
-    borderBottom: `1px solid ${theme.palette.grey[200]}`,
-  },
   buttonContainer: {
     textAlign: 'center',
   },
@@ -41,7 +23,6 @@ class CancelConfirm  extends Component {
     render() {
         const {
             classes,
-            isContainer, // TODO: Change this, very hacky. Nothing should assume such specific styles.
             children,
             onClickCancel,
             onClickConfirm,
