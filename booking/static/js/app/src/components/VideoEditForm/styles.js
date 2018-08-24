@@ -8,7 +8,7 @@ const styles = theme => ({
     paddingBottom: '40px',
   },
   videoCodeInputParent: {
-    '& > div:not(.video-code-input)': {
+    '& > div:not($videoCodeInput)': {
       // react-beautiful-dnd and material-ui are stepping on each other's toes
       // this keeps the react-beautiful-dnd 'placeholder' from widening the dialog
       width: '0!important'

@@ -39,12 +39,10 @@ class VideoCodeInput extends Component {
   render() {
     const { order, destroy, innerRef, dndProvidedProps, classes, width } = this.props;
 
-    // NB: Classname on highest div includes plain string
-    // so it can be referred to within the `styles`.
     return (
       <div
           ref={innerRef}
-          className={`${classes.videoCodeInput} video-code-input`}
+          className={classes.videoCodeInput}
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
           <InputButtons
