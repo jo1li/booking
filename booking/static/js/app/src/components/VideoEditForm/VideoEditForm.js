@@ -1,6 +1,6 @@
 // TODO: There is a lot of duplication between this module and UserEditForm.
 //       Plenty to DRY up.
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux';
 
@@ -272,21 +272,33 @@ class VideoEditForm extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="VideoEditForm">
           {(provided, snapshot) => (
-            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
-              <CancelConfirm
-                onClickCancel={closeDialog}
-                isLoading={submitting}
-                success={submitSucceeded}
-              >
-                <Grid container spacing={24} direction="row">
-                  <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
-                    <Display1>Edit Videos</Display1>
-                  </Grid>
-                </Grid>
-                <div className={classes.videoCodeInputParent}>
-                  { this.renderVideoInputs() }
-                </div>
-              </CancelConfirm>
+            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.container}>
+
+              <VideoFormTabbedHeader
+                  classes={classes}
+                  selectedTabIndex={selectedTabIndex}
+                  changeTab={this.changeTab} />
+
+              { selectedTabIndex === 0 &&
+                <Fragment>
+                  <VideoCodeInputs
+                      currentValues={currentValues}
+                      classes={classes}
+                      width={width}
+                      removeVideoFromForm={this.removeVideoFromForm} />
+                  <CancelConfirm
+                      onClickCancel={closeDialog}
+                      isLoading={submitting}
+                      success={submitSucceeded} />
+                </Fragment>
+              }
+
+              { selectedTabIndex === 1 &&
+                <VideoFormHelpSection
+                    isVisible={selectedTabIndex === 1}
+                    classes={classes} />
+              }
+
             </form>
           )}
         </Droppable>
