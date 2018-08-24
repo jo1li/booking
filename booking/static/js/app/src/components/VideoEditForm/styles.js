@@ -55,8 +55,12 @@ const styles = theme => ({
     paddingLeft: '24px',
   },
   tab: {
-    '&:focus': { // TODO: clean this up, just getting specificity bc reboot.scss really wants us to have outlines
-      outline: 'none', // TODO: figure out a better solution that doesn't mess with accessibility
+    '&:focus': {
+      outline: 'none',
+      // Just give a hard-to-notice background until we decide what we want to
+      // want to do for accessibility. Not great but better than nothing.
+      // TODO: check with team about what they want for :focus accessibility
+      backgroundColor: '#fff0ff',
     }
   },
 
