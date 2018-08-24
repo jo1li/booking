@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CancelConfirm from '../CancelConfirm';
 import FullScreenDialog from '../modal/FullScreenDialog';
 import TextArea from '../form/TextArea';
+import { Display1 } from '../typography';
 
 import {
   updateUserBio,
@@ -61,31 +62,39 @@ class EditBioForm extends Component {
     } = this.props;
 
     return (
-        <CancelConfirm
-            onClickCancel={closeDialog}
-            onClickConfirm={handleSubmit(this.submit)}
-            isLoading={submitting}
-            success={submitSucceeded}
-            title={'Edit Biography'}
-        >
-      <form onSubmit={handleSubmit(this.submit)}>
-          <Grid container spacing={24} direction="row">
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <Field
-                    component={TextArea}
-                    className={classes.textArea}
-                    id="bio"
-                    label="bio"
-                    name="bio"
-                    placeholder="Your bio"
-                    type="textarea"
-                    multiline
-                    fullWidth
-                  />
-              </Grid>
+      <div className={classes.container}>
+        <Grid container spacing={24}>
+          <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
+            <Display1 className={classes.caption} >Edit Basic Info</Display1>
           </Grid>
-      </form>
-        </CancelConfirm>
+          <Grid item xs={12} lg={12}>
+            <form onSubmit={handleSubmit(this.submit)}>
+              <Grid container spacing={24} direction="row">
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                  <Field
+                      component={TextArea}
+                      className={classes.textArea}
+                      id="bio"
+                      label="bio"
+                      name="bio"
+                      placeholder="Your bio"
+                      type="textarea"
+                      multiline
+                      fullWidth
+                  />
+                </Grid>
+              </Grid>
+              <CancelConfirm
+                  onClickCancel={closeDialog}
+                  onClickConfirm={handleSubmit(this.submit)}
+                  isLoading={submitting}
+                  success={submitSucceeded}
+                  title={'Edit Biography'}
+              />
+            </form>
+          </Grid>
+        </Grid>
+      </div>
     );
   }
 }

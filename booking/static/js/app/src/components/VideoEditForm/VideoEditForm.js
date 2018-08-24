@@ -272,22 +272,25 @@ class VideoEditForm extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="VideoEditForm">
           {(provided, snapshot) => (
-            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
-              <CancelConfirm
-                onClickCancel={closeDialog}
-                isLoading={submitting}
-                success={submitSucceeded}
-              >
-                <Grid container spacing={24} direction="row">
-                  <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
-                    <Display1>Edit Videos</Display1>
-                  </Grid>
+            <div className={classes.container}>
+              <Grid container spacing={24}>
+                <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
+                  <Display1 className={classes.caption} >Edit Videos</Display1>
                 </Grid>
-                <div className={classes.videoCodeInputParent}>
-                  { this.renderVideoInputs() }
-                </div>
-              </CancelConfirm>
-            </form>
+                <Grid item xs={12} lg={12}>
+                  <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
+                    <div className={classes.videoCodeInputParent}>
+                      { this.renderVideoInputs() }
+                    </div>
+                    <CancelConfirm
+                      onClickCancel={closeDialog}
+                      isLoading={submitting}
+                      success={submitSucceeded}
+                    />
+                  </form>
+                </Grid>
+              </Grid>
+            </div>
           )}
         </Droppable>
       </DragDropContext>

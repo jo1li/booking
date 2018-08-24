@@ -51,41 +51,30 @@ class CancelConfirm  extends Component {
         } = this.props;
 
         return (
-            <div className={isContainer ? classes.container : ''}>
-                <Grid container spacing={24}>
-                    {
-                        isContainer &&
-                        <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-                            <Display1 className={classes.caption} >{title}</Display1>
-                        </Grid>
-                    }
-                    <Grid item xs={12} lg={12}>
-                        {children}
-                    </Grid>
-                    <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
-                        <Button onClick={onClickCancel} className={classes.wideButton}>
-                            <Close />
-                            { !success ? 'Cancel' : 'Close' }
-                        </Button>
-                        <RaisedButton
-                            type="submit"
-                            onClick={onClickConfirm}
-                            className={classes.wideButton}
-                        >
+            <Grid container spacing={24}>
+                <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
+                    <Button onClick={onClickCancel} className={classes.wideButton}>
+                        <Close />
+                        { !success ? 'Cancel' : 'Close' }
+                    </Button>
+                    <RaisedButton
+                        type="submit"
+                        onClick={onClickConfirm}
+                        className={classes.wideButton}
+                    >
 
-                            {/* TODO refactor this, this is awful*/}
-                            { isLoading ? <CircularProgress /> : null }
-                            { !isLoading && success ? <CheckCircle /> : null }
-                            { !isLoading && !success ?
-                                <Fragment>
-                                    <Save spaceRight />
-                                    Save
-                                </Fragment>: null
-                            }
-                        </RaisedButton>
-                    </Grid>
+                        {/* TODO refactor this, this is awful*/}
+                        { isLoading ? <CircularProgress /> : null }
+                        { !isLoading && success ? <CheckCircle /> : null }
+                        { !isLoading && !success ?
+                            <Fragment>
+                                <Save spaceRight />
+                                Save
+                            </Fragment>: null
+                        }
+                    </RaisedButton>
                 </Grid>
-            </div>
+            </Grid>
         )
     }
 }
