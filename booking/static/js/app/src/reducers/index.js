@@ -13,7 +13,10 @@ export function createReducers(readyReducers, reducerConstants) {
     // CRUD configs
     const reducersFromConstants = _.reduce(
         reducerConstants,
-        (obj, key) => (obj[key] = defaultCrud(key), obj),
+        (obj, key) => {
+            obj[key] = defaultCrud(key);
+            return obj;
+        },
         {}
     );
 
