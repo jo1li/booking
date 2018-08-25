@@ -1,4 +1,3 @@
-import React from 'react';
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';

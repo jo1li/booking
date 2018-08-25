@@ -1,4 +1,3 @@
-import React from 'react';
 import IconImg from './IconImg';
 import CONFIGS from '../../configs';
 

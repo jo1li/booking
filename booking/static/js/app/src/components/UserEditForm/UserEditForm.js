@@ -5,7 +5,6 @@ import {
   Field,
   reduxForm,
   getFormValues,
-  SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
@@ -23,8 +22,6 @@ import {
   DeleteButton,
   AddButton,
 } from '../form/FabButton';
-
-import Button from '../form/Button';
 
 import Input from '../form/Input';
 import Select from '../form/Select';
@@ -100,7 +97,6 @@ class UserEditForm extends Component {
         change,
         submitting,
         handleSubmit,
-        classes,
         currentValues,
         submitSucceeded,
     } = this.props;

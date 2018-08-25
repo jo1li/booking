@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { compose } from 'redux'
 import FabButton from './FabButton';
 import Button from '../Button';
 import Hidden from '@material-ui/core/Hidden';
