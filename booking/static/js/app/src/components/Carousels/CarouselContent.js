@@ -36,6 +36,7 @@ class IframeCarouselContent extends Component {
       >
         {iframeSources.map((src, idx) => (
           <iframe
+            title={src}
             className={`${classes.iframe} ${idx}`}
             ref={`iframe-${idx}`}
             frameBorder="0"
