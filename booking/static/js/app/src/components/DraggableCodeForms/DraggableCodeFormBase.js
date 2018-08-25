@@ -20,10 +20,10 @@ class DraggableCodeFormBase extends Component {
   componentWillMount(props) {
     const {
       profile,
-      getItemsForArtist,
+      getArtistItems,
     } = this.props;
 
-    getItemsForArtist({artistId: profile.id});
+    getArtistItems({artistId: profile.id});
   }
 
   removeItemFromForm(order) {
@@ -165,6 +165,7 @@ class DraggableCodeFormBase extends Component {
       submitSucceeded,
       width,
       itemName,
+      helpCopyRows,
       title,
     } = this.props;
 
@@ -193,7 +194,7 @@ class DraggableCodeFormBase extends Component {
                       success={submitSucceeded}
                       isContainer={false} />
                 </Fragment>
-                <HelpSection classes={classes} />
+                <HelpSection classes={classes} helpCopyRows={helpCopyRows} />
               </TabbedList>
 
             </form>
