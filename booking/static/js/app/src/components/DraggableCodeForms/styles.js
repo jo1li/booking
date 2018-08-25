@@ -13,14 +13,14 @@ const styles = theme => ({
     height: '100%',
     padding: '0 12px',
   },
-  videoCodeInputParent: {
-    '& > div:not($videoCodeInput)': {
+  codeInputParent: {
+    '& > div:not($codeInput)': {
       // react-beautiful-dnd and material-ui are stepping on each other's toes
       // this keeps the react-beautiful-dnd 'placeholder' from widening the dialog
       width: '0!important'
     }
   },
-  videoCodeInput: {
+  codeInput: {
     padding: '12px 0',
   },
   button: {
