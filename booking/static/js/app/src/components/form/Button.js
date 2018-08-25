@@ -8,7 +8,6 @@ const styles = theme => ({
   button: {
     borderRadius: '22px',
     height: '44px',
-    borderRadius: '22px',
     border: `solid 1px ${theme.palette.secondary.main}`,
     borderColor: theme.palette.secondary.main,
     outline: 'none',
