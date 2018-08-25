@@ -1,7 +1,7 @@
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
-import { VideoEditForm } from './components/DraggableCodeForms';
+import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import RenderFromDomNode from './renderFromDomNode';
 
 RenderFromDomNode({
@@ -12,6 +12,11 @@ RenderFromDomNode({
 RenderFromDomNode({
     Component: EditBioForm,
     node: 'edit-bio-form',
+})
+
+RenderFromDomNode({
+    Component: AudioEditForm,
+    node: 'audio-edit-form',
 })
 
 RenderFromDomNode({
