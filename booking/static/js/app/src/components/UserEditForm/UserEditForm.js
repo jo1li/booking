@@ -74,7 +74,7 @@ class UserEditForm extends Component {
 
     return updateUserBio(data, musicianid).then(res => {
       // TODO: Prob a better to check for this
-      if(res.status == 200) {
+      if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
         //    temporary stopgap to allow team members to test w/ out
         setTimeout(() => {
