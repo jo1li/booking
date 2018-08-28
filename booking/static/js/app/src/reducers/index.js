@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import _ from 'lodash'
 import * as REDUCER_CONSTS from '../constants/reducers';
-import createReducer from '../utils/createReducer';
+import _ from 'lodash'
 import defaultCrud from './defaultCrud';
 
 const readyReducers = {
@@ -14,7 +13,10 @@ export function createReducers(readyReducers, reducerConstants) {
     // CRUD configs
     const reducersFromConstants = _.reduce(
         reducerConstants,
-        (obj, key) => (obj[key] = defaultCrud(key), obj),
+        (obj, key) => {
+            obj[key] = defaultCrud(key);
+            return obj;
+        },
         {}
     );
 

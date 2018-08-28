@@ -5,12 +5,10 @@ import {
   Field,
   reduxForm,
   getFormValues,
-  SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
 import FullScreenDialog from '../modal/FullScreenDialog';
@@ -56,11 +54,9 @@ class EditBioForm extends Component {
   render() {
     const {
         closeDialog,
-        change,
         submitting,
         handleSubmit,
         classes,
-        currentValues,
         submitSucceeded,
     } = this.props;
 
