@@ -48,7 +48,7 @@ jobs:
               ~/booking/docker-compose --version
 
       - run:
-          command: sudo ~/booking/docker-compose up web
+          command: sudo ~/booking/docker-compose up -d web
 
       - run:
           name: Run Django Tests!!!!!1!!
