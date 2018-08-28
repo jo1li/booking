@@ -29,6 +29,7 @@ services:
       context: .
     volumes:
       - ./booking/static/js/app/:/app
+      - /app/node_modules
     env_file: ./.env
     ports:
       - "3000:3000"
