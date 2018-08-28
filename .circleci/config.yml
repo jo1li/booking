@@ -48,12 +48,12 @@ jobs:
               ~/booking/docker-compose --version
 
       - run:
-          command: sudo ~/booking/docker-compose up -d web
+          command: sudo ~/booking/docker-compose build web
 
       - run:
           name: Run Django Tests!!!!!1!!
           command: |
-              sudo ~/booking/docker-compose exec web ./scripts/cmd-test.sh
+              sudo ~/booking/docker-compose run web ./scripts/cmd-test.sh
 
 
 workflows:
