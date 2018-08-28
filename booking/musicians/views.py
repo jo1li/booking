@@ -177,18 +177,18 @@ class ArtistViewSet(mixins.ListModelMixin,
 def profile(request, slug=None):
 
     musician = get_object_or_404(Musician, slug=slug)
-    videos = musician.videos.all()
-    audios = musician.audios.all()
-    photos = musician.photos.all()
+    videos = musician.videos.all().order_by('order')
+    audios = musician.audios.all().order_by('order')
+    photos = musician.photos.all().order_by('order')
 
     context = {
         "musician": musician,
         "videos_present": bool(videos),
-        "videos_json": json.dumps([video.src for video in videos]),
+        "videos_json": json.dumps(ArtistVideoSerializer(videos, many=True).data),
         "audios_present": bool(audios),
-        "audios_json": json.dumps([audio.src for audio in audios]),
+        "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
         "photos_present": bool(photos),
-        "photos_json": json.dumps([photo.image.url for photo in photos]),
+        "photos_json": json.dumps(ArtistImageSerializer(photos, many=True).data),
     }
 
     return opus_render(request, "musicians/profile.html", context)

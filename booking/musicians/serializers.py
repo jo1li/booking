@@ -26,6 +26,17 @@ artist_fields = (
             'bandcamp',
         )
 
+class OrderedListSerializer(serializers.ListSerializer):
+
+    def to_representation(self, data):
+
+        # Sometimes data is a list, which does not have an order_by
+        #   TODO: better check, perhaps for presence of an order_by function.
+        if type(data) != list:
+            data = data.order_by('order')
+
+        return super(OrderedListSerializer, self).to_representation(data)
+
 
 class ArtistVideoSerializer(serializers.ModelSerializer):
 
@@ -34,7 +45,8 @@ class ArtistVideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianVideo
-        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+        list_serializer_class = OrderedListSerializer
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified', 'src')
 
 
     def update(self, instance, validated_data):
@@ -53,7 +65,8 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianAudio
-        fields = ('id', 'code', 'artist', 'order', 'created', 'modified')
+        list_serializer_class = OrderedListSerializer
+        fields = ('id', 'code', 'artist', 'order', 'created', 'modified', 'src')
 
 
 class ArtistImageSerializer(serializers.ModelSerializer):
@@ -62,6 +75,7 @@ class ArtistImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MusicianImage
+        list_serializer_class = OrderedListSerializer
         fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
 
 

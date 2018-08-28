@@ -3,6 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import autoBind from 'react-autobind';
 import { Close } from '../icons';
 import { withStyles } from '@material-ui/core/styles';
+import setWindowScrollEnabled from '../../helpers/setWindowScrollEnabled';
 
 const styles = theme => ({
   iconContainer: {
@@ -31,10 +32,12 @@ class DialogBase extends React.Component {
 
   open() {
     this.setState({ open: true });
+    setWindowScrollEnabled(false);
   };
 
   close() {
     this.setState({ open: false });
+    setWindowScrollEnabled(true);
   };
 
   render() {
@@ -44,10 +47,7 @@ class DialogBase extends React.Component {
       fullScreen,
       fullWidth,
       maxWidth,
-      closeIcon,
     } = this.props;
-
-    const CloseButton = closeIcon || Close;
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { openDialog: this.open, closeDialog: this.close }));
