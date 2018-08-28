@@ -19,11 +19,17 @@ jobs:
             sudo chmod +x ~/booking/docker-compose
 
       - run:
-          name:  Download cc-test-reporter
+          name: Docker check
           command: |
-            mkdir -p ~/booking/tmp/coverage
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/booking/tmp/cc-test-reporter
-            chmod +x ~/booking/tmp/cc-test-reporter
+              docker --version
+              ~/booking/docker-compose --version
+
+      # - run:
+      #     name:  Download cc-test-reporter
+      #     command: |
+      #       mkdir -p ~/booking/tmp/coverage
+      #       curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/booking/tmp/cc-test-reporter
+      #       chmod +x ~/booking/tmp/cc-test-reporter
 
       - persist_to_workspace:
           root: ~/booking
@@ -37,15 +43,8 @@ jobs:
     working_directory: ~/booking
     steps:
       - checkout
-
       - attach_workspace:
           at: ~/booking
-
-      - run:
-          name: Docker check
-          command: |
-              docker --version
-              ~/booking/docker-compose --version
 
       - run:
           command: sudo ~/booking/docker-compose build web
@@ -54,6 +53,23 @@ jobs:
           name: Run Django Tests!!!!!1!!
           command: |
               sudo ~/booking/docker-compose run web ./scripts/cmd-test.sh
+
+
+  unit-js:
+    machine: true
+    working_directory: ~/booking
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/booking
+
+      - run:
+          command: sudo ~/booking/docker-compose build web-js
+
+      - run:
+          name: Run Django Tests!!!!!1!!
+          command: |
+              sudo ~/booking/docker-compose run web-js npm run build
 
 
 workflows:
