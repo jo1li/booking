@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
 class IframeCarouselContent extends Component {
@@ -36,6 +36,7 @@ class IframeCarouselContent extends Component {
       >
         {iframeSources.map((src, idx) => (
           <iframe
+            title={src}
             className={`${classes.iframe} ${idx}`}
             ref={`iframe-${idx}`}
             frameBorder="0"

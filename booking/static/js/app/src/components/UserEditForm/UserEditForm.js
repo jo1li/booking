@@ -5,7 +5,6 @@ import {
   Field,
   reduxForm,
   getFormValues,
-  SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
@@ -22,8 +21,6 @@ import {
   DeleteButton,
   AddButton,
 } from '../form/FabButton';
-
-import Button from '../form/Button';
 
 import Input from '../form/Input';
 import Select from '../form/Select';
@@ -76,7 +73,7 @@ class UserEditForm extends Component {
 
     return updateUserBio(data, musicianid).then(res => {
       // TODO: Prob a better to check for this
-      if(res.status == 200) {
+      if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
         //    temporary stopgap to allow team members to test w/ out
         setTimeout(() => {
@@ -99,7 +96,6 @@ class UserEditForm extends Component {
         change,
         submitting,
         handleSubmit,
-        classes,
         currentValues,
         submitSucceeded,
     } = this.props;

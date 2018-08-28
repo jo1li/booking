@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-import _ from 'lodash';
 import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
@@ -27,7 +26,7 @@ class CarouselWrapper extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { contentClassName, classes, itemCount } = this.props;
+    const { classes, itemCount } = this.props;
 
     return (
       <Fragment>
