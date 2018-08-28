@@ -32,7 +32,7 @@ jobs:
             - tmp/coverage
             - tmp/cc-test-reporter
 
-  unit:
+  unit-django:
     machine: true
     working_directory: ~/booking
     steps:
@@ -48,19 +48,12 @@ jobs:
               ~/booking/docker-compose --version
 
       - run:
-          name: Set up env_vars and get rid of override file
-          command: |
-            set -x
-            # cp .env.example .env
-            # rm docker-compose.override.yaml
+          command: sudo ~/booking/docker-compose up web
 
       - run:
-          command: sudo ~/booking/docker-compose build
-
-      - run:
-          name: Run Tests!!!!!1!!
+          name: Run Django Tests!!!!!1!!
           command: |
-              sudo ~/booking/docker-compose run web ./scripts/cmd-test.sh
+              sudo ~/booking/docker-compose exec web ./scripts/cmd-test.sh
 
 
 workflows:
