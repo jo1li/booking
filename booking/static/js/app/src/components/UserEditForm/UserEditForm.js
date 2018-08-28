@@ -98,6 +98,7 @@ class UserEditForm extends Component {
         handleSubmit,
         currentValues,
         submitSucceeded,
+        classes
     } = this.props;
 
     const {
