@@ -80,3 +80,7 @@ workflows:
       - unit-python:
             requires:
               - build
+      - unit-js:
+            requires:
+              - build
+
