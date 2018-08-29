@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames'
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   button: {
     borderRadius: '22px',
     height: '44px',
-    borderRadius: '22px',
     border: `solid 1px ${theme.palette.secondary.main}`,
     borderColor: theme.palette.secondary.main,
     outline: 'none',

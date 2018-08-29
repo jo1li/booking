@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 let IconImg = (props) => {
-    const { classes, spaceLeft, spaceRight } = props;
+    const { classes, spaceLeft, spaceRight, alt } = props;
     props = _.omit(props, ['classes', 'spaceLeft', 'spaceRight']);
 
     const className = classNames(classes.container, {
@@ -28,6 +28,7 @@ let IconImg = (props) => {
     return (
         <img
             className={className}
+            alt={alt}
             {...props}
         />
     )
@@ -35,6 +36,6 @@ let IconImg = (props) => {
 
 IconImg = withStyles(styles)(IconImg)
 
-const IconImgContainer = src => props => <IconImg src={src} {...props} />
+const IconImgContainer = ({src, alt}) => props => <IconImg src={src} alt={alt} {...props} />
 
 export default IconImgContainer
