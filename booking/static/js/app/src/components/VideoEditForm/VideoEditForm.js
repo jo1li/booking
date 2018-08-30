@@ -87,7 +87,7 @@ class VideoCodeInput extends Component {
 }
 
 const VideoCodeInputs = (props) => {
-  const { currentValues, classes, width, removeVideoFromForm, isVisible } = props;
+  const { currentValues, classes, width, removeVideoFromForm } = props;
 
   return (
     <div className={classes.videoCodeInputParent}>
@@ -114,16 +114,16 @@ const VideoFormHelpSection = (props) => {
   const { classes } = props;
   const copyRows = [
     [
-      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
       'Go to the YouTube page of the video you want to add and click on the “SHARE” button.',
     ], [
-      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
       'Select the “Embed” option to display the embed video code.',
     ], [
-      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
       'Click “COPY” to copy the entire embed video code.',
     ], [
-      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" />,
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
       'Go back to the “Embed” tab, paste the embed code into the box and click “SAVE”. The video is now added to your Opus profile!',
     ]
   ];
@@ -358,7 +358,6 @@ class VideoEditForm extends Component {
                 </Grid>
                   <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.formContainer}>
 
-
                     { selectedTabIndex === 0 &&
                       <Fragment>
                         <VideoCodeInputs
@@ -375,7 +374,6 @@ class VideoEditForm extends Component {
 
                     { selectedTabIndex === 1 &&
                       <VideoFormHelpSection
-                          isVisible={selectedTabIndex === 1}
                           classes={classes} />
                     }
 

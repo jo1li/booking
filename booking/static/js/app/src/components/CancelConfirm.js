@@ -23,12 +23,10 @@ class CancelConfirm  extends Component {
     render() {
         const {
             classes,
-            children,
             onClickCancel,
             onClickConfirm,
             isLoading,
             success,
-            title
         } = this.props;
 
         return (
