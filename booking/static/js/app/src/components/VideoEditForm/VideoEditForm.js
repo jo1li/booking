@@ -1,6 +1,6 @@
 // TODO: There is a lot of duplication between this module and UserEditForm.
 //       Plenty to DRY up.
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux';
 
@@ -14,6 +14,8 @@ import {
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
@@ -37,12 +39,10 @@ class VideoCodeInput extends Component {
   render() {
     const { order, destroy, innerRef, dndProvidedProps, classes, width } = this.props;
 
-    // NB: Classname on highest div includes plain string
-    // so it can be referred to within the `styles`.
     return (
       <div
           ref={innerRef}
-          className={`${classes.videoCodeInput} video-code-input`}
+          className={classes.videoCodeInput}
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
           <InputButtons
@@ -86,10 +86,77 @@ class VideoCodeInput extends Component {
   }
 }
 
+const VideoCodeInputs = (props) => {
+  const { currentValues, classes, width, removeVideoFromForm } = props;
+
+  return (
+    <div className={classes.videoCodeInputParent}>
+    {
+      _.map(currentValues.videos, (props, idx) => {
+        return <Draggable key={`video-code-input-${idx}`} draggableId={`videos[${props.order}]`} index={idx}>
+          {(provided, snapshot) => (
+            <VideoCodeInput
+              {...props}
+              dndProvidedProps={provided}
+              innerRef={provided.innerRef}
+              classes={classes}
+              width={width}
+              destroy={removeVideoFromForm} />
+          )}
+        </Draggable>;
+      })
+    }
+    </div>
+  );
+}
+
+const VideoFormHelpSection = (props) => {
+  const { classes } = props;
+  const copyRows = [
+    [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
+      'Go to the YouTube page of the video you want to add and click on the “SHARE” button.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
+      'Select the “Embed” option to display the embed video code.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
+      'Click “COPY” to copy the entire embed video code.',
+    ], [
+      <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
+      'Go back to the “Embed” tab, paste the embed code into the box and click “SAVE”. The video is now added to your Opus profile!',
+    ]
+  ];
+
+  return <Grid container direction="column" spacing={24}>
+    <Grid item xs={12} sm={8} md={8} lg={8} style={{fontWeight: 'bold'}}>How to embed YouTube Video</Grid>
+    {
+      _.map(copyRows, row => {
+        return <Grid item container direction="row">
+          <Grid item xs={12} sm={6} md={6} lg={6} className={classes.helpScreenshotContainer}>{row[0]}</Grid>
+          <Grid item xs={12} sm={6} md={6} lg={6} className={classes.helpTextContainer}>{row[1]}</Grid>
+        </Grid>;
+      })
+    }
+  </Grid>;
+}
+
+const VideoFormTabbedHeader = (props) => {
+  const { classes, selectedTabIndex, changeTab } = props;
+
+  return (
+    <Tabs value={selectedTabIndex} onChange={changeTab} >
+      <Tab disableRipple label="embed" className={classes.tab} />
+      <Tab disableRipple label="help" className={classes.tab} />
+    </Tabs>
+  );
+}
+
 class VideoEditForm extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = { selectedTabIndex: 0 };
   }
 
   componentWillMount() {
@@ -247,16 +314,22 @@ class VideoEditForm extends Component {
     ));
   }
 
+  changeTab(event, value){
+    this.setState({ selectedTabIndex: value });
+  }
+
   render() {
     const {
+        currentValues,
         closeDialog,
         submitting,
         handleSubmit,
         classes,
         submitSucceeded,
+        width,
     } = this.props;
 
-    // TODO: Add the "help" tab
+    const { selectedTabIndex } = this.state;
 
     this.ensureBlankInputAvailable();
 
@@ -264,22 +337,41 @@ class VideoEditForm extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="VideoEditForm">
           {(provided, snapshot) => (
-            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
-              <CancelConfirm
-                onClickCancel={closeDialog}
-                isLoading={submitting}
-                success={submitSucceeded}
-              >
-                <Grid container spacing={24} direction="row">
-                  <Grid className={classes.captionTop} item xs={12} sm={12} md={12} lg={12}>
-                    <Display1>Edit Videos</Display1>
-                  </Grid>
+            <div className={classes.container}>
+              <Grid container spacing={24}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                  <Display1 className={classes.caption} >Edit Videos</Display1>
                 </Grid>
-                <div className={classes.videoCodeInputParent}>
-                  { this.renderVideoInputs() }
-                </div>
-              </CancelConfirm>
-            </form>
+                <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
+                  <VideoFormTabbedHeader
+                      classes={classes}
+                      selectedTabIndex={selectedTabIndex}
+                      changeTab={this.changeTab} />
+                </Grid>
+                  <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.formContainer}>
+
+                    { selectedTabIndex === 0 &&
+                      <Fragment>
+                        <VideoCodeInputs
+                            currentValues={currentValues}
+                            classes={classes}
+                            width={width}
+                            removeVideoFromForm={this.removeVideoFromForm} />
+                        <CancelConfirm
+                            onClickCancel={closeDialog}
+                            isLoading={submitting}
+                            success={submitSucceeded} />
+                      </Fragment>
+                    }
+
+                    { selectedTabIndex === 1 &&
+                      <VideoFormHelpSection
+                          classes={classes} />
+                    }
+
+                  </form>
+              </Grid>
+            </div>
           )}
         </Droppable>
       </DragDropContext>

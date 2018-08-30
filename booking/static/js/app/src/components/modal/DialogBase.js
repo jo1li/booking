@@ -13,7 +13,7 @@ const styles = theme => ({
   },
   icon: {
     colorPrimary: theme.palette.primary.main
-  }
+  },
 });
 
 class DialogBase extends React.Component {
@@ -47,10 +47,7 @@ class DialogBase extends React.Component {
       fullScreen,
       fullWidth,
       maxWidth,
-      closeIcon,
     } = this.props;
-
-    const CloseButton = closeIcon || Close;
 
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { openDialog: this.open, closeDialog: this.close }));
@@ -65,6 +62,7 @@ class DialogBase extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          className={classes.dialog}
         >
           <div className={classes.iconContainer}>
             <Close
