@@ -1,7 +1,7 @@
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
-import VideoEditForm from './components/VideoEditForm';
+import { VideoEditForm } from './components/DraggableCodeForms';
 import RenderFromDomNode from './renderFromDomNode';
 
 RenderFromDomNode({
