@@ -27,8 +27,8 @@ export const AudioCarousel = withStyles(styles)(props => {
   );
 });
 
-export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)
-  (props => {
+export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
+  props => {
     const { classes, videosjson, videos: videosFromStore } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
