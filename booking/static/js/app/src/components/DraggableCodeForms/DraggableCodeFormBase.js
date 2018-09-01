@@ -72,7 +72,7 @@ class DraggableCodeFormBase extends Component {
     const itemsWithCodes = _.filter(currentValues[itemName], v => !!v.code);
     // Update the order of each item so there will be no gaps
     const orderedItemsWithCodes = _.sortBy(itemsWithCodes, v => v.order);
-    return _.map(orderedItemsWithCodes, (v, idx) => {return {...v, order: idx}});
+    return _.map(orderedItemsWithCodes, (v, idx) => ({...v, order: idx}));
   }
 
   submit(values) {
