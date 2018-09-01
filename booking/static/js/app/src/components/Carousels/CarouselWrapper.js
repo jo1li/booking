@@ -2,12 +2,23 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
+import isEqual from 'lodash/isEqual';
 import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {activeStep: 0};
+  }
+
+  componentWillReceiveProps(newProps) {
+    // If we modified the content of the carousel, reset to first video
+    // instead of awkwardly showing whatever video is now at the previous
+    // index, or using an index that is no longer in range.
+    // TODO: What do to when all videos are removed?
+    if(!isEqual(this.props.items, newProps.items)) {
+      this.setState({activeStep: 0});
+    }
   }
 
   handleNext() {
@@ -26,7 +37,7 @@ class CarouselWrapper extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { classes, itemCount } = this.props;
+    const { classes, items } = this.props;
 
     return (
       <Fragment>
@@ -34,7 +45,7 @@ class CarouselWrapper extends Component {
         <CarouselNav
           classes={classes}
           activeStep={activeStep}
-          maxSteps={itemCount}
+          maxSteps={items.length}
           handleNext={() => this.handleNext()}
           handleBack={() => this.handleBack()} />
       </Fragment>
@@ -57,7 +68,7 @@ class CarouselNav extends Component {
 
     return (
       <Fragment>
-          <MobileStepper
+        <MobileStepper
           className={classes.carouselNav}
           variant="text"
           steps={maxSteps}

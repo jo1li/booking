@@ -18,7 +18,7 @@ export const AudioCarousel = withStyles(styles)(props => {
   return (
     <CarouselWrapper
         classes={classes}
-        itemCount={audios.length}>
+        items={audios}>
       <IframeCarouselContent
           className={classes.audioCarouselSwipeableView}
           classes={classes}
@@ -38,7 +38,7 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
     return (
       <CarouselWrapper
           classes={classes}
-          itemCount={videos.length}>
+          items={videos}>
         <IframeCarouselContent
             className={classes.videoCarouselSwipeableView}
             classes={classes}
@@ -58,7 +58,7 @@ export const PhotoCarousel = withStyles(styles)(props => {
   return (
     <CarouselWrapper
         classes={classes}
-        itemCount={photos.length}>
+        items={photos}>
       <PhotoCarouselContent
           className={classes.photoCarouselSwipeableView}
           classes={classes}
