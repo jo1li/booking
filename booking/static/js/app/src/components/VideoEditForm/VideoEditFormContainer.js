@@ -16,7 +16,12 @@ class VideoEditFormContainer extends Component {
             domId: 'open-edit-videos',
             eventType: 'click',
             callback: open
-        })
+        });
+        this.props.bindDomEvent({
+            domId: 'open-edit-videos-empty',
+            eventType: 'click',
+            callback: open
+        });
     }
 
     render() {
