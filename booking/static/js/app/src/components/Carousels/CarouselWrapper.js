@@ -22,14 +22,12 @@ class CarouselWrapper extends Component {
   }
 
   handleNext() {
-    // this.refreshIframe(this.state.activeStep);
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
     }));
   };
 
   handleBack() {
-    // this.refreshIframe(this.state.activeStep);
     this.setState(prevState => ({
       activeStep: prevState.activeStep - 1,
     }));
