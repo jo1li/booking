@@ -74,7 +74,7 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
         if 'order' in validated_data.keys():
             instance.to(validated_data.get('order'))
 
-        instance = super(ArtistVideoSerializer, self).update(instance, validated_data)
+        instance = super(ArtistAudioSerializer, self).update(instance, validated_data)
 
         return instance
 
