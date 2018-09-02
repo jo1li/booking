@@ -194,6 +194,7 @@ class DraggableCodeFormBase extends Component {
                     </form>
                     <CancelConfirm
                         onClickCancel={closeDialog}
+                        onClickConfirm={this.submit}
                         isLoading={submitting}
                         success={submitSucceeded}
                         isContainer={false} />
