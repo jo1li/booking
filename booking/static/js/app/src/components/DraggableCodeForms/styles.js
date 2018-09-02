@@ -82,8 +82,16 @@ const styles = theme => ({
         marginLeft: 0,
         flex: 1,
       },
-    }
+    },
   },
+
+  [theme.breakpoints.down('sm')]: {
+    // Modal is full-screen at this width, so no need to prevent
+    // width popping between tabs.
+    container: {
+      width: 'auto',
+    }
+  },
 });
 
 export default styles;
