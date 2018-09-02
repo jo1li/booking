@@ -66,7 +66,7 @@ const styles = theme => ({
       // Just give a hard-to-notice background until we decide what we want to
       // want to do for accessibility. Not great but better than nothing.
       // TODO: check with team about what they want for :focus accessibility
-      backgroundColor: '#fffdff',
+      backgroundColor: '#fafafa',
     }
   },
 
