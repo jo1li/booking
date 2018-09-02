@@ -24,22 +24,22 @@ const title = 'Edit Audio';
 
 const inputPlaceholder = 'Copy and paste audio player embed code here.';
 
-const helpSectionTitle = 'How to embed audio';
+const helpSectionTitle = 'How to embed Soundcloud Audio';
 
-// TODO: Use audio copy and real screenshots once we have them
+// TODO: Use real screenshots once we have them
 const helpRows = [
   [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go to the YouTube page of the video you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
+    `Go to the SoundCloud page of the audio you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to display the embed video code.`,
+    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to find the embed audio code.`
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Click ${LEFT_DOUBLE_QUOTES}COPY${RIGHT_DOUBLE_QUOTES} to copy the entire embed video code.`,
+    `Click inside the ${LEFT_DOUBLE_QUOTES}Code${RIGHT_DOUBLE_QUOTES} section to select all the code and right click to copy.`
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go back to the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} tab, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVE${RIGHT_DOUBLE_QUOTES}. The video is now added to your Opus profile!`,
+    `Go back to the ${LEFT_DOUBLE_QUOTES}Edit Audiod${RIGHT_DOUBLE_QUOTES} page, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVEd${RIGHT_DOUBLE_QUOTES}. The audio is now added to your Opus profile!`
   ]
 ];
 
