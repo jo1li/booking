@@ -7,7 +7,7 @@ const styles = theme => ({
     paddingTop: '40px',
     paddingBottom: '40px',
   },
-  formContainer: {
+  tabBody: {
     maxWidth: '100%',
     width: '100%',
     height: '100%',

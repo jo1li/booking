@@ -4,9 +4,9 @@ import _ from 'lodash'
 
 // TODO: generalize "how ot embed youtube videos"
 const HelpSection = (props) => {
-  const { classes, helpCopyRows } = props;
+  const { classes, className, helpCopyRows } = props;
 
-  return <Grid container direction="column" spacing={24}>
+  return <Grid container direction="column" className={className || ''} spacing={24}>
     <Grid item xs={12} sm={8} md={8} lg={8} style={{fontWeight: 'bold'}}>How to embed YouTube Video</Grid>
     {
       _.map(helpCopyRows, row => {
