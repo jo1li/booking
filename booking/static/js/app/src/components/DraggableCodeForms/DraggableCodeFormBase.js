@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { bindActionCreators, compose } from 'redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
-import _ from 'lodash'
+import _ from 'lodash';
 
 import CancelConfirm from '../CancelConfirm';
 import DraggableCodeInputs from './DraggableCodeInputs';
