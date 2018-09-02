@@ -22,7 +22,6 @@ class DraggableCodeInput extends Component {
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
           <InputButtons
-              innerRef={innerRef}
               component={TextArea}
               key={`input-${itemName}[${order}]`}
               name={`${itemName}[${order}].code`}
