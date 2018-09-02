@@ -15,23 +15,40 @@ import { EDIT_AUDIOS } from '../../constants/forms';
 import styles from './styles';
 import * as AudioActions from '../../actions/audios';
 import boundToOpenElement from './boundToOpenElement';
+import {
+  LEFT_DOUBLE_QUOTES,
+  RIGHT_DOUBLE_QUOTES,
+} from '../../constants/unicodeCharacters';
 
-// TODO: use the audio copy once we have it
-const helpCopyRows = [
+const title = 'Edit Audio';
+
+const inputPlaceholder = 'Copy and paste audio player embed code here.';
+
+const helpSectionTitle = 'How to embed audio';
+
+// TODO: Use audio copy and real screenshots once we have them
+const helpRows = [
   [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    'Go to the YouTube page of the video you want to add and click on the “SHARE” button.',
+    `Go to the YouTube page of the video you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    'Select the “Embed” option to display the embed video code.',
+    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to display the embed video code.`,
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    'Click “COPY” to copy the entire embed video code.',
+    `Click ${LEFT_DOUBLE_QUOTES}COPY${RIGHT_DOUBLE_QUOTES} to copy the entire embed video code.`,
   ], [
     <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    'Go back to the “Embed” tab, paste the embed code into the box and click “SAVE”. The video is now added to your Opus profile!',
+    `Go back to the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} tab, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVE${RIGHT_DOUBLE_QUOTES}. The video is now added to your Opus profile!`,
   ]
 ];
+
+const copy = {
+  title,
+  inputPlaceholder,
+  helpSectionTitle,
+  helpRows,
+}
 
 const mapStateToProps = (state, props) => ({
   initialValues: {
@@ -65,7 +82,7 @@ let AudioEditFormBase = compose(
 AudioEditFormBase = connect(mapStateToProps, mapDispatchToProps)(AudioEditFormBase);
 
 const AudioEditForm = (props) => (
-  <AudioEditFormBase itemName='audios' helpCopyRows={helpCopyRows} title='Edit Audio' {...props} />
+  <AudioEditFormBase itemName='audios' copy={copy} {...props} />
 );
 
 export default boundToOpenElement('open-edit-audios')(AudioEditForm);
