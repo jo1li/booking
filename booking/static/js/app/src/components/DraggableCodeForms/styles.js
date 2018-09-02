@@ -2,10 +2,10 @@ const styles = theme => ({
   container: {
     maxWidth: '100%',
     width: '668px',
-    height: '100%',
     padding: '20px',
     paddingTop: '40px',
     paddingBottom: '40px',
+    height: '100vh', // Prevent popping when switching between tabs of different heights
   },
   tabBody: {
     maxWidth: '100%',
