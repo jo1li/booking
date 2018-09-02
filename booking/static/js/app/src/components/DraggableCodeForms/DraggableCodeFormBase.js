@@ -164,13 +164,11 @@ class DraggableCodeFormBase extends Component {
       submitSucceeded,
       width,
       itemName,
-      helpCopyRows,
-      title,
+      copy,
     } = this.props;
 
     this.ensureBlankInputAvailable();
 
-    // TODO: (style) move boundary between header and tabs to below tabs, or top of body of tabbed list
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId={`${itemName}-edit-form`}>
@@ -180,13 +178,14 @@ class DraggableCodeFormBase extends Component {
                 <TabbedList
                     classes={classes}
                     tabNames={['embed', 'help']} >
-                  <Display1>{title}</Display1>
+                  <Display1>{copy.title}</Display1>
 
                   <Fragment>
                     <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.tabBody}>
                       <DraggableCodeInputs
                           items={currentValues[itemName]}
                           itemName={itemName}
+                          placeholder={copy.inputPlaceholder}
                           classes={classes}
                           width={width}
                           remove={this.removeItemFromForm} />
@@ -199,7 +198,7 @@ class DraggableCodeFormBase extends Component {
                         isContainer={false} />
                   </Fragment>
 
-                  <HelpSection className={classes.tabBody} classes={classes} helpCopyRows={helpCopyRows} />
+                  <HelpSection className={classes.tabBody} classes={classes} helpCopyRows={copy.helpRows} title={copy.helpSectionTitle} />
 
                 </TabbedList>
               </Grid>

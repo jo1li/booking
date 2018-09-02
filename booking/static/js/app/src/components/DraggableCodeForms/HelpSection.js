@@ -2,12 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash'
 
-// TODO: generalize "how ot embed youtube videos"
 const HelpSection = (props) => {
-  const { classes, className, helpCopyRows } = props;
+  const { classes, className, helpCopyRows, title } = props;
 
   return <Grid container direction="column" className={className || ''} spacing={24}>
-    <Grid item xs={12} sm={8} md={8} lg={8} style={{fontWeight: 'bold'}}>How to embed YouTube Video</Grid>
+    <Grid item xs={12} sm={8} md={8} lg={8} style={{fontWeight: 'bold'}}>{title}</Grid>
     {
       _.map(helpCopyRows, row => {
         return <Grid item container direction="row">
