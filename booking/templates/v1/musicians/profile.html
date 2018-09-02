@@ -98,7 +98,7 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos_present %}
+                {% if videos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
@@ -112,7 +112,7 @@
                 {% endif %}
 
 
-                {% if audios_present %}
+                {% if audios_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
@@ -125,7 +125,7 @@
                 </div>
                 {% endif %}
 
-                {% if photos_present %}
+                {% if photos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Photos</h2>
