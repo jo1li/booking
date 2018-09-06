@@ -14,7 +14,7 @@ class EditBioFormContainer extends Component {
     onMount(open) {
         console.log("onMount")
         this.props.bindDomEvent({
-            domId: 'open-edit-biography',
+            domSelector: '#open-edit-biography',
             eventType: 'click',
             callback: open
         })
