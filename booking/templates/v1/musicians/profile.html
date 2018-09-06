@@ -97,25 +97,23 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos_present %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
-                        <div class="edit"><img id="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
+                        <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
                     </div>
+                    {% if videos_present %}
                     <div
                         id="video-carousel"
                         videosjson="{{ videos_json }}">
                     </div>
-                </div>
-                {% endif %}
-                <div class="category edit-box">
-                    <h2 class="subheading">Videos</h2>
-                    <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
-                </div>
-                <div class="category edit-box">
-                    <h2 class="subheading">Videos</h2>
-                    <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
+                    {% else %}
+                    <div class="profile-empty-state">
+                        <div id="open-edit-videos-empty" class="open-edit-videos">
+                            <p><span>+</span> Add video</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
 
                 {% if audios_present %}
