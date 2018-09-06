@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { bindActionCreators, compose } from 'redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
-import _ from 'lodash'
+import _ from 'lodash';
 
 import CancelConfirm from '../CancelConfirm';
 import DraggableCodeInputs from './DraggableCodeInputs';
-import Header from './Header';
 import HelpSection from './HelpSection';
 import TabbedList from '../HOComponents/TabbedList';
+import { Display1 } from '../typography';
 
 class DraggableCodeFormBase extends Component {
   constructor(props) {
@@ -165,39 +164,45 @@ class DraggableCodeFormBase extends Component {
       submitSucceeded,
       width,
       itemName,
-      helpCopyRows,
-      title,
+      copy,
     } = this.props;
 
     this.ensureBlankInputAvailable();
 
-    // TODO: (style) move boundary between header and tabs to below tabs, or top of body of tabbed list
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId={`${itemName}-edit-form`}>
           {(provided, snapshot) => (
-            <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.container}>
+            <div className={classes.container}>
+              <Grid container spacing={24}>
+                <TabbedList
+                    classes={classes}
+                    tabNames={['embed', 'help']} >
+                  <Display1>{copy.title}</Display1>
 
-              <Header classes={classes} title={title} />
+                  <Fragment>
+                    <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef} className={classes.tabBody}>
+                      <DraggableCodeInputs
+                          items={currentValues[itemName]}
+                          itemName={itemName}
+                          placeholder={copy.inputPlaceholder}
+                          classes={classes}
+                          width={width}
+                          remove={this.removeItemFromForm} />
+                    </form>
+                    <CancelConfirm
+                        onClickCancel={closeDialog}
+                        onClickConfirm={this.submit}
+                        isLoading={submitting}
+                        success={submitSucceeded}
+                        isContainer={false} />
+                  </Fragment>
 
-              <TabbedList classes={classes} tabNames={['embed', 'help']}>
-                <Fragment>
-                  <DraggableCodeInputs
-                      items={currentValues[itemName]}
-                      itemName={itemName}
-                      classes={classes}
-                      width={width}
-                      remove={this.removeItemFromForm} />
-                  <CancelConfirm
-                      onClickCancel={closeDialog}
-                      isLoading={submitting}
-                      success={submitSucceeded}
-                      isContainer={false} />
-                </Fragment>
-                <HelpSection classes={classes} helpCopyRows={helpCopyRows} />
-              </TabbedList>
+                  <HelpSection className={classes.tabBody} classes={classes} helpCopyRows={copy.helpRows} title={copy.helpSectionTitle} />
 
-            </form>
+                </TabbedList>
+              </Grid>
+            </div>
           )}
         </Droppable>
       </DragDropContext>

@@ -12,9 +12,17 @@ import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
 
 class DraggableCodeInput extends Component {
   render() {
-    const { order, remove, innerRef, dndProvidedProps, classes, width, itemName } = this.props;
+    const {
+      order,
+      remove,
+      innerRef,
+      dndProvidedProps,
+      classes,
+      width,
+      itemName,
+      placeholder,
+    } = this.props;
 
-    // TODO: genericize placeholder, should not hardcode "video"
     return (
       <div
           ref={innerRef}
@@ -22,11 +30,10 @@ class DraggableCodeInput extends Component {
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
           <InputButtons
-              innerRef={innerRef}
               component={TextArea}
               key={`input-${itemName}[${order}]`}
               name={`${itemName}[${order}].code`}
-              placeholder="Copy and paste video player embed code here."
+              placeholder={placeholder}
               isMobile={'xs' === width} >
             <DeleteButton
                 mobileText="clear"
@@ -43,7 +50,7 @@ class DraggableCodeInput extends Component {
 }
 
 const DraggableCodeInputs = (props) => {
-  const { itemName, items, classes, width, remove } = props;
+  const { itemName, items, classes, width, remove, placeholder } = props;
 
   return (
     <div className={classes.codeInputParent}>
@@ -57,6 +64,7 @@ const DraggableCodeInputs = (props) => {
               innerRef={provided.innerRef}
               classes={classes}
               itemName={itemName}
+              placeholder={placeholder}
               width={width}
               remove={remove} />
           )}

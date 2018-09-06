@@ -2,12 +2,12 @@ const styles = theme => ({
   container: {
     maxWidth: '100%',
     width: '668px',
-    height: '100%',
     padding: '20px',
     paddingTop: '40px',
     paddingBottom: '40px',
+    height: '100vh', // Prevent popping when switching between tabs of different heights
   },
-  formContainer: {
+  tabBody: {
     maxWidth: '100%',
     width: '100%',
     height: '100%',
@@ -66,7 +66,7 @@ const styles = theme => ({
       // Just give a hard-to-notice background until we decide what we want to
       // want to do for accessibility. Not great but better than nothing.
       // TODO: check with team about what they want for :focus accessibility
-      backgroundColor: '#fff0ff',
+      backgroundColor: '#fafafa',
     }
   },
 
@@ -82,8 +82,16 @@ const styles = theme => ({
         marginLeft: 0,
         flex: 1,
       },
-    }
+    },
   },
+
+  [theme.breakpoints.down('sm')]: {
+    // Modal is full-screen at this width, so no need to prevent
+    // width popping between tabs.
+    container: {
+      width: 'auto',
+    }
+  },
 });
 
 export default styles;
