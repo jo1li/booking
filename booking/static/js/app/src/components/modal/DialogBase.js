@@ -32,12 +32,14 @@ class DialogBase extends React.Component {
 
   open() {
     this.setState({ open: true });
-    setWindowScrollEnabled(false);
+    // In my test this didn't seem required?
+    // setWindowScrollEnabled(false);
   };
 
   close() {
     this.setState({ open: false });
-    setWindowScrollEnabled(true);
+    // In my test this didn't seem required?
+    // setWindowScrollEnabled(true);
   };
 
   render() {
