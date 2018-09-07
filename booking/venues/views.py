@@ -1,5 +1,48 @@
 from booking.utils import opus_render
 
+from .models import Venue
+from .serializers import VenueListSerializer, VenueSerializer
+
+from rest_framework import viewsets, mixins, permissions
+from rest_framework.parsers import JSONParser
+
+class VenueViewSet(mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/venues/:
+    Return a list of all the existing venues.
+
+    GET /v1/venues/<id>:
+    Retrieve a single venue instance.
+
+    PUT /v1/venues/<id>:
+    Update a single venue instance.
+
+    To upload `image` and `image_hero` the API call must be sent as a MultiPartForm
+        https://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean
+
+    Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
+        When this call returns, it will return a string, but Get calls will return an array of objects.
+    """
+
+    parser_classes = (JSONParser,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = Venue.objects.all()
+    serializer_class = VenueListSerializer
+
+
+    def list(self, *args, **kwargs):
+        self.serializer_class = VenueListSerializer
+        return mixins.ListModelMixin.list(self, *args, **kwargs)
+
+
+    def retrieve(self, *args, **kwargs):
+        self.serializer_class = VenueSerializer
+        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
+
+
 # Create your views here.
 def profile(request, slug=None):
     return opus_render(request, "venues/profile.html")

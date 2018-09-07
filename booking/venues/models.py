@@ -76,6 +76,7 @@ class Event(models.Model):
 
     event_type = models.SmallIntegerField(null=True, choices=EVENT_TYPES)
 
+    # TODO: Implement genre, like musicians
     # genre =
 
     compensated = models.BooleanField(default=False)

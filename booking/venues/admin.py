@@ -4,7 +4,7 @@ from django.contrib.admin.sites import AdminSite
 from venues.models import *
 
 class VenueAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'address_string']
 
 
 class BookingAgentAdmin(admin.ModelAdmin):
