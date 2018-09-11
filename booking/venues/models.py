@@ -69,10 +69,13 @@ class Event(models.Model):
         (12, 'INTERNET'),
     )
 
+
     name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
     slug = models.CharField(max_length=32, null=True, blank=True)
+
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
 
     event_type = models.SmallIntegerField(null=True, choices=EVENT_TYPES)
 
@@ -90,7 +93,6 @@ class Event(models.Model):
     # Pay to play
     # tickets_presale_required = models.BooleanField(default=False)
     # tickets_minimum_sales_required = models.BooleanField(default=False)
-
 
     review_by_datetime = models.DateTimeField()
 
