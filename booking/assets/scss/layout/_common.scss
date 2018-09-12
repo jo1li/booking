@@ -276,6 +276,27 @@ $border-radius: 5px;
 	}
 }
 
+.profile-empty-state {
+	background-color: rgba(0, 0, 0, 0.05);
+	height: 241px;
+	border-radius: 5px;
+	text-align: center;
+	position: relative;
+	div {
+		@include centerer;
+		cursor:pointer;
+		p {
+			padding: 10px 30px;
+			border-radius: 22px;
+			border: solid 1px $secondary-blue;
+			color: $secondary-blue;
+			font-size: 14px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+	}
+ }
+
 .slide-gallery {
 	margin: 0 -15px;
 

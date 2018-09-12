@@ -3,6 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import autoBind from 'react-autobind';
 import { Close } from '../icons';
 import { withStyles } from '@material-ui/core/styles';
+import setWindowScrollEnabled from '../../helpers/setWindowScrollEnabled';
 
 const styles = theme => ({
   iconContainer: {
@@ -31,10 +32,14 @@ class DialogBase extends React.Component {
 
   open() {
     this.setState({ open: true });
+    // In my test this didn't seem required?
+    // setWindowScrollEnabled(false);
   };
 
   close() {
     this.setState({ open: false });
+    // In my test this didn't seem required?
+    // setWindowScrollEnabled(true);
   };
 
   render() {

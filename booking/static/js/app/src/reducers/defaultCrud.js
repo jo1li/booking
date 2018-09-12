@@ -59,18 +59,12 @@ const defaultCrud = function (reducerName, configs) {
 
       [`${reducerName.toUpperCase()}${_DELETE}`]: (state, action) => {
         if (isArray(action.data)) {
-          // Enumerated, several to delete
           each(action.data, (obj) => {
             state = Immute.del(state, obj[key]);
           });
         } else if (isObject(action.data) && action.data[key]) {
-          // One entity to delete
           state = Immute.del(state, action.data[key]);
-        } else if (state[action.data]) {
-          // Just the key for one entity to delete
-          state = Immute.del(state, action.data);
         } else {
-          // Delete all of them
           state = {};
         }
 

@@ -29,12 +29,12 @@ class DraggableCodeInput extends Component {
           className={`${classes.codeInput}`}
           {...dndProvidedProps.draggableProps} >
         <Grid container direction="row">
-          <InputButtons
-              component={TextArea}
-              key={`input-${itemName}[${order}]`}
-              name={`${itemName}[${order}].code`}
-              placeholder={placeholder}
-              isMobile={'xs' === width} >
+            <InputButtons
+                component={TextArea}
+                key={`input-${itemName}[${order}]`}
+                name={`${itemName}[${order}].code`}
+                placeholder={placeholder}
+                isMobile={'xs' === width} >
             <DeleteButton
                 mobileText="clear"
                 onClick={() => remove(order)}

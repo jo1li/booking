@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BindDomEvent from '../HOComponents/BindDomEvents';
 import autoBind from 'react-autobind';
 
-const boundToOpenElement = (domID) => (BodyComponent) => {
+const boundToOpenElement = (domSelector, event) => (BodyComponent) => {
   class BoundComponent extends Component {
     constructor() {
       super();
@@ -11,8 +11,8 @@ const boundToOpenElement = (domID) => (BodyComponent) => {
 
     onMount(open) {
       this.props.bindDomEvent({
-        domId: domID,
-        eventType: 'click',
+        domSelector: domSelector,
+        eventType: event || 'click',
         callback: open
       })
     }
