@@ -85,6 +85,8 @@ class Musician(TimeStampedModel):
     hometown = models.CharField(max_length=256, null=True, blank=True)
     state = USStateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+
+    # tagline
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 
     # Social connections

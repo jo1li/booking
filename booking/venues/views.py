@@ -1,10 +1,32 @@
 from booking.utils import opus_render
 
-from .models import Venue
-from .serializers import VenueListSerializer, VenueSerializer
+from .models import Venue, Slot
+from .serializers import VenueListSerializer, VenueSerializer, SlotSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.parsers import JSONParser
+
+
+class SlotViewSet(mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    GET /v1/slots/:
+    Return a list of all the existing slots.
+
+    GET /v1/slots/<id>:
+    Retrieve a single slot instance.
+
+    PUT /v1/slots/<id>:
+    Update a single slot instance.
+    """
+
+    parser_classes = (JSONParser,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = Slot.objects.all()
+    serializer_class = SlotSerializer
+
 
 class VenueViewSet(mixins.ListModelMixin,
                     mixins.RetrieveModelMixin,
