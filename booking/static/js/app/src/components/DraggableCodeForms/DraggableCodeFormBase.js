@@ -148,7 +148,7 @@ class DraggableCodeFormBase extends Component {
     const { currentValues, change, itemName } = this.props;
     const lastItemHasCode = !!(_.last(currentValues[itemName]) || {}).code;
 
-    if(lastItemHasCode) {
+    if(lastItemHasCode || currentValues[itemName].length === 0) {
       const order = _.size(currentValues[itemName]);
       change(`${itemName}[${order}]`, {order});
     }
