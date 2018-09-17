@@ -9,8 +9,8 @@ class BindEvents extends Component {
         autoBind(this);
     }
 
-    bind({domId, eventType, callback}) {
-        const unbindFunction = bindDomEvent(domId, eventType, callback)
+    bind({domSelector, eventType, callback}) {
+        const unbindFunction = bindDomEvent(domSelector, eventType, callback)
         this.events.push(unbindFunction);
     }
 
