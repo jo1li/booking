@@ -7,7 +7,6 @@ import autoBind from 'react-autobind';
 class EditBioFormContainer extends Component {
     constructor() {
         super();
-        console.log("construcor")
         autoBind(this);
     }
 
