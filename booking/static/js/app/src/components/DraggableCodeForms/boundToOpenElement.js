@@ -10,6 +10,7 @@ const boundToOpenElement = (domSelector) => (BodyComponent) => {
     }
 
     onMount(open) {
+      console.log("VideoCarousel", open);
       this.props.bindDomEvent({
         domSelector: domSelector,
         eventType: 'click',

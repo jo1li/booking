@@ -4,12 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 
 import CarouselWrapper from './CarouselWrapper';
+import EmptyState from '../EmptyState';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
-const mapStateToProps = (state, props) => ({
-  videos: _.sortBy(_.values(state.videos), v => v.order),
-});
+const mapStateToProps = (state, props) => {
+
+  console.log("VideoCarousel mapStateToProps: ", state);
+
+  return ( state.videos === false ) ?
+    { videos: false } :
+    { videos: _.sortBy(_.values(state.videos), v => v.order) }
+}
 
 export const AudioCarousel = withStyles(styles)(props => {
   const { classes, audiosjson  } = props;
@@ -32,8 +38,13 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
     const { classes, videosjson, videos: videosFromStore } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
-    // If we haven't synced with the server since load, use bootstrapped values.
-    const videos = videosFromStore.length ? videosFromStore : videosFromDOM;
+    // If this is the initial run, load from dom
+    //  There may be a better way / place to load data. (CH)
+    const videos = videosFromStore === false ? videosFromDOM : videosFromStore ;
+
+    if( videos.length === 0 ) {
+      return <EmptyState />;
+    }
 
     return (
       <CarouselWrapper
