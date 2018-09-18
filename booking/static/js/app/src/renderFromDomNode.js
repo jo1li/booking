@@ -5,7 +5,15 @@ import _ from 'lodash';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import configureStore from './store';
 
-const store = configureStore(window.initialState || {});
+// Not sure if this is the best place for default states.
+var windowState = window.initialState || {};
+var initialStateDefaults = {
+    // false denotes videos haven't been loaded in to state, an array indicates they have
+    videos: false
+}
+var initialState = _.assign({}, initialStateDefaults, windowState);
+
+const store = configureStore(initialState);
 
 const theme = createMuiTheme({
     palette: {
