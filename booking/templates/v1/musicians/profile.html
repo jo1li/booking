@@ -255,6 +255,7 @@
     window.initialState = {
         profile: {
             id: {{ musician.pk }},
+            isOwnerViewing: {% if is_owner_viewing %}true{% else %}false{% endif %}
         },
     };
 </script>
