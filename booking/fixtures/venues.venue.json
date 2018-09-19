@@ -1,0 +1,86 @@
+[
+  {
+    "model": "venues.venue",
+    "pk": 1,
+    "fields": {
+      "title": "Mercury Lounge",
+      "description": "Ultra punk rock venue that's become legendary in the lower east side. We're home to 1000s of shows a year, with the coldest beers.",
+      "address_city": "New York",
+      "address_region_country": null,
+      "address_region": "NY",
+      "address_street": "217 E Houston St",
+      "address_string": "217 E Houston St, New York, NY 10002",
+      "phone_number": "",
+      "website": "http://www.mercuryeastpresents.com/",
+      "featured": false,
+      "slug": "mercury-lounge",
+      "facebook": null,
+      "twitter": null,
+      "instagram": null,
+      "claimed": true
+    }
+  },
+  {
+    "model": "venues.venue",
+    "pk": 2,
+    "fields": {
+      "title": "Pianos",
+      "description": "Pianos is a two-story bar/restaurant/live music venue in the Lower East Side section of Manhattan at 158 Ludlow Street. Its stage attracts local and national alternative rock groups as well as DJs, though a more typical performance consists of smaller name local and touring acts.",
+      "address_city": "New York",
+      "address_region_country": null,
+      "address_region": "NY",
+      "address_street": "158 Ludlow",
+      "address_string": "158 Ludlow, New York, NY",
+      "phone_number": "",
+      "website": "https://www.pianosnyc.com/",
+      "featured": true,
+      "slug": "pianos",
+      "facebook": null,
+      "twitter": "@pianos_nyc",
+      "instagram": null,
+      "claimed": true
+    }
+  },
+  {
+    "model": "venues.venue",
+    "pk": 3,
+    "fields": {
+      "title": "FM Bar",
+      "description": "Showcasing local bands, DJs and Art groups, FM is a celebration of the music scene that makes up the fabric of Jersey City and the surrounding area.\r\n\r\nRelaunched in the winter of 2018, FM's new shift focuses on bringing together up and coming local arts in a casual setting with good vibes.\r\n\r\nCome in for a drink, food, stay for a show and enjoy some of the best Jersey City has to offer.\r\n\r\nWe hope to see you soon!",
+      "address_city": "JERSEY CITY",
+      "address_region_country": null,
+      "address_region": "NJ",
+      "address_street": "340 3RD STREET",
+      "address_string": "340 3RD STREET, JERSEY CITY, NJ, 07302",
+      "phone_number": "+12012222870",
+      "website": "https://www.fmjerseycity.co/",
+      "featured": false,
+      "slug": "fm-bar",
+      "facebook": null,
+      "twitter": "https://www.facebook.com/fmjerseycity/",
+      "instagram": null,
+      "claimed": true
+    }
+  },
+  {
+    "model": "venues.venue",
+    "pk": 4,
+    "fields": {
+      "title": "Mable's Smokehouse & Banquet Hall",
+      "description": "",
+      "address_city": "New York",
+      "address_region_country": null,
+      "address_region": "NY",
+      "address_street": "44 BERRY STREET",
+      "address_string": "44 BERRY STREET, BROOKLYN, NY 11249",
+      "phone_number": "+17182186655",
+      "website": "https://www.mablessmokehouse.com/",
+      "featured": false,
+      "slug": "mables-smokehouse-banquet-hall",
+      "facebook": null,
+      "twitter": "https://twitter.com/mablesbrooklyn",
+      "instagram": null,
+      "claimed": true
+    }
+  }
+]
