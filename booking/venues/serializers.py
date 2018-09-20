@@ -28,3 +28,15 @@ class SlotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slot
         fields = '__all__'
+
+
+class SlotCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Slot
+        fields = '__all__'
+
+    def create(self, instance, validated_data):
+        instance = super().create(instance, validated_data)
+
+        return instance
