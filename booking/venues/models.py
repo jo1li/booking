@@ -123,7 +123,6 @@ class Slot(models.Model):
         return "{} | {}".format(self.musician.stage_name, self.start_time.strftime("%b %d %I:%M"))
 
 
-
 class Application(models.Model):
     pass
 
