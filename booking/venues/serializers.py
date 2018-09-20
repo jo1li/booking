@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import Venue, Slot, Event
 
 class VenueListSerializer(serializers.ModelSerializer):
-    api_url = serializers.HyperlinkedIdentityField(view_name='venues-detail')
 
     class Meta:
         model = Venue
@@ -11,7 +10,6 @@ class VenueListSerializer(serializers.ModelSerializer):
 
 
 class VenueSerializer(serializers.ModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='venues-detail')
 
     class Meta:
         model = Venue
@@ -19,7 +17,6 @@ class VenueSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='event-detail')
 
     class Meta:
         model = Event
@@ -27,7 +24,6 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class SlotSerializer(serializers.ModelSerializer):
-    url_api = serializers.HyperlinkedIdentityField(view_name='slot-detail')
 
     class Meta:
         model = Slot
