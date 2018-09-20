@@ -6,6 +6,8 @@ export const updateUserBio = (data, id) => {
     return request.put(`/v1/artists/${id}/`, getFormData(data));
 }
 
+// TODO: autogenerate basic CRUD requests
+
 export const getVideos = ({artistId}) => {
     return request.get(`/v1/artists/${artistId}/videos/`);
 }
@@ -20,6 +22,22 @@ export const createVideo = ({artistId, code, order}) => {
 
 export const destroyVideo = ({artistId, videoId}) => {
     return request.delete(`/v1/artists/${artistId}/videos/${videoId}`);
+}
+
+export const getAudios = ({artistId}) => {
+    return request.get(`/v1/artists/${artistId}/audios/`);
+}
+
+export const updateAudio = ({artistId, audioId, code, order}) => {
+    return request.put(`/v1/artists/${artistId}/audios/${audioId}/`, {code, order});
+}
+
+export const createAudio = ({artistId, code, order}) => {
+    return request.post(`/v1/artists/${artistId}/audios/`, {code, order});
+}
+
+export const destroyAudio = ({artistId, audioId}) => {
+    return request.delete(`/v1/artists/${artistId}/audios/${audioId}`);
 }
 
 export const getGenres = (data, id) => request.get(`/v1/genres/`);

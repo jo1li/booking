@@ -10,28 +10,36 @@ import styles from './styles';
 
 const mapStateToProps = (state, props) => {
 
-  console.log("VideoCarousel mapStateToProps: ", state);
-
-  return ( state.videos === false ) ?
+  props = ( state.videos === false ) ?
     { videos: false } :
     { videos: _.sortBy(_.values(state.videos), v => v.order) }
-}
 
-export const AudioCarousel = withStyles(styles)(props => {
-  const { classes, audiosjson  } = props;
-  const audios = audiosjson ? JSON.parse(audiosjson) : [];
+  props['audios'] = _.sortBy(_.values(state.audios), a => a.order);
 
-  return (
-    <CarouselWrapper
-        classes={classes}
-        items={audios}>
-      <IframeCarouselContent
-          className={classes.audioCarouselSwipeableView}
-          classes={classes}
-          iframeSources={_.map(audios, a => a.src)}/>
-    </CarouselWrapper>
-  );
+  return props;
+
 });
+
+export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
+  props => {
+    const { classes, audiosjson, audios: audiosFromStore  } = props;
+    const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
+
+    // If we haven't synced with the server since load, use bootstrapped values.
+    const audios = audiosFromStore.length ? audiosFromStore : audiosFromDOM;
+
+    return (
+      <CarouselWrapper
+          classes={classes}
+          items={audios}>
+        <IframeCarouselContent
+            className={classes.audioCarouselSwipeableView}
+            classes={classes}
+            iframeSources={_.map(audios, a => a.src)}/>
+      </CarouselWrapper>
+    );
+  })
+);
 
 export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {

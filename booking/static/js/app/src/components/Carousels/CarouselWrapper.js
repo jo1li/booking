@@ -61,6 +61,8 @@ class CarouselNav extends Component {
       handleBack,
     } = this.props;
 
+    if(maxSteps === 0) return null;
+
     const nextBtnIsDisabled = activeStep === maxSteps - 1;
     const prevBtnIsDisabled = activeStep === 0;
 

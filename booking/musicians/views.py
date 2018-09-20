@@ -184,6 +184,7 @@ def profile(request, slug=None):
     isOwnerViewing = (request.user == musician.user)
 
     context = {
+        "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
         "is_owner_viewing": isOwnerViewing,
         "videos_present": bool(videos),
