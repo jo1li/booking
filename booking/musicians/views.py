@@ -182,6 +182,7 @@ def profile(request, slug=None):
     photos = musician.photos.all().order_by('order')
 
     context = {
+        "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
         "videos_present": bool(videos),
         "videos_json": json.dumps(ArtistVideoSerializer(videos, many=True).data),

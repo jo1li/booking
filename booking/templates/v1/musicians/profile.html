@@ -29,6 +29,7 @@
     bio_short="{{ musician.bio_short|default_if_none:"" }}"
 ></user-edit-form>
 <div id="video-edit-form"></div>
+<div id="audio-edit-form"></div>
 <div id="edit-bio-form"
     musicianId="{{ musician.pk|default_if_none:"" }}"
     bio="{{ musician.bio|default_if_none:"" }}"
@@ -98,7 +99,7 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos_present %}
+                {% if videos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
@@ -112,11 +113,11 @@
                 {% endif %}
 
 
-                {% if audios_present %}
+                {% if audios_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
+                        <div class="edit"><img id="open-edit-audios" src="{% static 'images/edit.png' %}" alt="edit audios icon"></div>
                     </div>
                     <div
                         id="audio-carousel"
@@ -125,7 +126,7 @@
                 </div>
                 {% endif %}
 
-                {% if photos_present %}
+                {% if photos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Photos</h2>
