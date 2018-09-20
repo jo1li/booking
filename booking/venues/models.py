@@ -112,13 +112,16 @@ class Event(models.Model):
         return "{} | {}".format(self.name, self.event_start_datetime.strftime("%b %d %I:%M"))
 
 
-
 class Slot(models.Model):
     start_time = models.DateTimeField()
     duration = models.SmallIntegerField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
     notes = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return "{} | {}".format(self.musician.stage_name, self.start_time.strftime("%b %d %I:%M"))
+
 
 
 class Application(models.Model):
