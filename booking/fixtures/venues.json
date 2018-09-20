@@ -82,5 +82,89 @@
       "instagram": null,
       "claimed": true
     }
+  },
+  {
+    "model": "venues.venue",
+    "pk": 5,
+    "fields": {
+      "title": "Greenwood Cemetery Crypt",
+      "description": "A crypt deep in Greenwood cemetery with an acoustically perfect chamber. A candlelit walk through the graves leads to an underground space perfect for opera, recitals and concertos.",
+      "address_city": "Brooklyn",
+      "address_region_country": "United States",
+      "address_region": "New York",
+      "address_street": "500 25th St",
+      "address_string": "500 25th St, Brooklyn, NY 11232",
+      "phone_number": "+17182186655",
+      "website": "https://www.green-wood.com/",
+      "featured": false,
+      "slug": "green-wood-cemetery",
+      "facebook": null,
+      "twitter": null,
+      "instagram": null,
+      "claimed": true
+    }
+  },
+  {
+    "model": "venues.event",
+    "pk": 1,
+    "fields": {
+      "name": "Battle of the Bands",
+      "description": "Battle Royale for rock show bragging rights.",
+      "notes": "The punk band with the green mohawks trashed the green room. Never again.",
+      "slug": null,
+      "venue": 2,
+      "event_type": 0,
+      "compensated": true,
+      "compensation_food_drink_tickets": false,
+      "compensation_general_compensation": false,
+      "compensation_max_flat_rate": "0.00",
+      "compensation_min_flat_rate": "0.00",
+      "compensation_percent_of_door": null,
+      "compensation_percent_of_merchandise_sales": null,
+      "review_by_datetime": null,
+      "entry_start_datetime": null,
+      "entry_end_datetime": null,
+      "event_start_datetime": "2018-09-19T18:00:00Z",
+      "event_end_datetime": "2018-09-19T22:00:00Z",
+      "min_entry_price": null,
+      "max_entry_price": null
+    }
+  },
+  {
+    "model": "venues.event",
+    "pk": 2,
+    "fields": {
+      "name": "Opera in a Crypt",
+      "description": "Listen to a newly written opera in a unique space.",
+      "notes": "",
+      "slug": "opera-in-a-crypt",
+      "venue": 5,
+      "event_type": 8,
+      "compensated": false,
+      "compensation_food_drink_tickets": false,
+      "compensation_general_compensation": false,
+      "compensation_max_flat_rate": null,
+      "compensation_min_flat_rate": null,
+      "compensation_percent_of_door": null,
+      "compensation_percent_of_merchandise_sales": null,
+      "review_by_datetime": null,
+      "entry_start_datetime": null,
+      "entry_end_datetime": null,
+      "event_start_datetime": "2018-09-28T18:00:00Z",
+      "event_end_datetime": null,
+      "min_entry_price": null,
+      "max_entry_price": null
+    }
+  },
+  {
+    "model": "venues.slot",
+    "pk": 1,
+    "fields": {
+      "start_time": "2018-09-19T21:41:24Z",
+      "duration": 60,
+      "event": 1,
+      "musician": 2,
+      "notes": "Play hard, homies!"
+    }
   }
 ]
