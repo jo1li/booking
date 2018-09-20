@@ -10,15 +10,19 @@ import styles from './styles';
 
 const mapStateToProps = (state, props) => {
 
-  props = ( state.videos === false ) ?
-    { videos: false } :
-    { videos: _.sortBy(_.values(state.videos), v => v.order) }
+  var retval = {}
 
-  props['audios'] = _.sortBy(_.values(state.audios), a => a.order);
+  retval['videos'] = ( state.videos === false )
+                    ? false
+                    : _.sortBy(_.values(state.videos), v => v.order) ;
 
-  return props;
+  retval['audios'] = ( state.audios === false)
+                    ? false
+                    : _.sortBy(_.values(state.audios), a => a.order);
 
-});
+  return retval;
+
+};
 
 export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {

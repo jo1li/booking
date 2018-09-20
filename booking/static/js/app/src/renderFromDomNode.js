@@ -9,7 +9,8 @@ import configureStore from './store';
 var windowState = window.initialState || {};
 var initialStateDefaults = {
     // false denotes videos haven't been loaded in to state, an array indicates they have
-    videos: false
+    videos: false,
+    audios: false
 }
 var initialState = _.assign({}, initialStateDefaults, windowState);
 
