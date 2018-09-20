@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Venue, Slot
+from .models import Venue, Slot, Event
 
 class VenueListSerializer(serializers.ModelSerializer):
     api_url = serializers.HyperlinkedIdentityField(view_name='venues-detail')
@@ -15,6 +15,14 @@ class VenueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Venue
+        fields = '__all__'
+
+
+class EventSerializer(serializers.ModelSerializer):
+    url_api = serializers.HyperlinkedIdentityField(view_name='event-detail')
+
+    class Meta:
+        model = Event
         fields = '__all__'
 
 

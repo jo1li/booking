@@ -31,6 +31,9 @@ class Venue(models.Model):
     #   use this flag to indicate profiles that are owned
     claimed = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.title
+
 
 class BookingAgent(models.Model):
 
@@ -85,24 +88,29 @@ class Event(models.Model):
     compensated = models.BooleanField(default=False)
     compensation_food_drink_tickets = models.BooleanField(default=False)
     compensation_general_compensation = models.BooleanField(default=False)
-    compensation_max_flat_rate = models.DecimalField(max_digits=8, decimal_places=2)
-    compensation_min_flat_rate = models.DecimalField(max_digits=8, decimal_places=2)
-    compensation_percent_of_door = models.DecimalField(max_digits=2, decimal_places=2)
-    compensation_percent_of_merchandise_sales = models.DecimalField(max_digits=2, decimal_places=2)
+    compensation_max_flat_rate = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    compensation_min_flat_rate = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    compensation_percent_of_door = models.DecimalField(max_digits=2, decimal_places=2, null=True, blank=True)
+    compensation_percent_of_merchandise_sales = models.DecimalField(max_digits=2, decimal_places=2, null=True, blank=True)
 
     # Pay to play
     # tickets_presale_required = models.BooleanField(default=False)
     # tickets_minimum_sales_required = models.BooleanField(default=False)
 
-    review_by_datetime = models.DateTimeField()
+    review_by_datetime = models.DateTimeField(null=True, blank=True)
 
-    entry_start_datetime = models.DateTimeField()
-    entry_end_datetime = models.DateTimeField()
+    entry_start_datetime = models.DateTimeField(null=True, blank=True)
+    entry_end_datetime = models.DateTimeField(null=True, blank=True)
     event_start_datetime = models.DateTimeField()
-    event_end_datetime = models.DateTimeField()
+    event_end_datetime = models.DateTimeField(null=True, blank=True)
 
-    min_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
-    max_entry_price = models.DecimalField(max_digits=8, decimal_places=2)
+    min_entry_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    max_entry_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+
+
+    def __str__(self):
+        return "{} | {}".format(self.name, self.event_start_datetime.strftime("%b %d %I:%M"))
+
 
 
 class Slot(models.Model):

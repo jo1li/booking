@@ -28,7 +28,7 @@ from musicians.views import signup
 
 # API Views
 from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
-from venues.views import VenueViewSet, SlotViewSet
+from venues.views import VenueViewSet, EventViewSet, SlotViewSet
 
 from .utils import v_url
 
@@ -38,6 +38,7 @@ top_router.register('artists', ArtistViewSet, base_name='artists')
 top_router.register('venues',  VenueViewSet, base_name='venues')
 top_router.register('genres',  GenreTagViewSet, base_name='genres')
 top_router.register('slots',  SlotViewSet, base_name='slots')
+top_router.register('events',  SlotViewSet, base_name='events')
 
 artist_router = routers.NestedSimpleRouter(top_router, r'artists', lookup='artist')
 artist_router.register(r'videos', ArtistVideoViewSet, base_name='artist-videos')
