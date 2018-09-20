@@ -5,27 +5,10 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import { createStore } from 'redux';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from '../theme';
 
 const initialState = {};
-
-const theme = createMuiTheme({
-  palette: {
-      primary: {
-          light: "#7f9ca8",
-          main: "#526e79",
-          dark: "#27434d",
-          contrastText: "#fff",
-      },
-      secondary: {
-          light: "#53ecfd",
-          main: "#00b9d1",
-          dark: "#0089a0",
-          contrastText: "#fff",
-      }
-  }
-});
 
 const store = createStore(
   combineReducers({
