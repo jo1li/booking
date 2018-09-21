@@ -54,8 +54,12 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
     //  There may be a better way / place to load data. (CH)
     const videos = videosFromStore === false ? videosFromDOM : videosFromStore ;
 
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
     if( videos.length === 0 ) {
-      return <EmptyState />;
+      $($('.edit .open-edit-videos')[0]).hide()
+      return <EmptyState triggerSelector=".open-edit-videos" copy="Add video of your performances" />;
+    } else {
+      $($('.edit .open-edit-videos')[0]).show()
     }
 
     return (

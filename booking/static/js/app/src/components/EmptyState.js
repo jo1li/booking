@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import autoBind from 'react-autobind';
-import { VideoEditForm } from './DraggableCodeForms';
-
+import { Edit } from './icons';
 
 class EmptyState extends Component {
     constructor(props) {
@@ -11,20 +9,17 @@ class EmptyState extends Component {
     }
 
     click() {
-        console.log("VideoCarousel EmptyState click");
-
         // Definitely not the way to do this.
-        document.querySelectorAll('.open-edit-videos')[0].click();
+        document.querySelectorAll(this.props.triggerSelector)[0].click();
     }
 
     render() {
-        console.log("VideoCarousel EmptyState")
-        console.log("VideoCarousel VideoEditForm", VideoEditForm)
+
+        const { copy } = this.props;
+
         return (
-            <div className="profile-empty-state">
-                <div id="open-edit-videos-empty" className="open-edit-videos" onClick={this.click}>
-                    <p><span>+</span> Add video</p>
-                </div>
+            <div className="profile-empty-state" onClick={this.click}>
+                <p><Edit />&nbsp;&nbsp;{copy}</p>
             </div>
         )
     }
