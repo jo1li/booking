@@ -31,7 +31,15 @@ export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
     // If we haven't synced with the server since load, use bootstrapped values.
-    const audios = audiosFromStore.length ? audiosFromStore : audiosFromDOM;
+    const audios = audiosFromStore === false ? audiosFromDOM : audiosFromStore ;
+
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
+    if( audios.length === 0 ) {
+      $($('.edit .open-edit-audios')[0]).hide()
+      return <EmptyState triggerSelector=".open-edit-audios" copy="Add audio tracks" />;
+    } else {
+      $($('.edit .open-edit-audios')[0]).show()
+    }
 
     return (
       <CarouselWrapper
