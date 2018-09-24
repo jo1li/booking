@@ -31,6 +31,10 @@ class Venue(models.Model):
     #   use this flag to indicate profiles that are owned
     claimed = models.BooleanField(default=True)
 
+    # If True, then it as a venue we know actually exists
+    #   If False, added by a user, prob during the event creation process
+    confirmed = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
 
