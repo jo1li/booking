@@ -191,8 +191,16 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
+    # TODO: Surely serializers provide a way to do this?
+    # Needed for bootstrapping values into initial state; redux store expects
+    # keyed by ID, not by order
+    photos_dict = {
+        photo['id']: photo
+        for photo in ArtistImageSerializer(photos, many=True).data
+    }
+
     context = {
-        "current_user_pk": request.user.pk if request.user else None,
+        "is_logged_in_user": request.user.pk == musician.pk if request.user else False,
         "musician": musician,
         "is_owner_viewing": isOwnerViewing,
         "videos_present": bool(videos),
