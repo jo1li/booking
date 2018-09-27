@@ -14,8 +14,13 @@ class MusicianAudioAdmin(admin.ModelAdmin):
 class MusicianVideoAdmin(admin.ModelAdmin):
     list_display = ['musician', 'order']
 
+
+class MusicianPhotoAdmin(admin.ModelAdmin):
+    list_display = ['musician', 'order']
+
 # Register your models here.
 tagulous.admin.register(GenreTag)
 tagulous.admin.register(Musician, MusicianAdmin)
 admin.site.register(MusicianAudio, MusicianAudioAdmin)
 admin.site.register(MusicianVideo, MusicianVideoAdmin)
+admin.site.register(MusicianImage, MusicianPhotoAdmin)
