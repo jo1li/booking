@@ -54,7 +54,6 @@ class DialogBase extends React.Component {
           fullScreen={fullScreen}
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          classes={classes}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
