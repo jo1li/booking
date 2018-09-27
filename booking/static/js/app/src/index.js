@@ -1,4 +1,5 @@
-import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
+import { AudioCarousel, VideoCarousel } from './components/Carousels';
+import PhotoCarouselModal from './components/PhotoCarouselModal';
 import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
@@ -26,20 +27,20 @@ RenderFromDomNode({
 })
 
 RenderFromDomNode({
-    Component: VideoCarousel,
-    node: 'video-carousel',
-    className: 'carousel',
-});
-
-RenderFromDomNode({
     Component: AudioCarousel,
     node: 'audio-carousel',
     className: 'carousel',
 });
 
 RenderFromDomNode({
-    Component: PhotoCarousel,
-    node: 'photo-carousel',
+    Component: PhotoCarouselModal,
+    node: 'photo-modal',
+    className: 'carousel',
+});
+
+RenderFromDomNode({
+    Component: VideoCarousel,
+    node: 'video-carousel',
     className: 'carousel',
 });
 
