@@ -36,6 +36,17 @@ class SlotSerializer(serializers.ModelSerializer):
 
 class SlotCreateSerializer(SlotSerializer):
 
+    # Optional, if not set, we'll create a new event
+    event_id = serializers.IntegerField()
+
+    # Prefer the venue ID, but if a string is passed, create a new venue,
+    #   but mark it as unconfirmed
+    venue_id = serializers.IntegerField()
+
+    venue = serializers.CharField()
+    venue_city = serializers.CharField()
+    venue_state = serializers.CharField()
+
     class Meta:
         model = Slot
         fields = '__all__'
