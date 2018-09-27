@@ -190,7 +190,7 @@ def profile(request, slug=None):
     }
 
     context = {
-        "is_logged_in_user": request.user.pk == musician.pk if request.user else False,
+        "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
         "videos_present": bool(videos),
         "videos_json": json.dumps(ArtistVideoSerializer(videos, many=True).data),
