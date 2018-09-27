@@ -251,6 +251,7 @@
         profile: {
             id: {{ musician.pk }},
         },
+        photos: {{ photos_json | safe }},
     };
 </script>
 {% endblock %}
