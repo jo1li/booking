@@ -16,6 +16,7 @@ import _ from 'lodash';
 import { EDIT_VIDEOS } from '../../constants/forms';
 import styles from './styles';
 import * as VideoActions from '../../actions/videos';
+import boundToOpenElement from '../modal/boundToOpenElement';
 import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
