@@ -18,7 +18,6 @@ class ImageUploadContainer extends Component {
      * https://github.com/blueimp/JavaScript-Load-Image
      */
     orientImage(file, callback) {
-        console.log("file", file)
         window.loadImage(
             file,
             img => callback(img.toDataURL("image/png")),
