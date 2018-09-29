@@ -3,6 +3,7 @@ import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import RenderFromDomNode from './renderFromDomNode';
+import NavigationBar from './components/nav/NavigationBar';
 
 RenderFromDomNode({
     Component: UserEditForm,
@@ -41,3 +42,8 @@ RenderFromDomNode({
     node: 'photo-carousel',
     className: 'carousel',
 });
+
+RenderFromDomNode({
+    Component: NavigationBar,
+    node: 'main-navigation-bar',
+})
