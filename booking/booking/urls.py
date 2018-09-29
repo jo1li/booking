@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from rest_framework_nested import routers as routers
 
 from venues.views_admin import create
-from musicians.views import ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
+from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
 
 from .utils import v_url
 
@@ -44,6 +44,7 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
     path('opus-control/', admin.site.urls),
+    path('account/signup/', SignupView.as_view(), name="opus_signup"),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),

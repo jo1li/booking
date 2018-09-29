@@ -15,10 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social, api_test, SignupView
+from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social, api_test
 
 urlpatterns = [
-    path('account/signup/', SignupView.as_view(), name="opus_signup"),
     path('api_test', api_test, name="api_test"),
     path('dashboard', dashboard, name="musician_dash"),
     path('editor', editor, name="musician_editor"),
