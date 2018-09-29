@@ -26,6 +26,10 @@ def venues(request):
     return opus_render(request, "home/venues.html")
 
 
+def contact_us(request):
+    return opus_render(request, "home/contact_us.html")
+
+
 def privacy(request):
     return opus_render(request, "home/privacy.html")
 
