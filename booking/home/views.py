@@ -22,6 +22,10 @@ def artists(request):
     return opus_render(request, "home/artists.html")
 
 
+def venues(request):
+    return opus_render(request, "home/venues.html")
+
+
 def privacy(request):
     return opus_render(request, "home/privacy.html")
 
