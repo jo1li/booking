@@ -38,7 +38,7 @@ class SignupArtistTest(OpusTestCase):
 
         # Ensure the Musician object does not yet exist
         with self.assertRaises(ObjectDoesNotExist):
-            m = Musician.objects.get(user=u)
+            Musician.objects.get(user=u)
 
         self.app.session.flush()
 

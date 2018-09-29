@@ -9,6 +9,8 @@ const styles = theme => ({
     position: 'absolute',
     top: theme.spacing.unit * 2.5,
     right: theme.spacing.unit * 2.5,
+    zIndex: 1,
+    cursor: 'pointer',
   },
   icon: {
     colorPrimary: theme.palette.primary.main
@@ -54,7 +56,6 @@ class DialogBase extends React.Component {
           fullScreen={fullScreen}
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          classes={classes}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"

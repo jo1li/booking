@@ -10,6 +10,7 @@ const InputButtons = (props) => {
         children,
         classes,
         isMobile,
+        ...remainingProps
     } = props;
 
     const fullWidth = 12;
@@ -25,7 +26,7 @@ const InputButtons = (props) => {
       <Fragment>
         <Reverse If={isMobile}>
           <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>
-            <Field {...props} />
+            <Field {...remainingProps} />
           </Grid>
           <Grid item xs={12} sm={smallButtons} md={mediumButtons} lg={2} className={classes.buttonsContainer}>
             <Grid
