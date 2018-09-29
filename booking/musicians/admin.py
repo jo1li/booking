@@ -8,7 +8,7 @@ class MusicianAdmin(admin.ModelAdmin):
 
 
 class MusicianAudioAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['musician', 'order']
 
 
 class MusicianVideoAdmin(admin.ModelAdmin):

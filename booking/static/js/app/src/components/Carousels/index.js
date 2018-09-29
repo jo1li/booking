@@ -9,23 +9,29 @@ import styles from './styles';
 
 const mapStateToProps = (state, props) => ({
   videos: _.sortBy(_.values(state.videos), v => v.order),
+  audios: _.sortBy(_.values(state.audios), a => a.order),
 });
 
-export const AudioCarousel = withStyles(styles)(props => {
-  const { classes, audiosjson  } = props;
-  const audios = audiosjson ? JSON.parse(audiosjson) : [];
+export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
+  props => {
+    const { classes, audiosjson, audios: audiosFromStore  } = props;
+    const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
-  return (
-    <CarouselWrapper
-        classes={classes}
-        items={audios}>
-      <IframeCarouselContent
-          className={classes.audioCarouselSwipeableView}
+    // If we haven't synced with the server since load, use bootstrapped values.
+    const audios = audiosFromStore.length ? audiosFromStore : audiosFromDOM;
+
+    return (
+      <CarouselWrapper
           classes={classes}
-          iframeSources={_.map(audios, a => a.src)}/>
-    </CarouselWrapper>
-  );
-});
+          items={audios}>
+        <IframeCarouselContent
+            className={classes.audioCarouselSwipeableView}
+            classes={classes}
+            iframeSources={_.map(audios, a => a.src)}/>
+      </CarouselWrapper>
+    );
+  })
+);
 
 export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {

@@ -101,6 +101,7 @@ mysql-data
 booking/static/*
 !booking/static/images
 !booking/static/js
+!booking/static/home
 
 # docker
 docker-compose.override.yaml

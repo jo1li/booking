@@ -11,9 +11,9 @@ export function createArtistVideo({artistId, code, order}) {
     }
 }
 
-export function updateArtistVideo({artistId, videoId, code, order}) {
+export function updateArtistVideo({id, artistId, code, order}) {
     return (dispatch, getState) => {
-        return requests.updateVideo({artistId, videoId, code, order}).then(res => {
+        return requests.updateVideo({artistId, videoId: id, code, order}).then(res => {
             dispatch(ActionCreators.videosCreateOrUpdate(res.data));
         })
     }
@@ -27,10 +27,10 @@ export function getArtistVideos({artistId}) {
     }
 }
 
-export function destroyArtistVideo({artistId, videoId}) {
+export function destroyArtistVideo({id, artistId}) {
     return (dispatch, getState) => {
-        return requests.destroyVideo({artistId, videoId}).then(res => {
-            dispatch(ActionCreators.videosDelete(videoId));
+        return requests.destroyVideo({artistId, videoId: id}).then(res => {
+            dispatch(ActionCreators.videosDelete(id));
         });
     }
 }

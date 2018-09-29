@@ -9,7 +9,8 @@ import styles from './styles';
 const InputButtons = (props) => {
     const {
         children,
-        classes
+        classes,
+        ...remainingProps,
     } = props;
 
     const isNotMobile = isWidthUp('sm', props.width)
@@ -22,11 +23,12 @@ const InputButtons = (props) => {
     const mediumButtons = fullWidth - mediumInput;
     const smallButtons = fullWidth - smallInput;
 
+    debugger;
     return (
         <Fragment>
           <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>
                 <Field
-                  {...props}
+                  {...remainingProps}
                 />
             </Grid>
             <Grid item zeroMinWidth xs={12} sm={smallButtons} md={mediumButtons} lg={2}>
