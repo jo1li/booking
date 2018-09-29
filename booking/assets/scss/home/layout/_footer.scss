@@ -1,0 +1,36 @@
+#footer {
+	.container{
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+	.row{
+		margin-bottom: 40px;
+		@include media-breakpoint-down(sm) {
+			margin-bottom: 0;
+			margin-left: -8px;
+			margin-right: -8px;
+			>.col , >[class*="col-"]{
+				padding-left: 8px;
+				padding-right: 8px;
+				padding-bottom: 22px;
+			}
+		}
+	}
+
+	p{
+		margin: 0;
+	}
+	a{
+		color: $mine-shaft;
+	}
+	.social-networks{
+		display: flex;
+		align-items: center;
+		li{
+			margin-right: 20px;
+		}
+		.far {
+		  font-size:20px;
+		}
+	}
+}

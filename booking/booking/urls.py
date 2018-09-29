@@ -21,8 +21,6 @@ from django.conf.urls.static import static
 
 from rest_framework_nested import routers as routers
 
-from home.views import index, healthcheck, logout, LoginView, about, privacy, terms
-
 from venues.views_admin import create
 from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
 
@@ -39,20 +37,13 @@ artist_videos_router.register(r'audios', ArtistAudioViewSet, base_name='artist-a
 artist_videos_router.register(r'photos', ArtistImageViewSet, base_name='artist-photos')
 
 urlpatterns = [
-    path('', index, name="home"),
     # re_path(v_url(''), include(genres_router.urls)),
     re_path(v_url(''), include(artist_router.urls)),
     re_path(v_url(''), include(artist_videos_router.urls)),
+    path('', include("home.urls")),
     path('', include('social_django.urls', namespace='social')),
-    path('about', about, name="about"),
-    path('privacy', privacy, name="privacy"),
-    path('privacy-2', privacy, name="privacy"),
-    path('terms', terms, name="terms"),
-    path('_ah/health', healthcheck),
     path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
     path('opus-control/', admin.site.urls),
-    path('account/log_out/', logout, name="opus_logout"),
-    path('account/login/', LoginView.as_view(), name="opus_login"),
     path('account/signup/', SignupView.as_view(), name="opus_signup"),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),

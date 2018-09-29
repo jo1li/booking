@@ -1,0 +1,147 @@
+// custom variables and override bootstrap variables
+
+$body-bg: #fff;
+
+$white:  #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:  #000 !default;
+
+$blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$mine-shaft:      #333333;
+$silver:          #cccccc;
+$robins-egg-blue: #00b9d1;
+$dusty-gray:      #999999;
+$plantation:      #27434d;
+$alabaster:       #fafafa;
+$tundora:         #444444;
+$gallery:         #eeeeee;
+$governor-bay:    #3023ae;
+$lavender:        #c86dd7;
+
+$body-color:                  $mine-shaft;
+
+$font-family-sans-serif:      'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif;;
+$font-family-base:            $font-family-sans-serif !default;
+
+$link-color:                $robins-egg-blue;
+$link-hover-color:          darken($link-color, 15%);
+
+//headings
+$h1-font-size:                36px;
+$h2-font-size:                36px;
+$h3-font-size:                20px;
+
+$border-color:                $white;
+//navbar
+$navbar-light-color:                $mine-shaft;
+$navbar-light-hover-color:          $mine-shaft;
+$navbar-light-active-color:         $mine-shaft;
+$navbar-nav-link-padding-x:         0;
+$nav-link-padding-y:                0;
+$navbar-padding-y:                  7px;
+$navbar-padding-x:                  0;
+$navbar-toggler-padding-y:          0;
+$navbar-toggler-padding-x:          0;
+$navbar-light-toggler-icon-bg:     url('../images/ico-menu.svg');
+
+$btn-border-radius:                 23px;
+
+//forms
+$label-margin-bottom:                   6px;
+$input-padding-x:                       0;
+$input-border-color:                    $mine-shaft;
+$input-border-width:                    0;
+$input-color:                           $mine-shaft;
+$input-border-radius:                   none;
+$input-focus-bg:                        none;
+$input-focus-color:                     none;
+$input-focus-box-shadow:                none;
+$input-placeholder-color:               $silver;
+$input-focus-border-color:              $black;
+$input-padding-y:                       5px;
+
+$colors: () !default;
+$colors: map-merge((
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800,
+  "egg-blue":   $robins-egg-blue
+), $colors);
+
+$primary:       $robins-egg-blue;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+$theme-colors: ();
+$theme-colors: map-merge((
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+), $theme-colors);
+
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge((
+	0: 0,
+	1: ($spacer * .25),
+	2: ($spacer * .5),
+	3: $spacer,
+	4: ($spacer * 1.5),
+	5: ($spacer * 3),
+	6: ($spacer * 4.5),
+	7: ($spacer * 6),
+	8: ($spacer * 7.5),
+	9: ($spacer * 9),
+	10: ($spacer * 10.5)
+), $spacers);
+
+$base-min-width: 320px;
+
+// This is the default html and body font-size for the base rem value.
+$rem-base: 16px;
+
+
+$container-max-widths: (
+  sm: 540px,
+  md: 757px,
+  lg: 757px,
+  xl: 757px
+);
