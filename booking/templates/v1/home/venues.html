@@ -1,0 +1,130 @@
+{% extends "home/base.html" %}
+
+{% load staticfiles %}
+{% block head_title %}Venues{% endblock %}
+
+{% block main %}
+<div class="short-tabs" id="short-tabs">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <a href="/artists/#short-tabs" class="tab-link"><span>Artists</span></a>
+            </div>
+            <div class="col p-0">
+                <a href="/venues/#short-tabs" class="tab-link active"><span>Venues</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="intro" id="why">
+    <div class="container-fluid">
+        <h2>Why Opus</h2>
+        <div class="row slick-why">
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/star.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Attract the best talent to your space</h3>
+                <p>Showcase your space with the Opus profile and make it easy for artists to find.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/icon02.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Speed up the search and vetting process</h3>
+                <p>Filter for relevant artists and compare standardized profiles all in one place.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/clock.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Save time with better communication</h3>
+                <p>Clearly communicate your requirements and cut down on the back and forth.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/calendar.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Keep your event calendar organized</h3>
+                <p>Manage your upcoming shows and lineups in our simple calendar dashboard.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/repeat.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Stay connected and discover new artists</h3>
+                <p>Build rosters of your favorite artists and keep track of them for future bookings.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="icon-holder"><img src="{% static 'home/images/trending-up.svg' %}" alt="icon" width="30" height="30"></span>
+                <h3>Increase your sales with live music</h3>
+                <p>Let our experts help curate and promote your events to maximize your return.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="steps" id="how">
+    <div class="container">
+        <h2>How Opus Works</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="img-holder">
+                    <div class="laptop">
+                        <img src="{% static 'home/images/img01.png' %}" alt="laptop" width="365" height="225">
+                    </div>
+                    <div class="img-placeholder">
+                        <img src="{% static 'home/images/venue-screen.png' %}" alt="placeholder-image" width="277" height="173">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ol class="steps-list">
+                    <li><strong>Create events</strong><span>List your upcoming openings and start getting relevant applications.</span></li>
+                    <li><strong>Review applications</strong><span>See the most important data and content from the artists.</span></li>
+                    <li><strong>Book the best</strong><span>Pick the artist that fits your needs and complete the booking.</span></li>
+                </ol>
+            </div>
+        </div>
+        <a href="#contact-us" class="btn btn-primary">reserve my spot</a>
+    </div>
+</section>
+<section class="testimonials" style="display:none;">
+    <div class="container">
+        <h2>Venues Love Opus</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{% static 'home/images/placeholder-img02.png' %}" alt="display-pic" width="348" height="125">
+                <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</blockquote>
+                <cite class="author">- Agent Name, Venue, NY</cite>
+            </div>
+            <div class="col-md-6 d-none d-md-block">
+                <img src="{% static 'home/images/placeholder-img02.png' %}" alt="display-pic" width="348" height="125">
+                <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</blockquote>
+                <cite class="author">- Agent Name, Venue, NY</cite>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="form-section" id="contact-us">
+    <div class="container">
+        <h2>Coming Soon for Venues</h2>
+        <span class="text-center d-block">Our team is hard at work building the Opus platform. Sign up to be the first to know when we're ready to debut the beta. Spots are limited so don't miss out!</span>
+        <form action="https://opuslive.us13.list-manage.com/subscribe/post?u=9385dec03d47c0ea42e82ebb4&amp;id=62b79f19c2" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>                        <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="mce-FNAME">First Name</label>
+                    <input type="text" class="form-control" id="mce-FNAME" name="FNAME" placeholder="Enter First Name" value="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="mce-LNAME">Last Name</label>
+                    <input type="text" class="form-control" id="mce-LNAME" name="LNAME" placeholder="Enter Last Name" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mce-EMAIL">Email Address</label>
+                <input type="email" class="form-control required email" id="mce-EMAIL" name="EMAIL" placeholder="Enter Email Address" value="">
+            </div>
+
+            <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none">Rut Roh</div>
+                <div class="response" id="mce-success-response" style="display:none">Thanks for subscribing!!!</div>
+            </div>
+
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9385dec03d47c0ea42e82ebb4_f0df3623d0" tabindex="-1" value=""></div>
+
+            <button type="submit" class="btn btn-primary" name="subscribe" id="mc-embedded-subscribe">submit</button>
+            <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+        </form>
+    </div>
+</section>
+{% endblock main %}

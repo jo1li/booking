@@ -15,12 +15,19 @@ def healthcheck(request):
 
 
 def index(request):
-    return opus_render(request, "home/index.html", {
-            'range': range(10)
-        })
+    return opus_render(request, "home/index.html")
 
-def about(request):
-    return opus_render(request, "home/about.html")
+
+def artists(request):
+    return opus_render(request, "home/artists.html")
+
+
+def venues(request):
+    return opus_render(request, "home/venues.html")
+
+
+def contact_us(request):
+    return opus_render(request, "home/contact_us.html")
 
 
 def privacy(request):
