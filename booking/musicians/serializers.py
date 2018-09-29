@@ -82,11 +82,21 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
 class ArtistImageSerializer(serializers.ModelSerializer):
 
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+    order = serializers.IntegerField(required=False)
 
     class Meta:
         model = MusicianImage
         list_serializer_class = OrderedListSerializer
         fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
+
+    def update(self, instance, validated_data):
+
+        if 'order' in validated_data.keys():
+            instance.to(validated_data.get('order'))
+
+        instance = super(ArtistImageSerializer, self).update(instance, validated_data)
+
+        return instance
 
 
 class ArtistGenreTagSerializer(serializers.ModelSerializer):
