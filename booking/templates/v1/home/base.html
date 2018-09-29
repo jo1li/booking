@@ -1,6 +1,9 @@
 {% load staticfiles %}
 {% load sass_tags %}
 {% load repeatedblocks %}
+{% url 'home' as home %}
+{% url 'artists' as artists %}
+{% url 'venues' as venues %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +12,10 @@
     <meta http-equiv="cache-control"   content="no-cache" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Opus</title>
+    <title>Opus | {% block head_title %}Home{% endblock %}</title>
 
     <meta name="description" content="Opus | Live music everywhere">
-    <meta name="keywords" content="Live music, musicians, artists, venues, booking, ">
+    <meta name="keywords" content="Live music, musicians, artists, venues, booking">
     <meta name="author" content="Opus">
     <meta name="language" content="english" />
     <meta name="distribution" content="global" />
@@ -63,23 +66,26 @@
                     <a class="navbar-brand" href="/"><img src="{% static 'home/images/logo.svg' %}" alt="Opus" width="94" height="40"></a>
                     <div class="collapse navbar-collapse" id="navbarToggler">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/">Home</a>
+                            <li class="nav-item {% ifequal request.path home %}active{% endifequal %}">
+                                <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="nav-item {% ifequal request.path artists %}active{% endifequal %}">
+                                <a class="nav-link" href="{{ artists }}">Artists</a>
+                            </li>
+                            <li class="nav-item {% ifequal request.path vnues %}active{% endifequal %}">
+                                <a class="nav-link" href="{{ venues }}">Venues</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/artists/">Artists</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/venues/">Venues</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/#mission">Our Mission</a>
+                                <a class="nav-link" href="#mission">Our Mission</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#opus-presents">Opus Presents</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contact-us/">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
                             </li>
                         </ul>
                     </div>
@@ -97,120 +103,8 @@
                     <source type="video/mp4" src="{% static 'home/media/oh-malo-17.mp4' %}" />
                 </video>
             </div>
-            <div class="tall-tabs d-none d-md-block">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6 p-0 border-right">
-                            <a href="/artists/#short-tabs" class="tab-link"><span>Artists </span>Click Here</a>
-                        </div>
-                        <div class="col-sm-6 p-0">
-                            <a href="/venues/#short-tabs" class="tab-link"><span>Venues </span>Click Here</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="short-tabs d-sm-block d-md-none">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col p-0 border-right">
-                            <a href="/artists/#why" class="tab-link"><span>Artists </span>Click Here</a>
-                        </div>
-                        <div class="col p-0">
-                            <a href="/venues/#why" class="tab-link"><span>Venues </span>Click Here</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <section class="intro" id="why" style="display:none;">
-                <div class="container-fluid">
-                    <h2>Why Opus</h2>
-                    <div class="row">
-                        <a href="#" class="btn-prev"><img src="{% static 'home/images/ico-left.svg' %}" alt="left-chevron" width="15" height="27"></a>
-                        <div class="col-md-4">
-                            <span class="icon-holder"><img src="{% static 'home/images/icon01.svg' %}" alt="icon" width="30" height="30"></span>
-                            <h3>Reach out to venues without the hassle</h3>
-                            <p>Save time scouting and researching venues and get in touch with the decision makers directly.</p>
-                        </div>
-                        <div class="col-md-4 d-none d-md-block">
-                            <span class="icon-holder"><img src="{% static 'home/images/icon02.svg' %}" alt="icon" width="30" height="30"></span>
-                            <h3>Find opportunities that fit your needs</h3>
-                            <p>Use our tools to quickly search for venues and openings across multiple criteria.</p>
-                        </div>
-                        <div class="col-md-4 d-none d-md-block">
-                            <span class="icon-holder"><img src="{% static 'home/images/icon03.svg' %}" alt="icon" width="30" height="30"></span>
-                            <h3>Apply to opportunities with just one click</h3>
-                            <p>Your Opus profile eliminates the need for separate links or attachments.</p>
-                        </div>
-                        <a href="#" class="btn-next"><img src="{% static 'home/images/ico-right.svg' %}" alt="right-chevron" width="15" height="27"></a>
-                    </div>
-                    <a href="#contact-us" class="btn btn-primary">reserve my spot</a>
-                </div>
-            </section>
-            <section class="steps" id="how" style="display:none;">
-                <div class="container">
-                    <h2>How Opus Works</h2>
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="img-holder">
-                                <div class="laptop">
-                                    <img src="{% static 'home/images/img01.png' %}" alt="laptop" width="365" height="225">
-                                </div>
-                                <div class="img-placeholder">
-                                    <img src="{% static 'home/images/placeholder-img01.png' %}" alt="placeholder-image" width="277" height="173">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <ol class="steps-list">
-                                <li><strong>Create your profile</strong><span>Consolidate all your content into a clean and professional profile.</span></li>
-                                <li><strong>Find the right shows</strong><span>Filter through different venues and openings.</span></li>
-                                <li><strong>Book and play</strong><span>Get booked for the right shows and let your music do the rest.</span></li>
-                            </ol>
-                        </div>
-                    </div>
-                    <a href="#contact-us" class="btn btn-primary">reserve my spot</a>
-                </div>
-            </section>
-            <section class="testimonials" style="display:none;">
-                <div class="container">
-                    <h2>Artists Love Opus</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <img src="{% static 'home/images/placeholder-img02.png' %}" alt="display-pic" width="348" height="125">
-                            <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</blockquote>
-                            <cite class="author">- Artist Name, NY</cite>
-                        </div>
-                        <div class="col-md-6 d-none d-md-block">
-                            <img src="{% static 'home/images/placeholder-img02.png' %}" alt="display-pic" width="348" height="125">
-                            <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</blockquote>
-                            <cite class="author">- Artist Name, NY</cite>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="form-section" id="contact-us" style="display:none;">
-                <div class="container">
-                    <h2>Coming Soon for Artists</h2>
-                    <span class="text-center d-block">Our team is hard at work building the Opus platform. Sign up to be the first to know when we're ready to debut the beta. Spots are limited so don't miss out!</span>
-                    <form class="subscribe">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail">Email Address</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Enter Email Address">
-                        </div>
-                        <button type="submit" class="btn btn-primary">reserve my spot</button>
-                    </form>
-                </div>
-            </section>
+
+            {% block main %}{% endblock %}
             <section class="mission" id="mission">
                 <div class="container">
                     <h2>Our Mission</h2>
@@ -286,7 +180,7 @@
                             <li><a href="/artists/#why">Why Opus</a></li>
                             <li><a href="/artists/#how">How Opus Works</a></li>
                             <li><a href="/artists/#contact-us">Reserve My Spot</a></li>
-                            <!-- <li><a href="#">Sign In</a></li> -->
+                            <li><a href="{% url 'account_login' %}">Sign In</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-3">
@@ -295,17 +189,13 @@
                             <li><a href="/venues/#why">Why Opus</a></li>
                             <li><a href="/venues/#how">How Opus Works</a></li>
                             <li><a href="/venues/#contact-us">Reserve My Spot</a></li>
-                            <!-- <li><a href="#">Sign In</a></li> -->
+                            {# <li><a href="{% url 'account_login' %}">Sign In</a></li> #}
                         </ul>
                     </div>
                     <div class="col-6 col-md-3">
                         <h3>Company</h3>
                         <ul class="footer-links">
-                            <!--
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/press">Press</a></li>
-                            -->
-                            <li><a href="/terms/">Terms & Conditions</a></li>
+                            <li><a href="/terms/">Terms &amp; Conditions</a></li>
                             <li><a href="/privacy/">Privacy</a></li>
                         </ul>
                     </div>
