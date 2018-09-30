@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Field } from 'redux-form';
+import _ from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -21,6 +22,8 @@ const InputButtons = (props) => {
 
     const mediumButtons = fullWidth - mediumInput;
     const smallButtons = fullWidth - smallInput;
+
+    const fieldProps = _.omit(props, 'isMobile');
 
     return (
       <Fragment>

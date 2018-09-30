@@ -1,6 +1,5 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import autoBind from 'react-autobind';
 import { Close } from '../icons';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -17,46 +16,21 @@ const styles = theme => ({
   },
 });
 
-class DialogBase extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      open: false,
-    }
-
-    autoBind(this)
-  };
-
-  componentWillMount() {
-    this.props.onMount && this.props.onMount(this.open, this.close);
-  }
-
-  open() {
-    this.setState({ open: true });
-  };
-
-  close() {
-    this.setState({ open: false });
-  };
-
-  render() {
-    const {
+const DialogRoot = ({
       children,
       classes,
       fullScreen,
       fullWidth,
       maxWidth,
-    } = this.props;
-
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, { openDialog: this.open, closeDialog: this.close }));
-
-    return (
+      open,
+      close,
+    }) =>
         <Dialog
           fullScreen={fullScreen}
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          open={this.state.open}
+          classes={classes}
+          open={open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
@@ -65,17 +39,14 @@ class DialogBase extends React.Component {
           <div className={classes.iconContainer}>
             <Close
               color="secondary"
-              onClick={this.close}
+              onClick={close}
             />
           </div>
-            {childrenWithProps}
+            {children}
         </Dialog>
-    );
-  }
-}
 
-DialogBase.defaultProps = {
+DialogRoot.defaultProps = {
   fullScreen: false
 }
 
-export default withStyles(styles)(DialogBase);
+export default withStyles(styles)(DialogRoot);

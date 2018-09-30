@@ -1,4 +1,6 @@
 import {forEach} from 'lodash';
+        return;
+    }
 
 export function bindDomEvent(domSelector, eventType, callback) {
 
