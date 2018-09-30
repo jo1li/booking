@@ -1,27 +1,27 @@
 import React from 'react';
+import { compose } from 'redux';
 import DialogBase from './DialogBase';
+import Dialog from './Dialog';
 import withWidth from '@material-ui/core/withWidth';
 import includes from 'lodash/includes';
+import DialogRoot from './DialogRoot';
+import Empty from '../Empty';
 
-let FullScreenDialog = ({ children, onMount, width }) => {
+const FullScreenDialog = ({ children, width, open, close }) => {
         return (
-            <DialogBase
-                onMount={onMount}
+            <DialogRoot
                 maxWidth={false}
+                open={open}
+                close={close}
                 fullScreen={includes(['xs', 'sm'], width)}
             >
-                { children }
-            </DialogBase>
+                { children || (<Empty />) }
+            </DialogRoot>
         )
     }
 
-FullScreenDialog = withWidth()(FullScreenDialog);
+export default compose(
+    Dialog,
+    withWidth(),
+)(FullScreenDialog)
 
-const FullScreenDialogContainer = WrappedComponent => props =>
-    <FullScreenDialog
-        onMount={props.onMount}
-    >
-        <WrappedComponent {...props}/>
-    </FullScreenDialog>
-
-export default FullScreenDialogContainer;

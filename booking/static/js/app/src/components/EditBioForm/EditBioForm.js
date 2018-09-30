@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
 import CancelConfirm from '../CancelConfirm';
-import FullScreenDialog from '../modal/FullScreenDialog';
 import TextArea from '../form/TextArea';
 import { Display1 } from '../typography';
 
@@ -101,10 +100,6 @@ class EditBioForm extends Component {
 
 // TODO these can probably be combined
 EditBioForm = withStyles(styles)(EditBioForm)
-
-EditBioForm = compose(
-    FullScreenDialog,
-)(EditBioForm);
 
 EditBioForm = reduxForm({
   form: EDIT_BIO,
