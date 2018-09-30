@@ -181,7 +181,7 @@ def profile(request, slug=None):
     audios = musician.audios.all().order_by('order')
     photos = musician.photos.all().order_by('order')
 
-    # TODO: Surely serializers provide a way to do this?
+    # TODO: Move to helper once chris gets one out
     # Needed for bootstrapping values into initial state; redux store expects
     # keyed by ID, not by order
     photos_dict = {
