@@ -25,9 +25,19 @@ export const getDestroyedItems = ({currentItems, initialItems}) => {
   });
 }
 
-export const removeItemFromForm = ({currentItems, change, order, itemName}) => {
+// For leaving a placeholder when an item is removed
+// Must filter on content props (e.g. `code`) before saving
+export const removeItemContentFromForm = ({currentItems, change, order, itemName}) => {
   let remainingItems = _.clone(currentItems);
   // Leave blank in form to prevent popping
   remainingItems[order] = { order };
   change(itemName, remainingItems);
+}
+
+// For removing an item but allowing for animation
+// Must filter on `removed` before saving
+export const flagItemForRemoval = ({currentItems, change, itemIndex, itemName}) => {
+  const removedItem = currentItems[itemName][itemIndex];
+  // NB: these will be found and sent for deletion
+  change(`${itemName}[${itemIndex}]`, {...removedItem, removed: true});
 }
