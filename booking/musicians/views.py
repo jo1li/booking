@@ -191,7 +191,7 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
-    # TODO: Surely serializers provide a way to do this?
+    # TODO: Move to helper once chris gets one out
     # Needed for bootstrapping values into initial state; redux store expects
     # keyed by ID, not by order
     photos_dict = {
