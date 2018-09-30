@@ -225,6 +225,9 @@ class MusicianVideo(TimeStampedModel, OrderedModel):
 
 
 class MusicianImage(TimeStampedModel, OrderedModel):
+    # Keeps order per-user
+    order_with_respect_to = 'musician'
+
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
 

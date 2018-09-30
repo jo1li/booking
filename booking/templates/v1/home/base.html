@@ -1,0 +1,217 @@
+{% load staticfiles %}
+{% load sass_tags %}
+{% load repeatedblocks %}
+{% url 'home' as home %}
+{% url 'artists' as artists %}
+{% url 'venues' as venues %}
+{% url 'contact_us' as contact_us %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type"    content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control"   content="no-cache" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Opus | {% block head_title %}Home{% endblock %}</title>
+
+    <meta name="description" content="Opus | Live music everywhere">
+    <meta name="keywords" content="Live music, musicians, artists, venues, booking">
+    <meta name="author" content="Opus">
+    <meta name="language" content="english" />
+    <meta name="distribution" content="global" />
+    <meta name="publisher" content="Opus" />
+    <meta name="copyright" content="2018 Opus" />
+
+    <meta property="og:title" content="Opus | Live music everywhere" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.opuslive.io" />
+    <meta property="og:description" content="Opus streamlines the booking experience to make live music happen." />
+    <meta property="og:image" content="https://www.opuslive.io/images/og-image.jpg" />
+
+
+    <link rel="shortcut icon" sizes="32x32" type="image/ico" href="{% static 'favicon.ico' %}" />
+    <link rel="icon" sizes="192x192" href="{% static 'home/images/chrome-touch-icon-192x192.png' %} " />
+    <link rel="apple-touch-icon" href="{% static 'home/images/apple-touch-icon.png' %}" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77106169-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-77106169-3');
+    </script>
+
+    <link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="{% sass_src 'scss/home/bootstrap.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'scss/home/main.scss' %}">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous" defer></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous" defer></script>
+    <script src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script>
+    <script src="{% static 'home/js/jquery.main.js' %}" defer></script>
+</head>
+<body>
+    <div id="wrapper">
+        <header id="header">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light justify-content-between">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img src="{% static 'home/images/logo.svg' %}" alt="Opus" width="94" height="40"></a>
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <ul class="navbar-nav">
+                            <li class="nav-item {% ifequal request.path home %}active{% endifequal %}">
+                                <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="nav-item {% ifequal request.path artists %}active{% endifequal %}">
+                                <a class="nav-link" href="{{ artists }}">Artists</a>
+                            </li>
+                            <li class="nav-item {% ifequal request.path venues %}active{% endifequal %}">
+                                <a class="nav-link" href="{{ venues }}">Venues</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#mission">Our Mission</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#opus-presents">Opus Presents</a>
+                            </li>
+                            <li class="nav-item {% ifequal request.path contact_us %}active{% endifequal %}">
+                                <a class="nav-link" href="{{ contact_us }}">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main id="main">
+            <div class="video-holder win-height" style="background-image: url({% static 'home/images/video.jpg' %});">
+                <div class="description">
+                    <h1><span>LIVE </span><span>MUSIC</span> EVERYWHERE</h1>
+                    <span>Opus streamlines the booking experience to make live music happen.</span>
+                    <a href="/artists/#contact-us" class="btn btn-primary">Reserve my Spot</a>
+                </div>
+                <video class="bg-video" width="640" height="360" autoplay muted playsinline>
+                    <source type="video/mp4" src="{% static 'home/media/oh-malo-17.mp4' %}" />
+                </video>
+            </div>
+
+            {% block main %}{% endblock %}
+            <section class="mission" id="mission">
+                <div class="container">
+                    <h2>Our Mission</h2>
+                    <p>At Opus, our mission is to bring artists and venues together to create live music everywhere. We strive to build a better world that values live music for everyone.</p>
+                </div>
+            </section>
+            <section class="visual" id="opus-presents">
+                <div class="container">
+                    <h2>Opus Presents</h2>
+                    <span class="text-center d-block arrow-prev">Check out exclusive performances brought to you by Opus.</span>
+                    <div class="row slick-shows">
+                        <div>
+                            <a href="https://www.facebook.com/events/211935802808302/" target="_blank"><img src="{% static 'home/images/shows/Studio-Sunday-Aug-19-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/433353690504478/" target="_blank"><img src="{% static 'home/images/shows/August-10-Poster-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/1439214049512432/" target="_blank"><img src="{% static 'home/images/shows/Heaven-Volume-I.png' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/2092937050922792/" target="_blank"><img src="{% static 'home/images/shows/Suzette-Sundae-Poster-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/2200888983474542/" target="_blank"><img src="{% static 'home/images/shows/Studio-Sunday-July-22-IG.png' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/621152478231202/" target="_blank"><img src="{% static 'home/images/shows/Studio-Sunday-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/211201153004745/" target="_blank"><img src="{% static 'home/images/shows/Atlas-Opus-Crossing-Musical-Borders.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/227749334473435/" target="_blank"><img src="{% static 'home/images/shows/rob-jennings-may-31.png' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.instagram.com/p/Bi0MTF8FG5h/?taken-by=opuslive" target="_blank"><img src="{% static 'home/images/shows/Adam-Melchor-May-17-FM.png' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.instagram.com/p/BhzBS1bFRP1/?taken-by=opuslive" target="_blank"><img src="{% static 'home/images/shows/The-New-School-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/889526724547876/" target="_blank"><img src="{% static 'home/images/shows/Snow-Jams-Instagram.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/123557578451644/" target="_blank"><img src="{% static 'home/images/shows/Whiskey-Girls-Da-Capo-Instragram-Image.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/1545733095462371/" target="_blank"><img src="{% static 'home/images/shows/Opus-ETR-Sessions-IG.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/123963724947814/" target="_blank"><img src="{% static 'home/images/shows/ig_post_ftones2.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/356914251415040/" target="_blank"><img src="{% static 'home/images/shows/Opus_ETR_ig_banner.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/events/129112531159431/" target="_blank"><img src="{% static 'home/images/shows/The-Hideout.jpg' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.instagram.com/p/BYvyq3RhMC4/?taken-by=opuslive" target="_blank"><img src="{% static 'home/images/shows/porta_flyer.png' %}" alt="performance" width="159" height="159"></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <h3>Artists</h3>
+                        <ul class="footer-links">
+                            <li><a href="/artists/#why">Why Opus</a></li>
+                            <li><a href="/artists/#how">How Opus Works</a></li>
+                            <li><a href="/artists/#contact-us">Reserve My Spot</a></li>
+                            <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3>Venues</h3>
+                        <ul class="footer-links">
+                            <li><a href="/venues/#why">Why Opus</a></li>
+                            <li><a href="/venues/#how">How Opus Works</a></li>
+                            <li><a href="/venues/#contact-us">Reserve My Spot</a></li>
+                            {# <li><a href="{% url 'account_login' %}">Sign In</a></li> #}
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3>Company</h3>
+                        <ul class="footer-links">
+                            <li><a href="/terms/">Terms &amp; Conditions</a></li>
+                            <li><a href="/privacy/">Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3>Stay In Touch</h3>
+                        <ul class="social-networks">
+                            <li><a href="mailto:info@opuslive.io"><img src="{% static 'home/images/mail.svg' %}" alt="Mail" width="20" height="20"></a></li>
+                            <li><a href="https://www.facebook.com/opuslivemusic/" target="_blank"><img src="{% static 'home/images/facebook.svg' %}" alt="Facebook" width="20" height="20"></a></li>
+                            <li><a href="https://www.instagram.com/opuslive/" target="_blank"><img src="{% static 'home/images/instagram.svg' %}" alt="Instagram" width="20" height="20"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p>&copy; 2018 <a href="#">Opus</a> Apps Inc.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
