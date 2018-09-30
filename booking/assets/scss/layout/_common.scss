@@ -72,7 +72,7 @@ a, .link {
 		}
 	}
 
-	.low-edit-box {
+	.photo-indicator-box {
 
 		.edit {
 			top: 170px; /* TODO: surely a better way to do this. also not precise. */
@@ -256,7 +256,7 @@ $border-radius: 5px;
 	}
 }
 
-.edit-box, .low-edit-box {
+.edit-box, .photo-indicator-box {
 	position: relative;
 	width: 100%;
 
