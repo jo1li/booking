@@ -4,23 +4,25 @@ import DialogBase from './DialogBase';
 import Dialog from './Dialog';
 import withWidth from '@material-ui/core/withWidth';
 import includes from 'lodash/includes';
-import DialogRoot from './DialogRoot';
+
 import Empty from '../Empty';
 
 const FullScreenDialog = ({ children, width, open, close }) => {
         return (
-            <DialogRoot
+            <DialogBase
                 maxWidth={false}
                 open={open}
                 close={close}
                 fullScreen={includes(['xs', 'sm'], width)}
             >
-                { children || (<Empty />) }
-            </DialogRoot>
+                { children }
+            </DialogBase>
         )
     }
 
 export default compose(
+
+    // Add state management
     Dialog,
     withWidth(),
 )(FullScreenDialog)

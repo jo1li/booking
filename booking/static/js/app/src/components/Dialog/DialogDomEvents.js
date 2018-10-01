@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import autoBind from 'react-autobind';
 import BindDomEvent from '../HOComponents/BindDomEvents';
-import FullScreenDialog from '../modal/FullScreenDialog';
+import FullScreenDialog from '../Dialog/FullScreenDialog';
 import Empty from '../Empty';
 
 /**
@@ -12,6 +12,7 @@ import Empty from '../Empty';
  * @param {Object} options
  * @param {String} options.triggerSelector - DOM node to bound event to
  * @param {ReactElement} options.DialogContent - React element to render as the Dialog content
+ * @param {ReactElement} options.DialogComponent - Optional Dialog component
  *
  * @return {ReactElement}
  */

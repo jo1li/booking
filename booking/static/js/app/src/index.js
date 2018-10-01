@@ -3,7 +3,7 @@ import EditBioForm from './components/EditBioForm/EditBioForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import RenderFromDomNode from './renderFromDomNode';
-import { ClickToOpenDialog } from './components/modal/DialogDomEvents';
+import { ClickToOpenDialog } from './components/Dialog';
 
 
 RenderFromDomNode({

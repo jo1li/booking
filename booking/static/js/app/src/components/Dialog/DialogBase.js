@@ -16,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-const DialogRoot = ({
+const DialogBase = ({
       children,
       classes,
       fullScreen,
@@ -45,8 +45,8 @@ const DialogRoot = ({
             {children}
         </Dialog>
 
-DialogRoot.defaultProps = {
+DialogBase.defaultProps = {
   fullScreen: false
 }
 
-export default withStyles(styles)(DialogRoot);
+export default withStyles(styles)(DialogBase);

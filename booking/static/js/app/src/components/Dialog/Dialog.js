@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
 import Empty from '../Empty';
+import DialogBase from './DialogBase';
 
 /**
  * The DialogStateManager component takes a Dialog component,
@@ -14,33 +15,31 @@ import Empty from '../Empty';
  */
 const DialogStateManager = Dialog => WrappedComponent => {
     class DialogWrapper extends Component {
+        static initialState = {
+            isOpen: false,
+            content: <Empty />
+        }
+
         constructor(props) {
             super(props);
 
-            this.state = {
-                isOpen: false,
-                Content: Empty
-            }
+            this.state = DialogWrapper.initialState;
 
             autoBind(this);
         }
 
-        openDialog(Content) {
+        openDialog(content) {
             this.setState({
                 isOpen: true,
-                Content,
+                content,
             })
         }
 
         closeDialog() {
-            this.setState({
-                isOpen: false,
-                Content: Empty,
-            })
+            this.setState(DialogWrapper.initialState);
         }
 
         render() {
-            const Content = this.state.Content;
             return (
                 <Fragment>
                     <WrappedComponent {...this.props}
@@ -51,7 +50,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
                         open={this.state.isOpen}
                         close={this.closeDialog}
                     >
-                        { Content }
+                        { this.state.content }
                     </Dialog>
                 </Fragment>
             )
@@ -60,6 +59,5 @@ const DialogStateManager = Dialog => WrappedComponent => {
 
     return DialogWrapper;
 }
-
 
 export default DialogStateManager;
