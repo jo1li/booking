@@ -2,6 +2,7 @@ import RenderFromDomNode from '../renderFromDomNode';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
+import PhotoEditForm from '../components/PhotoEditForm';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoModalButton from '../components/PhotoModalButton';
@@ -40,6 +41,14 @@ export default function render_artist_profile() {
             DialogContent: VideoEditForm,
         }),
         node: 'video-edit-form',
+    });
+
+    RenderFromDomNode({
+        Component: ClickToOpenDialog({
+            triggerSelector: '.open-edit-photos',
+            DialogContent: PhotoEditForm,
+        }),
+        node: 'photo-edit-form',
     });
 
     RenderFromDomNode({
