@@ -9,7 +9,7 @@ import { ClickToOpenDialog } from './components/Dialog';
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: 'open-edit-user-profile',
+        triggerSelector: '#open-edit-user-profile',
         DialogContent: UserEditForm,
     }),
     node: 'user-edit-form',
@@ -17,7 +17,7 @@ RenderFromDomNode({
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: 'open-edit-biography',
+        triggerSelector: '#open-edit-biography',
         DialogContent: EditBioForm,
     }),
     node: 'edit-bio-form',
@@ -25,7 +25,7 @@ RenderFromDomNode({
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: 'open-edit-audios',
+        triggerSelector: '#open-edit-audios',
         DialogContent: AudioEditForm,
     }),
     node: 'audio-edit-form',
@@ -33,7 +33,7 @@ RenderFromDomNode({
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: 'open-edit-videos',
+        triggerSelector: '#open-edit-videos',
         DialogContent: VideoEditForm,
     }),
     node: 'video-edit-form',

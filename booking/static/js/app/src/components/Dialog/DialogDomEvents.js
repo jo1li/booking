@@ -30,7 +30,7 @@ export const OpenDialogEvent = eventType => ({
 
         componentWillMount() {
             this.props.bindDomEvent({
-                domId: triggerSelector,
+                selector: triggerSelector,
                 eventType,
                 callback: () => {
                     this.props.openDialog(
