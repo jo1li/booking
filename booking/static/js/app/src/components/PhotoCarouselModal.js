@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import boundToOpenElement from './modal/boundToOpenElement';
 import FullScreenDialog from './modal/FullScreenDialog';
 import * as PhotoActions from './../actions/photos';
+import { getMaxWidthImageURL } from '../helpers/imageHelpers';
 import { PhotoCarousel } from './Carousels';
 
 const mapStateToProps = (state, props) => ({
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const LEFT_RIGHT_PADDING = 20;
+const MAX_WIDTH = 620;
 const styles = theme => ({
   photoCarouselContainer: {
     margin: '0 auto',
@@ -28,7 +30,7 @@ const styles = theme => ({
     position: 'relative',
   },
   photoCarousel: {
-    width: '620px',
+    width: `${MAX_WIDTH}px`,
     maxWidth: '100%',
   },
 });
@@ -49,7 +51,9 @@ class PhotoCarouselModal extends Component {
     return (
       <div className={classes.photoCarouselContainer}>
         <div className={classes.photoCarousel}>
-          <PhotoCarousel photos={photos}/>
+          <PhotoCarousel
+            photos={photos}
+            getMaxWidthSrc={getMaxWidthImageURL(MAX_WIDTH)}/>
         </div>
       </div>
     );
