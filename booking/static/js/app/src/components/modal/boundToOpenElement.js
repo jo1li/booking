@@ -6,7 +6,6 @@ const boundToOpenElement = (domSelector) => (BodyComponent) => {
   class BoundComponent extends Component {
     constructor() {
       super();
-      console.log(domID);
       autoBind(this);
     }
 
@@ -14,7 +13,7 @@ const boundToOpenElement = (domSelector) => (BodyComponent) => {
       this.props.bindDomEvent({
         domSelector: domSelector,
         eventType: 'click',
-        callback: () => {debugger; open();},
+        callback: open,
       })
     }
 
