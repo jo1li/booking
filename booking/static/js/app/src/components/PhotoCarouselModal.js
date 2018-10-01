@@ -45,10 +45,9 @@ class PhotoCarouselModal extends Component {
   render() {
     const { classes, photos } = this.props;
 
-    // TODO: Do I still need those hardcoded class names and id?
     return (
-      <div className={`slider-section ${classes.photoCarouselContainer}`}>
-        <div id='photo-carousel' className={classes.photoCarousel}>
+      <div className={classes.photoCarouselContainer}>
+        <div className={classes.photoCarousel}>
           <PhotoCarousel photos={photos}/>
         </div>
       </div>
