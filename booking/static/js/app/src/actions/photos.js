@@ -2,7 +2,6 @@ import ActionCreators from './actionCreators';
 import * as requests from '../request/requests';
 
 // TODO: error handling
-// TODO: change these to work for photos, which need to be uploaded, then give an src
 
 export function createArtistPhoto({artistId, file, order}, callback) {
     return (dispatch, getState) => {
