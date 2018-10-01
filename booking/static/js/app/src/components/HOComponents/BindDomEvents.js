@@ -10,7 +10,6 @@ class BindEvents extends Component {
     }
 
     bind({domSelector, eventType, callback}) {
-        console.log('domId', domId)
         const unbindFunction = bindDomEvent(domSelector, eventType, callback)
         this.events.push(unbindFunction);
     }
