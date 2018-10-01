@@ -56,6 +56,7 @@ class PhotoCarouselContent extends Component {
       classes,
       photoSources,
       activeStep,
+      getMaxWidthSrc,
     } = this.props;
 
     return (
@@ -69,7 +70,7 @@ class PhotoCarouselContent extends Component {
           <img
             className={classes.photo}
             key={idx}
-            src={src}
+            src={getMaxWidthSrc(src)}
             alt={src}
             title={src} />
         ))}
