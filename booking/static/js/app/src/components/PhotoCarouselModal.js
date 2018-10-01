@@ -18,17 +18,18 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-// TODO: am I sure I need max width on both of these?
 const LEFT_RIGHT_PADDING = 20;
 const styles = theme => ({
   photoCarouselContainer: {
+    margin: '0 auto',
+    position: 'relative',
     padding: `65px ${LEFT_RIGHT_PADDING}px 20px`,
     maxWidth: `calc(100vw - ${LEFT_RIGHT_PADDING * 2}px)`,
     position: 'relative',
   },
   photoCarousel: {
     width: '620px',
-    maxWidth: `calc(100vw - ${LEFT_RIGHT_PADDING * 2}px)`,
+    maxWidth: '100%',
   },
 });
 
