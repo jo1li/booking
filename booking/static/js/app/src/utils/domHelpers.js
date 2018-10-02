@@ -1,6 +1,4 @@
 import {forEach} from 'lodash';
-        return;
-    }
 
 export function bindDomEvent(domSelector, eventType, callback) {
 
@@ -10,7 +8,6 @@ export function bindDomEvent(domSelector, eventType, callback) {
     }
 
     forEach(domElements, function(domElement) {
-    const removeListeners = domElements.map(element => {
       domElement.addEventListener(eventType, callback);
       return () => domElement.removeEventListener(eventType, callback);
     });
