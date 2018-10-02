@@ -25,7 +25,7 @@ RenderFromDomNode({
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: '#open-edit-audios',
+        triggerSelector: '.open-edit-audios',
         DialogContent: AudioEditForm,
     }),
     node: 'audio-edit-form',
@@ -33,7 +33,7 @@ RenderFromDomNode({
 
 RenderFromDomNode({
     Component: ClickToOpenDialog({
-        triggerSelector: '#open-edit-videos',
+        triggerSelector: '.open-edit-videos',
         DialogContent: VideoEditForm,
     }),
     node: 'video-edit-form',
