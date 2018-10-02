@@ -276,6 +276,23 @@ $border-radius: 5px;
 	}
 }
 
+.profile-empty-state {
+	background-color: rgba(0, 0, 0, 0.05);
+	border-radius: 2px;
+	cursor:pointer;
+	svg {
+		position: relative;
+		top:5px;
+	}
+	p {
+		padding: 10px 16px 15px;
+		margin:0;
+		color: $secondary-purple;
+		font-size: 14px;
+		font-weight: bold;
+	}
+ }
+
 .slide-gallery {
 	margin: 0 -15px;
 

@@ -3,22 +3,22 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 
 import { createLogger } from 'redux-logger';
-import DevTools from '../containers/DevTools';
 
 import rootReducer from '../reducers';
 
 export const history = createHistory();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const configureStore = (initialState) => {
   const store = createStore(
     rootReducer,
     initialState,
-    compose(
+    composeEnhancers(
       applyMiddleware(
         thunk,
         createLogger(),
       ),
-      DevTools.instrument(),
     ),
   );
 

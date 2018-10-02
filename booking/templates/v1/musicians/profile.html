@@ -99,32 +99,27 @@
             </div>
             <div class="col-md-8">
 
-                {% if videos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
-                        <div class="edit"><img id="open-edit-videos" src="{% static 'images/edit.png' %}" alt="edit videos icon"></div>
+                        <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
                     </div>
                     <div
                         id="video-carousel"
                         videosjson="{{ videos_json }}">
                     </div>
                 </div>
-                {% endif %}
 
-
-                {% if audios_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
-                        <div class="edit"><img id="open-edit-audios" src="{% static 'images/edit.png' %}" alt="edit audios icon"></div>
+                        <div class="edit"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
                     </div>
                     <div
                         id="audio-carousel"
                         audiosjson="{{ audios_json }}">
                     </div>
                 </div>
-                {% endif %}
 
                 {% if photos_present or musician.pk == current_user_pk %}
                 <div class="slider-section">
@@ -250,6 +245,7 @@
     window.initialState = {
         profile: {
             id: {{ musician.pk }},
+            isOwnerViewing: {% if is_owner_viewing %}true{% else %}false{% endif %}
         },
     };
 </script>

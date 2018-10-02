@@ -85,4 +85,4 @@ const AudioEditForm = (props) => (
   <AudioEditFormBase itemName='audios' copy={copy} {...props} />
 );
 
-export default boundToOpenElement('open-edit-audios')(AudioEditForm);
+export default boundToOpenElement('.open-edit-audios')(AudioEditForm);

@@ -88,4 +88,4 @@ const VideoEditForm = (props) => (
   <VideoEditFormBase itemName='videos' copy={copy} {...props} />
 );
 
-export default boundToOpenElement('open-edit-videos')(VideoEditForm);
+export default boundToOpenElement('.open-edit-videos')(VideoEditForm);
