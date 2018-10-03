@@ -18,16 +18,21 @@ class VenueSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
 
+    venue = VenueSerializer()
+
     class Meta:
         model = Event
-        # TODO: remove fields, like notes, that supposed to private to event / venue owner
-        fields = '__all__'
+        fields = [
+            'name',
+            'description',
+            'slug',
+            'venue'
+        ]
 
 
 class SlotSerializer(serializers.ModelSerializer):
 
     event = EventSerializer()
-    venue = VenueSerializer(source='event.venue')
 
     class Meta:
         model = Slot

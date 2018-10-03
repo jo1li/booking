@@ -1,6 +1,7 @@
 from model_mommy.recipe import Recipe, foreign_key, seq
 
 from musicians.models import Musician, MusicianVideo
+from venues.models import Venue, Event, Slot
 from home.models import OpusUser
 
 import random
@@ -21,6 +22,21 @@ musician_recipe = Recipe(
     Musician,
     user=foreign_key(user_musician_recipe),
     slug=seq("slug")
+)
+
+venue_recipe = Recipe(
+    Venue
+)
+
+event_recipe = Recipe(
+    Event,
+    venue=foreign_key(venue_recipe)
+)
+
+slot_recipe = Recipe(
+    Slot,
+    event=foreign_key(event_recipe),
+    musician=foreign_key(musician_recipe)
 )
 
 videos = [
