@@ -61,7 +61,7 @@ class SlotViewSet(mixins.ListModelMixin,
     parser_classes = (JSONParser,)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    queryset = Slot.objects.all()
+    queryset = Slot.objects.all().order_by('start_time')
     serializer_class = SlotSerializer
 
 
