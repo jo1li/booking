@@ -5,8 +5,6 @@ import Dialog from './Dialog';
 import withWidth from '@material-ui/core/withWidth';
 import includes from 'lodash/includes';
 
-import Empty from '../Empty';
-
 const FullScreenDialog = ({ children, width, open, close }) => {
         return (
             <DialogBase

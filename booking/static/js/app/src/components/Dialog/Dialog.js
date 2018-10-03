@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
 import Empty from '../Empty';
-import DialogBase from './DialogBase';
 
 /**
  * The DialogStateManager component takes a Dialog component,
