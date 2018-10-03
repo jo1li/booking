@@ -1,7 +1,7 @@
 from booking.utils import opus_render
 
 from .models import Venue, Event, Slot
-from .serializers import VenueListSerializer, VenueSerializer, EventSerializer, SlotSerializer
+from .serializers import VenueListSerializer, VenueSerializer, EventSerializer, SlotSerializer, SlotCreateUpdateSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.parsers import JSONParser
@@ -45,6 +45,7 @@ class VenueViewSet(mixins.ListModelMixin,
 
 
 class SlotViewSet(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
                     mixins.RetrieveModelMixin,
                     viewsets.GenericViewSet):
     """
@@ -54,7 +55,10 @@ class SlotViewSet(mixins.ListModelMixin,
     GET /v1/slots/<id>:
     Retrieve a single slot instance.
 
-    PUT /v1/slots/<id>:
+    POST /v1/slots/:
+    Create a single slot instance.
+
+    POST /v1/slots/<id>:
     Update a single slot instance.
     """
 
@@ -62,7 +66,29 @@ class SlotViewSet(mixins.ListModelMixin,
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Slot.objects.all().order_by('start_time')
-    serializer_class = SlotSerializer
+    serializer_class = SlotCreateUpdateSerializer
+
+    def list(self, *args, **kwargs):
+        self.serializer_class = SlotSerializer
+        return mixins.ListModelMixin.list(self, *args, **kwargs)
+
+
+    def retrieve(self, *args, **kwargs):
+        self.serializer_class = SlotSerializer
+        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
+
+
+    def create(self, request, *args, **kwargs):
+        print("HERERERRER create")
+        return mixins.CreateModelMixin.create(self, request, *args, **kwargs)
+
+
+
+
+    def perform_create(self, serializer):
+        print("HERERERERE perform_create")
+        print(serializer)
+
 
 
 class EventViewSet(mixins.ListModelMixin,

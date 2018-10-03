@@ -24,28 +24,32 @@ class ApiSlotTest(OpusTestCase):
         result.json["results"][0].should.have.key('event')
         result.json["results"][0]['event'].should.have.key('venue')
 
-        # import pprint
-        # pp = pprint.PrettyPrinter(indent=4)
 
-        # pp.pprint(result.json)
+    def test_slot_create(self):
 
+        slot_list_url = self.reverse_api('slots-list')
 
-    # def test_artist_create(self):
+        result = self.app.post(slot_list_url, expect_errors=True)
+        result.status_code.should.equal(403)
+        result.json["detail"].should.equal("Authentication credentials were not provided.")
 
-    #     artist_list_url = self.reverse_api('artists-list')
+        headers, cookies = self.get_api_reqs()
+        self.app_api.force_authenticate(user=self.m.user)
 
-    #     result = self.app.put(artist_list_url, expect_errors=True)
-    #     result.status_code.should.equal(403)
-    #     result.json["detail"].should.equal("Authentication credentials were not provided.")
+        params = {
+            'start_date': '2018-10-29',
+            'start_time': '18:45:00',
+            'end_time': '19:45:00',
+            'venue': 'The Living Room',
+            'venue_city': 'New York',
+            'venue_state': 'NY'
+        }
+        result = self.app_api.post(slot_list_url, params, format="json", headers=headers)
+        print(result.status_code)
 
-    #     result = self.app.get('/', user=self.a.username)
-    #     csrf_token = self.get_csrf_from_headers(result)
-
-    #     create_headers = {
-    #         'X-CSRFToken': csrf_token
-    #     }
-    #     result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=self.a.username)
-    #     result.json["detail"].should.equal('Method "PUT" not allowed.')
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(result.json())
 
 
     # def test_artist_update(self):
