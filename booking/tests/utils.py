@@ -8,7 +8,7 @@ from django_webtest import WebTest
 
 from rest_framework.test import APIClient
 
-from musicians.tests.mommy_recipes import musician_recipe, admin_user_recipe
+from tests.mommy_recipes import musician_recipe, admin_user_recipe
 
 class OpusTestCase(WebTest, TransactionTestCase):
 

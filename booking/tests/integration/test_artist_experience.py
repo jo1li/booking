@@ -1,16 +1,9 @@
-from django.conf import settings
 from django.urls import reverse
-from django.core.exceptions import ObjectDoesNotExist
 
-from musicians.tests.utils import OpusTestCase
-
-from home.models import OpusUser
-from musicians.models import Musician
+from tests.utils import OpusTestCase
 
 import sure
 from sure import expect
-
-from musicians.tests.mommy_recipes import musician_recipe
 
 class ArtistExperienceTest(OpusTestCase):
 

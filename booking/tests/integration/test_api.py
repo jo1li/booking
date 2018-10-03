@@ -1,6 +1,6 @@
 from django.core.management import call_command
 
-from musicians.tests.utils import OpusTestCase
+from tests.utils import OpusTestCase
 
 from musicians.models import GenreTag
 

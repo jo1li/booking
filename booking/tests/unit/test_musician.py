@@ -1,6 +1,6 @@
 from django.utils.text import slugify
 
-from musicians.tests.utils import OpusTestCase
+from tests.utils import OpusTestCase
 
 from home.models import OpusUser
 from musicians.models import Musician
