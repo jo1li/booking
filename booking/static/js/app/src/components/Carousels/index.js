@@ -64,7 +64,7 @@ export const VideoCarousel = compose(
   withStyles(styles),
   FullScreenDialog,
 )(props => {
-    const { classes, videosjson, videos: videosFromStore } = props;
+    const { classes, videosjson, videos: videosFromStore, openDialog } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
     // If this is the initial run, load from dom
