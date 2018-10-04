@@ -5,11 +5,11 @@ import Dialog from './Dialog';
 import withWidth from '@material-ui/core/withWidth';
 import includes from 'lodash/includes';
 
-const FullScreenDialog = ({ children, width, open, close }) => {
+const FullScreenDialog = ({ children, width, isOpen, close }) => {
         return (
             <DialogBase
                 maxWidth={false}
-                isOpen={open}
+                isOpen={isOpen}
                 close={close}
                 fullScreen={includes(['xs', 'sm'], width)}
             >
