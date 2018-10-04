@@ -1,49 +1,76 @@
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carousels';
 import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
+import SignupForm from './components/SignupForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import PhotoCountIndicator from './components/PhotoCountIndicator';
 import RenderFromDomNode from './renderFromDomNode';
 
-RenderFromDomNode({
-    Component: UserEditForm,
-    node: 'user-edit-form',
-});
+console.log("configs: ", window.CONFIGS);
 
-RenderFromDomNode({
-    Component: EditBioForm,
-    node: 'edit-bio-form',
-})
+switch(window.CONFIGS.REACT_PAGE_NAME) {
+    case 'ARTIST_PROFILE':
+        render_artist_profile();
+        break;
+    case 'ARTIST_SIGNUP':
+        render_artist_signup();
+        break;
+    default:
+        break;
+}
 
-RenderFromDomNode({
-    Component: AudioEditForm,
-    node: 'audio-edit-form',
-})
+function render_artist_profile() {
 
-RenderFromDomNode({
-    Component: VideoEditForm,
-    node: 'video-edit-form',
-})
+    RenderFromDomNode({
+        Component: UserEditForm,
+        node: 'user-edit-form',
+    });
 
-RenderFromDomNode({
-    Component: VideoCarousel,
-    node: 'video-carousel',
-    className: 'carousel',
-});
+    RenderFromDomNode({
+        Component: EditBioForm,
+        node: 'edit-bio-form',
+    })
 
-RenderFromDomNode({
-    Component: AudioCarousel,
-    node: 'audio-carousel',
-    className: 'carousel',
-});
+    RenderFromDomNode({
+        Component: AudioEditForm,
+        node: 'audio-edit-form',
+    })
 
-RenderFromDomNode({
-    Component: PhotoCarousel,
-    node: 'photo-carousel',
-    className: 'carousel',
-});
+    RenderFromDomNode({
+        Component: VideoEditForm,
+        node: 'video-edit-form',
+    })
 
-RenderFromDomNode({
-    Component: PhotoCountIndicator,
-    node: 'photo-count-indicator',
-});
+    RenderFromDomNode({
+        Component: VideoCarousel,
+        node: 'video-carousel',
+        className: 'carousel',
+    });
+
+    RenderFromDomNode({
+        Component: AudioCarousel,
+        node: 'audio-carousel',
+        className: 'carousel',
+    });
+
+    RenderFromDomNode({
+        Component: PhotoCarousel,
+        node: 'photo-carousel',
+        className: 'carousel',
+    });
+
+    RenderFromDomNode({
+        Component: PhotoCountIndicator,
+        node: 'photo-count-indicator',
+    });
+
+}
+
+function render_artist_signup() {
+
+    RenderFromDomNode({
+        Component: SignupForm,
+        node: 'musician-signup',
+    });
+
+}
