@@ -71,6 +71,29 @@ a, .link {
 			top: 0;
 		}
 	}
+
+	.photo-indicator-box {
+
+		.edit {
+			top: 170px;
+			min-width: 55px;
+			height: 32px;
+			padding: 4px 9px 7px;
+			border-radius: 2px;
+			background-color: white;
+			color: black;
+			font-weight: bold;
+
+			img {
+				width: 24px;
+				margin-right: 7px;
+			}
+
+			@include media ('<tablet') {
+				top: 40px;
+			}
+		}
+	}
 }
 
 .artist-name-box {
@@ -233,7 +256,7 @@ $border-radius: 5px;
 	}
 }
 
-.edit-box {
+.edit-box, .photo-indicator-box {
 	position: relative;
 	width: 100%;
 

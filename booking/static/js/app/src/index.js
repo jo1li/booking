@@ -2,6 +2,7 @@ import { AudioCarousel, PhotoCarousel, VideoCarousel } from './components/Carous
 import EditBioForm from './components/EditBioForm/EditBioForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
+import PhotoCountIndicator from './components/PhotoCountIndicator';
 import RenderFromDomNode from './renderFromDomNode';
 import { ClickToOpenDialog } from './components/Dialog';
 
@@ -54,4 +55,9 @@ RenderFromDomNode({
     Component: PhotoCarousel,
     node: 'photo-carousel',
     className: 'carousel',
+});
+
+RenderFromDomNode({
+    Component: PhotoCountIndicator,
+    node: 'photo-count-indicator',
 });

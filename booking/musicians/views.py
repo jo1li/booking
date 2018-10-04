@@ -183,6 +183,14 @@ def profile(request, slug=None):
     photos = musician.photos.all().order_by('order')
     isOwnerViewing = (request.user == musician.user)
 
+    # TODO: Move to helper once chris gets one out
+    # Needed for bootstrapping values into initial state; redux store expects
+    # keyed by ID, not by order
+    photos_dict = {
+        photo['id']: photo
+        for photo in ArtistImageSerializer(photos, many=True).data
+    }
+
     context = {
         "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
@@ -191,8 +199,8 @@ def profile(request, slug=None):
         "videos_json": json.dumps(ArtistVideoSerializer(videos, many=True).data),
         "audios_present": bool(audios),
         "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
-        "photos_present": bool(photos),
-        "photos_json": json.dumps(ArtistImageSerializer(photos, many=True).data),
+        "photos_count": len(photos),
+        "photos_json": json.dumps(photos_dict),
     }
 
     return opus_render(request, "musicians/profile.html", context)
