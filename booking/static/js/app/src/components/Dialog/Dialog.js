@@ -21,7 +21,6 @@ const DialogStateManager = Dialog => WrappedComponent => {
 
         constructor(props) {
             super(props);
-
             this.state = DialogWrapper.initialState;
 
             autoBind(this);
@@ -46,7 +45,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
                         closeDialog={this.closeDialog}
                     />
                     <Dialog
-                        open={this.state.isOpen}
+                        isOpen={this.state.isOpen}
                         close={this.closeDialog}
                     >
                         { this.state.content }

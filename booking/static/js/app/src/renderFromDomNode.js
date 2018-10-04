@@ -50,6 +50,7 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) =
             <MuiThemeProvider theme={theme}>
                 <Provider store={store}>
                         <Component
+                            domNode={domNode}
                             {...componentProps}
                             className={className || ''}
                         />
