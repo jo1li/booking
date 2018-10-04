@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from rest_framework_nested import routers as routers
 
 from venues.views_admin import create
-from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
+from musicians.views import signup, SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet
 
 from .utils import v_url
 
@@ -38,6 +38,7 @@ artist_videos_router.register(r'photos', ArtistImageViewSet, base_name='artist-p
 
 urlpatterns = [
     # re_path(v_url(''), include(genres_router.urls)),
+    path('signup/', signup, name="opus_react_signup"),
     re_path(v_url(''), include(artist_router.urls)),
     re_path(v_url(''), include(artist_videos_router.urls)),
     path('', include("home.urls")),
