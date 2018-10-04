@@ -22,15 +22,14 @@ const DialogBase = ({
       fullScreen,
       fullWidth,
       maxWidth,
-      open,
+      isOpen,
       close,
     }) =>
         <Dialog
           fullScreen={fullScreen}
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          classes={classes}
-          open={open}
+          isOpen={isOpen}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"

@@ -37,7 +37,7 @@ export const OpenDialogEvent = eventType => ({
                         <DialogContent { ...this.props } />
                     )
                 }
-            })
+            });
         }
 
         render() {
@@ -48,8 +48,8 @@ export const OpenDialogEvent = eventType => ({
     return compose(
         DialogComponent,
         BindDomEvent,
-    )(Container)
-}
+    )(Container);
+};
 
 /**
  * openDialogEvent with click event

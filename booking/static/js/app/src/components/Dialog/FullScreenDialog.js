@@ -9,7 +9,7 @@ const FullScreenDialog = ({ children, width, open, close }) => {
         return (
             <DialogBase
                 maxWidth={false}
-                open={open}
+                isOpen={open}
                 close={close}
                 fullScreen={includes(['xs', 'sm'], width)}
             >
