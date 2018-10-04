@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
 import { FullScreenDialog } from '../Dialog';
-import $ from "jquery";
+// import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
 import EmptyState from '../EmptyState';
@@ -32,7 +32,7 @@ export const AudioCarousel = compose(
   connect(mapStateToProps),
   withStyles(styles),
   FullScreenDialog,
-  )(props => {
+)(props => {
     const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
@@ -59,8 +59,11 @@ export const AudioCarousel = compose(
     );
   })
 
-export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
+export const VideoCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(props => {
     const { classes, videosjson, videos: videosFromStore } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
@@ -86,8 +89,7 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
             iframeSources={_.map(videos, v => v.src)}/>
       </CarouselWrapper>
     );
-  })
-);
+  });
 
 // TODO: Add a background image for when photos don't cover the full width,
 //       consisting of a shaded version of the user's profile image scaled to
