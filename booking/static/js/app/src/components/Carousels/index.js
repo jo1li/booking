@@ -10,19 +10,17 @@ import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
 const mapStateToProps = (state, props) => {
-
-  var retval = {}
-
-  retval['videos'] = ( state.videos === false )
+  const videos = ( state.videos === false )
                     ? false
                     : _.sortBy(_.values(state.videos), v => v.order) ;
 
-  retval['audios'] = ( state.audios === false)
+  const audios = ( state.audios === false)
                     ? false
                     : _.sortBy(_.values(state.audios), a => a.order);
 
-  return retval;
+  const photos = _.sortBy(_.values(state.photos), p => p.order);
 
+  return { videos, audios, photos };
 };
 
 export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
