@@ -8,6 +8,7 @@ import FullScreenDialog from './modal/FullScreenDialog';
 import * as PhotoActions from './../actions/photos';
 import { getMaxWidthImageURL } from '../helpers/imageHelpers';
 import { PhotoCarousel } from './Carousels';
+import { MAX_IMAGE_WIDTH } from './Carousels/constants';
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
@@ -20,7 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const LEFT_RIGHT_PADDING = 20;
-const MAX_WIDTH = 620;
 const styles = theme => ({
   photoCarouselContainer: {
     margin: '0 auto',
@@ -30,7 +30,7 @@ const styles = theme => ({
     position: 'relative',
   },
   photoCarousel: {
-    width: `${MAX_WIDTH}px`,
+    width: `${MAX_IMAGE_WIDTH}px`,
     maxWidth: '100%',
   },
 });
@@ -51,9 +51,7 @@ class PhotoCarouselModal extends Component {
     return (
       <div className={classes.photoCarouselContainer}>
         <div className={classes.photoCarousel}>
-          <PhotoCarousel
-            photos={photos}
-            getMaxWidthSrc={getMaxWidthImageURL(MAX_WIDTH)}/>
+          <PhotoCarousel photos={photos} />
         </div>
       </div>
     );

@@ -1,6 +1,8 @@
-const VIDEO_ASPECT_RATIO = 56;
-const IMAGE_ASPECT_RATIO = 66;
-const AUDIO_ASPECT_RATIO = 72;
+import {
+  VIDEO_ASPECT_RATIO,
+  IMAGE_ASPECT_RATIO,
+  AUDIO_ASPECT_RATIO,
+} from './constants';
 
 const styles = theme => ({
   navButtonIcon: {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT } from './constants';
 
 class IframeCarouselContent extends Component {
   componentWillReceiveProps(props) {
