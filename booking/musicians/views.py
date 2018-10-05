@@ -191,14 +191,6 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
-    # TODO: Move to helper once chris gets one out
-    # Needed for bootstrapping values into initial state; redux store expects
-    # keyed by ID, not by order
-    photos_dict = {
-        photo['id']: photo
-        for photo in ArtistImageSerializer(photos, many=True).data
-    }
-
     context = {
         "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
