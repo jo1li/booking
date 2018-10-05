@@ -59,7 +59,7 @@ class PhotoCarouselModal extends Component {
 }
 
 export default compose(
-  boundToOpenElement('open-photo-carousel'),
+  boundToOpenElement('#open-photo-carousel'),
   FullScreenDialog,
   connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
