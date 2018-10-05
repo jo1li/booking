@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT } from './constants';
+import { getMaxSizeImageURL } from '../../helpers/imageHelpers';
 
 class IframeCarouselContent extends Component {
   componentWillReceiveProps(props) {
@@ -57,7 +58,6 @@ class PhotoCarouselContent extends Component {
       classes,
       photoSources,
       activeStep,
-      getMaxWidthSrc,
     } = this.props;
 
     return (
@@ -71,7 +71,10 @@ class PhotoCarouselContent extends Component {
           <img
             className={classes.photo}
             key={idx}
-            src={getMaxWidthSrc(src)}
+            src={getMaxSizeImageURL(src, {
+              maxWidth: MAX_IMAGE_WIDTH,
+              maxHeight: MAX_IMAGE_HEIGHT
+            })}
             alt={src}
             title={src} />
         ))}
