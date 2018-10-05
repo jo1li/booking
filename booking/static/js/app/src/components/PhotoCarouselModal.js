@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import boundToOpenElement from './modal/boundToOpenElement';
 import FullScreenDialog from './modal/FullScreenDialog';
 import * as PhotoActions from './../actions/photos';
-import { getMaxWidthImageURL } from '../helpers/imageHelpers';
 import { PhotoCarousel } from './Carousels';
 import { MAX_IMAGE_WIDTH } from './Carousels/constants';
 
