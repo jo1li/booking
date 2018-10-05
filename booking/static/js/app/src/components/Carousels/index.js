@@ -91,7 +91,7 @@ export const VideoCarousel = compose(
 
 export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {
-    const { classes, photos, getMaxWidthSrc } = props;
+    const { classes, photos } = props;
 
     return (
       <CarouselWrapper
@@ -100,7 +100,6 @@ export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
         <PhotoCarouselContent
             className={classes.photoCarouselSwipeableView}
             classes={classes}
-            getMaxWidthSrc={getMaxWidthSrc}
             photoSources={_.map(photos, p => p.image)}/>
       </CarouselWrapper>
     );
