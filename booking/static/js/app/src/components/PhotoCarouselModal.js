@@ -23,7 +23,6 @@ const LEFT_RIGHT_PADDING = 20;
 const styles = theme => ({
   photoCarouselContainer: {
     margin: '0 auto',
-    position: 'relative',
     padding: `65px ${LEFT_RIGHT_PADDING}px 20px`,
     maxWidth: `calc(100vw - ${LEFT_RIGHT_PADDING * 2}px)`,
     position: 'relative',
