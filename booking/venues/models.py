@@ -124,7 +124,7 @@ class Slot(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return "{} | {}".format(self.musician.stage_name, self.start_time.strftime("%b %d %I:%M"))
+        return "{} @ {} on {}".format(self.musician.stage_name, self.event.venue.title, self.start_time.strftime("%b %d %I:%M"))
 
 
 class Application(models.Model):
