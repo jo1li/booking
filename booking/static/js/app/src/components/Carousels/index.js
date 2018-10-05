@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
 import { FullScreenDialog } from '../Dialog';
-// import $ from "jquery";
+import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
 import EmptyState from '../EmptyState';
