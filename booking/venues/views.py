@@ -66,28 +66,17 @@ class SlotViewSet(mixins.ListModelMixin,
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Slot.objects.all().order_by('start_time')
-    serializer_class = SlotCreateUpdateSerializer
-
-    def list(self, *args, **kwargs):
-        self.serializer_class = SlotSerializer
-        return mixins.ListModelMixin.list(self, *args, **kwargs)
-
-
-    def retrieve(self, *args, **kwargs):
-        self.serializer_class = SlotSerializer
-        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
+    serializer_class = SlotSerializer
 
 
     def create(self, request, *args, **kwargs):
-        print("HERERERRER create")
+        self.serializer_class = SlotCreateUpdateSerializer
+        print("SlotViewSet.create")
         return mixins.CreateModelMixin.create(self, request, *args, **kwargs)
 
 
-
-
-    def perform_create(self, serializer):
-        print("HERERERERE perform_create")
-        print(serializer)
+    # def perform_create(self, serializer):
+    #     print("SlotViewSet.perform_create", serializer)
 
 
 

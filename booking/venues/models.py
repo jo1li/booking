@@ -117,10 +117,10 @@ class Event(models.Model):
 
 
 class Slot(models.Model):
-    start_time = models.DateTimeField()
-    duration = models.SmallIntegerField()
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    start_time = models.DateTimeField(null=True, blank=True)
+    duration = models.SmallIntegerField(null=True, blank=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
 
     def __str__(self):

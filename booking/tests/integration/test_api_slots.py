@@ -1,4 +1,5 @@
 from tests.utils import OpusTestCase
+from venues.models import Slot
 
 import sure
 from sure import expect
@@ -38,19 +39,22 @@ class ApiSlotTest(OpusTestCase):
 
         params = {
             'start_date': '2018-10-29',
-            'start_time': '18:45:00',
+            '_start_time': '18:45:00',
             'end_time': '19:45:00',
             'venue': 'The Living Room',
             'venue_city': 'New York',
             'venue_state': 'NY'
         }
         result = self.app_api.post(slot_list_url, params, format="json", headers=headers)
+        print("*************** back in test ******************")
         print(result.status_code)
 
         import pprint
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(result.json())
 
+        print(Slot.objects.all().count())
+        print(Slot.objects.get(pk=result.json()['id']))
 
     # def test_artist_update(self):
 
