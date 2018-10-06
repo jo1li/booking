@@ -23,6 +23,7 @@ function RaisedButtons(props) {
     onClick,
     type,
     className,
+    ...remainingProps,
   } = props;
 
   return (
@@ -34,7 +35,7 @@ function RaisedButtons(props) {
 
       // for some reason outline will not go away unless its an inline style
       style={{outline: 'none'}}
-      {...props}
+      {...remainingProps}
       className={classNames(classes.button, className)}
     >
 
