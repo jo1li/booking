@@ -89,6 +89,28 @@ class Event(models.Model):
     # TODO: Implement genre, like musicians
     # genre =
 
+    # Pay to play
+    # tickets_presale_required = models.BooleanField(default=False)
+    # tickets_minimum_sales_required = models.BooleanField(default=False)
+
+    entry_start_datetime = models.DateTimeField(null=True, blank=True)
+    entry_end_datetime = models.DateTimeField(null=True, blank=True)
+
+    event_start_datetime = models.DateTimeField()
+    event_end_datetime = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return "{} | {}".format(self.name, self.event_start_datetime.strftime("%b %d %I:%M"))
+
+
+class Slot(models.Model):
+    start_datetime = models.DateTimeField()
+    end_datetime = models.DateTimeField()
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, null=True, blank=True)
+    public_description = models.TextField(null=True, blank=True)
+    private_notes = models.TextField(null=True, blank=True)
+
     compensated = models.BooleanField(default=False)
     compensation_food_drink_tickets = models.BooleanField(default=False)
     compensation_general_compensation = models.BooleanField(default=False)
@@ -97,34 +119,8 @@ class Event(models.Model):
     compensation_percent_of_door = models.DecimalField(max_digits=2, decimal_places=2, null=True, blank=True)
     compensation_percent_of_merchandise_sales = models.DecimalField(max_digits=2, decimal_places=2, null=True, blank=True)
 
-    # Pay to play
-    # tickets_presale_required = models.BooleanField(default=False)
-    # tickets_minimum_sales_required = models.BooleanField(default=False)
-
-    review_by_datetime = models.DateTimeField(null=True, blank=True)
-
-    entry_start_datetime = models.DateTimeField(null=True, blank=True)
-    entry_end_datetime = models.DateTimeField(null=True, blank=True)
-    event_start_datetime = models.DateTimeField()
-    event_end_datetime = models.DateTimeField(null=True, blank=True)
-
-    min_entry_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    max_entry_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-
-
     def __str__(self):
-        return "{} | {}".format(self.name, self.event_start_datetime.strftime("%b %d %I:%M"))
-
-
-class Slot(models.Model):
-    start_time = models.DateTimeField(null=True, blank=True)
-    duration = models.SmallIntegerField(null=True, blank=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
-
-    def __str__(self):
-        return "{} @ {} on {}".format(self.musician.stage_name, self.event.venue.title, self.start_time.strftime("%b %d %I:%M"))
+        return "{} @ {} on {}".format(self.musician.stage_name, self.event.venue.title, self.start_datetime.strftime("%b %d %I:%M"))
 
 
 class Application(models.Model):

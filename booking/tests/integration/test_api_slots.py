@@ -8,6 +8,9 @@ from http import HTTPStatus
 
 from tests.mommy_recipes import slot_recipe
 
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
+
 class ApiSlotTest(OpusTestCase):
 
     def setUp(self):
@@ -26,7 +29,7 @@ class ApiSlotTest(OpusTestCase):
         result.json["results"][0]['event'].should.have.key('venue')
 
 
-    def test_slot_create(self):
+    def test_slot_create_auth(self):
 
         slot_list_url = self.reverse_api('slots-list')
 
@@ -34,27 +37,32 @@ class ApiSlotTest(OpusTestCase):
         result.status_code.should.equal(403)
         result.json["detail"].should.equal("Authentication credentials were not provided.")
 
+
+    def test_slot_create(self):
+
+        # This is dependent on setUp
+        Slot.objects.all().count().should.equal(1)
+
+        slot_list_url = self.reverse_api('slots-list')
+
         headers, cookies = self.get_api_reqs()
         self.app_api.force_authenticate(user=self.m.user)
 
         params = {
-            'start_date': '2018-10-29',
-            '_start_time': '18:45:00',
-            'end_time': '19:45:00',
-            'venue': 'The Living Room',
+            'start_datetime': '2018-10-29 18:45:00',
+            'end_datetime': '2018-10-29 19:45:00',
+            'venue_name': 'The Living Room',
             'venue_city': 'New York',
-            'venue_state': 'NY'
+            'venue_state': 'NY',
+            'public_description': 'A bomb-ass time'
         }
         result = self.app_api.post(slot_list_url, params, format="json", headers=headers)
-        print("*************** back in test ******************")
-        print(result.status_code)
+        result.status_code.should.equal(HTTPStatus.CREATED)
 
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(result.json())
+        Slot.objects.all().count().should.equal(2)
 
-        print(Slot.objects.all().count())
-        print(Slot.objects.get(pk=result.json()['id']))
+        # pp.pprint(result.json())
+        # print(Slot.objects.get(pk=result.json()['id']))
 
     # def test_artist_update(self):
 

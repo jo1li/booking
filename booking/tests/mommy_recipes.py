@@ -47,6 +47,9 @@ def random_selection(list_options):
     return random.choice(list_options)
 
 
+def random_video():
+    return random_selection(videos)
+
 admin_user_recipe = Recipe(
     OpusUser,
     is_staff=True,
