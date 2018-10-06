@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import autoBind from 'react-autobind';
+import { arrayMove } from 'redux-form';
 
 import _ from 'lodash';
 
@@ -34,16 +35,15 @@ class DroppableContainer extends Component {
     }));
   }
 
-  // TODO: I don't love classes.container here - just pass in a class name.
   render() {
-    const { itemName, classes, WrappedComponent } = this.props;
+    const { itemName, className, children } = this.props;
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId={`${itemName}-edit-form`}>
           {(provided, snapshot) => (
-            <div className={classes.container}>
-              <WrappedComponent {...this.props} provided={provided} />
+            <div className={className}>
+              { React.cloneElement(children, {provided, ref: child => {this.child = child}}) }
             </div>
           )}
         </Droppable>

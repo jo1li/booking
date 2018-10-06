@@ -8,7 +8,7 @@ import DraggableCodeInputs from './DraggableCodeInputs';
 import HelpSection from './HelpSection';
 import TabbedList from '../HOComponents/TabbedList';
 import { Display1 } from '../typography';
-import DroppableContainer from '../DroppableContainer';
+import DroppableContainer from '../dragAndDrop/DroppableContainer';
 import {
   getCreatedItems,
   getUpdatedItems,
@@ -169,8 +169,17 @@ class CodeFormBase extends Component {
   }
 }
 
-const DraggableCodeFormBase = (props) => (
-  <DroppableContainer {...props} WrappedComponent={CodeFormBase} />
-);
+const DraggableCodeFormBase = (props) => {
+  const { classes, itemName, formName, currentValues, change } = props;
+  return (
+    <DroppableContainer
+        change={change}
+        currentValues={currentValues}
+        className={classes.container}
+        itemName={itemName} >
+      <CodeFormBase {...props} />
+    </DroppableContainer>
+  );
+};
 
 export default DraggableCodeFormBase;
