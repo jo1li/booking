@@ -101,8 +101,12 @@ class CodeFormBase extends Component {
     Promise.all(requests).then(closeDialog);
   }
 
-  ensureBlankInputAvailable() {
-    const { currentValues, change, itemName } = this.props;
+  componentWillReceiveProps(newProps) {
+    this.ensureBlankInputAvailable(newProps);
+  }
+
+  ensureBlankInputAvailable(newProps) {
+    const { currentValues, change, itemName } = newProps;
     const lastItemHasCode = !!(_.last(currentValues[itemName]) || {}).code;
 
     if(lastItemHasCode || currentValues[itemName].length === 0) {
@@ -124,8 +128,6 @@ class CodeFormBase extends Component {
       submitting,
       submitSucceeded,
     } = this.props;
-
-    this.ensureBlankInputAvailable();
 
     return (
       <Grid container spacing={24}>
