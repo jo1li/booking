@@ -20,7 +20,7 @@ import FullScreenDialog from '../modal/FullScreenDialog';
 import CancelConfirm from '../CancelConfirm';
 import DraggablePhotoRows from './DraggablePhotoRows';
 import { Display1 } from '../typography';
-import DroppableContainer from '../DroppableContainer';
+import DroppableContainer from '../dragAndDrop/DroppableContainer';
 import {
   getUpdatedItems,
   getDestroyedItems,
@@ -194,9 +194,18 @@ class PhotoEditFormBase extends Component {
   }
 }
 
-const DroppablePhotoEditFormBase = (props) => (
-  <DroppableContainer {...props} itemName='photos' WrappedComponent={PhotoEditFormBase} />
-);
+const DroppablePhotoEditFormBase = (props) => {
+  const { classes, currentValues, change } = props;
+  return (
+    <DroppableContainer
+        change={change}
+        currentValues={currentValues}
+        className={classes.container}
+        itemName='photos' >
+      <PhotoEditFormBase {...props} itemName='photos' />
+    </DroppableContainer>
+  );
+};
 
 const mapStateToProps = (state, props) => ({
   initialValues: {
@@ -220,7 +229,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const PhotoEditForm = compose(
-  boundToOpenElement('open-edit-photos'),
+  boundToOpenElement('#open-edit-photos'),
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: EDIT_PHOTOS,
