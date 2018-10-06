@@ -23,6 +23,8 @@ class ApiSlotTest(OpusTestCase):
         result = self.app.get(self.reverse_api('slots-list'))
         result.status_code.should.equal(HTTPStatus.OK)
 
+        print(result.json)
+
         result.json["count"].should.equal(1)
         result.json["results"].should.have.length_of(1)
         result.json["results"][0].should.have.key('event')
@@ -38,9 +40,9 @@ class ApiSlotTest(OpusTestCase):
         result.json["detail"].should.equal("Authentication credentials were not provided.")
 
 
-    def test_slot_create(self):
+    def test_slot_create_venue_create(self):
 
-        # This is dependent on setUp
+        # This # is dependent on setUp
         Slot.objects.all().count().should.equal(1)
 
         slot_list_url = self.reverse_api('slots-list')
