@@ -29,8 +29,7 @@ import {
 } from '../../request/requests';
 import styles from './styles';
 
-// TODO put in constants file
-const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
+import { EDIT_SLOTS } from '../../constants/forms';
 
 class ShowsEditForm extends Component {
   constructor(props) {
@@ -181,7 +180,7 @@ const mapStateToProps = (state, props) => ({
     city: props.hometown,
     description: props.description,
   },
-  currentValues: getFormValues(EDIT_BASIC_INFO)(state),
+  currentValues: getFormValues(EDIT_SLOTS)(state),
   musicianId: props.musicianId,
 });
 
@@ -195,7 +194,7 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-    form: EDIT_BASIC_INFO,
+    form: EDIT_SLOTS,
     enableReinitialize: true,
   }),
   FullScreenDialog,
