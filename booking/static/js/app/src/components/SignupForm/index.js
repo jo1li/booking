@@ -14,14 +14,10 @@ import CancelConfirm from '../CancelConfirm';
 import TextArea from '../form/TextArea';
 import { Display1 } from '../typography';
 
-// import {
-//   updateUserBio,
-// } from '../../request/requests';
+import { ARTIST_SIGNUP } from '../../constants'
 
 import styles from './styles';
 
-// TODO put in constants file
-const ARTIST_SIGNUP = 'ARTIST_SIGNUP';
 
 class SignupForm extends Component {
   constructor(props) {

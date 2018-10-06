@@ -6,8 +6,6 @@ import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import PhotoCountIndicator from './components/PhotoCountIndicator';
 import RenderFromDomNode from './renderFromDomNode';
 
-console.log("configs: ", window.CONFIGS);
-
 switch(window.CONFIGS.REACT_PAGE_NAME) {
     case 'ARTIST_PROFILE':
         render_artist_profile();
