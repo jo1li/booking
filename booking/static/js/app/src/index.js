@@ -6,9 +6,6 @@ import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import PhotoCountIndicator from './components/PhotoCountIndicator';
 import RenderFromDomNode from './renderFromDomNode';
 
-// console.log('ShowsEditForm', ShowsEditForm)
-console.log("here")
-
 RenderFromDomNode({
     Component: UserEditForm,
     node: 'user-edit-form',
