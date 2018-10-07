@@ -7,17 +7,22 @@ import ReduxFromField from '../HOComponents/ReduxFormField';
 const DatePickerInternal = (props) => {
   const {
     className,
+    value,
   } = props;
 
+  // TimePicker specifically needs `value` to be `null` in order to show the
+  // "empty label", but redux form uses an empty string by default.
   return (
     <DatePicker
       keyboard
       clearable
       disableOpenOnEnter
       animateYearScrolling={false}
-      format="DD/MM/YYYY"
+      format="MM/dd/YYYY"
+      onChange={this.handleChange}
       mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
       {...props}
+      value={value || null}
       className={classNames(className)} />
   )
 }
