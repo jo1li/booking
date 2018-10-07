@@ -3,6 +3,7 @@ import EditBioForm from './components/EditBioForm';
 import UserEditForm from './components/UserEditForm';
 import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
 import PhotoCountIndicator from './components/PhotoCountIndicator';
+import SlotsList from './components/SlotsList';
 import RenderFromDomNode from './renderFromDomNode';
 
 RenderFromDomNode({
@@ -46,4 +47,9 @@ RenderFromDomNode({
 RenderFromDomNode({
     Component: PhotoCountIndicator,
     node: 'photo-count-indicator',
+});
+
+RenderFromDomNode({
+    Component: SlotsList,
+    node: 'slots-list',
 });
