@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
 import { FullScreenDialog } from '../Dialog';
-// import $ from "jquery";
+import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
 import EmptyState from '../EmptyState';
@@ -64,7 +64,7 @@ export const VideoCarousel = compose(
   withStyles(styles),
   FullScreenDialog,
 )(props => {
-    const { classes, videosjson, videos: videosFromStore } = props;
+    const { classes, videosjson, videos: videosFromStore, openDialog } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
     // If this is the initial run, load from dom
