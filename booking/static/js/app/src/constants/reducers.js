@@ -4,3 +4,4 @@ export const PROFILE = 'profile'; // profile currently being viewed
 export const VIDEOS = 'videos';
 export const PHOTOS = 'photos';
 export const AUDIOS = 'audios';
+export const SLOTS = 'slots';

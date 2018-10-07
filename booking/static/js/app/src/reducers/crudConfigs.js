@@ -4,6 +4,7 @@ const {
     AUDIOS,
     PHOTOS,
     VIDEOS,
+    SLOTS,
 } = REDUCER_CONSTS;
 
 export default {
@@ -14,6 +15,9 @@ export default {
         key: 'id'
     },
     [VIDEOS]: {
+        key: 'id'
+    },
+    [SLOTS]: {
         key: 'id'
     },
 }
