@@ -71,22 +71,23 @@ class ShowsEditForm extends Component {
       submitSucceeded,
     } = this.props;
 
+    // TODO: "Create" needs to be "Edit" when it is an existing slot
     return (
       <div className={classes.container}>
         <Grid container spacing={24}>
           <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-            <Display1 className={classes.caption}>Edit Event</Display1>
+            <Display1 className={classes.caption}>Create Event</Display1>
           </Grid>
           <Grid item xs={12} lg={12}>
             <form onSubmit={handleSubmit(this.submit)}>
               <Grid container spacing={24} direction="row">
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                   <Field
-                      component={DatePicker}
-                      id="date"
-                      placeholder="Date"
-                      label="date"
-                      name="date" />
+                  <Field
+                    component={DatePicker}
+                    placeholder="MM/DD/YYYY"
+                    disablePast={true}
+                    emptyLabel="Date"
+                    name="date" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <Caption>START TIME</Caption>
@@ -95,20 +96,16 @@ class ShowsEditForm extends Component {
                   <Caption>END TIME</Caption>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                   <Field
+                  <Field
                     component={TimePicker}
-                    id="StartTime"
-                    placeholder="Start time"
-                    label="StartTime"
-                    name="StartTime" />
+                    emptyLabel="Start time"
+                    name="start_time" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <Field
                     component={TimePicker}
-                    id="EndTime"
-                    placeholder="End Time"
-                    label="EndTime"
-                    name="EndTime" />
+                    emptyLabel="End time"
+                    name="end_time" />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                   <Caption>VENUE</Caption>
@@ -116,28 +113,22 @@ class ShowsEditForm extends Component {
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                   <Field
                     component={Input}
-                    id="venue"
-                    label="venue"
-                    name="venue"
-                    placeholder="What is the venue name"
+                    name="venue_name"
+                    placeholder="Venue name"
                     type="text" />
                 </Grid>
                 <Grid item xs={12} sm={8} md={8} lg={8}>
                   <Field
                     component={Input}
-                    id="city"
-                    label="city"
-                    name="city"
-                    placeholder="What is your home town"
+                    name="venue_city"
+                    placeholder="City"
                     type="text" />
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                   <Field
                     component={SelectState}
-                    id="state"
-                    label="state"
-                    name="state"
-                    placeholder="state"
+                    name="venue_state"
+                    placeholder="State"
                     type="select" />
                 </Grid>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
