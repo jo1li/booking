@@ -38,6 +38,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
         }
 
         render() {
+            const content = React.cloneElement(this.state.content, { closeDialog: this.closeDialog })
             return (
                 <Fragment>
                     <WrappedComponent {...this.props}
@@ -48,7 +49,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
                         isOpen={this.state.isOpen}
                         close={this.closeDialog}
                     >
-                        { this.state.content }
+                        { content }
                     </Dialog>
                 </Fragment>
             )
