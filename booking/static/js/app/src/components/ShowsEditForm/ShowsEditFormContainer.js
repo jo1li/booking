@@ -26,7 +26,8 @@ class ShowsEditFormContainer extends Component {
 
   onMount(open) {
     this.props.bindDomEvent({
-      domSelector: '.open-show-edit-modal',
+      // TODO: normalize these names
+      domSelector: '.open-show-edit-modal, #open-edit-events',
       eventType: 'click',
       callback: this.onMountCallback(open),
     });
