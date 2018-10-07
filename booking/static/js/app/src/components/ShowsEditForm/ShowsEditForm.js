@@ -23,10 +23,7 @@ import SelectState from '../form/SelectState';
 import DatePicker from '../form/DatePicker';
 import TimePicker from '../form/TimePicker';
 
-import {
-  updateUserBio,
-  getGenres,
-} from '../../request/requests';
+// import * as SlotActions from '../../request/slots';
 import styles from './styles';
 
 import { EDIT_SLOTS } from '../../constants/forms';
@@ -39,8 +36,9 @@ class ShowsEditForm extends Component {
 
   submit(values) {
     const {
+      // TODO: why capitalization like that?
       musicianid,
-      updateUserBio,
+      updateArtistSlot,
     } = this.props;
 
     const data = Object.assign({}, values, {
@@ -48,7 +46,7 @@ class ShowsEditForm extends Component {
       image: _.get(values, 'image.file'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
+    return updateArtistSlot(data, musicianid).then(res => {
       // TODO: Prob a better to check for this
       if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
@@ -172,12 +170,12 @@ class ShowsEditForm extends Component {
 const mapStateToProps = (state, props) => ({
   // TODO add defaults value function
   initialValues: {
-    startTime: props.startTime,
-    endTime: props.endTime,
-    date: props.date,
-    venue: props.venue,
-    state: props.state,
-    city: props.hometown,
+    start_datetime: props.start_datetime,
+    end_datetime: props.end_datetime,
+    venue_name: props.venue_name,
+    venue_city: props.venue_city,
+    venue_state: props.venue_state,
+    // TODO: doesn't match actual attrs yet
     description: props.description,
   },
   currentValues: getFormValues(EDIT_SLOTS)(state),
@@ -186,8 +184,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateUserBio,
-    getGenres,
+    // createArtistSlot,
+    // updateArtistSlot,
   }, dispatch);
 };
 
