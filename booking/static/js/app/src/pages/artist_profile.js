@@ -4,26 +4,39 @@ import EditBioForm from '../components/EditBioForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
 import { AudioCarousel, PhotoCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCountIndicator from '../components/PhotoCountIndicator';
+import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
 
     RenderFromDomNode({
-        Component: UserEditForm,
+        Component: ClickToOpenDialog({
+                triggerSelector: '#open-edit-user-profile',
+                DialogContent: UserEditForm,
+            }),
         node: 'user-edit-form',
     });
 
     RenderFromDomNode({
-        Component: EditBioForm,
+        Component: ClickToOpenDialog({
+            triggerSelector: '#open-edit-biography',
+            DialogContent: EditBioForm,
+        }),
         node: 'edit-bio-form',
     })
 
     RenderFromDomNode({
-        Component: AudioEditForm,
+        Component: ClickToOpenDialog({
+            triggerSelector: '.open-edit-audios',
+            DialogContent: AudioEditForm,
+        }),
         node: 'audio-edit-form',
     })
 
     RenderFromDomNode({
-        Component: VideoEditForm,
+        Component: ClickToOpenDialog({
+            triggerSelector: '.open-edit-videos',
+            DialogContent: VideoEditForm,
+        }),
         node: 'video-edit-form',
     })
 

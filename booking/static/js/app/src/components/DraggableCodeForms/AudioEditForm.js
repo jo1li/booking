@@ -6,7 +6,6 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import DraggableCodeFormBase from './DraggableCodeFormBase';
-import FullScreenDialog from '../modal/FullScreenDialog';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
@@ -14,7 +13,6 @@ import _ from 'lodash';
 import { EDIT_AUDIOS } from '../../constants/forms';
 import styles from './styles';
 import * as AudioActions from '../../actions/audios';
-import boundToOpenElement from './boundToOpenElement';
 import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
@@ -76,7 +74,6 @@ let AudioEditFormBase = compose(
   }),
   withStyles(styles),
   withWidth(),
-  FullScreenDialog,
 )(DraggableCodeFormBase);
 
 AudioEditFormBase = connect(mapStateToProps, mapDispatchToProps)(AudioEditFormBase);
@@ -85,4 +82,4 @@ const AudioEditForm = (props) => (
   <AudioEditFormBase itemName='audios' copy={copy} {...props} />
 );
 
-export default boundToOpenElement('.open-edit-audios')(AudioEditForm);
+export default AudioEditForm;
