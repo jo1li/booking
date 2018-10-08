@@ -27,15 +27,14 @@ import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
 
+import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
+
 import {
   updateUserBio,
   getGenres,
 } from '../../request/requests';
 import styles from './styles';
 
-// TODO put in constants file
-const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
-const MAX_BIO_SHORT_INPUT_LENGTH = 300;
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -102,6 +101,8 @@ class UserEditForm extends Component {
     const {
       genres
     } = this.state;
+
+    console.log(currentValues);
 
     return (
       <div className={classes.container}>
