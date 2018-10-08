@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux'
 import { connect } from 'react-redux';
 import {
   Field,
@@ -12,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
-import FullScreenDialog from '../modal/FullScreenDialog';
 import { Caption, Display1 } from '../typography';
 
 import InputButtons from './InputButtons';
@@ -29,15 +27,14 @@ import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
 
+import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
+
 import {
   updateUserBio,
   getGenres,
 } from '../../request/requests';
 import styles from './styles';
 
-// TODO put in constants file
-const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
-const MAX_BIO_SHORT_INPUT_LENGTH = 300;
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -104,6 +101,8 @@ class UserEditForm extends Component {
     const {
       genres
     } = this.state;
+
+    console.log(currentValues);
 
     return (
       <div className={classes.container}>
@@ -255,7 +254,7 @@ class UserEditForm extends Component {
                   <Caption>SUMMARY</Caption>
                   <TextCount
                     maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                    currentLength={currentValues.bio_short.length}
+                    currentLength={_.get(currentValues, 'bio_short', []).length }
                   >
                     <Field
                       component={TextArea}
@@ -298,16 +297,11 @@ class UserEditForm extends Component {
 // TODO these can probably be combined
 UserEditForm = withStyles(styles)(UserEditForm)
 
-UserEditForm = compose(
-    FullScreenDialog,
-)(UserEditForm);
-
 UserEditForm = reduxForm({
   form: EDIT_BASIC_INFO,
 })(UserEditForm);
 
 const mapStateToProps = (state, props) => ({
-
   // TODO add defaults value function
   initialValues: {
     stage_name: props.stage_name,
@@ -321,7 +315,7 @@ const mapStateToProps = (state, props) => ({
     website: props.website,
     bio_short: props.bio_short,
   },
-  currentValues: getFormValues(EDIT_BASIC_INFO)(state),
+  currentValues: getFormValues(EDIT_BASIC_INFO)(state) || {},
 
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,

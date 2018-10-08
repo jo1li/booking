@@ -1,6 +1,7 @@
 // TODO: Share more of these styles between modals
 const styles = theme => ({
   container: {
+    boxSizing: 'border-box',
     maxWidth: '100%',
     width: '100%',
     height: '100%',
