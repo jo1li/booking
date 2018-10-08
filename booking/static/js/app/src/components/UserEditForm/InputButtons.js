@@ -23,7 +23,6 @@ const InputButtons = (props) => {
     const mediumButtons = fullWidth - mediumInput;
     const smallButtons = fullWidth - smallInput;
 
-    debugger;
     return (
         <Fragment>
           <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>

@@ -2,15 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
+import EmptyState from '../EmptyState';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
-const mapStateToProps = (state, props) => ({
-  videos: _.sortBy(_.values(state.videos), v => v.order),
-  audios: _.sortBy(_.values(state.audios), a => a.order),
-});
+const mapStateToProps = (state, props) => {
+
+  var retval = {}
+
+  retval['videos'] = ( state.videos === false )
+                    ? false
+                    : _.sortBy(_.values(state.videos), v => v.order) ;
+
+  retval['audios'] = ( state.audios === false)
+                    ? false
+                    : _.sortBy(_.values(state.audios), a => a.order);
+
+  return retval;
+
+};
 
 export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {
@@ -18,7 +31,15 @@ export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
     // If we haven't synced with the server since load, use bootstrapped values.
-    const audios = audiosFromStore.length ? audiosFromStore : audiosFromDOM;
+    const audios = audiosFromStore === false ? audiosFromDOM : audiosFromStore ;
+
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
+    if( audios.length === 0 ) {
+      $($('.edit .open-edit-audios')[0]).hide()
+      return <EmptyState triggerSelector=".open-edit-audios" copy="Add audio tracks" />;
+    } else {
+      $($('.edit .open-edit-audios')[0]).show()
+    }
 
     return (
       <CarouselWrapper
@@ -38,8 +59,17 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
     const { classes, videosjson, videos: videosFromStore } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
-    // If we haven't synced with the server since load, use bootstrapped values.
-    const videos = videosFromStore.length ? videosFromStore : videosFromDOM;
+    // If this is the initial run, load from dom
+    //  There may be a better way / place to load data. (CH)
+    const videos = videosFromStore === false ? videosFromDOM : videosFromStore ;
+
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
+    if( videos.length === 0 ) {
+      $($('.edit .open-edit-videos')[0]).hide()
+      return <EmptyState triggerSelector=".open-edit-videos" copy="Add video of your performances" />;
+    } else {
+      $($('.edit .open-edit-videos')[0]).show()
+    }
 
     return (
       <CarouselWrapper
