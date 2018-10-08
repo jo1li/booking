@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
+import { FullScreenDialog } from '../Dialog';
 import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
@@ -25,9 +28,12 @@ const mapStateToProps = (state, props) => {
 
 };
 
-export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
-    const { classes, audiosjson, audios: audiosFromStore  } = props;
+export const AudioCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(props => {
+    const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
     // If we haven't synced with the server since load, use bootstrapped values.
@@ -35,10 +41,10 @@ export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
 
     // This prob shouldn't be like this either, but I'm loathe to add a new React component
     if( audios.length === 0 ) {
-      $($('.edit .open-edit-audios')[0]).hide()
-      return <EmptyState triggerSelector=".open-edit-audios" copy="Add audio tracks" />;
+      $('.edit .open-edit-audios').first().hide()
+      return <EmptyState onClick={() => openDialog(<AudioEditForm />)} copy="Add audio tracks" />;
     } else {
-      $($('.edit .open-edit-audios')[0]).show()
+      $('.edit .open-edit-audios').first().show()
     }
 
     return (
@@ -52,11 +58,13 @@ export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
       </CarouselWrapper>
     );
   })
-);
 
-export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
-    const { classes, videosjson, videos: videosFromStore } = props;
+export const VideoCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(props => {
+    const { classes, videosjson, videos: videosFromStore, openDialog } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
     // If this is the initial run, load from dom
@@ -65,10 +73,10 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
 
     // This prob shouldn't be like this either, but I'm loathe to add a new React component
     if( videos.length === 0 ) {
-      $($('.edit .open-edit-videos')[0]).hide()
-      return <EmptyState triggerSelector=".open-edit-videos" copy="Add video of your performances" />;
+      $('.edit .open-edit-videos').first().hide()
+      return <EmptyState onClick={() => openDialog(<VideoEditForm />)} copy="Add video of your performances" />;
     } else {
-      $($('.edit .open-edit-videos')[0]).show()
+      $('.edit .open-edit-videos').first().show()
     }
 
     return (
@@ -81,8 +89,7 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
             iframeSources={_.map(videos, v => v.src)}/>
       </CarouselWrapper>
     );
-  })
-);
+  });
 
 // TODO: Add a background image for when photos don't cover the full width,
 //       consisting of a shaded version of the user's profile image scaled to

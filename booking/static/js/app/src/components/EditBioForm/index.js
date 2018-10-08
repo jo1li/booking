@@ -1,1 +1,1 @@
-export { default } from './EditBioFormContainer'
+export { default } from './EditBioForm';

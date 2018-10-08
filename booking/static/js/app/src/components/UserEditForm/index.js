@@ -1,1 +1,1 @@
-export { default } from './UserEditFormContainer'
+export { default } from './UserEditForm'
