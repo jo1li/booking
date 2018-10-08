@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import autoBind from 'react-autobind';
+import React from 'react';
 import { Edit } from './icons';
 
 const EmptyState = ({ copy, onClick }) =>

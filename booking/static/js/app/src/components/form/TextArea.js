@@ -12,14 +12,14 @@ const styles = theme => ({
     border: `2px solid ${theme.palette.grey[200]}`,
     padding: theme.spacing.unit,
   },
- underline: {
+  underline: {
     '&:after': {
         borderBottom: `0px`,
     },
     '&:before': {
         borderBottom: `0px`,
     },
-    '&:hover:not($disabled):not($focused):not($error):before': {
+    '&:hover:not(disabled):not(focused):not(error):before': {
         borderBottom: `0px`,
     }
   },
