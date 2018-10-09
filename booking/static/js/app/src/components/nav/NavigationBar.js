@@ -11,12 +11,13 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import SliderIcon from 'react-feather/dist/icons/sliders';
 import SignOutIcon from 'react-feather/dist/icons/log-out';
 import NavigationMobileMenu from './NavigationMobileMenu';
+import NavBarLogo from './NavBarLogo';
 
 const styles = theme => ({
   root: {
     width: '100%',
     position: 'fixed',
-    zIndex: '10'
+    zIndex: '10',
   },
   grow: {
     flexGrow: 1,
@@ -29,8 +30,9 @@ const styles = theme => ({
     paddingRight: 32,
     fontSize: '1rem',
     color: theme.palette.grey[700],
-    '& > svg': {
-      paddingRight: 16
+    '& > p': {
+      paddingLeft: 16,
+      marginBottom: 0,
     }
   },
   avatar: {
@@ -43,6 +45,7 @@ const styles = theme => ({
     BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.25)'
   },
   destinations: {
+    marginBottom: '0',
     listStyle: 'none',
     color: theme.palette.grey[600],
     '& > li': {
@@ -52,12 +55,6 @@ const styles = theme => ({
     '& > li:not(:first-child)': {
       marginLeft: theme.spacing.unit * 4,
     } 
-  },
-  title: {
-    // display: 'none',
-    // [theme.breakpoints.up('')]: {
-      display: 'block',
-    // },
   },
   sectionDesktop: {
     display: 'none',
@@ -76,6 +73,11 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  toolbar: {
+    width: '100%',
+    maxWidth: '975px',
+    alignSelf: 'center',
   },
 });
 
@@ -164,26 +166,26 @@ class NavigationBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" elevation="0" color="inherit">
-          <Toolbar>
-            <Typography className={classes.title} variant="title" color="primary" style={{fontWeight: 400}} noWrap>
+        <AppBar position="static" elevation={0} color="inherit">
+          <Toolbar className={classes.toolbar}>
+            <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
               Opus
-            </Typography>
+            </NavBarLogo>
             <div className={classes.sectionDesktop}>
             <ul className={classes.destinations}>
               <li>
                 <Typography variant="body1" color="inherit">
-                  Venues
+                  <a href="#">Venues</a>
                 </Typography>
               </li>
               <li>
                 <Typography variant="body1" color="inherit">
-                  Bookings
+                  <a href="#">Bookings</a>
                 </Typography>
               </li>
               <li>
                 <Typography variant="body1" color="inherit">
-                  Profile
+                  <a href="#">Profile</a>
                 </Typography>
               </li>
             </ul>
@@ -229,7 +231,7 @@ class NavigationBar extends React.Component {
                       {this.props.artist}
                     </Typography>
                   </div>
-                  <DownIcon size={18} style={{paddingLeft: 4, paddingRight: 4, marginRight: -4}}/>
+                  <DownIcon size={18} style={{marginLeft: 4, marginRight: -4}}/>
                 </ButtonBase>
             </div>
           </Toolbar>
