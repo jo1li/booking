@@ -54,15 +54,16 @@ a, .link {
 
 .artist-placeholder {
 	width: 100%;
-	height: 190px;
+	height: 140px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	position: relative;
 	padding: 15px 0;
+	z-index: 9;
 
 	@include media ('>=tablet') {
-		height: 315px;
+		height: 210px;
 	}
 
 	.edit-box {
@@ -74,8 +75,11 @@ a, .link {
 }
 
 .artist-name-box {
-	background-color: rgba(0, 0, 0, 0.6);
-	padding: 20px 0;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 80%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000', endColorstr='#000',GradientType=0 );
+	padding: 8px 0;
 	position: absolute;
 	bottom: 0;
 	left: 0;
