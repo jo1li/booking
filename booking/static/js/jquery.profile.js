@@ -8,16 +8,11 @@ function initFixedBlocks() {
   var fixedClass = 'fixed-bar';
 
   jQuery('#wrapper').each(function(){
-    var wrapper = jQuery(this);
-    var header = jQuery('.main-navigation-bar');
     var barHolder = jQuery('.artist-placeholder');
     var bar = barHolder.find('.artist-name-box');
     var main = jQuery('.main-content');
     var offsetTop = barHolder.outerHeight() - bar.outerHeight();
 
-    console.log("offset: ", offsetTop) // distance from bottom of navbar to top of bar that affixes
-    console.log("navheight: ", header.outerHeight())
-    console.log(header);
     ResponsiveHelper.addRange({
       '768..': {
         on: function() {
@@ -28,8 +23,6 @@ function initFixedBlocks() {
             positionType: 'fixed',
             extraTop: function() {
               var indent = bar.outerHeight() + 64 + parseInt(main.css('padding-top'));
-
-              console.log(indent)
 
               return indent;
             }
@@ -46,22 +39,6 @@ function initFixedBlocks() {
     win.on('resize orientationchange', function(){
       offsetTop = barHolder.outerHeight() - bar.outerHeight();
     });
-
-    // var onScroll = function() {
-    //   if (win.scrollTop() >= offsetTop) {
-    //     bar.css({
-    //       position: 'fixed',
-    //       top: '64px',
-    //       bottom: 'auto'
-    //     }).addClass(fixedClass);
-    //   } else {
-    //     bar.css({
-    //       position: 'absolute',
-    //       top: '',
-    //       bottom: ''
-    //     }).removeClass(fixedClass);
-    //   }
-    // };
 
     var onScroll = function() {
       if (win.scrollTop() >= offsetTop) {
