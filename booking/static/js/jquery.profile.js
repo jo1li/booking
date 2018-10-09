@@ -16,6 +16,22 @@ function initFixedBlocks() {
       offsetTop = barHolder.outerHeight() - 64;
     });
 
+    // var onScroll = function() {
+    //   if (win.scrollTop() >= offsetTop) {
+    //     bar.css({
+    //       position: 'fixed',
+    //       top: '64px',
+    //       bottom: 'auto'
+    //     }).addClass(fixedClass);
+    //   } else {
+    //     bar.css({
+    //       position: 'absolute',
+    //       top: '',
+    //       bottom: ''
+    //     }).removeClass(fixedClass);
+    //   }
+    // };
+
     var onScroll = function() {
       if (win.scrollTop() >= offsetTop) {
         barHolder.css({
