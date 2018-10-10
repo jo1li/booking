@@ -1,30 +1,9 @@
-from django.core.management import call_command
-
-from musicians.tests.utils import OpusTestCase
-
-from musicians.models import GenreTag
+from tests.utils import OpusTestCase
 
 import sure
 from sure import expect
 
 from http import HTTPStatus
-
-class ApiTest(OpusTestCase):
-
-    def test_api_root(self):
-        result = self.app.get(self.reverse_api('api-root'))
-
-        result.content_type.should.equal('application/json')
-        result.status_code.should.equal(200)
-
-        result.json.should.have.key('artists')
-        expect(result.json['artists']).to.contain('v1/artists')
-
-
-    def test_api_version(self):
-
-        result = self.app.get('/v2/', expect_errors=True)
-        result.status_code.should.equal(404)
 
 
 class ApiArtistTest(OpusTestCase):
@@ -104,33 +83,3 @@ class ApiArtistTest(OpusTestCase):
         # Ensure the image comes back with a cloudinary URL
         response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
         response.json()['image_hero'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
-
-
-class ApiGenreTagTest(OpusTestCase):
-
-    def test_get(self):
-
-        # This loads protected tags
-        call_command('initial_tags')
-
-        genres_list_url = self.reverse_api('genres-list')
-        result = self.app.get(genres_list_url)
-
-        result.json['count'].should.equal(len(GenreTag.TagMeta.genres))
-
-
-    def test_update(self):
-
-        artist_api_url = self.reverse_api('artists-detail', kwargs={'pk': self.m.pk})
-
-        headers, cookies = self.get_api_reqs()
-        params = {
-            'stage_name': 'poop bucket head',
-            'genres': 'Rock, Electronic',
-        }
-        self.app_api.force_authenticate(user=self.m.user)
-        result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
-
-        result = self.app_api.get(artist_api_url, headers=headers)
-
-        result.json()['genres'].should.have.length_of(2)

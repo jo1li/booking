@@ -1,5 +1,5 @@
-from musicians.tests.utils import OpusTestCase
-from musicians.tests.mommy_recipes import musician_recipe, random_video
+from tests.utils import OpusTestCase
+from tests.mommy_recipes import musician_recipe, random_video
 
 import sure
 

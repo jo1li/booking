@@ -85,6 +85,8 @@ TL;DR
 - use `this.props.openDialog(<div/>)` from within `YourComponent` to launch a some content in a Dialog.
 
 Dialogs can be implemented using the Dialog decorators (HOC components) located in `components/Dialog`. Dialogs can be composed into the component that will be responsible for launching the Dialog. The composed component will receive the `openDialog` and `closeDialog` props. The `openDialog` function takes one react node as an argument that will be rendered as the content of the Dialog.
+# booking/fixtures/home.opususer.json
+./manage.py dumpdata home account | pbcopy
 
 A standard dialog that is used in many places in this repo is the FullScreenDialog. Lets look at an example.
 
@@ -122,3 +124,17 @@ export default compose(
 
 The Dialog state manager located at `components/Dialog/Dialog.js` is a curried component who's first argument is a Dialog component. The Dialog component defaults to `DialogBase`. You can create a new Dialog component from  `DialogBase` adding additional functionality or styles and compose in `Dialog` (the Dialog state manager) to the new component Similar to the implementation of FullScreenDialog.
 
+
+
+# Fixtures
+
+This app comes with some default data for testing
+
+```bash
+# booking/fixtures/home.opususer.json
+./manage.py dumpdata home account | pbcopy
+
+# booking/fixtures/venues.venue.json
+./manage.py dumpdata venues | pbcopy
+
+```
