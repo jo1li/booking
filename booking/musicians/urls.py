@@ -18,7 +18,7 @@ from django.urls import path
 from .views import onboarding, profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social
 
 urlpatterns = [
-    path('onboarding', onboarding, name="onboarding"),
+    path('onboarding', onboarding, name="musician_onboarding"),
     path('dashboard', dashboard, name="musician_dash"),
     path('editor', editor, name="musician_editor"),
     path('editor/audio', editor_audio, name="musician_editor_audio"),
