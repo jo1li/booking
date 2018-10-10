@@ -221,6 +221,11 @@ def signup(request):
 
 
 @login_required
+def onboarding(request):
+    return opus_render(request, "musicians/onboarding.html", {})
+
+
+@login_required
 def api_test(request):
 
     return opus_render(request, "musicians/api_test.html", {})
