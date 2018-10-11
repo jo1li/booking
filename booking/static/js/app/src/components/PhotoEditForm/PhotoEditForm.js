@@ -12,11 +12,9 @@ import {
   getFormValues,
 } from 'redux-form';
 
-import boundToOpenElement from '../modal/boundToOpenElement';
 import * as PhotoActions from '../../actions/photos';
 import styles from './styles';
 import { EDIT_PHOTOS } from '../../constants/forms';
-import FullScreenDialog from '../modal/FullScreenDialog';
 import CancelConfirm from '../CancelConfirm';
 import DraggablePhotoRows from './DraggablePhotoRows';
 import { Display1 } from '../typography';
@@ -229,7 +227,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const PhotoEditForm = compose(
-  boundToOpenElement('#open-edit-photos'),
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: EDIT_PHOTOS,
@@ -238,7 +235,6 @@ const PhotoEditForm = compose(
   }),
   withStyles(styles),
   withWidth(),
-  FullScreenDialog,
 )(DroppablePhotoEditFormBase);
 
 export default PhotoEditForm;
