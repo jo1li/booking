@@ -45,7 +45,7 @@ export default function render_artist_profile() {
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
-            triggerSelector: '.open-edit-photos',
+            triggerSelector: '#open-edit-photos',
             DialogContent: PhotoEditForm,
         }),
         node: 'photo-edit-form',
