@@ -2,7 +2,8 @@ import RenderFromDomNode from '../renderFromDomNode';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
-import { AudioCarousel, PhotoCarousel, VideoCarousel } from '../components/Carousels';
+import { AudioCarousel, VideoCarousel } from '../components/Carousels';
+import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoCountIndicator from '../components/PhotoCountIndicator';
 import { ClickToOpenDialog } from '../components/Dialog';
 
@@ -22,7 +23,7 @@ export default function render_artist_profile() {
             DialogContent: EditBioForm,
         }),
         node: 'edit-bio-form',
-    })
+    });
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
@@ -30,7 +31,7 @@ export default function render_artist_profile() {
             DialogContent: AudioEditForm,
         }),
         node: 'audio-edit-form',
-    })
+    });
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
@@ -38,7 +39,7 @@ export default function render_artist_profile() {
             DialogContent: VideoEditForm,
         }),
         node: 'video-edit-form',
-    })
+    });
 
     RenderFromDomNode({
         Component: VideoCarousel,
@@ -53,9 +54,11 @@ export default function render_artist_profile() {
     });
 
     RenderFromDomNode({
-        Component: PhotoCarousel,
-        node: 'photo-carousel',
-        className: 'carousel',
+        Component: ClickToOpenDialog({
+            triggerSelector: '#open-photo-carousel',
+            DialogContent: PhotoCarouselModal,
+        }),
+        node: 'photo-modal',
     });
 
     RenderFromDomNode({
@@ -63,4 +66,4 @@ export default function render_artist_profile() {
         node: 'photo-count-indicator',
     });
 
-}
+};
