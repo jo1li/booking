@@ -12,7 +12,7 @@
     url_bookings="/bookings"
     url_signup="/signup"
     url_settings="/m/settings"
-    url_signout="/signout"
+    url_signout="/account/log_out"
     csrftoken='{% firstof csrf_token "" %}'
-    authed='{{ request.user.is_authenticated }}'
+    authed="{% if request.user.is_authenticated %}true{% endif %}"
 ></header>
