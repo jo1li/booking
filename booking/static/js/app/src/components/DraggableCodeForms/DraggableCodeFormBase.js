@@ -30,6 +30,11 @@ class CodeFormBase extends Component {
     } = this.props;
 
     getArtistItems({artistId: profile.id});
+    this.ensureBlankInputAvailable(this.props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.ensureBlankInputAvailable(newProps);
   }
 
   // TODO: could stand to clarify whether this index is the `id` or `order`
@@ -99,10 +104,6 @@ class CodeFormBase extends Component {
 
     // TODO: handle error
     Promise.all(requests).then(closeDialog);
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.ensureBlankInputAvailable(newProps);
   }
 
   ensureBlankInputAvailable(newProps) {
