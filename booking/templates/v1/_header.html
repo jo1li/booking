@@ -1,19 +1,18 @@
 {% load i18n %}
 {% load staticfiles %}
-<!-- TODO: pass navigation items as an array with labels/urls -->
-<!-- TODO: only pass in logout props if user is authenticated? -->
+<!-- TODO: support passing of nav items dynamically -->
+<!-- TODO: add logic in template to pass different attributes based on user authed state -->
 <header
     id="main-navigation-bar"
-    image="{{ musician.image_url }}"
-    artist="{{ musician.stage_name }}"
-    homeUrl="{{ home_url }}"
-    profileUrl=""
-    venuesUrl=""
-    bookingsUrl=""
-    dashboardUrl="{% url 'musician_dash' %}"
-    settingsUrl="{% url 'musician_settings' %}"
-    signoutUrl="{% url 'account_logout' %}"
-    signoutLabel="{% trans 'Sign Out' %}"
-    csrfToken="{% csrf_token %}"
-    authed="{{ request.user.is_authenticated }}"
+    image='{% firstof musician.image_url "" %}'
+    artist="{% firstof musician.stage_name '' %}"
+    url_home="/"
+    url_profile='/m/editor'
+    url_venues="/venues"
+    url_bookings="/bookings"
+    url_signup="/signup"
+    url_settings="/m/settings"
+    url_signout="/signout"
+    csrftoken='{% firstof csrf_token "" %}'
+    authed='{{ request.user.is_authenticated }}'
 ></header>
