@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import * as PhotoActions from './../actions/photos';
 import { PhotoCarousel } from './Carousels';
-import { MAX_IMAGE_WIDTH } from './Carousels/constants';
+import { MAX_IMAGE_WIDTH } from '../constants/carousels';
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,

@@ -2,7 +2,7 @@ import {
   VIDEO_ASPECT_RATIO,
   IMAGE_ASPECT_RATIO,
   AUDIO_ASPECT_RATIO,
-} from './constants';
+} from '../../constants/carousels';
 
 const styles = theme => ({
   navButtonIcon: {
