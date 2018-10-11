@@ -48,7 +48,7 @@ export const updatePhoto = ({artistId, photoId, order}) => {
     return request.put(`/v1/artists/${artistId}/photos/${photoId}/`, {order});
 }
 
-export const createPhoto = ({artistId, file, order}) => {
+export const createPhoto = ({artistId, file}) => {
     return request.post(`/v1/artists/${artistId}/photos/`, file);
 }
 

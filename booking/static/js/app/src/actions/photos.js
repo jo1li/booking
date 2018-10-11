@@ -3,9 +3,9 @@ import * as requests from '../request/requests';
 
 // TODO: error handling
 
-export function createArtistPhoto({artistId, file, order}, callback) {
+export function createArtistPhoto({artistId, file}, callback) {
     return (dispatch, getState) => {
-        return requests.createPhoto({artistId, file, order}
+        return requests.createPhoto({artistId, file}
             ).then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
             }).then(() => {
