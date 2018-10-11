@@ -1,11 +1,10 @@
 from django.conf import settings
-from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from home.models import OpusUser
 from musicians.models import Musician
 
-from musicians.tests.utils import OpusTestCase
+from tests.utils import OpusTestCase
 
 import sure
 from sure import expect
