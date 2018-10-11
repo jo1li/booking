@@ -201,6 +201,7 @@ def profile(request, slug=None):
         "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
         "photos_count": len(photos),
         "photos_json": json.dumps(photos_dict),
+        "react_page_name": "ARTIST_PROFILE"
     }
 
     return opus_render(request, "musicians/profile.html", context)
@@ -208,6 +209,15 @@ def profile(request, slug=None):
 
 def profile_template(request):
     return opus_render(request, "musicians/profile_template.html")
+
+
+def signup(request):
+
+    context = {
+        "react_page_name": "ARTIST_SIGNUP"
+    }
+
+    return opus_render(request, "musicians/signup.html", context)
 
 
 @login_required

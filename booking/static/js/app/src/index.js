@@ -1,50 +1,15 @@
-import { AudioCarousel, VideoCarousel } from './components/Carousels';
-import PhotoCarouselModal from './components/PhotoCarouselModal';
-import EditBioForm from './components/EditBioForm';
-import UserEditForm from './components/UserEditForm';
-import { AudioEditForm, VideoEditForm } from './components/DraggableCodeForms';
-import PhotoCountIndicator from './components/PhotoCountIndicator';
-import RenderFromDomNode from './renderFromDomNode';
+import render_artist_profile_page from './pages/artist_profile';
+import render_artist_signup_page from './pages/artist_signup';
+import { ARTIST_PROFILE, ARTIST_SIGNUP } from './constants';
+import _ from 'lodash';
 
-RenderFromDomNode({
-    Component: UserEditForm,
-    node: 'user-edit-form',
-});
+const RENDERERS_BY_PAGE = {
+    [ARTIST_PROFILE]: render_artist_profile_page,
+    [ARTIST_SIGNUP]: render_artist_signup_page,
+};
 
-RenderFromDomNode({
-    Component: EditBioForm,
-    node: 'edit-bio-form',
-})
+_.get(RENDERERS_BY_PAGE, window.CONFIGS.REACT_PAGE_NAME, log_no_page_defined)();
 
-RenderFromDomNode({
-    Component: AudioEditForm,
-    node: 'audio-edit-form',
-})
-
-RenderFromDomNode({
-    Component: VideoEditForm,
-    node: 'video-edit-form',
-})
-
-RenderFromDomNode({
-    Component: AudioCarousel,
-    node: 'audio-carousel',
-    className: 'carousel',
-});
-
-RenderFromDomNode({
-    Component: PhotoCarouselModal,
-    node: 'photo-modal',
-    className: 'carousel',
-});
-
-RenderFromDomNode({
-    Component: VideoCarousel,
-    node: 'video-carousel',
-    className: 'carousel',
-});
-
-RenderFromDomNode({
-    Component: PhotoCountIndicator,
-    node: 'photo-count-indicator',
-});
+function log_no_page_defined() {
+    console.log("No page defined");
+}

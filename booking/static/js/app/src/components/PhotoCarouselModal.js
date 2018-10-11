@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import boundToOpenElement from './modal/boundToOpenElement';
-import FullScreenDialog from './modal/FullScreenDialog';
 import * as PhotoActions from './../actions/photos';
 import { PhotoCarousel } from './Carousels';
 import { MAX_IMAGE_WIDTH } from './Carousels/constants';
@@ -57,8 +55,6 @@ class PhotoCarouselModal extends Component {
 }
 
 export default compose(
-  boundToOpenElement('#open-photo-carousel'),
-  FullScreenDialog,
   connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
 )(PhotoCarouselModal);
