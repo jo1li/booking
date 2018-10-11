@@ -114,6 +114,7 @@ class NavigationBar extends React.Component {
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const authed = this.props.authed;
 
     const renderMenu = (
       <Menu
@@ -147,80 +148,98 @@ class NavigationBar extends React.Component {
                 Opus 
               </NavBarLogo>
             </a>
-            <div className={classes.sectionDesktop}>
-            <ul className={classes.destinations}>
-              <li>
-                <Typography variant="body1" color="inherit">
-                  <a href={this.props.url_venues}>Venues</a>
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="body1" color="inherit">
-                  <a href={this.props.url_bookings}>Bookings</a>
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="body1" color="inherit">
-                  <a href={this.props.url_profile}>Profile</a>
-                </Typography>
-              </li>
-            </ul>
-            </div>
+            {authed}
+            {authed && (
+              <div className={classes.sectionDesktop}>
+                <ul className={classes.destinations}>
+                  <li>
+                    <Typography variant="body1" color="inherit">
+                      <a href={this.props.url_venues}>Venues</a>
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography variant="body1" color="inherit">
+                      <a href={this.props.url_bookings}>Bookings</a>
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography variant="body1" color="inherit">
+                      <a href={this.props.url_profile}>Profile</a>
+                    </Typography>
+                  </li>
+                </ul>
+              </div>
+            )}
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <ButtonBase
-                aria-owns={isMenuOpen ? 'material-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-                className={classes.avatarMenu}
-              >
-                <div className={classes.avatar} 
-                  style={{
-                    backgroundImage: `url(${this.props.image})`,
-                    backgroundSize: '100%'
-                  }}
-                ></div>
-                <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 8, paddingRight: 8}}>
-                  {this.props.artist}
-                </Typography>
-                <DownIcon size={18} />
-              </ButtonBase>
-            </div>
-            <div className={classes.sectionMobile}>
-              <ButtonBase
-                  aria-owns={isMenuOpen ? 'material-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.toggleMobileDrawer(true)}
-                  color="inherit"
-                  className={classes.avatarMenu}
-                >
-                  <div className={classes.avatar} 
-                    style={{
-                      backgroundImage: `url(${this.props.image})`,
-                      backgroundSize: '100%'
-                    }}
-                  ></div>
-                  <div className={classes.sectionDesktop}>
-                    <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 4}}>
+            {authed && (
+              <React.Fragment>
+                <div className={classes.sectionDesktop}>
+                  <ButtonBase
+                    aria-owns={isMenuOpen ? 'material-appbar' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleProfileMenuOpen}
+                    color="inherit"
+                    className={classes.avatarMenu}
+                  >
+                    <div className={classes.avatar} 
+                      style={{
+                        backgroundImage: `url(${this.props.image})`,
+                        backgroundSize: '100%'
+                      }}
+                    ></div>
+                    <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 8, paddingRight: 8}}>
                       {this.props.artist}
                     </Typography>
-                  </div>
-                  <DownIcon size={18} style={{marginLeft: 4, marginRight: -4}}/>
-                </ButtonBase>
-            </div>
+                    <DownIcon size={18} />
+                  </ButtonBase>
+                </div>
+                <div className={classes.sectionMobile}>
+                  <ButtonBase
+                    aria-owns={isMenuOpen ? 'material-appbar' : null}
+                    aria-haspopup="true"
+                    onClick={this.toggleMobileDrawer(true)}
+                    color="inherit"
+                    className={classes.avatarMenu}
+                  >
+                    <div className={classes.avatar} 
+                      style={{
+                        backgroundImage: `url(${this.props.image})`,
+                        backgroundSize: '100%'
+                      }}
+                    ></div>
+                    <div className={classes.sectionDesktop}>
+                      <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 4}}>
+                        {this.props.artist}
+                      </Typography>
+                    </div>
+                    <DownIcon size={18} style={{marginLeft: 4, marginRight: -4}}/>
+                  </ButtonBase>
+                </div>
+              </React.Fragment>
+            )}
+            {!authed && (
+              <ul className={classes.destinations}>
+                <li>
+                  <Typography variant="body1" color="inherit">
+                    <a href={this.props.url_signup}>Create an Account</a>
+                  </Typography>
+                </li>
+              </ul>
+            )}
           </Toolbar>
         </AppBar>
-        {renderMenu}
-        <NavigationMobileMenu 
-          open={this.state.mobileDrawerOpen}
-          toggleFunction={this.toggleMobileDrawer}
-          url_venues={this.props.url_venues}
-          url_bookings={this.props.url_bookings}
-          url_profile={this.props.url_profile}
-          url_signout={this.props.url_signout}
-          url_settings={this.props.url_settings}
-        />
+        {authed && renderMenu}
+        {authed && (
+          <NavigationMobileMenu 
+            open={this.state.mobileDrawerOpen}
+            toggleFunction={this.toggleMobileDrawer}
+            url_venues={this.props.url_venues}
+            url_bookings={this.props.url_bookings}
+            url_profile={this.props.url_profile}
+            url_signout={this.props.url_signout}
+            url_settings={this.props.url_settings}
+          />
+        )}
       </div>
     );
   }
