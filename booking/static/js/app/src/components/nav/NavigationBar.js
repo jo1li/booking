@@ -123,42 +123,16 @@ class NavigationBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose} className={classes.menuItem}>
+        <MenuItem component='a' href={this.props.url_profile} onClick={this.handleMenuClose} className={classes.menuItem}>
           <UserIcon size={20}/>
           <p>Profile</p>
         </MenuItem>
-        <MenuItem onClick={this.handleMenuClose} className={classes.menuItem}>
+        <MenuItem component='a' href={this.props.url_settings}  onClick={this.handleMenuClose} className={classes.menuItem}>
           <SliderIcon size={20}/>
           <p>Settings</p>
         </MenuItem>
-        <MenuItem onClick={this.handleMenuClose} className={classes.menuItem}>
+        <MenuItem component='a' href={this.props.url_signout} onClick={this.handleMenuClose} className={classes.menuItem}>
           <SignOutIcon size={20}/>
-          <p>Sign Out</p>
-        </MenuItem>
-      </Menu>
-    );
-
-    const renderMobileMenu = (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={this.handleMobileMenuClose}
-      >
-        <MenuItem onClick={this.handleMobileMenuClose} className={classes.menuItem}>
-          <p>Venues</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose} className={classes.menuItem}>
-          <p>Bookings</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose} className={classes.menuItem}>
-          <p>Profile</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose} className={classes.menuItem}>
-          <p>Settings</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose} className={classes.menuItem}>
           <p>Sign Out</p>
         </MenuItem>
       </Menu>
@@ -168,24 +142,26 @@ class NavigationBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" elevation={0} color="inherit">
           <Toolbar className={classes.toolbar}>
-            <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
-              Opus
-            </NavBarLogo>
+            <a href={this.props.url_home}>
+              <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
+                Opus 
+              </NavBarLogo>
+            </a>
             <div className={classes.sectionDesktop}>
             <ul className={classes.destinations}>
               <li>
                 <Typography variant="body1" color="inherit">
-                  <a href="#">Venues</a>
+                  <a href={this.props.url_venues}>Venues</a>
                 </Typography>
               </li>
               <li>
                 <Typography variant="body1" color="inherit">
-                  <a href="#">Bookings</a>
+                  <a href={this.props.url_bookings}>Bookings</a>
                 </Typography>
               </li>
               <li>
                 <Typography variant="body1" color="inherit">
-                  <a href="#">Profile</a>
+                  <a href={this.props.url_profile}>Profile</a>
                 </Typography>
               </li>
             </ul>
@@ -216,7 +192,6 @@ class NavigationBar extends React.Component {
                   aria-owns={isMenuOpen ? 'material-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.toggleMobileDrawer(true)}
-                  // <Button onClick={toggleFunction(true)}>Open Top</Button>
                   color="inherit"
                   className={classes.avatarMenu}
                 >
@@ -237,10 +212,14 @@ class NavigationBar extends React.Component {
           </Toolbar>
         </AppBar>
         {renderMenu}
-        {renderMobileMenu}
         <NavigationMobileMenu 
           open={this.state.mobileDrawerOpen}
           toggleFunction={this.toggleMobileDrawer}
+          url_venues={this.props.url_venues}
+          url_bookings={this.props.url_bookings}
+          url_profile={this.props.url_profile}
+          url_signout={this.props.url_signout}
+          url_settings={this.props.url_settings}
         />
       </div>
     );
