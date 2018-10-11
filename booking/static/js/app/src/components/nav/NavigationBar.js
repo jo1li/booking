@@ -148,7 +148,6 @@ class NavigationBar extends React.Component {
                 Opus 
               </NavBarLogo>
             </a>
-            {authed}
             {authed && (
               <div className={classes.sectionDesktop}>
                 <ul className={classes.destinations}>
