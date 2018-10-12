@@ -1,3 +1,4 @@
+from django.utils.six import StringIO
 from django.core.management import call_command
 
 from tests.utils import OpusTestCase
@@ -13,7 +14,8 @@ class ApiGenreTagTest(OpusTestCase):
     def test_get(self):
 
         # This loads protected tags
-        call_command('initial_tags')
+        out = StringIO()
+        call_command('initial_tags', stdout=out)
 
         genres_list_url = self.reverse_api('genres-list')
         result = self.app.get(genres_list_url)
