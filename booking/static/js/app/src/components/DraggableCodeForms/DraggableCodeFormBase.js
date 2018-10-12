@@ -37,11 +37,10 @@ class CodeFormBase extends Component {
     this.ensureBlankInputAvailable(newProps);
   }
 
-  // TODO: could stand to clarify whether this index is the `id` or `order`
-  removeItemFromForm(itemIndex) {
+  removeItemFromForm(order) {
     const {currentValues, change, itemName} = this.props;
     const currentItems = currentValues[itemName];
-    removeItemFromForm({currentItems, change, itemIndex, itemName});
+    removeItemFromForm({currentItems, change, order, itemName});
   }
 
   getItemsWithCodes() {

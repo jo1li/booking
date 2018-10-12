@@ -25,9 +25,9 @@ export const getDestroyedItems = ({currentItems, initialItems}) => {
   });
 }
 
-export const removeItemFromForm = ({currentItems, change, itemIndex, itemName}) => {
+export const removeItemFromForm = ({currentItems, change, order, itemName}) => {
   let remainingItems = _.clone(currentItems);
   // Leave blank in form to prevent popping
-  remainingItems[itemIndex] = { order: itemIndex };
+  remainingItems[order] = { order };
   change(itemName, remainingItems);
 }
