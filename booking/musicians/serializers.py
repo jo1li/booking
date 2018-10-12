@@ -118,7 +118,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
     stage_name = serializers.CharField(required=False)
     image = serializers.ImageField(required=False, allow_empty_file=False)
-    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
+    image_hero = ArtistImageSerializer()
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
     audios = ArtistAudioSerializer(many=True, read_only=True)
