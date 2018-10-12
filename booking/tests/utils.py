@@ -8,7 +8,7 @@ from django_webtest import WebTest
 
 from rest_framework.test import APIClient
 
-from tests.mommy_recipes import musician_recipe, admin_user_recipe
+from tests.mommy_recipes import musician_recipe, musician_image_recipe, admin_user_recipe
 
 class OpusTestCase(WebTest, TransactionTestCase):
 
@@ -16,6 +16,10 @@ class OpusTestCase(WebTest, TransactionTestCase):
     def setUp(self):
         self.a = admin_user_recipe.make()
         self.m = musician_recipe.make()
+
+        self.image = musician_image_recipe.make(musician=self.m)
+        self.m.image_hero = self.image
+        self.m.save()
 
         self.app_api = APIClient()
 

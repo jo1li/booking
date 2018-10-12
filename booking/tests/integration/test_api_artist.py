@@ -1,4 +1,5 @@
 from tests.utils import OpusTestCase
+from tests.mommy_recipes import musician_image_recipe
 
 import sure
 from sure import expect
@@ -22,8 +23,21 @@ class ApiArtistTest(OpusTestCase):
         result = self.app.get(self.reverse_api('artists-list'))
         result.status_code.should.equal(200)
 
+
         result.json["count"].should.equal(1)
         result.json["results"].should.have.length_of(1)
+
+
+    def test_artist_detail(self):
+
+        result = self.app.get(self.reverse_api('artists-detail', kwargs={'pk': self.m.pk}))
+        result.status_code.should.equal(200)
+
+        result.json["stage_name"].should.equal(self.m.stage_name)
+        result.json['image_hero']['artist'].should.equal(self.m.pk)
+
+        for k in ['id', 'image', 'order', 'created', 'modified']:
+            result.json['image_hero'].should.have.key(k)
 
 
     def test_artist_create(self):
