@@ -73,7 +73,6 @@ class ApiArtistTest(OpusTestCase):
 
         headers, cookies = self.get_api_reqs()
         data = self.get_test_file()
-        data.update(self.get_test_file('image_hero', 'data/test_hero.jpg'))
 
         self.app_api.force_authenticate(user=self.m.user)
 
@@ -82,4 +81,3 @@ class ApiArtistTest(OpusTestCase):
 
         # Ensure the image comes back with a cloudinary URL
         response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
-        response.json()['image_hero'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
