@@ -27,6 +27,7 @@ class ApiArtistTest(OpusTestCase):
         result = self.app.get(self.reverse_api('artists-list'))
         result.status_code.should.equal(200)
 
+
         result.json["count"].should.equal(1)
         result.json["results"].should.have.length_of(1)
 
