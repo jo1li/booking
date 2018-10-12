@@ -26,7 +26,6 @@ class OpusTestCase(WebTest, TransactionTestCase):
         self.m.refresh_from_db()
 
         self.m.image.delete()
-        self.m.image_hero.delete()
 
         self.m.delete()
 

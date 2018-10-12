@@ -247,9 +247,14 @@ def signal_musician_pre_save(sender, **kwargs):
 def signal_musician_pre_delete(sender, **kwargs):
 
     instance = kwargs['instance']
-
     instance.image.delete()
-    instance.image_hero.delete()
+
+
+@receiver(pre_delete, sender=MusicianImage)
+def signal_musician_image_pre_delete(sender, **kwargs):
+
+    instance = kwargs['instance']
+    instance.image.delete()
 
 
 class Genre(models.Model):
