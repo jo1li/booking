@@ -23,6 +23,7 @@ class ApiArtistTest(OpusTestCase):
     @skip
     def test_artist_list(self):
 
+        # TODO: Again, seeing that ImproperlyConfigured Exception on this endpoint
         result = self.app.get(self.reverse_api('artists-list'))
         result.status_code.should.equal(200)
 
@@ -88,10 +89,6 @@ class ApiArtistTest(OpusTestCase):
         artist_hero_image = musician_image_recipe.make(musician=self.m)
         artist_api_url = self.reverse_api('artists-detail', kwargs={'pk': self.m.pk})
 
-        print(self.m.image_hero)
-
-        print(artist_hero_image)
-
         headers, cookies = self.get_api_reqs()
         params = {
             'image_hero_id': artist_hero_image.pk
@@ -99,11 +96,7 @@ class ApiArtistTest(OpusTestCase):
 
         self.app_api.force_authenticate(user=self.m.user)
         result = self.app_api.put(artist_api_url, params, format="json", headers=headers)
-        print(result.json())
-
         result.status_code.should.equal(HTTPStatus.OK)
-
-        print(result.json()['image_hero'])
 
         self.m.refresh_from_db()
         self.m.image_hero.should.equal(artist_hero_image)

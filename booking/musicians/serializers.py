@@ -145,8 +145,6 @@ class ArtistUpdateSerializer(ArtistSerializer):
     def update(self, instance, validated_data):
         instance = super(ArtistSerializer, self).update(instance, validated_data)
 
-        print("ArtistUpdateSerializer.update", validated_data)
-
         if validated_data.get('image_hero') is None:
             validated_data.pop('image_hero', None)
 
