@@ -5,6 +5,7 @@ import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoModalButton from '../components/PhotoModalButton';
+import EditPhotosButtonText from '../components/EditPhotosButtonText';
 import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
@@ -64,6 +65,11 @@ export default function render_artist_profile() {
     RenderFromDomNode({
         Component: PhotoModalButton,
         node: 'photo-modal-button',
+    });
+
+    RenderFromDomNode({
+        Component: EditPhotosButtonText,
+        node: 'edit-photos-button-text',
     });
 
 };
