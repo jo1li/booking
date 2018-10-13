@@ -5,28 +5,23 @@ import {
   Field,
   reduxForm,
   getFormValues,
-  formValueSelector,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from './TextField';
+import RadioGroup from './RadioGroup';
+import Radio from '@material-ui/core/Radio';
 import Button from '../form/RaisedButton';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import { createArtist } from '../../request/requests';
 
 const styles = theme => ({
   layout: {
@@ -63,46 +58,39 @@ const styles = theme => ({
     marginLeft: 0,
     marginRight: 0
   },
-  toggleContainer: {
+  typeRadioGroup: {
     paddingTop: `${theme.spacing.unit * 2}px`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    margin: `${theme.spacing.unit}px 0 0`,
-    // background: theme.palette.background.default,
   },
 });
 
-const renderToggleGroup = ({input, ...rest}) => (
-  <ToggleButtonGroup
-    {...input}
-    {...rest}
-    valueSelected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-)
-
-
 class SignupForm extends Component {
 
-  state = {
-    showPassword: false,
-  }
-
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  }
-
   handleSubmit(values) {
-    values.preventDefault();
-    console.log("submit", values);
+    const { createUser } = this.props;
+
+    return createUser(values).then(res => {
+      // TODO: This is all placeholder
+      if(res.status === 200) {
+        console.log("submitted successfully");
+      }
+
+    })
+    .catch(errors => {
+      console.log('errors', errors);
+      // TODO: This is all placeholder
+    });
   }
 
-  handleType = (event, type) => this.setState({ type });
+  handleNameChange = (e) => {
+    const value = e.target.value;
+    if (!this.props.currentValues.artistHandle) {
+      this.props.change("artistHandle", value);
+    }
+  }
 
   render() {
-    const { classes, pristine, submitting, type } = this.props
-
+    const { classes, pristine, submitting } = this.props
+    const artistType = this.props.currentValues.artistType;
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -111,45 +99,40 @@ class SignupForm extends Component {
           <Paper className={classes.paper}>
             <Typography variant="body2">For Artists</Typography>
             <form className={classes.container} onSubmit={this.handleSubmit}>
-              <FormControl margin="normal" required fullWidth>
+              <FormControl margin="normal" fullWidth>
                 <Field name="email" label="Email" component={TextField} />
               </FormControl>
-              <div className={classes.toggleContainer}>
-                <FormControl required>
-                  <Field name="artistType" component={renderToggleGroup}>
-                    <ToggleButton value="individual">
-                      <Typography variant="body1" align="center">Individual</Typography>
-                    </ToggleButton>
-                    <ToggleButton value="group">
-                      <Typography variant="body1" align="center">Group</Typography>
-                    </ToggleButton>
+              <div className={classes.typeRadioGroup}>
+                <FormControl margin="normal" fullWidth>
+                  <FormLabel component="legend">Is this profile for an individual or a group?</FormLabel>
+                  <Field
+                    component={RadioGroup}
+                    aria-label="artist type"
+                    name="artistType"
+                  >
+                    <FormControlLabel value="individual" control={<Radio />} label="Individual" />
+                    <FormControlLabel value="group" control={<Radio />} label="Group" />
                   </Field>
                 </FormControl>
               </div>
-
-              <FormControl margin="normal" required fullWidth>
-                <Field name="artistName" label={type === 'individual' ? 'Artist Name' : 'Group Name'} component={TextField} />
+              <FormControl margin="normal" fullWidth>
+                <Field 
+                  name="artistName" 
+                  label={artistType === 'individual' ? 'Artist Name' : 'Group Name'} 
+                  component={TextField}
+                  onChange={this.handleNameChange}
+                />
               </FormControl>
-              <FormControl margin="normal" required fullWidth>
+              <FormControl margin="normal" fullWidth>
                 <Field name="artistHandle" label="Handle" component={TextField} />
                 <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText>
               </FormControl>
-              <FormControl margin="normal" required fullWidth>
+              <FormControl margin="normal" fullWidth>
                 <Field 
-                  type={this.state.showPassword ? 'text' : 'password'}
+                  type="password"
                   name="password" 
                   label="Password"
                   component={TextField} 
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="Toggle password visibility"
-                        onClick={this.handleClickShowPassword}
-                      >
-                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
                 />
               </FormControl>
               <Button 
@@ -175,21 +158,21 @@ SignupForm = withStyles(styles)(SignupForm)
 
 SignupForm = reduxForm({
   form: ARTIST_SIGNUP,
-  initialValues: {
-    artistType: "individual"
+  onChange: (values, dispatch, props) => {
+    // console.log("vals", values);
+    // console.log("props", props);
+    // dispatch(props.change("artistHandle", "test"));
   }
 })(SignupForm);
 
-const selector = formValueSelector(ARTIST_SIGNUP)
-SignupForm = connect(
-  state => {
-    const type = selector(state, 'artistType')
-    return {
-      type,
-    }
-  }
-)(SignupForm);
+const mapStateToProps = (state, props) => ({
+  initialValues: {
+    artistType: "individual"
+  },
+  currentValues: getFormValues(ARTIST_SIGNUP)(state) || {},
 
-const mapStateToProps = (state, props) => ({})
+  // TODO this should go into bindActionCreators and be used as an action
+  createArtist: createArtist
+})
 
 export default connect(mapStateToProps)(SignupForm);
