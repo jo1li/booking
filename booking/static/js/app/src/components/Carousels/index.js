@@ -13,19 +13,17 @@ import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
 const mapStateToProps = (state, props) => {
-
-  var retval = {}
-
-  retval['videos'] = ( state.videos === false )
+  const videos = ( state.videos === false )
                     ? false
                     : _.sortBy(_.values(state.videos), v => v.order) ;
 
-  retval['audios'] = ( state.audios === false)
+  const audios = ( state.audios === false)
                     ? false
                     : _.sortBy(_.values(state.audios), a => a.order);
 
-  return retval;
+  const photos = _.sortBy(_.values(state.photos), p => p.order);
 
+  return { videos, audios, photos };
 };
 
 export const AudioCarousel = compose(
@@ -91,21 +89,19 @@ export const VideoCarousel = compose(
     );
   });
 
-// TODO: Add a background image for when photos don't cover the full width,
-//       consisting of a shaded version of the user's profile image scaled to
-//       at least full width, once redux is in to gives this access to it.
-export const PhotoCarousel = withStyles(styles)(props => {
-  const { classes, photosjson } = props;
-  const photos = photosjson ? JSON.parse(photosjson) : [];
+export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
+  props => {
+    const { classes, photos } = props;
 
-  return (
-    <CarouselWrapper
-        classes={classes}
-        items={photos}>
-      <PhotoCarouselContent
-          className={classes.photoCarouselSwipeableView}
+    return (
+      <CarouselWrapper
           classes={classes}
-          photoSources={_.map(photos, p => p.image)}/>
-    </CarouselWrapper>
-  );
-});
+          items={photos}>
+        <PhotoCarouselContent
+            className={classes.photoCarouselSwipeableView}
+            classes={classes}
+            photoSources={_.map(photos, p => p.image)}/>
+      </CarouselWrapper>
+    );
+  })
+);

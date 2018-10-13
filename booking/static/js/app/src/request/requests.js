@@ -40,4 +40,20 @@ export const destroyAudio = ({artistId, audioId}) => {
     return request.delete(`/v1/artists/${artistId}/audios/${audioId}`);
 }
 
+export const getPhotos = ({artistId}) => {
+    return request.get(`/v1/artists/${artistId}/photos/`);
+}
+
+export const updatePhoto = ({artistId, photoId, order}) => {
+    return request.put(`/v1/artists/${artistId}/photos/${photoId}/`, {order});
+}
+
+export const createPhoto = ({artistId, file}) => {
+    return request.post(`/v1/artists/${artistId}/photos/`, file);
+}
+
+export const destroyPhoto = ({artistId, photoId}) => {
+    return request.delete(`/v1/artists/${artistId}/photos/${photoId}`);
+}
+
 export const getGenres = (data, id) => request.get(`/v1/genres/`);
