@@ -86,6 +86,13 @@ MIDDLEWARE = [
     'account.middleware.TimezoneMiddleware',
 ]
 
+SERIALIZATION_MODULES = {
+    'xml':    'tagulous.serializers.xml_serializer',
+    'json':   'tagulous.serializers.json',
+    'python': 'tagulous.serializers.python',
+    'yaml':   'tagulous.serializers.pyyaml',
+}
+
 ROOT_URLCONF = 'booking.urls'
 
 TEMPLATES_VERSIONS = ['v1', 'v2']
