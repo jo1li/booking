@@ -4,7 +4,7 @@ import EditBioForm from '../components/EditBioForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
-import PhotoCountIndicator from '../components/PhotoCountIndicator';
+import PhotoModalButton from '../components/PhotoModalButton';
 import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
@@ -62,8 +62,8 @@ export default function render_artist_profile() {
     });
 
     RenderFromDomNode({
-        Component: PhotoCountIndicator,
-        node: 'photo-count-indicator',
+        Component: PhotoModalButton,
+        node: 'photo-modal-button',
     });
 
 };
