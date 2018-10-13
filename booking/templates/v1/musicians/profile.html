@@ -38,11 +38,19 @@
 
 <section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.url }}');">
     <div class="container">
-        <div class="edit-box">
-            <a href="#" class="edit"><img src="{% static 'images/edit-white.png' %}" alt=""></a>
-        </div>
         <div class="photo-count-indicator-box">
-            <a href="#" class="edit"><img id="open-photo-carousel" src="{% static 'images/camera.svg' %}" alt="camera icon"><span id="photo-count-indicator">{{ photos_count }}</span></a>
+            <span href="#" id="open-photo-carousel">
+                <a href="#" class="edit photo-modal-button {% if not photos_count %}hidden{% endif %}">
+                    <img src="{% static 'images/camera.svg' %}" alt="camera icon">
+                    <span id="photo-count-indicator">{{ photos_count }}</span>
+                </a>
+            </span>
+            <a href="#" class="edit photo-edit-form-button {% if not is_owner_viewing %}hidden{% endif %}" id="open-edit-photos">
+                <img src="{% static 'images/edit-black.svg' %}" alt="edit icon">
+                <span id="edit-photos-button-text" class="edit-photos-button-text {% if not is_owner_viewing or photos_count %}hidden{% endif %}">
+                    Add Photos
+                </span>
+            </a>
         </div>
     </div>
     <div class="artist-name-box fixed-on-scroll" id="artist-scroll">
