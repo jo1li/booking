@@ -8,6 +8,10 @@ export const updateUserBio = (data, id) => {
 
 // TODO: autogenerate basic CRUD requests
 
+export const createArtist = ({data}) => {
+    return request.post(`v1/artists/`, {data});
+}
+
 export const getVideos = ({artistId}) => {
     return request.get(`/v1/artists/${artistId}/videos/`);
 }
