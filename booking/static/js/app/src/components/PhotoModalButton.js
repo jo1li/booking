@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
+import CONFIGS from '../configs';
+
 const PhotoModalButton = (props) => (
   <a
       href="#"
