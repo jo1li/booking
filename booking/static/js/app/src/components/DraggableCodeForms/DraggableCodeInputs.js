@@ -33,6 +33,7 @@ class DraggableCodeInput extends Component {
               component={TextArea}
               key={`input-${itemName}[${order}]`}
               name={`${itemName}[${order}].code`}
+              className={classes.textArea}
               placeholder={placeholder}
               isMobile={'xs' === width} >
             <DeleteButton
