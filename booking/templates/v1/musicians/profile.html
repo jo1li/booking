@@ -46,9 +46,9 @@
                     <span id="photo-count-indicator">{{ photos_count }}</span>
                 </a>
             </span>
-            <a href="#" class="edit photo-edit-form-button {% if not is_owner_viewing %}hidden{% endif %}" id="open-edit-photos">
+            <span href="#" class="edit photo-edit-form-button {% if not is_owner_viewing %}hidden{% endif %}" id="open-edit-photos">
                 <img src="{% static 'images/edit-black.svg' %}" alt="edit icon">
-                <span id="edit-photos-button-text" class="edit-photos-button-text {% if not is_owner_viewing or photos_count %}hidden{% endif %}">
+                <span class="edit-photos-button-text {% if not is_owner_viewing or photos_count %}hidden{% endif %}">
                     Add Photos
                 </span>
             </a>
