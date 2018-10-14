@@ -110,6 +110,7 @@ TEMPLATES = [
                 "booking.context_processors.static_js",
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
+                "booking.context_processors.profile_url",
                 "booking.context_processors.absolute_url",
                 "booking.context_processors.common_words",
 
