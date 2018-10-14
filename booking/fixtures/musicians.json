@@ -1,14 +1,14 @@
 [
   {
     "model": "musicians.musician",
-    "pk": 3,
+    "pk": 2,
     "fields": {
       "created": "2018-10-12T01:32:33.206Z",
       "modified": "2018-10-12T01:58:38.449Z",
+      "user": 2,
       "stage_name": "rock star",
       "slug": "rock-star",
       "image": "media/l_34633c94cd075eaa247f8b53b842e250_mj84sc",
-      "image_hero": 1,
       "claimed": true,
       "on_tour": false,
       "hometown": "New York",
@@ -36,7 +36,7 @@
       "order": 1,
       "created": "2018-10-13T23:10:43.359Z",
       "modified": "2018-10-13T23:10:43.359Z",
-      "musician": 3,
+      "musician": 2,
       "code": "<iframe width=\"100%\" height=\"300\" scrolling=\"no\" frameborder=\"no\" allow=\"autoplay\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/328259811&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true\"></iframe>"
     }
   },
@@ -47,7 +47,7 @@
       "order": 0,
       "created": "2018-10-13T23:10:43.364Z",
       "modified": "2018-10-13T23:10:43.364Z",
-      "musician": 3,
+      "musician": 2,
       "code": "<iframe width=\"100%\" height=\"300\" scrolling=\"no\" frameborder=\"no\" allow=\"autoplay\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/473475024&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true\"></iframe>"
     }
   },
@@ -58,7 +58,7 @@
       "order": 0,
       "created": "2018-10-13T23:10:24.149Z",
       "modified": "2018-10-13T23:10:24.149Z",
-      "musician": 3,
+      "musician": 2,
       "code": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>"
     }
   },
@@ -69,7 +69,7 @@
       "order": 2,
       "created": "2018-10-13T23:10:24.195Z",
       "modified": "2018-10-13T23:10:24.195Z",
-      "musician": 3,
+      "musician": 2,
       "code": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/mDUIGvpDolw\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>"
     }
   },
@@ -80,7 +80,7 @@
       "order": 1,
       "created": "2018-10-13T23:10:24.204Z",
       "modified": "2018-10-13T23:10:24.204Z",
-      "musician": 3,
+      "musician": 2,
       "code": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/-CmadmM5cOk\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>"
     }
   },
@@ -91,7 +91,7 @@
       "order": 0,
       "created": "2018-10-12T01:47:50.792Z",
       "modified": "2018-10-12T01:47:50.792Z",
-      "musician": 3,
+      "musician": 2,
       "image": "media/IMG_1724_pk2mpl"
     }
   }
