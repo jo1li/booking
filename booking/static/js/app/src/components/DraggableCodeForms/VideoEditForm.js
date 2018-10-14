@@ -9,7 +9,6 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import DraggableCodeFormBase from './DraggableCodeFormBase';
-import FullScreenDialog from '../modal/FullScreenDialog';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
@@ -17,7 +16,6 @@ import _ from 'lodash';
 import { EDIT_VIDEOS } from '../../constants/forms';
 import styles from './styles';
 import * as VideoActions from '../../actions/videos';
-import boundToOpenElement from './boundToOpenElement';
 import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
@@ -79,7 +77,6 @@ let VideoEditFormBase = compose(
   }),
   withStyles(styles),
   withWidth(),
-  FullScreenDialog,
 )(DraggableCodeFormBase);
 
 VideoEditFormBase = connect(mapStateToProps, mapDispatchToProps)(VideoEditFormBase);
@@ -88,4 +85,4 @@ const VideoEditForm = (props) => (
   <VideoEditFormBase itemName='videos' copy={copy} {...props} />
 );
 
-export default boundToOpenElement('open-edit-videos')(VideoEditForm);
+export default VideoEditForm;

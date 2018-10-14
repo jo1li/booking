@@ -85,6 +85,8 @@ class Musician(TimeStampedModel):
     hometown = models.CharField(max_length=256, null=True, blank=True)
     state = USStateField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+
+    # tagline
     bio_short = models.CharField(max_length=256, null=True, blank=True)
 
     # Social connections
@@ -225,6 +227,9 @@ class MusicianVideo(TimeStampedModel, OrderedModel):
 
 
 class MusicianImage(TimeStampedModel, OrderedModel):
+    # Keeps order per-user
+    order_with_respect_to = 'musician'
+
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
 

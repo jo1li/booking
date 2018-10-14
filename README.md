@@ -75,3 +75,66 @@ If you get any of the following errors when running `docker-compose up`, try the
 * `[ERROR] InnoDB: Operating system error number 22 in a file operation.` Remove `docker-compose.override.yaml`. (Note that if you do this, every time you run `docker-compose down`, any data you've written will be gone; consider running `docker-compose stop` instead.)
 * `[ERROR] --initialize specified but the data directory has files in it. Aborting.` Run `rm -r mysql-data`. (This file is gitignored.)
 *  `_mysql_exceptions.OperationalError: (2059, "Authentication plugin 'caching_sha2_password' cannot be loaded: /usr/lib/mysql/plugin/caching_sha2_password.so: cannot open shared object file: No such file or directory")` Change `mysql:latest` to `mysql:5.7` in `docker-compose.yaml`.
+
+
+### Modals (Dialog)
+
+TL;DR
+- import a dialog component `import { FullScreenDialog } from './Dialog`.
+- wrap your component with the Dialog component ` export default Dialog(YourComponent)`.
+- use `this.props.openDialog(<div/>)` from within `YourComponent` to launch a some content in a Dialog.
+
+Dialogs can be implemented using the Dialog decorators (HOC components) located in `components/Dialog`. Dialogs can be composed into the component that will be responsible for launching the Dialog. The composed component will receive the `openDialog` and `closeDialog` props. The `openDialog` function takes one react node as an argument that will be rendered as the content of the Dialog.
+# booking/fixtures/home.opususer.json
+./manage.py dumpdata home account | pbcopy
+
+A standard dialog that is used in many places in this repo is the FullScreenDialog. Lets look at an example.
+
+```
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { FullScreenDialog } from './Dialog';
+
+
+class UserPage extends Component {
+
+    onClick() {
+        this.props.openDialog(
+            <div>
+                <p>I'm in the modal!</p>
+            </div>
+        )
+    }
+
+    render () {
+        <Button onClick={this.onClick} />
+    }
+
+}
+
+export default FullScreenDialog(UserPage)
+
+// or if you may have additional decorators
+export default compose(
+    FullScreenDialog
+)(UserPage)
+```
+
+### Adding a new Dialog
+
+The Dialog state manager located at `components/Dialog/Dialog.js` is a curried component who's first argument is a Dialog component. The Dialog component defaults to `DialogBase`. You can create a new Dialog component from  `DialogBase` adding additional functionality or styles and compose in `Dialog` (the Dialog state manager) to the new component Similar to the implementation of FullScreenDialog.
+
+
+
+# Fixtures
+
+This app comes with some default data for testing
+
+```bash
+# booking/fixtures/home.opususer.json
+./manage.py dumpdata home account | pbcopy
+
+# booking/fixtures/venues.venue.json
+./manage.py dumpdata venues | pbcopy
+
+```

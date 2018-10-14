@@ -8,4 +8,5 @@ export { default as CloudUpload } from '@material-ui/icons/CloudUpload';
 export { Trash2 as Delete } from 'react-feather';
 export { default as ExpandMore } from '@material-ui/icons/ExpandMore';
 export { Move } from 'react-feather';
+export { Edit } from 'react-feather';
 export const Save = IconImg({src: `${CONFIGS.IMAGES_URL}/save.svg`, alt: 'Save Icon'});

@@ -1,24 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
+import { FullScreenDialog } from '../Dialog';
+import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
+import EmptyState from '../EmptyState';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
 import styles from './styles';
 
-const mapStateToProps = (state, props) => ({
-  videos: _.sortBy(_.values(state.videos), v => v.order),
-  audios: _.sortBy(_.values(state.audios), a => a.order),
-});
+const mapStateToProps = (state, props) => {
+  const videos = ( state.videos === false )
+                    ? false
+                    : _.sortBy(_.values(state.videos), v => v.order) ;
 
-export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
-    const { classes, audiosjson, audios: audiosFromStore  } = props;
+  const audios = ( state.audios === false)
+                    ? false
+                    : _.sortBy(_.values(state.audios), a => a.order);
+
+  const photos = _.sortBy(_.values(state.photos), p => p.order);
+
+  return { videos, audios, photos };
+};
+
+export const AudioCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(props => {
+    const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
     // If we haven't synced with the server since load, use bootstrapped values.
-    const audios = audiosFromStore.length ? audiosFromStore : audiosFromDOM;
+    const audios = audiosFromStore === false ? audiosFromDOM : audiosFromStore ;
+
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
+    if( audios.length === 0 ) {
+      $('.edit .open-edit-audios').first().hide()
+      return <EmptyState onClick={() => openDialog(<AudioEditForm />)} copy="Add audio tracks" />;
+    } else {
+      $('.edit .open-edit-audios').first().show()
+    }
 
     return (
       <CarouselWrapper
@@ -31,15 +56,26 @@ export const AudioCarousel = connect(mapStateToProps)(withStyles(styles)(
       </CarouselWrapper>
     );
   })
-);
 
-export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
-    const { classes, videosjson, videos: videosFromStore } = props;
+export const VideoCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(props => {
+    const { classes, videosjson, videos: videosFromStore, openDialog } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
-    // If we haven't synced with the server since load, use bootstrapped values.
-    const videos = videosFromStore.length ? videosFromStore : videosFromDOM;
+    // If this is the initial run, load from dom
+    //  There may be a better way / place to load data. (CH)
+    const videos = videosFromStore === false ? videosFromDOM : videosFromStore ;
+
+    // This prob shouldn't be like this either, but I'm loathe to add a new React component
+    if( videos.length === 0 ) {
+      $('.edit .open-edit-videos').first().hide()
+      return <EmptyState onClick={() => openDialog(<VideoEditForm />)} copy="Add video of your performances" />;
+    } else {
+      $('.edit .open-edit-videos').first().show()
+    }
 
     return (
       <CarouselWrapper
@@ -51,24 +87,21 @@ export const VideoCarousel = connect(mapStateToProps)(withStyles(styles)(
             iframeSources={_.map(videos, v => v.src)}/>
       </CarouselWrapper>
     );
+  });
+
+export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
+  props => {
+    const { classes, photos } = props;
+
+    return (
+      <CarouselWrapper
+          classes={classes}
+          items={photos}>
+        <PhotoCarouselContent
+            className={classes.photoCarouselSwipeableView}
+            classes={classes}
+            photoSources={_.map(photos, p => p.image)}/>
+      </CarouselWrapper>
+    );
   })
 );
-
-// TODO: Add a background image for when photos don't cover the full width,
-//       consisting of a shaded version of the user's profile image scaled to
-//       at least full width, once redux is in to gives this access to it.
-export const PhotoCarousel = withStyles(styles)(props => {
-  const { classes, photosjson } = props;
-  const photos = photosjson ? JSON.parse(photosjson) : [];
-
-  return (
-    <CarouselWrapper
-        classes={classes}
-        items={photos}>
-      <PhotoCarouselContent
-          className={classes.photoCarouselSwipeableView}
-          classes={classes}
-          photoSources={_.map(photos, p => p.image)}/>
-    </CarouselWrapper>
-  );
-});
