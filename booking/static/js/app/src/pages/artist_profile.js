@@ -73,7 +73,7 @@ export default function render_artist_profile() {
 
     RenderFromDomNode({
         Component: PhotoModalButton,
-        node: 'photo-modal-button',
+        node: 'open-photo-carousel',
     });
 
     RenderFromDomNode({
