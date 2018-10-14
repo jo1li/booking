@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.urls import reverse
 
+from musicians.models import Musician
+
 def static_js(request):
     return {
         'STATIC_JS_APP_BASE_URL': settings.STATIC_JS_APP_BASE_URL,
@@ -33,6 +35,24 @@ def home_url(request):
 
     return {
         "home_url": url
+    }
+
+
+def profile_url(request):
+
+    if request.user.is_anonymous:
+        url = None
+    else:
+        if request.user.is_musician:
+            m = Musician.objects.get(user=request.user)
+            url = reverse('musician_profile', kwargs={'slug': m.slug})
+
+        # TODO: handle this type of user
+        elif request.user.is_booking_agent:
+            url = None
+
+    return {
+        "profile_url": url
     }
 
 
