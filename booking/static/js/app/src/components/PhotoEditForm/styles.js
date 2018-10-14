@@ -138,22 +138,6 @@ const styles = theme => ({
     objectFit: 'cover',
   },
 
-  // TODO: this definitely goes in the css (somewhere)
-  '@keyframes hide-photo-row': {
-    '0%': {
-      opacity: 1,
-      paddingBottom: '16px',
-      transform: 'scale(1)',
-      height: '80px', // TODO: not true on mobile but maybe looks close enough
-    },
-    '100%': {
-      opacity: 0,
-      paddingBottom: 0,
-      transform: 'scale(0.8)',
-      height: 0,
-    },
-  },
-
 });
 
 export default styles;
