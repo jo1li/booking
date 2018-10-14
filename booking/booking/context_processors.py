@@ -40,12 +40,18 @@ def home_url(request):
 
 def profile_url(request):
 
-    if request.user.is_anonymous:
-        url = None
-    else:
+    url = None
+
+    if not request.user.is_anonymous:
         if request.user.is_musician:
-            m = Musician.objects.get(user=request.user)
-            url = reverse('musician_profile', kwargs={'slug': m.slug})
+            try:
+                m = Musician.objects.get(user=request.user)
+                url = reverse('musician_profile', kwargs={'slug': m.slug})
+            except Musician.DoesNotExist:
+                # one way or another, we'll need to detect the lack of slug
+                # this method is more in line with a user type agnostic signup
+                # but this could also be changed to detect presence of the slug
+                pass
 
         # TODO: handle this type of user
         elif request.user.is_booking_agent:
