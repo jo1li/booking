@@ -12,6 +12,10 @@ a, .link {
 	}
 }
 
+.hidden {
+	display: none;
+}
+
 .mobile-hidden {
 	@include media ('<tablet') {
 		display: none;
