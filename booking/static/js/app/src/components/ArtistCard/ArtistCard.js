@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
-import AudienceIcon from './AudienceIcon';
+import ConnectedServiceIcon from './ConnectedServiceIcon';
 import Edit from 'react-feather/dist/icons/edit';
 
 
@@ -83,7 +83,7 @@ class ArtistCard extends React.Component {
                     <a href={value.url} className={classes.serviceLink}>
                       <ButtonBase className={classes.serviceButton}>
                         <Paper elevation="0" className={`${classes.service} ${classes.serviceConnected}`}>
-                          <AudienceIcon className={classes.padTopSm} service={value.service} active />
+                          <ConnectedServiceIcon className={classes.padTopSm} service={value.service} active />
                           <Typography variant="body1" className={classes.stat} noWrap>{value.stat}</Typography>
                         </Paper>
                       </ButtonBase>    
@@ -91,7 +91,7 @@ class ArtistCard extends React.Component {
                   )}
                   {!value.connected && (
                     <Paper elevation="0" className={classes.service}>
-                      <AudienceIcon service={value.service} />
+                      <ConnectedServiceIcon service={value.service} />
                       <Typography variant="caption" className={classes.disabledColor}>—</Typography>
                     </Paper>
                   )}

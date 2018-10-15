@@ -3,7 +3,7 @@ import IconFacebook from './IconFacebook';
 import IconInstagram from './IconInstagram';
 import IconSpotify from './IconSpotify';
 
-const AudienceIcon = (props) => {
+const ConnectedServiceIcon = (props) => {
   const { service, active } = props
   let iconComponent = <div/>
   switch(service) {
@@ -24,4 +24,4 @@ const AudienceIcon = (props) => {
   )
 }
 
-export default AudienceIcon
+export default ConnectedServiceIcon
