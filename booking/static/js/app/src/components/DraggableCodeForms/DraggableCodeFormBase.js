@@ -13,7 +13,7 @@ import {
   getCreatedItems,
   getUpdatedItems,
   getDestroyedItems,
-  removeItemFromForm,
+  removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
 
 // A base for editing models with a `code` attribute that needs a textarea
@@ -40,7 +40,7 @@ class CodeFormBase extends Component {
   removeItemFromForm(order) {
     const {currentValues, change, itemName} = this.props;
     const currentItems = currentValues[itemName];
-    removeItemFromForm({currentItems, change, order, itemName});
+    removeItemContentFromForm({currentItems, change, order, itemName});
   }
 
   getItemsWithCodes() {

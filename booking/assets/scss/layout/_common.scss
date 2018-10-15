@@ -92,6 +92,7 @@ a, .link {
 		}
 
 		.edit {
+			cursor: pointer;
 			display: flex;
 			align-items: center;
 			height: 32px;
@@ -508,4 +509,21 @@ $border-radius: 5px;
 .table-link {
 	display: block;
 	margin-bottom: 20px;
+}
+
+@keyframes hide-photo-row {
+
+	0% {
+		opacity: 1;
+		padding-bottom: 16px;
+		transform: scale(1);
+		height: 80px; /* TODO: not true on mobile but maybe looks close enough */
+	}
+
+	100% {
+		opacity: 0;
+		padding-bottom: 0;
+		transform: scale(0.8);
+		height: 0;
+	}
 }

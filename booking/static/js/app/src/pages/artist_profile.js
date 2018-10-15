@@ -2,10 +2,11 @@ import RenderFromDomNode from '../renderFromDomNode';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
+import PhotoEditForm from '../components/PhotoEditForm';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoModalButton from '../components/PhotoModalButton';
-import EditPhotosButtonText from '../components/EditPhotosButtonText';
+import EditPhotosButton from '../components/EditPhotosButton';
 import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
@@ -43,6 +44,14 @@ export default function render_artist_profile() {
     });
 
     RenderFromDomNode({
+        Component: ClickToOpenDialog({
+            triggerSelector: '#open-edit-photos',
+            DialogContent: PhotoEditForm,
+        }),
+        node: 'photo-edit-form',
+    });
+
+    RenderFromDomNode({
         Component: VideoCarousel,
         node: 'video-carousel',
         className: 'carousel',
@@ -64,12 +73,12 @@ export default function render_artist_profile() {
 
     RenderFromDomNode({
         Component: PhotoModalButton,
-        node: 'photo-modal-button',
+        node: 'open-photo-carousel',
     });
 
     RenderFromDomNode({
-        Component: EditPhotosButtonText,
-        node: 'edit-photos-button-text',
+        Component: EditPhotosButton,
+        node: 'open-edit-photos',
     });
 
 };
