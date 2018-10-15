@@ -81,12 +81,12 @@ class SignupForm extends Component {
     });
   }
 
-  handleNameChange = (e) => {
-    const value = e.target.value;
-    if (!this.props.currentValues.artistHandle) {
-      this.props.change("artistHandle", value);
-    }
-  }
+  // handleNameChange = (e) => {
+  //   const value = e.target.value;
+  //   if (!this.props.currentValues.artistHandle) {
+  //     this.props.change("artistHandle", value);
+  //   }
+  // }
 
   render() {
     const { classes, pristine, submitting } = this.props
@@ -120,7 +120,7 @@ class SignupForm extends Component {
                   name="artistName" 
                   label={artistType === 'individual' ? 'Artist Name' : 'Group Name'} 
                   component={TextField}
-                  onChange={this.handleNameChange}
+                  // onChange={this.handleNameChange}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
