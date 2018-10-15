@@ -1,15 +1,18 @@
 import React from 'react';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { withStyles } from '@material-ui/core/styles';
-import UserIcon from 'react-feather/dist/icons/user';
-import DownIcon from 'react-feather/dist/icons/chevron-down';
+import MenuItem from '@material-ui/core/MenuItem';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import { withStyles } from '@material-ui/core/styles';
+
 import SliderIcon from 'react-feather/dist/icons/sliders';
 import SignOutIcon from 'react-feather/dist/icons/log-out';
+import UserIcon from 'react-feather/dist/icons/user';
+import DownIcon from 'react-feather/dist/icons/chevron-down';
+
 import NavigationMobileMenu from './NavigationMobileMenu';
 import NavBarLogo from './NavBarLogo';
 
