@@ -234,6 +234,12 @@ def signup(request):
 
     return opus_render(request, "musicians/signup.html", context)
 
+def artist_onboarding(request):
+    context = {
+        "react_page_name": "ARTIST_ONBOARDING"
+    }
+    return opus_render(request, "musicians/onboarding.html", context)
+
 
 @login_required
 def api_test(request):
