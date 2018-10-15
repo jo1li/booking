@@ -115,7 +115,7 @@
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
-                        <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
+                        <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
                     </div>
                     <div
                         id="video-carousel"
@@ -126,7 +126,7 @@
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
-                        <div class="edit"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
+                        <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
                     </div>
                     <div
                         id="audio-carousel"
@@ -134,13 +134,13 @@
                     </div>
                 </div>
 
-                {# {% include "profile.html" %} #}
+                {# {% include "profile_shows.html" %} #}
 
                 <div class="slider-section">
 
                     <div class="category edit-box">
                         <h2 id="biography-long" class="subheading">Biography</h2>
-                        <a href="#" class="edit"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
+                        <a href="#" class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
                     <p id="biography-long-content">{{ musician.bio }}</p>
