@@ -1,3 +1,7 @@
+from home.models import OpusUser
+
+from django.contrib.auth import login
+
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from rest_framework import serializers
 
@@ -138,6 +142,37 @@ class ArtistUpdateSerializer(ArtistSerializer):
         instance.save()
 
         return instance
+
+
+class ArtistCreateSerializer(serializers.Serializer):
+
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=200)
+    type = serializers.ChoiceField(['individual', 'group'])
+    name = serializers.CharField()
+    slug = serializers.SlugField()
+
+
+    def create(self, validated_data):
+
+        u = OpusUser.objects.create(email=validated_data.get('email'))
+        u.set_password(validated_data.get('password'))
+
+        Musician.objects.create(user=u,
+            stage_name=validated_data.get('name'),
+            slug=validated_data.get('slug')
+        )
+
+        # This is a bit janky, I think
+        login(self.context['request'], u, backend="account.auth_backends.EmailAuthenticationBackend")
+
+        return {
+            'email': validated_data.get('email'),
+            'password': None,
+            'type': validated_data.get('type'),
+            'name': validated_data.get('name'),
+            'slug': validated_data.get('slug'),
+        }
 
 
 class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
