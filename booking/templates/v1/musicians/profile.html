@@ -75,7 +75,7 @@
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}
-                        <div class="edit"><img id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
+                        <div class="edit{% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
                     </div>
 
                     <div class="artist-photo text-center">
@@ -115,7 +115,7 @@
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
-                        <div class="edit"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
+                        <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
                     </div>
                     <div
                         id="video-carousel"
@@ -126,7 +126,7 @@
                 <div class="slider-section">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
-                        <div class="edit"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
+                        <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
                     </div>
                     <div
                         id="audio-carousel"
@@ -134,103 +134,13 @@
                     </div>
                 </div>
 
-                <div class="slider-section">
-                    <div class="category edit-box">
-                        <h2 class="subheading">{{ shows_word }}</h2>
-                        <a href="#" class="edit"><img src="{% static 'images/edit.png' %}" alt=""></a>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <!-- <caption align="top">Upcoming Shows</caption> -->
-                            <thead>
-                                <th colspan="2">Upcoming {{ shows_word }}</th>
-                                <th colspan="2" class="booked">Booked on Opus <img src="{% static 'images/bookmark-copy.png' %}" alt=""></th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>4/6/18</td>
-                                    <td class="show-name">Crawford Auditorium</td>
-                                    <td>Grove City, PA</td>
-                                    <td class="booked"></td>
-                                </tr>
-                                <tr>
-                                    <td>4/7/18</td>
-                                    <td class="show-name">Baby's All Right</td>
-                                    <td>New York, NY</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4/8/18</td>
-                                    <td class="show-name">Union Stage</td>
-                                    <td>Washington, DC</td>
-                                    <td class="booked"></td>
-                                </tr>
-                                <tr>
-                                    <td>4/9/18</td>
-                                    <td class="show-name">Sonia</td>
-                                    <td>Cambridge, MA</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4/10/18</td>
-                                    <td class="show-name">World Cafe Live</td>
-                                    <td>Philadelphia, PA</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <a href="#" class="bold-text heading-secondary table-link">Show more</a>
-
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead>
-                                <th colspan="2">Past {{ shows_word }}</th>
-                                <th colspan="2" class="booked">Booked on Opus <img src="images/bookmark-copy.png" alt=""></th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>3/8/18</td>
-                                    <td class="show-name">Troubadour</td>
-                                    <td>Los Angeles, CA</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>9/16/17</td>
-                                    <td class="show-name">Open Arts &amp; Music Festival</td>
-                                    <td>Glendale, CA</td>
-                                    <td class="booked"></td>
-                                </tr>
-                                <tr>
-                                    <td>8/3/17</td>
-                                    <td class="show-name">The Irenic</td>
-                                    <td>San Diege, CA</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>8/2/17</td>
-                                    <td class="show-name">The Rebel Lounge</td>
-                                    <td>Phoenix, AZ</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>8/1/17</td>
-                                    <td class="show-name">Launchpad</td>
-                                    <td>Albuquerque, NM</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <a href="#" class="bold-text heading-secondary table-link">Show more</a>
-                </div>
+                {# {% include "profile_shows.html" %} #}
 
                 <div class="slider-section">
 
                     <div class="category edit-box">
                         <h2 id="biography-long" class="subheading">Biography</h2>
-                        <a href="#" class="edit"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
+                        <a href="#" class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
                     <p id="biography-long-content">{{ musician.bio }}</p>
