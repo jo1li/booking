@@ -42,7 +42,7 @@ class ApiArtistCreateTest(OpusTestCase):
 
         sessionid_present = False
         for c in result.cookies.items():
-            if 'sessionid' in c[1]:
+            if 'sessionid' in str(c[1]):
                 sessionid_present = True
                 break
 
