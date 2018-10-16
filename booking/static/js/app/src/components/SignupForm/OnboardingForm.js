@@ -84,7 +84,7 @@ class OnboardingForm extends Component {
     })
   }
 
-  submit = (values) => {
+  handleSubmit(values) {
     const { updateUserBio } = this.props;
 
     // return updateUserBio(values).then(res => {
@@ -101,7 +101,7 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit } = this.props
+    const { classes, pristine, submitting } = this.props
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -109,7 +109,7 @@ class OnboardingForm extends Component {
           <Typography variant="headline" align="center">Onboarding</Typography>
           <Paper className={classes.paper}>
             <Typography variant="body2">For Artists</Typography>
-            <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
               <FormControl margin="normal" fullWidth>
                 <Field 
                   name="tagline" 
