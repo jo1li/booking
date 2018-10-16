@@ -1,10 +1,10 @@
 import RenderFromDomNode from '../renderFromDomNode';
-import SignupForm from '../components/SignupForm';
+import OnboardingForm from '../components/SignupForm/OnboardingForm';
 
 export default function render_artist_onboarding_page() {
 
     RenderFromDomNode({
-        Component: SignupForm,
+        Component: OnboardingForm,
         node: 'onboarding',
     });
 
