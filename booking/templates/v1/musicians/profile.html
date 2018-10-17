@@ -155,7 +155,10 @@
     window.initialState = {
         profile: {
             id: {{ musician.pk }},
-            isOwnerViewing: {% if is_owner_viewing %}true{% else %}false{% endif %}
+            // TODO: this has to be moved out of profile if we don't want it
+            // to get blown away when we update the user in the redux store.
+            isOwnerViewing: {% if is_owner_viewing %}true{% else %}false{% endif %},
+            image_hero_id: {{ cover_photo_id|default_if_none:"null" }},
         },
         photos: {{ photos_json | safe }},
     };

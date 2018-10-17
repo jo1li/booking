@@ -216,6 +216,7 @@ def profile(request, slug=None):
         "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
         "photos_count": len(photos),
         "photos_json": json.dumps(photos_dict),
+        "cover_photo_id": musician.image_hero_id,
         "react_page_name": "ARTIST_PROFILE"
     }
 
