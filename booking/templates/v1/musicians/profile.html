@@ -37,7 +37,10 @@
 ></div>
 <div id="photo-modal"></div>
 
-<section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.image.url }}');">
+<section class="artist-placeholder">
+    <div id="cover-photo-wrapper">
+        <div id="cover-photo" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
+    </div>
     <div class="container">
         <div class="photo-buttons">
             <span href="#" id="open-photo-carousel">
