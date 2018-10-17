@@ -5,6 +5,7 @@ from sure import expect
 
 from http import HTTPStatus
 
+from unittest import skip
 
 class ApiArtistTest(OpusTestCase):
 
@@ -24,24 +25,6 @@ class ApiArtistTest(OpusTestCase):
 
         result.json["count"].should.equal(1)
         result.json["results"].should.have.length_of(1)
-
-
-    def test_artist_create(self):
-
-        artist_list_url = self.reverse_api('artists-list')
-
-        result = self.app.put(artist_list_url, expect_errors=True)
-        result.status_code.should.equal(403)
-        result.json["detail"].should.equal("Authentication credentials were not provided.")
-
-        result = self.app.get('/', user=self.a.username)
-        csrf_token = self.get_csrf_from_headers(result)
-
-        create_headers = {
-            'X-CSRFToken': csrf_token
-        }
-        result = self.app.put(artist_list_url, headers=create_headers, expect_errors=True, user=self.a.username)
-        result.json["detail"].should.equal('Method "PUT" not allowed.')
 
 
     def test_artist_update(self):

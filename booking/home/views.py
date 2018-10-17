@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from booking.utils import opus_render
 
@@ -14,6 +15,7 @@ def healthcheck(request):
     return HttpResponse("<html><body>Healthy</body></html>")
 
 
+@ensure_csrf_cookie
 def index(request):
     return opus_render(request, "home/index.html")
 

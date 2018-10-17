@@ -65,12 +65,20 @@ class HtmlSrcGetter(HTMLParser):
 
 class Musician(TimeStampedModel):
 
+    ACCOUNT_TYPE_INDIVIDUAL = 'individual'
+    ACCOUNT_TYPE_GROUP = 'group'
+    ACCOUNT_TYPE_CHOICES = (
+            (ACCOUNT_TYPE_INDIVIDUAL, 'Individual'),
+            (ACCOUNT_TYPE_GROUP, 'Group'),
+        )
+
     user = models.OneToOneField(OpusUser, on_delete=models.CASCADE, primary_key=True)
 
     stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
     image = models.ImageField(upload_to='media/', blank=True)
     image_hero = models.ImageField(upload_to='media/', blank=True)
+    account_type = models.CharField(choices=ACCOUNT_TYPE_CHOICES, max_length=16, null=True, blank=True)
 
     # Should we decide to populate a ton of profiles w/ out user consent,
     #   use this flag to indicate profiles that are owned

@@ -8,12 +8,18 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
+
+
+class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
+    def has_permission(self, request, view):
+        return (view.action == 'create'
+                or super().has_permission(request, view))
 
 
 class GenreTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -124,11 +130,15 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
 class ArtistViewSet(mixins.ListModelMixin,
                     mixins.RetrieveModelMixin,
+                    mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
     """
     GET /v1/artists/:
     Return a list of all the existing artists.
+
+    POST /v1/artists/:
+    Create a new artist
 
     GET /v1/artists/<id>:
     Retrieve a single artist instance.
@@ -136,7 +146,7 @@ class ArtistViewSet(mixins.ListModelMixin,
     PUT /v1/artists/<id>:
     Update a single artist instance.
 
-    To upload `image` and `image_hero` the API call must be sent as a MultiPartForm
+    To upload `image` the API call must be sent as a MultiPartForm
         https://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean
 
     Note: genres should be comma delimited, in the format described http://radiac.net/projects/django-tagulous/documentation/parser/
@@ -144,7 +154,7 @@ class ArtistViewSet(mixins.ListModelMixin,
     """
 
     parser_classes = (JSONParser, MultiPartParser,)
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (CreateAndIsAuthenticatedOrReadOnly,)
 
     queryset = Musician.objects.all()
     serializer_class = ArtistSerializer
@@ -163,6 +173,11 @@ class ArtistViewSet(mixins.ListModelMixin,
     def update(self, *args, **kwargs):
         self.serializer_class = ArtistUpdateSerializer
         return mixins.UpdateModelMixin.update(self, *args, **kwargs)
+
+
+    def create(self, *args, **kwargs):
+        self.serializer_class = ArtistCreateSerializer
+        return mixins.CreateModelMixin.create(self, *args, **kwargs)
 
 
     def perform_update(self, serializer):
