@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
 import { getThumbnailImageURL } from '../../helpers/imageHelpers';
 import { Code, CheckCircle, Delete } from '../icons';
-import {
-  updateUserBio,
-} from '../../request/requests';
+import * as ProfileActions from '../../actions/profile';
 
 // TODO: Using `IconButton` but rectangle shape for this gives an oblong hover
 // background; change jss to cope with this
@@ -142,8 +142,8 @@ class PhotoRow extends Component {
   }
 
   useAsCoverPhoto(photo) {
-    const { profile } = this.props;
-    return updateUserBio({image_hero_id: photo.id}, profile.id);
+    const { profile, updateProfile } = this.props;
+    return updateProfile({image_hero_id: photo.id}, profile.id);
   }
 
   render() {
@@ -157,4 +157,10 @@ class PhotoRow extends Component {
   }
 }
 
-export default PhotoRow;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateProfile: ProfileActions.updateProfile,
+  }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(PhotoRow);
