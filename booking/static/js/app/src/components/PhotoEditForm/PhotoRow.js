@@ -31,7 +31,7 @@ const CoverPhotoIndicator = (props) => {
   return (
     <a
       className={classes.coverPhotoIndicator}
-    >{CheckCircle} Cover photo</a>
+    ><CheckCircle className={classes.coverPhotoIndicatorCheckMark}/> Cover photo</a>
   );
 };
 

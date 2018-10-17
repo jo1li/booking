@@ -25,6 +25,10 @@ const styles = theme => ({
     alignSelf: 'center',
     marginLeft: 'auto',
   },
+  coverPhotoIndicatorCheckMark: {
+    marginBottom: '-1px', // Wants to float up and increase height of container
+    height: '15px',
+  },
   deleteButton: {
     color: theme.palette.grey[500],
     border: 'none',
