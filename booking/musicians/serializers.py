@@ -148,7 +148,7 @@ class ArtistCreateSerializer(serializers.Serializer):
 
     email = serializers.EmailField()
     password = serializers.CharField(max_length=200)
-    type = serializers.ChoiceField(['individual', 'group'])
+    account_type = serializers.ChoiceField([c[0] for c in Musician.ACCOUNT_TYPE_CHOICES])
     name = serializers.CharField()
     slug = serializers.SlugField()
 
@@ -160,7 +160,8 @@ class ArtistCreateSerializer(serializers.Serializer):
 
         Musician.objects.create(user=u,
             stage_name=validated_data.get('name'),
-            slug=validated_data.get('slug')
+            slug=validated_data.get('slug'),
+            account_type=validated_data.get('account_type')
         )
 
         # This is a bit janky, I think
@@ -169,7 +170,7 @@ class ArtistCreateSerializer(serializers.Serializer):
         return {
             'email': validated_data.get('email'),
             'password': None,
-            'type': validated_data.get('type'),
+            'account_type': validated_data.get('account_type'),
             'name': validated_data.get('name'),
             'slug': validated_data.get('slug'),
         }

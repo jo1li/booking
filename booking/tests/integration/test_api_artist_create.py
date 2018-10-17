@@ -26,19 +26,25 @@ class ApiArtistCreateTest(OpusTestCase):
         result = self.app.get('/')
         csrf_token = self.get_csrf_from_headers(result)
 
+        name = 'Jim Stark'
         slug = 'jim-stark'
+        account_type = 'individual'
         headers = {
             'X-CSRFToken': csrf_token,
         }
         params = {
             'email': 'test@sink.sendgrid.net',
             'password': 'password',
-            'type': 'individual',
-            'name': 'Jim Stark',
+            'account_type': account_type,
+            'name': name,
             'slug': slug
         }
         result = self.app_api.post(artist_list_url, params, headers=headers)
         result.status_code.should.equal(HTTPStatus.CREATED)
+
+        result.json()['slug'].should.equal(slug)
+        result.json()['name'].should.equal(name)
+        result.json()['account_type'].should.equal(account_type)
 
         sessionid_present = False
         for c in result.cookies.items():
@@ -50,5 +56,8 @@ class ApiArtistCreateTest(OpusTestCase):
             raise("Set-Cookie session header not present")
 
         # Ensure musician is available
-        Musician.objects.get(slug=slug)
+        m = Musician.objects.get(slug=slug)
+        m.stage_name.should.equal(name)
+        m.slug.should.equal(slug)
+        m.account_type.should.equal(account_type)
 
