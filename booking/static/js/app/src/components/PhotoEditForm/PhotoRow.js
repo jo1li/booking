@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -35,26 +36,26 @@ const CoverPhotoIndicator = (props) => {
 };
 
 const SetAsCoverPhotoButton = (props) => {
-  const { onClick, classes } = props;
+  const { onClick, classes, item } = props;
   // Would be better to be an <a> but bootstrap gets precedence on anchor styles
   // unfortunately and undoes our preferred color
   return (
     <span
       className={classes.setAsCoverPhotoButton}
-      onClick={onClick}
+      onClick={() => onClick(item)}
     >Set as cover photo</span>
   );
 }
 
 const CoverPhotoIndicatorGate = (props) => {
-  const { isHeroImage, useAsHero, show, classes } = props;
+  const { isCoverPhoto, useAsCoverPhoto, show, classes, item } = props;
 
   if(!show) return null;
 
-  if(isHeroImage) {
-    return <CoverPhotoIndicator onClick={useAsHero} classes={classes} />;
+  if(isCoverPhoto) {
+    return <CoverPhotoIndicator classes={classes} />;
   } else {
-    return <SetAsCoverPhotoButton classes={classes} />;
+    return <SetAsCoverPhotoButton onClick={useAsCoverPhoto} item={item} classes={classes} />;
   }
 }
 
@@ -67,9 +68,9 @@ const TopRow = (props) => {
     itemName,
     item,
     idx,
+    isCoverPhoto,
+    useAsCoverPhoto,
   } = props;
-
-  const isHeroImage = false; // TODO: needs to be dynamic once we have a way to do that
 
   return <Grid item container direction="row" className={classes.photoFormRowTop}>
     <DragHandle
@@ -82,8 +83,9 @@ const TopRow = (props) => {
     <CoverPhotoIndicatorGate
         show={width !== 'xs'}
         classes={classes}
-        isHeroImage={isHeroImage}
-        useAsHero={() => { /* TODO: make this do something once we have functionality */ }} />
+        isCoverPhoto={isCoverPhoto}
+        item={item}
+        useAsCoverPhoto={useAsCoverPhoto} />
     <DeleteButton
         onClick={() => remove(idx)}
         className={`${classes.button} ${classes.deleteButton}`} />
@@ -94,16 +96,16 @@ const BottomRow = (props) => {
   const {
     classes,
     width,
+    isCoverPhoto,
+    useAsCoverPhoto,
   } = props;
-
-  const isHeroImage = false;
 
   return <Grid item className={classes.photoFormRowBottom}>
     <CoverPhotoIndicatorGate
         show={width === 'xs'}
         classes={classes}
-        isHeroImage={isHeroImage}
-        useAsHero={() => { /* TODO: make this do something once we have functionality */ }} />
+        isCoverPhoto={isCoverPhoto}
+        useAsCoverPhoto={useAsCoverPhoto} />
   </Grid>
 }
 
@@ -134,16 +136,23 @@ class PhotoRowBase extends Component {
 }
 
 class PhotoRow extends Component {
-  useAsHero(imageURL) {
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
+  useAsCoverPhoto(photo) {
     const { profile } = this.props;
-    // TODO: send up the ID, not url, once this endpoint actually accepts
-    // changes to image hero with existing image instead of just file
-    return updateUserBio({image_hero: imageURL}, profile.id);
+    return updateUserBio({image_hero_id: photo.id}, profile.id);
   }
 
   render() {
     return (
-      <PhotoRowBase TopRow={TopRow} BottomRow={BottomRow} {...this.props}/>
+      <PhotoRowBase
+        TopRow={TopRow}
+        BottomRow={BottomRow}
+        {...this.props}
+        useAsCoverPhoto={this.useAsCoverPhoto} />
     );
   }
 }
