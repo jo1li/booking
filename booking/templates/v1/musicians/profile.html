@@ -158,7 +158,7 @@
     window.initialState = {
         profile: {
             id: {{ musician.pk }},
-            image_hero_id: {{ cover_photo_id|default_if_none:"null" }},
+            image_hero_id: {{ musician.image_hero_id|default_if_none:"null" }},
         },
         photos: {{ photos_json | safe }},
     };
