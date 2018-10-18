@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
 import { getThumbnailImageURL } from '../../helpers/imageHelpers';
 import { Code, CheckCircle, Delete } from '../icons';
-import {
-  updateUserBio,
-} from '../../request/requests';
+import * as ProfileActions from '../../actions/profile';
 
 // TODO: Using `IconButton` but rectangle shape for this gives an oblong hover
 // background; change jss to cope with this
@@ -30,31 +31,31 @@ const CoverPhotoIndicator = (props) => {
   return (
     <a
       className={classes.coverPhotoIndicator}
-    >{CheckCircle} Cover photo</a>
+    ><CheckCircle className={classes.coverPhotoIndicatorCheckMark}/> Cover photo</a>
   );
 };
 
 const SetAsCoverPhotoButton = (props) => {
-  const { onClick, classes } = props;
+  const { onClick, classes, item } = props;
   // Would be better to be an <a> but bootstrap gets precedence on anchor styles
   // unfortunately and undoes our preferred color
   return (
     <span
       className={classes.setAsCoverPhotoButton}
-      onClick={onClick}
+      onClick={() => onClick(item)}
     >Set as cover photo</span>
   );
 }
 
 const CoverPhotoIndicatorGate = (props) => {
-  const { isHeroImage, useAsHero, show, classes } = props;
+  const { isCoverPhoto, useAsCoverPhoto, show, classes, item } = props;
 
   if(!show) return null;
 
-  if(isHeroImage) {
-    return <CoverPhotoIndicator onClick={useAsHero} classes={classes} />;
+  if(isCoverPhoto) {
+    return <CoverPhotoIndicator classes={classes} />;
   } else {
-    return <SetAsCoverPhotoButton classes={classes} />;
+    return <SetAsCoverPhotoButton onClick={useAsCoverPhoto} item={item} classes={classes} />;
   }
 }
 
@@ -67,9 +68,9 @@ const TopRow = (props) => {
     itemName,
     item,
     idx,
+    isCoverPhoto,
+    useAsCoverPhoto,
   } = props;
-
-  const isHeroImage = false; // TODO: needs to be dynamic once we have a way to do that
 
   return <Grid item container direction="row" className={classes.photoFormRowTop}>
     <DragHandle
@@ -82,8 +83,9 @@ const TopRow = (props) => {
     <CoverPhotoIndicatorGate
         show={width !== 'xs'}
         classes={classes}
-        isHeroImage={isHeroImage}
-        useAsHero={() => { /* TODO: make this do something once we have functionality */ }} />
+        isCoverPhoto={isCoverPhoto}
+        item={item}
+        useAsCoverPhoto={useAsCoverPhoto} />
     <DeleteButton
         onClick={() => remove(idx)}
         className={`${classes.button} ${classes.deleteButton}`} />
@@ -94,16 +96,16 @@ const BottomRow = (props) => {
   const {
     classes,
     width,
+    isCoverPhoto,
+    useAsCoverPhoto,
   } = props;
-
-  const isHeroImage = false;
 
   return <Grid item className={classes.photoFormRowBottom}>
     <CoverPhotoIndicatorGate
         show={width === 'xs'}
         classes={classes}
-        isHeroImage={isHeroImage}
-        useAsHero={() => { /* TODO: make this do something once we have functionality */ }} />
+        isCoverPhoto={isCoverPhoto}
+        useAsCoverPhoto={useAsCoverPhoto} />
   </Grid>
 }
 
@@ -134,18 +136,31 @@ class PhotoRowBase extends Component {
 }
 
 class PhotoRow extends Component {
-  useAsHero(imageURL) {
-    const { profile } = this.props;
-    // TODO: send up the ID, not url, once this endpoint actually accepts
-    // changes to image hero with existing image instead of just file
-    return updateUserBio({image_hero: imageURL}, profile.id);
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
+  useAsCoverPhoto(photo) {
+    const { profile, updateProfile } = this.props;
+    return updateProfile({image_hero_id: photo.id}, profile.id);
   }
 
   render() {
     return (
-      <PhotoRowBase TopRow={TopRow} BottomRow={BottomRow} {...this.props}/>
+      <PhotoRowBase
+        TopRow={TopRow}
+        BottomRow={BottomRow}
+        {...this.props}
+        useAsCoverPhoto={this.useAsCoverPhoto} />
     );
   }
 }
 
-export default PhotoRow;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateProfile: ProfileActions.updateProfile,
+  }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(PhotoRow);

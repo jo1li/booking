@@ -7,6 +7,7 @@ import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoModalButton from '../components/PhotoModalButton';
 import EditPhotosButton from '../components/EditPhotosButton';
+import CoverPhoto from '../components/CoverPhoto';
 import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
@@ -79,6 +80,11 @@ export default function render_artist_profile() {
     RenderFromDomNode({
         Component: EditPhotosButton,
         node: 'open-edit-photos',
+    });
+
+    RenderFromDomNode({
+        Component: CoverPhoto,
+        node: 'cover-photo-wrapper',
     });
 
 };

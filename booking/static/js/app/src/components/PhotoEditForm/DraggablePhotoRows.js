@@ -18,6 +18,7 @@ const DraggablePhotoRows = (props) => {
     remove,
     profile,
     pendingItems,
+    coverPhotoID,
   } = props;
 
   return (
@@ -37,6 +38,7 @@ const DraggablePhotoRows = (props) => {
                     innerRef={provided.innerRef}
                     classes={classes}
                     item={item}
+                    isCoverPhoto={item.id === coverPhotoID}
                     idx={idx}
                     itemName={itemName}
                     width={width}
@@ -67,6 +69,7 @@ const PendingRows = (props) => {
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
+  coverPhotoID: state.profile.image_hero_id,
   updateUserBio,
 })
 
