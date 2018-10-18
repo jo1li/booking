@@ -136,6 +136,7 @@ const styles = theme => ({
   footer: {
     borderTop: `1px solid ${theme.palette.grey[200]}`,
     padding: '20px 0 12px',
+    margin: '0 -20px', // Span full width, stepping on parent padding, so border-top looks nice
   },
   withFooter: {
     display: 'flex',

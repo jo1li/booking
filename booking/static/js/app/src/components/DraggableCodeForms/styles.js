@@ -39,11 +39,6 @@ const styles = theme => ({
   buttonsContainer: {
     paddingBottom: '10px',
   },
-  captionTop: {
-    margin: '0 12px 12px',
-    padding: '0!important',
-    borderBottom: `1px solid ${theme.palette.grey[200]}`,
-  },
   textArea: {
     backgroundColor: 'white', // Looks better when moving over other items
   },
@@ -83,9 +78,8 @@ const styles = theme => ({
   },
   footer: {
     borderTop: `1px solid ${theme.palette.grey[200]}`,
-    width: 'calc(100% - 40px)', // Room for margin
-    margin: '0 20px', // Stay inside the padding so border-top can look nice
     padding: '20px 0 12px',
+    margin: '0 -20px', // Span full width, stepping on parent padding, so border-top looks nice
   },
 
   [theme.breakpoints.down('xs')]: {
