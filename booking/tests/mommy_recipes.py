@@ -1,6 +1,6 @@
 from model_mommy.recipe import Recipe, foreign_key, seq
 
-from musicians.models import Musician, MusicianVideo
+from musicians.models import Musician, MusicianVideo, MusicianImage
 from venues.models import Venue, Event, Slot
 from home.models import OpusUser
 
@@ -66,6 +66,11 @@ musician_recipe = Recipe(
     user=foreign_key(user_musician_recipe),
     stage_name="{} {}".format(random_selection(rocker_last_name), random_selection(rocker_last_name)),
     slug=seq("slug")
+)
+
+musician_image_recipe = Recipe(
+    MusicianImage,
+    musician=foreign_key(musician_recipe),
 )
 
 venue_recipe = Recipe(

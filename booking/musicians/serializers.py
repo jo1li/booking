@@ -118,7 +118,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
     stage_name = serializers.CharField(required=False)
     image = serializers.ImageField(required=False, allow_empty_file=False)
-    image_hero = serializers.ImageField(required=False, allow_empty_file=False)
+    image_hero = ArtistImageSerializer()
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
     audios = ArtistAudioSerializer(many=True, read_only=True)
@@ -134,9 +134,19 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
 class ArtistUpdateSerializer(ArtistSerializer):
     genres = serializers.CharField(required=False)
+    image_hero = ArtistImageSerializer(required=False)
+    image_hero_id = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = Musician
+        fields = artist_fields + ('audios', 'videos', 'photos', 'genres', 'image_hero_id',)
+
 
     def update(self, instance, validated_data):
         instance = super(ArtistSerializer, self).update(instance, validated_data)
+
+        if validated_data.get('image_hero') is None:
+            validated_data.pop('image_hero', None)
 
         instance.genres = validated_data.get('genres')
         instance.save()
