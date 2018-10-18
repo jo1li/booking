@@ -4,7 +4,6 @@ const styles = theme => ({
     width: '668px',
     padding: '20px',
     paddingTop: '40px',
-    paddingBottom: '40px',
     height: '100vh', // Prevent popping when switching between tabs of different heights
   },
   tabBody: {
@@ -12,6 +11,7 @@ const styles = theme => ({
     width: '100%',
     height: '100%',
     padding: '0 12px',
+    overflowY: 'scroll',
   },
   codeInputParent: {
     '& > div:not($codeInput)': {
@@ -68,6 +68,24 @@ const styles = theme => ({
       // TODO: check with team about what they want for :focus accessibility
       backgroundColor: '#fafafa',
     }
+  },
+
+  // TODO: might want to move this footering stuff into its own component
+  fixedHeight: {
+    flex: 0,
+  },
+  withFooter: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  aboveFooter: {
+    marginBottom: '12px',
+  },
+  footer: {
+    borderTop: `1px solid ${theme.palette.grey[200]}`,
+    width: 'calc(100% - 40px)', // Room for margin
+    margin: '0 20px', // Stay inside the padding so border-top can look nice
+    padding: '20px 0 12px',
   },
 
   [theme.breakpoints.down('xs')]: {
