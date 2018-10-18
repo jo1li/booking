@@ -11,7 +11,7 @@ const FullScreenDialog = ({ children, width, isOpen, close }) => {
                 maxWidth={false}
                 isOpen={isOpen}
                 close={close}
-                fullScreen={includes(['xs', 'sm'], width)}
+                fullScreen={'xs' === width}
             >
                 { children }
             </DialogBase>
