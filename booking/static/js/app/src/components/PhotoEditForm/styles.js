@@ -8,17 +8,11 @@ const styles = theme => ({
     },
     backgroundColor: 'white', // Looks better when moving over other items
   },
-  captionTop: {
-    margin: '0 12px 12px',
-    padding: '0!important',
-    borderBottom: `1px solid ${theme.palette.grey[200]}`,
-  },
   container: {
     maxWidth: '100%',
     width: '668px',
     padding: '20px',
     paddingTop: '40px',
-    paddingBottom: '40px',
     height: '100vh', // Prevent popping when switching between tabs of different heights
   },
   coverPhotoIndicator: {
@@ -136,6 +130,24 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
     objectFit: 'cover',
+  },
+
+  // TODO: might want to move into a component
+  footer: {
+    borderTop: `1px solid ${theme.palette.grey[200]}`,
+    padding: '20px 0 12px',
+  },
+  withFooter: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  fixedHeight: {
+    flex: 0,
+  },
+  aboveFooter: {
+    padding: '12px 1px 0',
+    marginBottom: '12px',
+    overflowY: 'scroll',
   },
 
 });
