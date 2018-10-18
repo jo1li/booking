@@ -66,18 +66,25 @@ const styles = theme => ({
 
 class SignupForm extends Component {
 
-  handleSubmit(values) {
-    const { createUser } = this.props;
+  submit = (values) => {
 
-    return createUser(values).then(res => {
-      // TODO: This is all placeholder
-      if(res.status === 200) {
-        console.log("submitted successfully");
-      }
+    const data = {
+      email: values.email,
+      name: values.artistName,
+      slug: values.artistHandle,
+      account_type: values.artistType,
+      password: values.password
+    }
+    const { createArtist } = this.props;
 
+    return createArtist(data).then(res => {
+      console.log("cookies: ", document.cookie); // missing session cookie :(
+      // if(res.status === 201) {
+      //   window.location.href = '/m/onboarding';
+      // }
     })
     .catch(errors => {
-      console.log('errors', errors);
+      console.log('errors:', errors);
       // TODO: This is all placeholder
     });
   }
@@ -90,7 +97,7 @@ class SignupForm extends Component {
   // }
 
   render() {
-    const { classes, pristine, submitting } = this.props
+    const { classes, pristine, submitting, handleSubmit } = this.props
     const artistType = this.props.currentValues.artistType;
     return (
       <React.Fragment>
@@ -99,7 +106,7 @@ class SignupForm extends Component {
           <Typography variant="headline" align="center">Create an Account</Typography>
           <Paper className={classes.paper}>
             <Typography variant="body2">For Artists</Typography>
-            <form className={classes.container} onSubmit={this.handleSubmit}>
+            <form className={classes.container} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" fullWidth>
                 <Field name="email" label="Email" component={TextField} />
               </FormControl>
