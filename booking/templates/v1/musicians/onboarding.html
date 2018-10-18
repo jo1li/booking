@@ -4,6 +4,10 @@
 
 {% block main %}
 <div class="container mt-5 mb-5">
-    <div id="onboarding"></div>
+    <div 
+        id="onboarding"
+        musicianId="{{ musician.pk|default_if_none:"" }}"
+        stage_name="{{ musician.stage_name }}"
+    ></div>
 </div>
 {% endblock main %}
