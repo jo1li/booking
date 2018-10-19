@@ -1,6 +1,7 @@
 from musicians.models import Musician
 
 from tests.utils import OpusTestCase
+from tests.mommy_recipes import musician_recipe
 
 import sure
 from sure import expect
@@ -60,4 +61,31 @@ class ApiArtistCreateTest(OpusTestCase):
         m.stage_name.should.equal(name)
         m.slug.should.equal(slug)
         m.account_type.should.equal(account_type)
+
+
+    def test_artist_create_unique_slug(self):
+
+        artist_list_url = self.reverse_api('artists-list')
+
+        result = self.app.get('/')
+        csrf_token = self.get_csrf_from_headers(result)
+
+        email = 'test@sink.sendgrid.net'
+        slug = 'jim-stark'
+
+        musician_recipe.make(slug=slug)
+
+        headers = {
+            'X-CSRFToken': csrf_token,
+        }
+        params = {
+            'email': email,
+            'password': 'password',
+            'account_type': 'individual',
+            'name': 'Jim Stark',
+            'slug': slug
+        }
+        result = self.app_api.post(artist_list_url, params, headers=headers)
+        result.status_code.should.equal(HTTPStatus.BAD_REQUEST)
+        result.json()['slug'][0].should.equal('This field must be unique.')
 
