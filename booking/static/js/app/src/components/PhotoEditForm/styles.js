@@ -1,4 +1,7 @@
+import editModalStyles from '../../sharedStyles/editModalStyles';
+
 const styles = theme => ({
+  ...editModalStyles(theme),
   button: {
     minWidth: '0px',
     position: 'relative',
@@ -8,16 +11,18 @@ const styles = theme => ({
     },
     backgroundColor: 'white', // Looks better when moving over other items
   },
-  container: {
-    maxWidth: '100%',
-    width: '668px',
-    padding: '20px',
-    paddingTop: '40px',
-    height: '100vh', // Prevent popping when switching between tabs of different heights
+  captionTop: {
+    margin: '0 12px 12px',
+    padding: '0!important',
+    borderBottom: `1px solid ${theme.palette.grey[200]}`,
   },
   coverPhotoIndicator: {
     alignSelf: 'center',
     marginLeft: 'auto',
+  },
+  coverPhotoIndicatorCheckMark: {
+    marginBottom: '-1px', // Wants to float up and increase height of container
+    height: '15px',
   },
   deleteButton: {
     color: theme.palette.grey[500],

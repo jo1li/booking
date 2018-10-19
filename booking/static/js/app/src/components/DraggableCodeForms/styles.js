@@ -1,11 +1,7 @@
+import editModalStyles from '../../sharedStyles/editModalStyles';
+
 const styles = theme => ({
-  container: {
-    maxWidth: '100%',
-    width: '668px',
-    padding: '20px',
-    paddingTop: '40px',
-    height: '100vh', // Prevent popping when switching between tabs of different heights
-  },
+  ...editModalStyles(theme),
   tabBody: {
     maxWidth: '100%',
     width: '100%',

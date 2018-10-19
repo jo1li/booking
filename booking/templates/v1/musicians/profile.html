@@ -37,7 +37,10 @@
 ></div>
 <div id="photo-modal"></div>
 
-<section class="artist-placeholder" style="background-image: url('{{ musician.image_hero.image.url }}');">
+<section class="artist-placeholder">
+    <div id="cover-photo-wrapper">
+        <div id="cover-photo" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
+    </div>
     <div class="container">
         <div class="photo-buttons">
             <span href="#" id="open-photo-carousel">
@@ -155,7 +158,7 @@
     window.initialState = {
         profile: {
             id: {{ musician.pk }},
-            isOwnerViewing: {% if is_owner_viewing %}true{% else %}false{% endif %}
+            image_hero_id: {{ musician.image_hero_id|default_if_none:"null" }},
         },
         photos: {{ photos_json | safe }},
     };

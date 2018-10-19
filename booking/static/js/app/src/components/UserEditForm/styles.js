@@ -1,16 +1,7 @@
-// TODO: Share more of these styles between modals
+import editModalStyles from '../../sharedStyles/editModalStyles';
+
 const styles = theme => ({
-  container: {
-    boxSizing: 'border-box',
-    maxWidth: '100%',
-    width: '100%',
-    height: '100%',
-    padding: '20px',
-    paddingTop: '40px',
-  },
-  caption: {
-    color: theme.palette.grey['A400'],
-  },
+  ...editModalStyles(theme),
   captionTop: {
     padding: '12px 0px 5px!important',
     color: theme.palette.grey['A400'],
