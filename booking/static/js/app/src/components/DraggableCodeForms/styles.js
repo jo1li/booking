@@ -61,21 +61,9 @@ const styles = theme => ({
     }
   },
 
-  // TODO: might want to move this footering stuff into its own component
-  fixedHeight: {
-    flex: 0,
-  },
-  withFooter: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
+  // TODO: Move into edit form styles once styling is consistent
   aboveFooter: {
     marginBottom: '12px',
-  },
-  footer: {
-    borderTop: `1px solid ${theme.palette.grey[200]}`,
-    padding: '20px 0 12px',
-    margin: '0 -20px', // Span full width, stepping on parent padding, so border-top looks nice
   },
 
   [theme.breakpoints.down('xs')]: {

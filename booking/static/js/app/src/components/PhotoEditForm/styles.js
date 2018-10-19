@@ -137,19 +137,7 @@ const styles = theme => ({
     objectFit: 'cover',
   },
 
-  // TODO: might want to move into a component
-  footer: {
-    borderTop: `1px solid ${theme.palette.grey[200]}`,
-    padding: '20px 0 12px',
-    margin: '0 -20px', // Span full width, stepping on parent padding, so border-top looks nice
-  },
-  withFooter: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    flex: 0,
-  },
+  // TODO: Move into edit form styles once styling is consistent
   aboveFooter: {
     padding: '12px 1px 0',
     marginBottom: '12px',
