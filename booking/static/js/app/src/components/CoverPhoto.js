@@ -13,7 +13,7 @@ const styles = (theme) => ({
 
     animationDuration: '0.4s',
     animationName: 'transition-opacity-up',
-    animationDirection: 'reverse'
+    animationDirection: 'reverse',
 
     '&:hover, &:focus': {
       outline: 'none',
