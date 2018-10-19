@@ -12,6 +12,7 @@ const styles = theme => ({
   },
   wideButton: {
     minWidth: '137px',
+    margin: theme.spacing.unit, // To match margin on raised button, allows centering
   },
   centerer: {
     paddingTop: '12px',
