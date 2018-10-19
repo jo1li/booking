@@ -1,4 +1,7 @@
+import editModalStyles from '../../sharedStyles/editModalStyles';
+
 const styles = theme => ({
+  ...editModalStyles(theme),
   button: {
     minWidth: '0px',
     position: 'relative',
@@ -12,14 +15,6 @@ const styles = theme => ({
     margin: '0 12px 12px',
     padding: '0!important',
     borderBottom: `1px solid ${theme.palette.grey[200]}`,
-  },
-  container: {
-    maxWidth: '100%',
-    width: '668px',
-    padding: '20px',
-    paddingTop: '40px',
-    paddingBottom: '40px',
-    height: '100vh', // Prevent popping when switching between tabs of different heights
   },
   coverPhotoIndicator: {
     alignSelf: 'center',
