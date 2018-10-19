@@ -8,19 +8,13 @@ const styles = (theme) => ({
   notClickable: {
   },
   clickable: {
-    opacity: '0.94',
+    opacity: '0.9',
     cursor: 'pointer',
-
-    animationDuration: '0.4s',
-    animationName: 'transition-opacity-up',
-    animationDirection: 'reverse',
+    transition: 'opacity 0.3s',
 
     '&:hover, &:focus': {
       outline: 'none',
       opacity: '1.0',
-
-      animationDuration: '0.4s',
-      animationName: 'transition-opacity-up',
     }
   },
 })
