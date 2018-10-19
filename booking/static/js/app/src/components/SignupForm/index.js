@@ -79,9 +79,9 @@ class SignupForm extends Component {
 
     return createArtist(data).then(res => {
       console.log("cookies: ", document.cookie); // missing session cookie :(
-      // if(res.status === 201) {
-      //   window.location.href = '/m/onboarding';
-      // }
+      if(res.status === 201) {
+        window.location.href = '/m/onboarding';
+      }
     })
     .catch(errors => {
       console.log('errors:', errors);
@@ -124,9 +124,9 @@ class SignupForm extends Component {
                 </FormControl>
               </div>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="artistName" 
-                  label={artistType === 'individual' ? 'Artist Name' : 'Group Name'} 
+                <Field
+                  name="artistName"
+                  label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
                   // onChange={this.handleNameChange}
                 />
@@ -136,15 +136,15 @@ class SignupForm extends Component {
                 <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
+                <Field
                   type="password"
-                  name="password" 
+                  name="password"
                   label="Password"
-                  component={TextField} 
+                  component={TextField}
                 />
               </FormControl>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={pristine || submitting}
                 fullWidth
                 variant="contained"

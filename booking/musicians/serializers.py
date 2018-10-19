@@ -170,6 +170,7 @@ class ArtistCreateSerializer(serializers.Serializer):
             username=validated_data.get('email')
         )
         u.set_password(validated_data.get('password'))
+        u.save()
 
         Musician.objects.create(user=u,
             stage_name=validated_data.get('name'),
@@ -178,7 +179,7 @@ class ArtistCreateSerializer(serializers.Serializer):
         )
 
         # This is a bit janky, I think
-        login(self.context['request'], u, backend="account.auth_backends.EmailAuthenticationBackend")
+        login(self.context['request'], u, backend="django.contrib.auth.backends.ModelBackend")
 
         return {
             'email': validated_data.get('email'),
