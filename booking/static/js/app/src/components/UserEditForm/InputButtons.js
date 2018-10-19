@@ -17,20 +17,17 @@ const InputButtons = (props) => {
     const fullWidth = 12;
     const count = React.Children.count(children);
 
-    const mediumInput = fullWidth - count;
-    const smallInput = mediumInput - Math.floor(count * 0.5);
-
-    const mediumButtons = fullWidth - mediumInput;
+    const smallInput = fullWidth - count - Math.floor(count * 0.5);
     const smallButtons = fullWidth - smallInput;
 
     return (
         <Fragment>
-          <Grid item xs={12} sm={smallInput} md={mediumInput} lg={10}>
+          <Grid item xs={12} sm={smallInput} md={9} lg={9}>
                 <Field
                   {...remainingProps}
                 />
             </Grid>
-            <Grid item zeroMinWidth xs={12} sm={smallButtons} md={mediumButtons} lg={2}>
+            <Grid item zeroMinWidth xs={12} sm={smallButtons} md={3} lg={3}>
                <Grid
                   container
                   justify={isNotMobile ? "flex-end" : "center"}
