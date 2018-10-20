@@ -69,9 +69,16 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
+// Doesnt seem to work, since we're not using Field components
+// https://redux-form.com/7.4.2/examples/syncvalidation/
+const validate = values => {
+  return {'videos[0].code': 'somethings wrong'};
+}
+
 let VideoEditFormBase = compose(
   reduxForm({
     form: EDIT_VIDEOS,
+    validate, // <--- validation function given to redux-form
     // This allows `initialValues` to be updated below
     enableReinitialize: true,
   }),

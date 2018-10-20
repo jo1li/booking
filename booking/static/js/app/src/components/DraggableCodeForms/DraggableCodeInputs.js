@@ -11,6 +11,11 @@ import { DeleteButton } from '../form/FabButton';
 import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
 
 class DraggableCodeInput extends Component {
+
+  validate() {
+    console.log("DraggableCodeInput.validate")
+  }
+
   render() {
     const {
       order,
@@ -22,6 +27,8 @@ class DraggableCodeInput extends Component {
       itemName,
       placeholder,
     } = this.props;
+
+    console.log("DraggableCodeInput.render", this.props)
 
     return (
       <div

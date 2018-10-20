@@ -22,6 +22,8 @@ const InputButtons = (props) => {
     const mediumButtons = fullWidth - mediumInput;
     const smallButtons = fullWidth - smallInput;
 
+    console.log("InputButtons", remainingProps)
+
     return (
       <Fragment>
         <Reverse If={isMobile}>

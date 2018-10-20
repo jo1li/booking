@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
+import SubmissionError from 'redux-form/lib/SubmissionError'
 
 import CancelConfirm from '../CancelConfirm';
 import DraggableCodeInputs from './DraggableCodeInputs';
@@ -67,6 +68,7 @@ class CodeFormBase extends Component {
     const currentItems = this.getItemsWithCodes();
     const initialItems = initialValues[itemName];
 
+    // NB itemsToUpdate only includes items that have been changed
     const itemsToUpdate = getUpdatedItems({
       currentItems,
       initialItems,
@@ -74,6 +76,65 @@ class CodeFormBase extends Component {
     });
     const itemsToCreate = getCreatedItems({currentItems});
     const itemsToDestroy = getDestroyedItems({currentItems, initialItems});
+
+    const checkableItems = itemsToUpdate.concat(itemsToCreate)
+
+    console.log("submit", checkableItems)
+
+    const checkableResults = _.map(checkableItems, (item) => {
+
+      console.log("submit ***************************", item.code);
+      // TODO: move this into a prop
+      const videoHosts = [
+        "youtube.com"
+      ]
+
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(item.code, "text/html");
+      var iframe = doc.body.childNodes[0]
+
+      // Make sure
+      if( iframe.tagName !== 'IFRAME' ) {
+        return {order: item.order, error: "Code is not an iframe."};
+      }
+
+      if( !iframe.hasAttribute('src') ) {
+        return {order: item.order, error: "Iframe code has no src attribute"};
+      }
+
+      const src = new URL(iframe.src);
+      const src_results = _.map(videoHosts, (host) =>{
+        return (src.toString().indexOf(host) !== -1);
+      });
+
+      const has_valid_src = src_results.some((element, index, array) => {
+        return element === true;
+      })
+
+      if( has_valid_src ) {
+        return null;
+      } else {
+        return {order: item.order, error: "Please paste an embed code."}
+      }
+
+    });
+
+    console.log("submit checkableResults", checkableResults)
+
+    const has_errors = checkableResults.some((element, index, array) => {
+      return element !== null;
+    });
+
+    console.log("submit has_errors", has_errors);
+
+    if(has_errors) {
+      console.log("submit show errors");
+      // throw new SubmissionError({
+      //   "videos[0].code": 'User does not exist',
+      // })
+      return;
+    }
+
 
     const updateRequests = _.map(itemsToUpdate, (item) => {
       updateArtistItem({
@@ -129,6 +190,9 @@ class CodeFormBase extends Component {
       submitSucceeded,
     } = this.props;
 
+    console.log("CodeFormBase", this.props);
+    console.log("currentValues", currentValues.videos);
+
     return (
       <Grid container spacing={24}>
         <TabbedList
@@ -171,6 +235,7 @@ class CodeFormBase extends Component {
 
 const DraggableCodeFormBase = (props) => {
   const { classes, itemName, formName, currentValues, change } = props;
+  console.log("DraggableCodeFormBase", props)
   return (
     <DroppableContainer
         change={change}

@@ -34,7 +34,14 @@ let TextArea = (props) => {
     className,
   } = props;
 
+  var touched = false;
+  var error = false;
+  var warning = false;
+
+  console.log("TextArea", props);
+
   return (
+      <div>
         <Input
             multiline
             fullWidth
@@ -47,6 +54,10 @@ let TextArea = (props) => {
             }}
             className={classNames(classes.textArea, className)}
         />
+        <div>
+          {touched && (error && <span>{error}</span>)}
+        </div>
+      </div>
     )
   }
 
