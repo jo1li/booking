@@ -11,15 +11,6 @@ from http import HTTPStatus
 
 class ApiArtistCreateTest(OpusTestCase):
 
-    def get_csrf_from_headers(self, result):
-
-        for header in result.headerlist:
-            if header[0] == 'Set-Cookie':
-                if 'csrftoken' in header[1]:
-                    tokenstr = header[1].split(';')[0]
-                    return tokenstr.replace('csrftoken=', '').strip()
-
-
     def test_artist_create(self):
 
         artist_list_url = self.reverse_api('artists-list')
