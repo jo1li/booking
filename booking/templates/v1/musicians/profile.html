@@ -115,7 +115,7 @@
             </div>
             <div class="col-md-8">
 
-                <div class="slider-section">
+                <div class="slider-section{% if is_owner_viewing is False and videos_present is False %} hidden{% endif %}">
                     <div class="category edit-box">
                         <h2 class="subheading">Videos</h2>
                         <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-videos" src="{% static 'images/edit.png' %}" alt="Edit videos."></div>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
 
-                <div class="slider-section">
+                <div class="slider-section{% if is_owner_viewing is False and audios_present is False %} hidden{% endif %}">
                     <div class="category edit-box">
                         <h2 class="subheading">Audio</h2>
                         <div class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img class="open-edit-audios" src="{% static 'images/edit.png' %}" alt="Edit audio tracks."></div>
