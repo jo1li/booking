@@ -162,7 +162,9 @@ class ArtistCreateSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=200)
     account_type = serializers.ChoiceField([c[0] for c in Musician.ACCOUNT_TYPE_CHOICES])
     name = serializers.CharField()
-    email = serializers.EmailField()
+    email = serializers.EmailField(
+            validators=[UniqueValidator(queryset=OpusUser.objects.all())]
+        )
     slug = serializers.SlugField(
             validators=[UniqueValidator(queryset=Musician.objects.all())]
         )
@@ -183,7 +185,8 @@ class ArtistCreateSerializer(serializers.Serializer):
             account_type=validated_data.get('account_type')
         )
 
-        # This is a bit janky, I think
+        # Start a web session
+        #   If we ever cut to token auth, revisit this.
         login(self.context['request'], u, backend="django.contrib.auth.backends.ModelBackend")
 
         return {
