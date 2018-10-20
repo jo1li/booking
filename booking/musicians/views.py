@@ -11,9 +11,12 @@ from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideo
 from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
 
 from rest_framework import viewsets, mixins, permissions
+from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.views import APIView
+
 
 
 class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
@@ -187,6 +190,21 @@ class ArtistViewSet(mixins.ListModelMixin,
                 setattr(serializer, i, self.request.data.get(i))
 
         return mixins.UpdateModelMixin.perform_update(self, serializer)
+
+
+class ArtistSlugExists(APIView):
+    """
+    View to check if artist slug already exists
+    """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, format=None, version=None):
+        """
+        Return a list of all users.
+        """
+        return Response({
+            'exists': Musician.objects.filter(slug=request.query_params.get('slug')).exists()
+            })
 
 
 def profile(request, slug=None):

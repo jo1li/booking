@@ -84,3 +84,31 @@ class ApiArtistCreateTest(OpusTestCase):
         result.json()['slug'][0].should.equal('This field must be unique.')
         result.json()['email'][0].should.equal('This field must be unique.')
 
+
+    def test_artist_create_slug_exists(self):
+
+        artist_check_url = self.reverse_api('artist-slug-exists')
+
+        result = self.app.get('/')
+        csrf_token = self.get_csrf_from_headers(result)
+
+        email = 'test@sink.sendgrid.net'
+        slug = 'jim-stark'
+
+        musician_recipe.make(
+            user=user_musician_recipe.make(email=email),
+            slug=slug
+        )
+
+        headers = {
+            'X-CSRFToken': csrf_token,
+        }
+        params = {
+            'slug': slug
+        }
+        result = self.app_api.get(artist_check_url, params, headers=headers)
+        result.json()['exists'].should.equal(True)
+
+
+        result = self.app_api.get(artist_check_url, {'slug': 'doesnt-exist'}, headers=headers)
+        result.json()['exists'].should.equal(False)
