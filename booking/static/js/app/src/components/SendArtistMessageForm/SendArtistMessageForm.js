@@ -14,15 +14,18 @@ import CancelConfirm from '../CancelConfirm';
 import Input from '../form/Input';
 import TextArea from '../form/TextArea';
 import { Display1 } from '../typography';
+import { SubmissionError } from 'redux-form'
 
 import {
-  updateUserBio,
+  sendArtistMessage,
 } from '../../request/requests';
 
 import styles from './styles';
 
 // TODO put in constants file
 const SEND_ARTIST_MESSAGE = 'SEND_ARTIST_MESSAGE';
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class SendArtistMessageForm extends Component {
   constructor(props) {
@@ -34,25 +37,42 @@ class SendArtistMessageForm extends Component {
   submit(values) {
     const {
       musicianid,
-      updateUserBio,
+      sendArtistMessage,
       closeDialog
     } = this.props;
 
-    console.log("SendArtistMessageForm.submit", values);
+    console.log("SendArtistMessageForm.submit values", values);
 
-    // return updateUserBio(values, musicianid).then(res => {
-    //     // TODO: Don't *actually* refresh the page, but update with submitted values
-    //     //    temporary stopgap to allow team members to test w/ out
-    //     setTimeout(() => {
-    //       window.location.reload(true);
-    //     }, 1000);
-    // })
-    // .catch(errors => {
-    //   console.log('errors', errors);
-    //   // throw new SubmissionError({
-    //   //   image: errors.image.join(', ')
-    //   // })
-    // });
+    var errors = {};
+
+    // @TOOD: could prob be collapsed into an elegant loop
+    if( !('name' in values ) ) {
+      errors['name'] = true;
+    }
+
+    if( !('email' in values ) ) {
+      errors['email'] = true;
+    }
+
+    if( !('message' in values ) ) {
+      errors['message'] = true;
+    }
+
+    if(Object.keys(errors).length > 0) {
+      throw new SubmissionError(errors);
+    }
+
+    return sleep(100)
+      .then(() => {
+        return sendArtistMessage(musicianid, values);
+      }).then((res) => {
+        console.log("SendArtistMessageForm.submit res", res);
+        // close the dialog, somehow
+      })
+      .catch(errors => {
+        console.log('SendArtistMessageForm.submit API errors', errors);
+      });
+
   }
 
   render() {
@@ -97,9 +117,9 @@ class SendArtistMessageForm extends Component {
                   <Field
                       component={TextArea}
                       className={classes.textArea}
-                      id="bio"
-                      label="bio"
-                      name="bio"
+                      id="message"
+                      label="message"
+                      name="message"
                       placeholder="Your message"
                       type="textarea"
                       multiline
@@ -124,6 +144,7 @@ class SendArtistMessageForm extends Component {
 
 const mapStateToProps = (state, props) => ({
   musicianId: props.musicianId,
+  sendArtistMessage: sendArtistMessage
 })
 
 SendArtistMessageForm = compose(

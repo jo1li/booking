@@ -6,6 +6,10 @@ export const updateUserBio = (data, id) => {
     return request.put(`/v1/artists/${id}/`, getFormData(data));
 }
 
+export const sendArtistMessage = ({artistId, data}) => {
+    return request.put(`/v1/artists/${artistId}/message/`, data);
+}
+
 // TODO: autogenerate basic CRUD requests
 
 export const getVideos = ({artistId}) => {
