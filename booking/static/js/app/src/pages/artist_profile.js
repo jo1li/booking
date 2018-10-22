@@ -1,6 +1,7 @@
 import RenderFromDomNode from '../renderFromDomNode';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
+import SendArtistMessageForm from '../components/SendArtistMessageForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
 import PhotoEditForm from '../components/PhotoEditForm';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
@@ -11,6 +12,14 @@ import CoverPhoto from '../components/CoverPhoto';
 import { ClickToOpenDialog } from '../components/Dialog';
 
 export default function render_artist_profile() {
+
+    RenderFromDomNode({
+        Component: ClickToOpenDialog({
+                triggerSelector: '#open-send-artist-message-form',
+                DialogContent: SendArtistMessageForm,
+            }),
+        node: 'send-artist-message-form',
+    });
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
