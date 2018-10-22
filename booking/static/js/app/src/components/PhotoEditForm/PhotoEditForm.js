@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import ActionCreators from '../../actions/actionCreators';
@@ -162,33 +162,35 @@ class PhotoEditFormBase extends Component {
       profile,
     } = this.props;
 
-    return <Grid container spacing={24}>
-      <Grid item className={classes.caption} xs={12} sm={12} md={12} lg={12}>
-        <Display1>Edit Photos</Display1>
-      </Grid>
-      <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-        <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
-          <DraggablePhotoRows
-              items={currentValues.photos}
-              pendingItems={pendingPhotos}
-              itemName={'photos'}
-              classes={classes}
-              width={width}
-              heroImageURL={profile.hero_image_url}
-              remove={(order) => this.removeItemFromForm(order)} />
-          <PhotoUploadButton
-              className={classes.photoEditFormSubmitButton}
-              label={'+ Upload Photo'}
-              handleChange={this.previewAndUpload} />
-        </form>
+    return (
+      <Fragment>
+        <Grid item className={`${classes.caption} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
+          <Display1>Edit Photos</Display1>
+        </Grid>
+        <Grid item className={classes.aboveFooter} xs={12} sm={12} md={12} lg={12}>
+          <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
+            <DraggablePhotoRows
+                items={currentValues.photos}
+                pendingItems={pendingPhotos}
+                itemName={'photos'}
+                classes={classes}
+                width={width}
+                heroImageURL={profile.hero_image_url}
+                remove={(order) => this.removeItemFromForm(order)} />
+            <PhotoUploadButton
+                className={classes.photoEditFormSubmitButton}
+                label={'+ Upload Photo'}
+                handleChange={this.previewAndUpload} />
+          </form>
+        </Grid>
         <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={this.submit}
             isLoading={submitting}
             success={submitSucceeded}
-            isContainer={false} />
-      </Grid>
-    </Grid>
+            className={classes.footer} />
+      </Fragment>
+    )
   }
 }
 
@@ -198,7 +200,7 @@ const DroppablePhotoEditFormBase = (props) => {
     <DroppableContainer
         change={change}
         currentValues={currentValues}
-        className={classes.container}
+        className={`${classes.container} ${classes.withFooter}`}
         itemName='photos' >
       <PhotoEditFormBase {...props} itemName='photos' />
     </DroppableContainer>
