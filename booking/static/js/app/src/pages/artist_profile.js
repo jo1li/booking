@@ -1,6 +1,7 @@
 import RenderFromDomNode from '../renderFromDomNode';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
+import ProfilePhotoEditor from '../components/ProfilePhotoEditor';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
 import PhotoEditForm from '../components/PhotoEditForm';
 import { AudioCarousel, VideoCarousel } from '../components/Carousels';
@@ -18,6 +19,14 @@ export default function render_artist_profile() {
                 DialogContent: UserEditForm,
             }),
         node: 'user-edit-form',
+    });
+
+    RenderFromDomNode({
+        Component: ClickToOpenDialog({
+                triggerSelector: '#open-edit-profile-photo',
+                DialogContent: ProfilePhotoEditor,
+            }),
+        node: 'profile-photo-editor',
     });
 
     RenderFromDomNode({
