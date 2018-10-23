@@ -32,20 +32,18 @@ let TextArea = (props) => {
   const {
     classes,
     className,
+    touched,
+    error,
+    warning,
+    ...rest,
   } = props;
-
-  var touched = false;
-  var error = false;
-  var warning = false;
-
-  console.log("TextArea", props);
 
   return (
       <div>
         <Input
             multiline
             fullWidth
-            {...props}
+            {...rest}
             rows={10}
             type="textArea"
             classes={{

@@ -72,7 +72,13 @@ const mapDispatchToProps = (dispatch) => {
 // Doesnt seem to work, since we're not using Field components
 // https://redux-form.com/7.4.2/examples/syncvalidation/
 const validate = values => {
-  return {'videos[0].code': 'somethings wrong'};
+  return {
+    videos: [
+      { code: 'somethings wrong'},
+      { code: 'somethings wrong 2'},
+      { code: 'somethings wrong 3'},
+    ]
+  };
 }
 
 let VideoEditFormBase = compose(
