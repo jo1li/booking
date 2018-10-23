@@ -41,6 +41,7 @@ class SendArtistMessageForm extends Component {
       closeDialog
     } = this.props;
 
+    console.log("SendArtistMessageForm.submit props", this.props);
     console.log("SendArtistMessageForm.submit values", values);
 
     var errors = {};
@@ -143,7 +144,6 @@ class SendArtistMessageForm extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  musicianId: props.musicianId,
   sendArtistMessage: sendArtistMessage
 })
 
