@@ -15,18 +15,21 @@ import SelectState from '../form/SelectState';
 import SelectField from './SelectField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
-import ImageUploadContainer from '../form/ImageUploadContainer';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import UploadDropZone from './UploadDropZone';
 import isEmpty from "lodash/isEmpty";
+
+import IconSpotify from '../ArtistCard/IconSpotify';
+import IconFacebook from '../ArtistCard/IconFacebook';
+import IconInstagram from '../ArtistCard/IconInstagram';
 
 import { 
   updateUserBio,
@@ -129,6 +132,22 @@ const normalizeTagline = (tagline) => {
   }
 }
 
+const FacebookAdornment = (
+  <InputAdornment position="start">
+    <IconFacebook active/>
+  </InputAdornment>
+)
+const InstagramAdornment = (
+  <InputAdornment position="start">
+    <IconInstagram active/>
+  </InputAdornment>
+)
+const SpotifyAdornment = (
+  <InputAdornment position="start">
+    <IconSpotify active/>
+  </InputAdornment>
+)
+
 class OnboardingForm extends Component {
 
   state = {
@@ -222,6 +241,9 @@ class OnboardingForm extends Component {
                   label="Facebook Page"
                   placeholder="https://"
                   component={TextField}
+                  InputProps = {{
+                    startAdornment: FacebookAdornment
+                  }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -230,6 +252,9 @@ class OnboardingForm extends Component {
                   label="Instagram Profile"
                   placeholder="https://"
                   component={TextField}
+                  InputProps = {{
+                    startAdornment: InstagramAdornment
+                  }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -238,6 +263,9 @@ class OnboardingForm extends Component {
                   label="Spotify Artist Page"
                   placeholder="https://"
                   component={TextField}
+                  InputProps = {{
+                    startAdornment: SpotifyAdornment
+                  }}
                 />
               </FormControl>
               <Grid container spacing={16}>
