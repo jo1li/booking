@@ -15,13 +15,18 @@ import SelectState from '../form/SelectState';
 import SelectField from './SelectField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
+import ImageUploadContainer from '../form/ImageUploadContainer';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 
+import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+
+import UploadDropZone from './UploadDropZone';
+import isEmpty from "lodash/isEmpty";
 
 import { 
   updateUserBio,
@@ -62,6 +67,36 @@ const styles = theme => ({
   city: {
     maxWidth: '100%',
   },
+  uploadArea: {
+    width: '100%',
+    backgroundColor: theme.palette.grey[100],
+    borderRadius: 3,
+    cursor: 'pointer',
+    display: 'inline-block',
+    overflow: 'hidden',
+    '&:hover': {
+      backgroundColor: theme.palette.grey[200],
+    },
+    '& ul li': {
+      margin: 0,
+      padding: `${theme.spacing.unit/2}px`,
+      listStyleType: 'none',
+      lineHeight: '0px',
+    },
+    '& ul': {
+      margin: 0,
+      padding: 0,
+    },
+    '& img': {
+      width: 100,
+      height: 50,
+      borderRadius: 2,
+      backgroundColor: theme.palette.primary.light,
+      MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.25)',
+      WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.25)',
+      BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.25)',
+    },
+  },
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing.unit,
@@ -75,6 +110,7 @@ const styles = theme => ({
 
 const TAGLINE_CHARS_MAX = 60
 const GENRES_MAX = 3
+const imageIsRequired = value => (isEmpty(value) ? "Required" : undefined);
 
 const normalizeGenres = (genres) => {
   if (!genres) {
@@ -97,6 +133,7 @@ class OnboardingForm extends Component {
 
   state = {
     genres: [],
+    imageFile: [],
   }
 
   componentWillMount() {
@@ -109,6 +146,11 @@ class OnboardingForm extends Component {
 
   submit = (values) => {
     const { updateUserBio } = this.props;
+
+    const fd = new FormData();
+    fd.append("imageFile", values.imageToUpload[0]);
+    // append any additional Redux Form fields
+    // create request here with the created formData
 
     // return updateUserBio(values).then(res => {
     //   // TODO: This is all placeholder
@@ -123,16 +165,31 @@ class OnboardingForm extends Component {
     // });
   }
 
+  handleFileDrop = newImageFile => {
+    console.log(newImageFile);
+    this.setState({ imageFile: newImageFile });
+  };
+  resetFile = () => this.setState({ imageFile: [] });
+
   render() {
-    const { classes, pristine, submitting, handleSubmit } = this.props
+    const { classes, pristine, submitting, handleSubmit, change } = this.props
     return (
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
           <Typography variant="headline" align="center">Onboarding</Typography>
           <Paper className={classes.paper}>
-            <Typography variant="body2">For Artists</Typography>
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
+              <FormControl margin="normal" className={classes.uploadArea} fullWidth>
+                <Field
+                  name="imageToUpload"
+                  component={UploadDropZone}
+                  type="file"
+                  imagefile={this.state.imageFile}
+                  handleOnDrop={this.handleFileDrop}
+                  validate={[imageIsRequired]}
+                />
+              </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
                   name="tagline" 
