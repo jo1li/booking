@@ -8,12 +8,13 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer, ArtistMessageSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.generics import GenericAPIView
 
 
 class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
@@ -187,6 +188,20 @@ class ArtistViewSet(mixins.ListModelMixin,
                 setattr(serializer, i, self.request.data.get(i))
 
         return mixins.UpdateModelMixin.perform_update(self, serializer)
+
+
+class ArtistMessageViewSet(mixins.CreateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    View to send an artist message
+    """
+
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = ArtistMessageSerializer
+
+
+    def create(self, *args, **kwargs):
+        return mixins.CreateModelMixin.create(self, *args, **kwargs)
 
 
 def profile(request, slug=None):

@@ -1,6 +1,7 @@
 from home.models import OpusUser
 
 from django.contrib.auth import login
+from django.core.mail import EmailMessage
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from rest_framework import serializers
@@ -192,3 +193,43 @@ class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Musician
         fields = artist_fields
+
+
+
+class ArtistMessageSerializer(serializers.Serializer):
+
+    email = serializers.EmailField()
+    name = serializers.CharField()
+    message = serializers.CharField(max_length=10240)
+    sent = serializers.BooleanField(read_only=True, required=False)
+
+
+    def create(self, validated_data):
+
+        print("ArtistMessageSerializer")
+
+        m = Musician.objects.get(pk=self.context['view'].kwargs['artist_pk'])
+
+        print(m.user.email)
+
+        email = EmailMessage(
+            'A message from Opus',
+            validated_data.get('message'),
+            validated_data.get('email'),
+            [m.user.email, 'chris@opsulive.io'],
+            ['bcc@example.com'],
+            reply_to=[validated_data.get('email')],
+        )
+        print(email)
+
+        result = email.send(fail_silently=False)
+        print(result)
+
+
+
+        return {
+            'email': validated_data.get('email'),
+            'name': validated_data.get('name'),
+            'message': validated_data.get('message'),
+            'sent': True
+        }
