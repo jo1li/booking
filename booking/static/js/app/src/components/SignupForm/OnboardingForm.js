@@ -12,10 +12,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from './TextField';
 import SelectState from '../form/SelectState';
+import SelectField from './SelectField';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 
 import InputLabel from '@material-ui/core/InputLabel';
@@ -70,6 +73,26 @@ const styles = theme => ({
   },
 });
 
+const TAGLINE_CHARS_MAX = 60
+const GENRES_MAX = 3
+
+const normalizeGenres = (genres) => {
+  if (!genres) {
+    return genres
+  }
+  if (Array.isArray(genres)) {
+    return genres.slice(0,GENRES_MAX);
+  }
+}
+const normalizeTagline = (tagline) => {
+  if (!tagline) {
+    return tagline
+  }
+  if (tagline) {
+    return tagline.slice(0,TAGLINE_CHARS_MAX)
+  }
+}
+
 class OnboardingForm extends Component {
 
   state = {
@@ -117,6 +140,47 @@ class OnboardingForm extends Component {
                   multiline={true} 
                   maxLength="90"
                   component={TextField}
+                  normalize={normalizeTagline}
+                />
+                <FormHelperText>Up to 60 characters long</FormHelperText>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field 
+                  name="genres" 
+                  component={SelectField} 
+                  label="Genres" 
+                  multiple
+                  format={value => value || []}
+                  normalize={normalizeGenres}
+                >
+                  {this.state.genres.map(genre => (
+                    <MenuItem key={genre} value={genre}>{genre}</MenuItem>
+                  ))}
+                </Field>
+                <FormHelperText>Select up to three</FormHelperText>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field 
+                  name="facebook_url" 
+                  label="Facebook Page"
+                  placeholder="https://"
+                  component={TextField}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field 
+                  name="instagram_url" 
+                  label="Instagram Profile"
+                  placeholder="https://"
+                  component={TextField}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field 
+                  name="spotify_url" 
+                  label="Spotify Artist Page"
+                  placeholder="https://"
+                  component={TextField}
                 />
               </FormControl>
               <Grid container spacing={16}>
@@ -143,30 +207,6 @@ class OnboardingForm extends Component {
                   </FormControl>
                 </Grid>
               </Grid>
-              <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="facebook_url" 
-                  label="Facebook Page"
-                  placeholder="https://"
-                  component={TextField}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="instagram_url" 
-                  label="Instagram Profile"
-                  placeholder="https://"
-                  component={TextField}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="spotify_url" 
-                  label="Spotify Artist Page"
-                  placeholder="https://"
-                  component={TextField}
-                />
-              </FormControl>
               <Button 
                 type="submit" 
                 disabled={pristine || submitting}
@@ -185,14 +225,14 @@ class OnboardingForm extends Component {
   }
 }
 
-OnboardingForm = withStyles(styles, { withTheme: true })(OnboardingForm)
+OnboardingForm = withStyles(styles)(OnboardingForm)
 
 OnboardingForm = reduxForm({
   form: ARTIST_ONBOARDING,
 })(OnboardingForm);
 
 const mapStateToProps = (state, props) => ({
-  initialValues: {},
+  initialValues: {city: "New York", state: "NY"},
   currentValues: getFormValues(ARTIST_ONBOARDING)(state) || {},
 
   // TODO this should go into bindActionCreators and be used as an action
