@@ -78,7 +78,6 @@ class SignupForm extends Component {
     const { createArtist } = this.props;
 
     return createArtist(data).then(res => {
-      console.log("cookies: ", document.cookie); // missing session cookie :(
       if(res.status === 201) {
         window.location.href = '/m/onboarding';
       }

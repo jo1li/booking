@@ -7,6 +7,7 @@ import {
   getFormValues,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -113,7 +114,7 @@ const styles = theme => ({
 
 const TAGLINE_CHARS_MAX = 60
 const GENRES_MAX = 3
-const imageIsRequired = value => (isEmpty(value) ? "Required" : undefined);
+const imageIsRequired = value => (isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined);
 
 const normalizeGenres = (genres) => {
   if (!genres) {
@@ -152,7 +153,7 @@ class OnboardingForm extends Component {
 
   state = {
     genres: [],
-    imageFile: [],
+    imageFile: {},
   }
 
   componentWillMount() {
@@ -164,34 +165,29 @@ class OnboardingForm extends Component {
   }
 
   submit = (values) => {
-    const { updateUserBio } = this.props;
+    const { updateUserBio, musicianid, stagename } = this.props;
 
-    const fd = new FormData();
-    fd.append("imageFile", values.imageToUpload[0]);
-    // append any additional Redux Form fields
-    // create request here with the created formData
+    const data = Object.assign({}, values, {
+      genres: values.genres,
+      image: _.get(values, 'image.0'),
+    });
 
-    // return updateUserBio(values).then(res => {
-    //   // TODO: This is all placeholder
-    //   if(res.status === 200) {
-    //     console.log("submitted successfully");
-    //   }
-
-    // })
-    // .catch(errors => {
-    //   console.log('errors', errors);
-    //   // TODO: This is all placeholder
-    // });
+    return updateUserBio(data, musicianid).then(res => {
+      if(res.status === 200) {
+        window.location.href = `/m/${stagename}`;
+      }
+    })
+    .catch(errors => {
+      console.log('errors', errors);
+    });
   }
 
   handleFileDrop = newImageFile => {
-    console.log(newImageFile);
-    this.setState({ imageFile: newImageFile });
-  };
-  resetFile = () => this.setState({ imageFile: [] });
+    this.setState({ imageFile: newImageFile })
+  }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit, change } = this.props
+    const { classes, pristine, submitting, handleSubmit } = this.props
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -201,7 +197,7 @@ class OnboardingForm extends Component {
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" className={classes.uploadArea} fullWidth>
                 <Field
-                  name="imageToUpload"
+                  name="image"
                   component={UploadDropZone}
                   type="file"
                   imagefile={this.state.imageFile}
@@ -211,10 +207,10 @@ class OnboardingForm extends Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
-                  name="tagline" 
+                  name="bio_short" 
                   label="Tagline"
                   multiline={true} 
-                  maxLength="90"
+                  maxLength="60"
                   component={TextField}
                   normalize={normalizeTagline}
                 />
@@ -237,7 +233,7 @@ class OnboardingForm extends Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
-                  name="facebook_url" 
+                  name="facebook" 
                   label="Facebook Page"
                   placeholder="https://"
                   component={TextField}
@@ -248,7 +244,7 @@ class OnboardingForm extends Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
-                  name="instagram_url" 
+                  name="instagram" 
                   label="Instagram Profile"
                   placeholder="https://"
                   component={TextField}
@@ -259,7 +255,7 @@ class OnboardingForm extends Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
-                  name="spotify_url" 
+                  name="spotify" 
                   label="Spotify Artist Page"
                   placeholder="https://"
                   component={TextField}
@@ -272,7 +268,7 @@ class OnboardingForm extends Component {
                 <Grid item style={{flexGrow: 1}}>
                   <FormControl margin="normal" fullWidth>
                     <Field 
-                      name="city" 
+                      name="hometown" 
                       label="City" 
                       component={TextField}
                     />
@@ -324,6 +320,7 @@ const mapStateToProps = (state, props) => ({
   updateUserBio: updateUserBio,
   getGenres: getGenres,
   musicianId: props.musicianId,
+  stagename: props.stage_name,
 })
 
 export default connect(mapStateToProps)(OnboardingForm);
