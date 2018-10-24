@@ -9,6 +9,7 @@ import PhotoModalButton from '../components/PhotoModalButton';
 import EditPhotosButton from '../components/EditPhotosButton';
 import CoverPhoto from '../components/CoverPhoto';
 import { ClickToOpenDialog } from '../components/Dialog';
+import _ from 'lodash';
 
 export default function render_artist_profile() {
 
@@ -66,8 +67,9 @@ export default function render_artist_profile() {
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
-            triggerSelector: '#open-photo-carousel',
+            triggerSelector: '#open-photo-carousel, #cover-photo-wrapper',
             DialogContent: PhotoCarouselModal,
+            getIsDisabled: (state) => !_.size(state.photos),
         }),
         node: 'photo-modal',
     });
