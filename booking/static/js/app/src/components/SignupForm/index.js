@@ -21,6 +21,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 import { createArtist } from '../../request/requests';
 
@@ -63,6 +65,16 @@ const styles = theme => ({
     paddingTop: `${theme.spacing.unit * 2}px`,
   },
 });
+
+const normalizeHandle = (handle) => {
+  if (!handle) {
+    return handle
+  } else {
+    // replace any non-alphanumeric character (spaces, ampersands, etc)
+    // with a dash, and lowercase the string
+    return handle.replace(/\W+/g, '-').toLowerCase();
+  }
+}
 
 class SignupForm extends Component {
 
@@ -131,8 +143,16 @@ class SignupForm extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field name="artistHandle" label="Handle" component={TextField} />
-                <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText>
+                <Field 
+                  name="artistHandle" 
+                  label="Your Opus URL" 
+                  component={TextField}
+                  normalize={normalizeHandle}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">opuslive.io/m/</InputAdornment>,
+                  }}
+                />
+                {/* <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText> */}
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
