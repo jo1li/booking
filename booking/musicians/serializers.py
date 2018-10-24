@@ -195,7 +195,6 @@ class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
         fields = artist_fields
 
 
-
 class ArtistMessageSerializer(serializers.Serializer):
 
     email = serializers.EmailField()
@@ -206,11 +205,7 @@ class ArtistMessageSerializer(serializers.Serializer):
 
     def create(self, validated_data):
 
-        print("ArtistMessageSerializer")
-
         m = Musician.objects.get(pk=self.context['view'].kwargs['artist_pk'])
-
-        print(m.user.email)
 
         email = EmailMessage(
             'A message from Opus',
@@ -220,12 +215,7 @@ class ArtistMessageSerializer(serializers.Serializer):
             ['bcc@example.com'],
             reply_to=[validated_data.get('email')],
         )
-        print(email)
-
-        result = email.send(fail_silently=False)
-        print(result)
-
-
+        email.send(fail_silently=False)
 
         return {
             'email': validated_data.get('email'),

@@ -41,12 +41,9 @@ class SendArtistMessageForm extends Component {
       closeDialog
     } = this.props;
 
-    console.log("SendArtistMessageForm.submit props", this.props);
-    console.log("SendArtistMessageForm.submit values", values);
-
     var errors = {};
 
-    // @TOOD: could prob be collapsed into an elegant loop
+    // @TODO: could prob be collapsed into an elegant loop
     if( !('name' in values ) ) {
       errors['name'] = true;
     }
@@ -56,10 +53,13 @@ class SendArtistMessageForm extends Component {
     }
 
     if( !('message' in values ) ) {
+      // TODO: Textarea doesn't show errors, although there
+      //      is work being done to make it show errors.
       errors['message'] = true;
     }
 
     if(Object.keys(errors).length > 0) {
+      // TODO: This works, but only seems to show one error at a time.
       throw new SubmissionError(errors);
     }
 
@@ -67,13 +67,8 @@ class SendArtistMessageForm extends Component {
       .then(() => {
         return sendArtistMessage(musicianid, values);
       }).then((res) => {
-        console.log("SendArtistMessageForm.submit res", res);
-        // close the dialog, somehow
+        closeDialog();
       })
-      .catch(errors => {
-        console.log('SendArtistMessageForm.submit API errors', errors);
-      });
-
   }
 
   render() {
