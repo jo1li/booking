@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
+import Mousetrap from 'mousetrap';
 import Empty from '../Empty';
 
 /**
@@ -31,10 +32,12 @@ const DialogStateManager = Dialog => WrappedComponent => {
                 isOpen: true,
                 content,
             })
+            Mousetrap.bind('escape', this.closeDialog);
         }
 
         closeDialog() {
             this.setState(DialogWrapper.initialState);
+            Mousetrap.unbind('escape');
         }
 
         render() {
