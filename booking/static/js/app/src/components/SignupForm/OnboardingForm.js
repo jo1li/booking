@@ -114,7 +114,9 @@ const styles = theme => ({
 
 const TAGLINE_CHARS_MAX = 60
 const GENRES_MAX = 3
-const imageIsRequired = value => (isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined);
+const imageIsRequired = value =>  {
+  isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
+}
 
 const normalizeGenres = (genres) => {
   if (!genres) {
@@ -127,8 +129,7 @@ const normalizeGenres = (genres) => {
 const normalizeTagline = (tagline) => {
   if (!tagline) {
     return tagline
-  }
-  if (tagline) {
+  } else {
     return tagline.slice(0,TAGLINE_CHARS_MAX)
   }
 }
