@@ -25,7 +25,7 @@ const RadioGroupWithReduxForm = ({
     />
     {touched
       && error && (
-        <FormHelperText className="x-error" error>
+        <FormHelperText error="true">
           {error}
         </FormHelperText>
     )}

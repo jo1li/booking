@@ -105,6 +105,16 @@ class SignupForm extends Component {
       errors.email = 'Email is invalid. Please check for typos.';
     }
 
+    // name validation
+    if(!data.name) {
+      errors.artistName = 'An artist name is required.';
+    }
+
+    // handle validation
+    if(!data.slug) {
+      errors.artistHandle = 'An artist URL handle is required.';
+    }
+
     if(Object.keys(errors).length === 0) {
       return createArtist(data).then(res => {
         if(res.status === 201) {
