@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import ReduxFromField from '../HOComponents/ReduxFormField';
+import ReduxFormField from '../HOComponents/ReduxFormField';
 import classNames from 'classnames'
 
 const styles = theme => ({
@@ -61,6 +61,6 @@ let TextArea = (props) => {
 
 
 export default compose(
-  ReduxFromField,
+  ReduxFormField,
    withStyles(styles)
 )(TextArea);

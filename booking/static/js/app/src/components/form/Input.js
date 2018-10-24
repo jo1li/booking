@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import ReduxFromField from '../HOComponents/ReduxFormField';
+import ReduxFormField from '../HOComponents/ReduxFormField';
 
 const styles = theme => ({
     underline: {
@@ -28,6 +28,6 @@ const InputInternal = (props) => {
 }
 
 export default compose(
-    ReduxFromField,
+    ReduxFormField,
     withStyles(styles)
 )(InputInternal);

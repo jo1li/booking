@@ -3,7 +3,7 @@ import React from 'react';
 
 // TOOD add docs on redux form  and material ui
 // https://redux-form.com/6.7.0/docs/api/form.md/
-const ReduxFormFieldWrapper = WrappedComponent => ({
+const ReduxFormField = WrappedComponent => ({
   input,
   label,
   meta: { touched, error },
@@ -22,4 +22,4 @@ const ReduxFormFieldWrapper = WrappedComponent => ({
     )
   }
 
-export default ReduxFormFieldWrapper;
+export default ReduxFormField;
