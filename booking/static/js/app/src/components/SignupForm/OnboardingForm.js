@@ -175,7 +175,11 @@ class OnboardingForm extends Component {
 
     return updateUserBio(data, musicianid).then(res => {
       if(res.status === 200) {
-        window.location.href = `/m/${stagename}`;
+        if(res.data.url_fq) {
+          window.location.href = res.data.url_fq
+        } else {
+          // uhhh
+        }
       }
     })
     .catch(errors => {
