@@ -20,7 +20,7 @@ import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
-import { validate_embed } from '../../utils/validators';
+import { validate_video_embeds } from '../../utils/validators';
 
 const title = 'Edit Videos';
 
@@ -74,23 +74,9 @@ const mapDispatchToProps = (dispatch) => {
 // https://redux-form.com/7.4.2/examples/syncvalidation/
 const validate = values => {
 
-  const whitelist = ['youtube.com']
-
-  var validation_results = _.map(values.videos, (item) => {
-
-    if(item.code === undefined) { return {} };
-
-    var result = validate_embed(item.code, whitelist);
-
-    if(result === true) {
-      return {}
-    } else {
-      return {code: result}
-    }
-
-  });
-
-  return {videos: validation_results};
+  return {
+    videos: validate_video_embeds(values.videos)
+  };
 
 }
 

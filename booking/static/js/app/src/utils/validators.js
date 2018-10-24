@@ -1,5 +1,28 @@
 import _ from 'lodash';
 
+export const validate_video_embeds = (videos) => {
+
+  const whitelist = ['youtube.com']
+
+  var validation_results = _.map(videos, (item) => {
+
+    if(item.code === undefined) { return {} };
+
+    var result = validate_embed(item.code, whitelist);
+
+    if(result === true) {
+      return {}
+    } else {
+      return {code: result}
+    }
+
+  });
+
+  return validation_results;
+
+}
+
+
 export const validate_embed = (code, whitelist) => {
 
   var parser = new DOMParser();

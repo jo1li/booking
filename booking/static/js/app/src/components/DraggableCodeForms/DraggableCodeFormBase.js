@@ -16,6 +16,7 @@ import {
   getDestroyedItems,
   removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
+import { validate_video_embeds } from '../../utils/validators';
 
 // A base for editing models with a `code` attribute that needs a textarea
 class CodeFormBase extends Component {
@@ -79,61 +80,13 @@ class CodeFormBase extends Component {
 
     const checkableItems = itemsToUpdate.concat(itemsToCreate)
 
-    // console.log("submit", checkableItems)
+    // console.log("submit values", values)
+    // console.log("submit", validate_video_embeds(values))
 
-    // const checkableResults = _.map(checkableItems, (item) => {
-
-    //   console.log("submit ***************************", item.code);
-    //   // TODO: move this into a prop
-    //   const videoHosts = [
-    //     "youtube.com"
-    //   ]
-
-    //   var parser = new DOMParser();
-    //   var doc = parser.parseFromString(item.code, "text/html");
-    //   var iframe = doc.body.childNodes[0]
-
-    //   // Make sure
-    //   if( iframe.tagName !== 'IFRAME' ) {
-    //     return {order: item.order, error: "Code is not an iframe."};
-    //   }
-
-    //   if( !iframe.hasAttribute('src') ) {
-    //     return {order: item.order, error: "Iframe code has no src attribute"};
-    //   }
-
-    //   const src = new URL(iframe.src);
-    //   const src_results = _.map(videoHosts, (host) =>{
-    //     return (src.toString().indexOf(host) !== -1);
-    //   });
-
-    //   const has_valid_src = src_results.some((element, index, array) => {
-    //     return element === true;
-    //   })
-
-    //   if( has_valid_src ) {
-    //     return null;
-    //   } else {
-    //     return {order: item.order, error: "Please paste an embed code."}
-    //   }
-
-    // });
-
-    // console.log("submit checkableResults", checkableResults)
-
-    // const has_errors = checkableResults.some((element, index, array) => {
-    //   return element !== null;
-    // });
-
-    // console.log("submit has_errors", has_errors);
-
-    // if(has_errors) {
-    //   console.log("submit show errors");
-    //   // throw new SubmissionError({
-    //   //   "videos[0].code": 'User does not exist',
-    //   // })
-    //   return;
-    // }
+    throw new SubmissionError({
+      videos: [{code: "dis is F'ed, to."}],
+      _error: "Everything is sad."
+    });
 
 
     const updateRequests = _.map(itemsToUpdate, (item) => {
@@ -188,6 +141,7 @@ class CodeFormBase extends Component {
       closeDialog,
       submitting,
       submitSucceeded,
+      error
     } = this.props;
 
     console.log("CodeFormBase", this.props);
@@ -213,6 +167,7 @@ class CodeFormBase extends Component {
                   width={width}
                   remove={this.removeItemFromForm} />
             </form>
+            {error && <strong>{error}</strong>}
             <CancelConfirm
                 onClickCancel={closeDialog}
                 onClickConfirm={this.submit}
