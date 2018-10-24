@@ -167,7 +167,6 @@ class OnboardingForm extends Component {
 
   submit = (values) => {
     const { updateUserBio, musicianid, stagename } = this.props;
-
     const data = Object.assign({}, values, {
       genres: values.genres,
       image: _.get(values, 'image.0'),
@@ -207,7 +206,7 @@ class OnboardingForm extends Component {
                   type="file"
                   imagefile={this.state.imageFile}
                   handleOnDrop={this.handleFileDrop}
-                  validate={[imageIsRequired]}
+                  validate={[imageIsRequired]}  
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>

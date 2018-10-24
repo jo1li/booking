@@ -2,16 +2,23 @@ import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import React, { Fragment } from 'react';
 
-const TextFieldWithReduxForm = ({ input, meta: { touched, error }, ...props }) => {
-  const hasError = Boolean(touched && error);
-  return (
-    <Fragment>
-      <TextField error={hasError} {...input} {...props} />
-      {hasError && (
-        <FormHelperText dangerouslySetInnerHTML={{ __html: error }} className="error" error />
-      )}
-    </Fragment>
-  );
-};
+class TextFieldWithReduxForm extends React.Component {
+  render(props) {
+    const {
+      input,
+      meta: {
+        touched,
+        error
+      },
+      ...rest
+    } = this.props
+    return (
+      <Fragment>
+        <TextField {...input} {...rest} />
+        {Boolean(touched && error) && <FormHelperText>{error}</FormHelperText>}
+      </Fragment>
+    )
+  }
+}
 
 export default TextFieldWithReduxForm;

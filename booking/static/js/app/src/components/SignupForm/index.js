@@ -6,6 +6,7 @@ import {
   reduxForm,
   getFormValues,
   formValueSelector,
+  SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -89,23 +90,35 @@ class SignupForm extends Component {
     }
     const { createArtist } = this.props;
 
-    return createArtist(data).then(res => {
-      if(res.status === 201) {
-        window.location.href = '/m/onboarding';
-      }
-    })
-    .catch(errors => {
-      console.log('errors:', errors);
-      // TODO: This is all placeholder
-    });
-  }
+    const errors = {}
 
-  // handleNameChange = (e) => {
-  //   const value = e.target.value;
-  //   if (!this.props.currentValues.artistHandle) {
-  //     this.props.change("artistHandle", value);
-  //   }
-  // }
+    // password validation
+    if(data.password.length < 8) {
+      errors.password = 'Password must be atleast 8 characters';
+    }
+
+    // email validation
+    const simple_email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if(!data.email) {
+      errors.email = 'Email is required.';
+    } else if (!simple_email_regex.test(data.email)) {
+      errors.email = 'Email is invalid. Please check for typos.';
+    }
+
+    if(Object.keys(errors).length === 0) {
+      return createArtist(data).then(res => {
+        if(res.status === 201) {
+          window.location.href = '/m/onboarding';
+        }
+      })
+      .catch(errors => {
+        console.log('errors:', errors);
+        // TODO: This is all placeholder
+      });
+    } else {
+      throw new SubmissionError(errors);
+    }
+  }
 
   render() {
     const { classes, pristine, submitting, handleSubmit } = this.props
@@ -139,7 +152,6 @@ class SignupForm extends Component {
                   name="artistName"
                   label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
-                  // onChange={this.handleNameChange}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -152,7 +164,6 @@ class SignupForm extends Component {
                     startAdornment: <InputAdornment position="start">opuslive.io/m/</InputAdornment>,
                   }}
                 />
-                {/* <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText> */}
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -185,11 +196,6 @@ SignupForm = withStyles(styles)(SignupForm)
 
 SignupForm = reduxForm({
   form: ARTIST_SIGNUP,
-  onChange: (values, dispatch, props) => {
-    // console.log("vals", values);
-    // console.log("props", props);
-    // dispatch(props.change("artistHandle", "test"));
-  }
 })(SignupForm);
 
 const mapStateToProps = (state, props) => ({
