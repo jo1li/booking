@@ -52,7 +52,7 @@ let TextArea = (props) => {
             }}
             className={classNames(classes.textArea, className)}
         />
-        <div>
+        <div className="error">
           {touched && (error && <span>{error}</span>)}
         </div>
       </div>
