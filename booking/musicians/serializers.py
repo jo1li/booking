@@ -1,3 +1,4 @@
+from django.conf import settings
 from home.models import OpusUser
 
 from django.contrib.auth import login
@@ -207,12 +208,14 @@ class ArtistMessageSerializer(serializers.Serializer):
 
         m = Musician.objects.get(pk=self.context['view'].kwargs['artist_pk'])
 
+        from_email = "{} <{}>".format(validated_data.get('name'), validated_data.get('email'))
+
         email = EmailMessage(
-            'A message from Opus',
+            'A message via Opus',
             validated_data.get('message'),
-            validated_data.get('email'),
-            [m.user.email, 'chris@opsulive.io'],
-            ['bcc@example.com'],
+            from_email,
+            [m.user.email, settings.MESSAGE_ARTIST_CC],
+            [],
             reply_to=[validated_data.get('email')],
         )
         email.send(fail_silently=False)
