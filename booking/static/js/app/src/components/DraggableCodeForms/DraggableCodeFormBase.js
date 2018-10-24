@@ -130,7 +130,7 @@ class CodeFormBase extends Component {
     } = this.props;
 
     return (
-      <Grid container spacing={24}>
+      <Fragment>
         <TabbedList
             classes={classes}
             tabNames={['embed', 'help']} >
@@ -140,7 +140,7 @@ class CodeFormBase extends Component {
             <form
                 onSubmit={handleSubmit(this.submit)}
                 ref={provided.innerRef}
-                className={classes.tabBody} >
+                className={`${classes.tabBody} ${classes.aboveFooter}`} >
               <DraggableCodeInputs
                   items={currentValues[itemName]}
                   itemName={itemName}
@@ -154,7 +154,7 @@ class CodeFormBase extends Component {
                 onClickConfirm={this.submit}
                 isLoading={submitting}
                 success={submitSucceeded}
-                isContainer={false} />
+                className={classes.footer} />
           </Fragment>
 
           <HelpSection
@@ -164,18 +164,18 @@ class CodeFormBase extends Component {
               itle={copy.helpSectionTitle} />
 
         </TabbedList>
-      </Grid>
+      </Fragment>
     );
   }
 }
 
 const DraggableCodeFormBase = (props) => {
-  const { classes, itemName, formName, currentValues, change } = props;
+  const { classes, itemName, currentValues, change, className } = props;
   return (
     <DroppableContainer
         change={change}
         currentValues={currentValues}
-        className={classes.container}
+        className={`${classes.container} ${classes.withFooter}`}
         itemName={itemName} >
       <CodeFormBase {...props} />
     </DroppableContainer>
