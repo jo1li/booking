@@ -12,10 +12,6 @@ import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
 
 class DraggableCodeInput extends Component {
 
-  validate() {
-    console.log("DraggableCodeInput.validate")
-  }
-
   render() {
     const {
       order,
