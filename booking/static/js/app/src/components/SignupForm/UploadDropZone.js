@@ -37,7 +37,7 @@ const DropZoneField = ({
               </ul>
             </Grid>
             <Grid item>
-              <Typography style={{ marginTop: '4px', lineHeight: '50px', paddingLeft: '8px' }}>Upload photo</Typography>
+              <Typography color="inherit" variant="body2" style={{ marginTop: '4px', lineHeight: '50px', paddingLeft: '8px' }}>Profile photo</Typography>
             </Grid>
           </Grid>
         </Fragment>
@@ -59,7 +59,7 @@ const DropZoneField = ({
               </div>
             </Grid>
             <Grid item>
-              <Typography style={{ marginTop: '4px', lineHeight: '50px', paddingLeft: '8px' }}>Upload photo</Typography>
+              <Typography color="inherit" variant="body2" style={{ marginTop: '4px', lineHeight: '50px', paddingLeft: '8px' }}>Profile photo</Typography>
             </Grid>
           </Grid>
       )}

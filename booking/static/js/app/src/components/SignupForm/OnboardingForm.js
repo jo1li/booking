@@ -72,13 +72,13 @@ const styles = theme => ({
   },
   uploadArea: {
     width: '100%',
-    backgroundColor: theme.palette.grey[100],
     borderRadius: 3,
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     display: 'inline-block',
     overflow: 'hidden',
     '&:hover': {
-      backgroundColor: theme.palette.grey[200],
+      backgroundColor: theme.palette.grey[100],
     },
     '& ul li': {
       margin: 0,
