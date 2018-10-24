@@ -314,7 +314,7 @@ OnboardingForm = reduxForm({
 })(OnboardingForm);
 
 const mapStateToProps = (state, props) => ({
-  initialValues: {city: "New York", state: "NY"},
+  initialValues: { hometown: "New York", state: "NY" },
   currentValues: getFormValues(ARTIST_ONBOARDING)(state) || {},
 
   // TODO this should go into bindActionCreators and be used as an action
