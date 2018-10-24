@@ -13,6 +13,7 @@ import {
 } from 'redux-form';
 
 import * as PhotoActions from '../../actions/photos';
+import * as ProfileActions from '../../actions/profile';
 import styles from './styles';
 import { EDIT_PHOTOS } from '../../constants/forms';
 import CancelConfirm from '../CancelConfirm';
@@ -122,7 +123,14 @@ class PhotoEditFormBase extends Component {
   }
 
   previewAndUpload(file) {
-    const { addToStore, removeFromStore, currentValues, profile } = this.props;
+    const {
+      addToStore,
+      removeFromStore,
+      currentValues,
+      profile,
+      updateProfile,
+      photos,
+    } = this.props;
 
     // TODO: support multiple pending images at once
     const pendingImage = {id: 1};
@@ -139,12 +147,20 @@ class PhotoEditFormBase extends Component {
     const data = new FormData();
     data.append('image', file);
 
+    // Cover photo could have been deleted since page was loaded, so don't
+    // just check that the ID isn't null.
+    const userHasCoverPhoto = photos[profile.image_hero_id] != undefined;
+
     this.props.createArtistItem({
       file: data,
       order: currentValues.photos.length,
       artistId: profile.id,
-    }, () => {
+    }, (res) => {
       removeFromStore(pendingImage);
+
+      if(!userHasCoverPhoto) {
+        updateProfile({image_hero_id: res.data.id}, profile.id);
+      }
     });
   }
 
@@ -225,6 +241,7 @@ const mapDispatchToProps = (dispatch) => {
     destroyArtistItem: PhotoActions.destroyArtistPhoto,
     addToStore: ActionCreators.pendingPhotosCreateOrUpdate,
     removeFromStore: ActionCreators.pendingPhotosDelete,
+    updateProfile: ProfileActions.updateProfile,
   }, dispatch);
 };
 
