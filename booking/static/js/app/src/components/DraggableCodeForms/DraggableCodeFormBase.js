@@ -79,61 +79,61 @@ class CodeFormBase extends Component {
 
     const checkableItems = itemsToUpdate.concat(itemsToCreate)
 
-    console.log("submit", checkableItems)
+    // console.log("submit", checkableItems)
 
-    const checkableResults = _.map(checkableItems, (item) => {
+    // const checkableResults = _.map(checkableItems, (item) => {
 
-      console.log("submit ***************************", item.code);
-      // TODO: move this into a prop
-      const videoHosts = [
-        "youtube.com"
-      ]
+    //   console.log("submit ***************************", item.code);
+    //   // TODO: move this into a prop
+    //   const videoHosts = [
+    //     "youtube.com"
+    //   ]
 
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(item.code, "text/html");
-      var iframe = doc.body.childNodes[0]
+    //   var parser = new DOMParser();
+    //   var doc = parser.parseFromString(item.code, "text/html");
+    //   var iframe = doc.body.childNodes[0]
 
-      // Make sure
-      if( iframe.tagName !== 'IFRAME' ) {
-        return {order: item.order, error: "Code is not an iframe."};
-      }
+    //   // Make sure
+    //   if( iframe.tagName !== 'IFRAME' ) {
+    //     return {order: item.order, error: "Code is not an iframe."};
+    //   }
 
-      if( !iframe.hasAttribute('src') ) {
-        return {order: item.order, error: "Iframe code has no src attribute"};
-      }
+    //   if( !iframe.hasAttribute('src') ) {
+    //     return {order: item.order, error: "Iframe code has no src attribute"};
+    //   }
 
-      const src = new URL(iframe.src);
-      const src_results = _.map(videoHosts, (host) =>{
-        return (src.toString().indexOf(host) !== -1);
-      });
+    //   const src = new URL(iframe.src);
+    //   const src_results = _.map(videoHosts, (host) =>{
+    //     return (src.toString().indexOf(host) !== -1);
+    //   });
 
-      const has_valid_src = src_results.some((element, index, array) => {
-        return element === true;
-      })
+    //   const has_valid_src = src_results.some((element, index, array) => {
+    //     return element === true;
+    //   })
 
-      if( has_valid_src ) {
-        return null;
-      } else {
-        return {order: item.order, error: "Please paste an embed code."}
-      }
+    //   if( has_valid_src ) {
+    //     return null;
+    //   } else {
+    //     return {order: item.order, error: "Please paste an embed code."}
+    //   }
 
-    });
+    // });
 
-    console.log("submit checkableResults", checkableResults)
+    // console.log("submit checkableResults", checkableResults)
 
-    const has_errors = checkableResults.some((element, index, array) => {
-      return element !== null;
-    });
+    // const has_errors = checkableResults.some((element, index, array) => {
+    //   return element !== null;
+    // });
 
-    console.log("submit has_errors", has_errors);
+    // console.log("submit has_errors", has_errors);
 
-    if(has_errors) {
-      console.log("submit show errors");
-      // throw new SubmissionError({
-      //   "videos[0].code": 'User does not exist',
-      // })
-      return;
-    }
+    // if(has_errors) {
+    //   console.log("submit show errors");
+    //   // throw new SubmissionError({
+    //   //   "videos[0].code": 'User does not exist',
+    //   // })
+    //   return;
+    // }
 
 
     const updateRequests = _.map(itemsToUpdate, (item) => {

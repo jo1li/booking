@@ -20,6 +20,7 @@ import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
+import { validate_embed } from '../../utils/validators';
 
 const title = 'Edit Videos';
 
@@ -72,13 +73,25 @@ const mapDispatchToProps = (dispatch) => {
 // Doesnt seem to work, since we're not using Field components
 // https://redux-form.com/7.4.2/examples/syncvalidation/
 const validate = values => {
-  return {
-    videos: [
-      { code: 'somethings wrong'},
-      { code: 'somethings wrong 2'},
-      { code: 'somethings wrong 3'},
-    ]
-  };
+
+  const whitelist = ['youtube.com']
+
+  var validation_results = _.map(values.videos, (item) => {
+
+    if(item.code === undefined) { return {} };
+
+    var result = validate_embed(item.code, whitelist);
+
+    if(result === true) {
+      return {}
+    } else {
+      return {code: result}
+    }
+
+  });
+
+  return {videos: validation_results};
+
 }
 
 let VideoEditFormBase = compose(
