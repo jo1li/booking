@@ -129,6 +129,30 @@ a, .link {
 			right: calc((100% - 975px) / 2 + 15px);
 		}
 
+		.message-button {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			height: 32px;
+			padding: 0 16px;
+			border-radius: 2px;
+			background-color: #F5F9FA;
+			color: #333;
+			margin-right: 9px;
+			img {
+				width: 24px;
+			}
+
+			@include media ('<tablet') {
+				top: 40px;
+			}
+			&:hover,
+			&:focus {
+				color: #000;
+				background-color: #FFF;
+			}
+		}
+
 		.edit {
 			cursor: pointer;
 			display: flex;
@@ -136,8 +160,8 @@ a, .link {
 			height: 32px;
 			padding: 0 5px;
 			border-radius: 2px;
-			background-color: white;
-			color: black;
+			background-color: #F5F9FA;
+			color: #333;			
 
 			img {
 				width: 24px;
