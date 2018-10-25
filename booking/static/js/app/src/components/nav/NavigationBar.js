@@ -38,6 +38,9 @@ const styles = theme => ({
       marginBottom: 0,
     }
   },
+  logo: {
+    paddingTop: 3,
+  },
   avatar: {
     width: 42,
     height: 32,
@@ -49,6 +52,7 @@ const styles = theme => ({
   },
   destinations: {
     marginBottom: '0',
+    marginTop: '-3px',
     listStyle: 'none',
     color: theme.palette.grey[600],
     '& > li': {
@@ -57,7 +61,14 @@ const styles = theme => ({
     },
     '& > li:not(:first-child)': {
       marginLeft: theme.spacing.unit * 4,
-    } 
+    },
+    '& a': {
+      color: '#000',
+      opacity: 0.7,
+    },
+    '& a:hover': {
+      opacity: 1.0,
+    }
   },
   sectionDesktop: {
     display: 'none',
@@ -147,25 +158,27 @@ class NavigationBar extends React.Component {
         <AppBar position="static" elevation={0} color="inherit">
           <Toolbar className={classes.toolbar}>
             <a href={this.props.url_home}>
+            <div className={classes.logo}>
               <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
                 Opus 
               </NavBarLogo>
+            </div>
             </a>
             {authed && (
               <div className={classes.sectionDesktop}>
                 <ul className={classes.destinations}>
                   <li>
-                    <Typography variant="body1" color="inherit">
+                    <Typography variant="body1">
                       <a href={this.props.url_venues}>Venues</a>
                     </Typography>
                   </li>
                   <li>
-                    <Typography variant="body1" color="inherit">
+                    <Typography variant="body1">
                       <a href={this.props.url_bookings}>Bookings</a>
                     </Typography>
                   </li>
                   <li>
-                    <Typography variant="body1" color="inherit">
+                    <Typography variant="body1">
                       <a href={this.props.url_profile}>Profile</a>
                     </Typography>
                   </li>
