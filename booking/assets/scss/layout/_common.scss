@@ -72,6 +72,7 @@ a, .link {
 		left: 0;
 		height: 100%;
 		width: 100%;
+		background-color: black;
 
 		#cover-photo {
 			position: absolute;
@@ -129,8 +130,8 @@ a, .link {
 				top: 40px;
 			}
 
-			&:hover,
-			&:focus {
+			&:hover:not(.no-transluscent-hover),
+			&:focus:not(.no-transluscent-hover) {
 				opacity: 0.5;
 			}
 		}
