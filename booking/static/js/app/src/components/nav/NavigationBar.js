@@ -60,7 +60,7 @@ const styles = theme => ({
       padding: '0 auto'
     },
     '& > li:not(:first-child)': {
-      marginLeft: theme.spacing.unit * 4,
+      marginLeft: theme.spacing.unit * 3,
     },
     '& a': {
       color: '#000',
