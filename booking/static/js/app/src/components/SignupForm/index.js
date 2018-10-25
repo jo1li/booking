@@ -6,6 +6,7 @@ import {
   reduxForm,
   getFormValues,
   formValueSelector,
+  SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -21,6 +22,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 import { createArtist } from '../../request/requests';
 
@@ -64,6 +67,16 @@ const styles = theme => ({
   },
 });
 
+const normalizeHandle = (handle) => {
+  if (!handle) {
+    return handle
+  } else {
+    // replace any non-alphanumeric character (spaces, ampersands, etc)
+    // with a dash, and lowercase the string
+    return handle.replace(/\W+/g, '-').toLowerCase();
+  }
+}
+
 class SignupForm extends Component {
 
   submit = (values) => {
@@ -77,24 +90,50 @@ class SignupForm extends Component {
     }
     const { createArtist } = this.props;
 
-    return createArtist(data).then(res => {
-      console.log("cookies: ", document.cookie); // missing session cookie :(
-      if(res.status === 201) {
-        window.location.href = '/m/onboarding';
-      }
-    })
-    .catch(errors => {
-      console.log('errors:', errors);
-      // TODO: This is all placeholder
-    });
-  }
+    const errors = {}
 
-  // handleNameChange = (e) => {
-  //   const value = e.target.value;
-  //   if (!this.props.currentValues.artistHandle) {
-  //     this.props.change("artistHandle", value);
-  //   }
-  // }
+    // password validation
+    if(data.password.length < 8) {
+      errors.password = 'Password must be atleast 8 characters';
+    }
+
+    // email validation
+    const simple_email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if(!data.email) {
+      errors.email = 'Email is required.';
+    } else if (!simple_email_regex.test(data.email)) {
+      errors.email = 'Email is invalid. Please check for typos.';
+    }
+
+    // name validation
+    if(!data.name) {
+      errors.artistName = 'This field is required.';
+    }
+
+    // handle validation
+    if(!data.slug) {
+      errors.artistHandle = 'This field is required.';
+    }
+
+    // type validation
+    if(!data.account_type) {
+      errors.artistType = 'Please select an artist type.';
+    }
+
+    if(Object.keys(errors).length === 0) {
+      return createArtist(data).then(res => {
+        if(res.status === 201) {
+          window.location.href = '/m/onboarding';
+        }
+      })
+      .catch(errors => {
+        console.log('errors:', errors);
+        // TODO: This is all placeholder
+      });
+    } else {
+      throw new SubmissionError(errors);
+    }
+  }
 
   render() {
     const { classes, pristine, submitting, handleSubmit } = this.props
@@ -128,12 +167,18 @@ class SignupForm extends Component {
                   name="artistName"
                   label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
-                  // onChange={this.handleNameChange}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field name="artistHandle" label="Handle" component={TextField} />
-                <FormHelperText id="artistHandle-helper-text">opuslive.io/m/handle</FormHelperText>
+                <Field 
+                  name="artistHandle" 
+                  label="Your Opus URL" 
+                  component={TextField}
+                  normalize={normalizeHandle}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">opuslive.io/m/</InputAdornment>,
+                  }}
+                />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -166,11 +211,6 @@ SignupForm = withStyles(styles)(SignupForm)
 
 SignupForm = reduxForm({
   form: ARTIST_SIGNUP,
-  onChange: (values, dispatch, props) => {
-    // console.log("vals", values);
-    // console.log("props", props);
-    // dispatch(props.change("artistHandle", "test"));
-  }
 })(SignupForm);
 
 const mapStateToProps = (state, props) => ({
