@@ -1,0 +1,40 @@
+{% load staticfiles %}
+{% load sass_tags %}
+{% load repeatedblocks %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% repeated_block head_title_base %}Opus | {% block head_title %}{% endblock %}{% endblock %}</title>
+
+    {% block og %}
+    <meta property="og:title" content="{% repeat head_title_base %}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ absolute_url }}" />
+    {% endblock og %}
+
+    {% block assets %}
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    {% endblock %}
+
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+        <main id="main">
+            {% block main %}{% endblock %}
+        </main>
+    </div>
+    {% block footer_scripts %}{% endblock %}
+</body>
+<script src="{{ STATIC_JS_APP_BASE_URL }}{{ STATIC_JS_APP_BUNDLE }}" defer></script>
+<script>
+    window.CONFIGS = {
+        IMAGES_URL: "{% static 'images' %}",
+        REACT_PAGE_NAME: "{{ react_page_name }}",
+    }
+</script>
+</html>
