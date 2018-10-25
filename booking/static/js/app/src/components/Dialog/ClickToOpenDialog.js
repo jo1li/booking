@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 import BindDomEvent from '../HOComponents/BindDomEvents';
 import FullScreenDialog from '../Dialog/FullScreenDialog';
@@ -20,6 +21,7 @@ export const OpenDialogEvent = eventType => ({
     triggerSelector,
     DialogContent,
     DialogComponent = FullScreenDialog,
+    getIsDisabled,
 }) => {
     class Container extends Component {
         constructor() {
@@ -32,12 +34,15 @@ export const OpenDialogEvent = eventType => ({
             this.props.bindDomEvent({
                 domSelector: triggerSelector,
                 eventType,
-                callback: () => {
-                    this.props.openDialog(
-                        <DialogContent { ...this.props } />
-                    )
-                }
+                callback: this.eventCallback,
             });
+        }
+
+        eventCallback() {
+            if(this.props.isDisabled) return;
+            this.props.openDialog(
+                <DialogContent { ...this.props } />
+            );
         }
 
         render() {
@@ -45,11 +50,17 @@ export const OpenDialogEvent = eventType => ({
         }
     }
 
+    const mapStateToProps = (state, props) => ({
+      isDisabled: getIsDisabled ? getIsDisabled(state) : false,
+    });
+
     return compose(
         DialogComponent,
         BindDomEvent,
+        connect(mapStateToProps),
     )(Container);
 };
+
 
 /**
  * openDialogEvent with click event
