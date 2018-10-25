@@ -39,12 +39,12 @@
 
 <section class="artist-placeholder">
     <div id="cover-photo-wrapper">
-        <div id="cover-photo" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
+        <div id="cover-photo" tabindex="0" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
     </div>
     <div class="container">
         <div class="photo-buttons">
             <span href="#" id="open-photo-carousel">
-                <a href="#" class="edit photo-modal-button {% if not photos_count %}hidden{% endif %}">
+                <a href="#" class="edit no-transluscent-hover photo-modal-button {% if not photos_count %}hidden{% endif %}">
                     <img src="{% static 'images/camera.svg' %}" alt="camera icon">
                     <span id="photo-count-indicator">{{ photos_count }}</span>
                 </a>
