@@ -83,10 +83,10 @@ class CodeFormBase extends Component {
     // console.log("submit values", values)
     // console.log("submit", validate_video_embeds(values))
 
-    throw new SubmissionError({
-      videos: [{code: "dis is F'ed, to."}],
-      _error: "Everything is sad."
-    });
+    // throw new SubmissionError({
+    //   videos: [{code: "dis is F'ed, to."}],
+    //   _error: "Everything is sad."
+    // });
 
 
     const updateRequests = _.map(itemsToUpdate, (item) => {
@@ -141,7 +141,8 @@ class CodeFormBase extends Component {
       closeDialog,
       submitting,
       submitSucceeded,
-      error
+      error,
+      valid,
     } = this.props;
 
     console.log("CodeFormBase", this.props);
@@ -173,7 +174,9 @@ class CodeFormBase extends Component {
                 onClickConfirm={this.submit}
                 isLoading={submitting}
                 success={submitSucceeded}
-                isContainer={false} />
+                isContainer={false}
+                disabled={!valid}
+              />
           </Fragment>
 
           <HelpSection

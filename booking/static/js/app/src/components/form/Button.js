@@ -26,6 +26,7 @@ function ContainedButtons(props) {
     onClick,
     type,
     className,
+    disabled,
     ...remainingProps
   } = props;
 
@@ -35,6 +36,7 @@ function ContainedButtons(props) {
       color="secondary"
       type={type}
       onClick={onClick}
+      disabled={disabled}
 
       // for some reason outline will not go away unless its an inline style
       style={{outline: 'none'}}

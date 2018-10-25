@@ -79,10 +79,22 @@ const validate = values => {
   };
 
 }
+const warn = values => {
+
+  return {
+    videos: validate_video_embeds(values.videos)
+  };
+
+}
 
 let VideoEditFormBase = compose(
   reduxForm({
     form: EDIT_VIDEOS,
+
+    // The form fields will not be validated until they are 'touched'
+    // this sets touched to true so they are validate always
+    // https://github.com/erikras/redux-form/blob/master/src/createReduxForm.js#L289
+    touchOnChange: true,
     validate, // <--- validation function given to redux-form
     // This allows `initialValues` to be updated below
     enableReinitialize: true,

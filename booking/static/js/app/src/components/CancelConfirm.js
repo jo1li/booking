@@ -23,18 +23,23 @@ class CancelConfirm  extends Component {
             onClickConfirm,
             isLoading,
             success,
+            disabled,
         } = this.props;
 
         return (
             <Grid container spacing={24}>
                 <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
-                    <Button onClick={onClickCancel} className={classes.wideButton}>
+                    <Button
+                        onClick={onClickCancel}
+                        className={classes.wideButton}
+                    >
                         { !success ? 'Cancel' : 'Close' }
                     </Button>
                     <RaisedButton
                         type="submit"
                         onClick={onClickConfirm}
                         className={classes.wideButton}
+                        disabled={disabled}
                     >
 
                         {/* TODO refactor this, this is awful*/}
@@ -50,6 +55,10 @@ class CancelConfirm  extends Component {
             </Grid>
         )
     }
+}
+
+CancelConfirm.defaultProps = {
+    disabled: false
 }
 
 export default withStyles(styles)(CancelConfirm);

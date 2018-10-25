@@ -25,9 +25,14 @@ export const validate_video_embeds = (videos) => {
 
 export const validate_embed = (code, whitelist) => {
 
+  const noEmbedCodeErrorMessage = 'Please paste an embed code from Youtube.'
   var parser = new DOMParser();
   var doc = parser.parseFromString(code, "text/html");
   var iframe = doc.body.childNodes[0]
+
+  if (!iframe) {
+    return noEmbedCodeErrorMessage;
+  }
 
   // Make sure code is an iframe.
   //  Will need to change if we encounter a valid embed
@@ -53,7 +58,7 @@ export const validate_embed = (code, whitelist) => {
   if( has_valid_src ) {
     return true;
   } else {
-    return "Please paste an embed code from Youtube."
+    return noEmbedCodeErrorMessage
   }
 
 }

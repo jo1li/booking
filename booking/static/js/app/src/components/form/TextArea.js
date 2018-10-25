@@ -4,7 +4,8 @@ import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import ReduxFormField from '../HOComponents/ReduxFormField';
-import classNames from 'classnames'
+import Error from '../form/Error';
+import classNames from 'classnames';
 
 const styles = theme => ({
   textArea: {
@@ -52,9 +53,7 @@ let TextArea = (props) => {
             }}
             className={classNames(classes.textArea, className)}
         />
-        <div className="error">
-          {touched && (error && <span>{error}</span>)}
-        </div>
+        <Error touched={true} error={error} />
       </div>
     )
   }
