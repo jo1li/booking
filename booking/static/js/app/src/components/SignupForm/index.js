@@ -107,12 +107,17 @@ class SignupForm extends Component {
 
     // name validation
     if(!data.name) {
-      errors.artistName = 'An artist name is required.';
+      errors.artistName = 'This field is required.';
     }
 
     // handle validation
     if(!data.slug) {
-      errors.artistHandle = 'An artist URL handle is required.';
+      errors.artistHandle = 'This field is required.';
+    }
+
+    // type validation
+    if(!data.account_type) {
+      errors.artistType = 'Please select an artist type.';
     }
 
     if(Object.keys(errors).length === 0) {
