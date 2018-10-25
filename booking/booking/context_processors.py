@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.urls import reverse
 
+from musicians.models import Musician
+
 def static_js(request):
     return {
         'STATIC_JS_APP_BASE_URL': settings.STATIC_JS_APP_BASE_URL,
@@ -33,6 +35,30 @@ def home_url(request):
 
     return {
         "home_url": url
+    }
+
+
+def profile_url(request):
+
+    url = None
+
+    if not request.user.is_anonymous:
+        if request.user.is_musician:
+            try:
+                m = Musician.objects.get(user=request.user)
+                url = reverse('musician_profile', kwargs={'slug': m.slug})
+            except Musician.DoesNotExist:
+                # one way or another, we'll need to detect the lack of slug
+                # this method is more in line with a user type agnostic signup
+                # but this could also be changed to detect presence of the slug
+                pass
+
+        # TODO: handle this type of user
+        elif request.user.is_booking_agent:
+            url = None
+
+    return {
+        "profile_url": url
     }
 
 

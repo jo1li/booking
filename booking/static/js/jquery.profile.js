@@ -8,12 +8,9 @@ function initFixedBlocks() {
   var fixedClass = 'fixed-bar';
 
   jQuery('#wrapper').each(function(){
-    var wrapper = jQuery(this);
-    var header = jQuery('#header');
     var barHolder = jQuery('.artist-placeholder');
-    var bar = barHolder.find('.artist-name-box');
     var main = jQuery('.main-content');
-    var offsetTop = barHolder.outerHeight() - bar.outerHeight();
+    var offsetTop = barHolder.outerHeight() - 64;
 
     ResponsiveHelper.addRange({
       '768..': {
@@ -24,9 +21,10 @@ function initFixedBlocks() {
             container: '.js-container',
             positionType: 'fixed',
             extraTop: function() {
-              var indent = bar.outerHeight() + header.outerHeight() + parseInt(main.css('padding-top'));
+              var indent = barHolder.outerHeight() + 64 + parseInt(main.css('padding-top'));
+              console.log(indent)
 
-              return indent;
+              return 160;
             }
           });
         }
@@ -38,25 +36,49 @@ function initFixedBlocks() {
       }
     });
 
+
     win.on('resize orientationchange', function(){
-      offsetTop = barHolder.outerHeight() - bar.outerHeight();
+      offsetTop = barHolder.outerHeight() - 64;
     });
+
+    // var onScroll = function() {
+    //   if (win.scrollTop() >= offsetTop) {
+    //     bar.css({
+    //       position: 'fixed',
+    //       top: '64px',
+    //       bottom: 'auto'
+    //     }).addClass(fixedClass);
+    //   } else {
+    //     bar.css({
+    //       position: 'absolute',
+    //       top: '',
+    //       bottom: ''
+    //     }).removeClass(fixedClass);
+    //   }
+    // };
 
     var onScroll = function() {
       if (win.scrollTop() >= offsetTop) {
-        bar.css({
+        barHolder.css({
           position: 'fixed',
-          top: header.outerHeight(),
+          top: '-84px',
           bottom: 'auto'
         }).addClass(fixedClass);
+        main.css({
+          paddingTop: '250px'
+        });
       } else {
-        bar.css({
-          position: 'absolute',
+        barHolder.css({
+          position: 'relative',
           top: '',
           bottom: ''
         }).removeClass(fixedClass);
+        main.css({
+          paddingTop: '40px'
+        });
       }
     };
+
 
     win.on('scroll', onScroll);
     onScroll(); // Get the header to the right location on initial load
@@ -66,7 +88,8 @@ function initFixedBlocks() {
 function bindLinks() {
   var link = document.getElementById('see-full-bio-link');
   var fullBio = document.getElementById('biography-long');
-  var header = document.getElementById('artist-scroll');
+  // var header = document.getElementById('artist-scroll');
+  var header = document.getElementsByClassName('artist-placeholder')[0];
 
   link.onclick = function(event) {
     event.preventDefault();
