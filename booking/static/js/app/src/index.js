@@ -7,6 +7,10 @@ import NavigationBar from './components/nav/NavigationBar';
 
 import render_artist_onboarding_page from './pages/artist_onboarding';
 import { ARTIST_PROFILE, ARTIST_SIGNUP, ARTIST_ONBOARDING } from './constants';
+
+import RenderFromDomNode from './renderFromDomNode';
+import NavigationBar from './components/nav/NavigationBar';
+
 import _ from 'lodash';
 
 
