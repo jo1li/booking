@@ -17,7 +17,7 @@
     <div class="row justify-content-around mt-5 mb-5">
         <div class="col-md-4">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                <legend>{% trans "Log in" %}</legend>
+                <h2>{% trans "Log in" %}</h2>
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% if redirect_field_value %}
