@@ -16,6 +16,8 @@ import DownIcon from 'react-feather/dist/icons/chevron-down';
 import NavigationMobileMenu from './NavigationMobileMenu';
 import NavBarLogo from './NavBarLogo';
 
+import { getDefaultThumbnailImageURL } from '../../helpers/imageHelpers';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -160,7 +162,7 @@ class NavigationBar extends React.Component {
             <a href={this.props.url_home}>
             <div className={classes.logo}>
               <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
-                Opus 
+                Opus
               </NavBarLogo>
             </div>
             </a>
@@ -196,9 +198,9 @@ class NavigationBar extends React.Component {
                     color="inherit"
                     className={classes.avatarMenu}
                   >
-                    <div className={classes.avatar} 
+                    <div className={classes.avatar}
                       style={{
-                        backgroundImage: `url(${this.props.image})`,
+                        backgroundImage: `url(${getDefaultThumbnailImageURL(this.props.image)})`,
                         backgroundSize: '100%'
                       }}
                     ></div>
@@ -216,7 +218,7 @@ class NavigationBar extends React.Component {
                     color="inherit"
                     className={classes.avatarMenu}
                   >
-                    <div className={classes.avatar} 
+                    <div className={classes.avatar}
                       style={{
                         backgroundImage: `url(${this.props.image})`,
                         backgroundSize: '100%'
@@ -245,7 +247,7 @@ class NavigationBar extends React.Component {
         </AppBar>
         {authed && renderMenu}
         {authed && (
-          <NavigationMobileMenu 
+          <NavigationMobileMenu
             open={this.state.mobileDrawerOpen}
             toggleFunction={this.toggleMobileDrawer}
             url_venues={this.props.url_venues}
