@@ -17,6 +17,8 @@ import SelectField from './SelectField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -112,6 +114,17 @@ const styles = theme => ({
   },
 });
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 const TAGLINE_CHARS_MAX = 60
 const GENRES_MAX = 3
 const imageIsRequired = value =>  {
@@ -191,12 +204,13 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues } = this.props
     return (
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
           <Typography variant="headline" align="center">Onboarding</Typography>
+          {console.log("currentValues: ", currentValues.genres)}
           <Paper className={classes.paper}>
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" className={classes.uploadArea} fullWidth>
@@ -228,9 +242,14 @@ class OnboardingForm extends Component {
                   multiple
                   format={value => value || []}
                   normalize={normalizeGenres}
+                  renderValue={selected => selected.join(', ')}
+                  MenuProps={MenuProps}
                 >
                   {this.state.genres.map(genre => (
-                    <MenuItem key={genre} value={genre}>{genre}</MenuItem>
+                    <MenuItem key={genre} value={genre}>
+                      <Checkbox checked={currentValues.genres ? currentValues.genres.indexOf(genre) > -1 : false} />
+                      <ListItemText>{genre}</ListItemText>
+                    </MenuItem>
                   ))}
                 </Field>
                 <FormHelperText>Select up to three</FormHelperText>
