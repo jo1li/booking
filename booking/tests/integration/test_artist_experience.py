@@ -5,8 +5,12 @@ from tests.utils import OpusTestCase
 import sure
 from sure import expect
 
+from unittest import skip
+
+
 class ArtistExperienceTest(OpusTestCase):
 
+    @skip("This will need to be tested in React. Leaving as a reminder.")
     def test_logo_link(self):
 
         url = reverse('musician_dash')

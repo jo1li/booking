@@ -8,12 +8,16 @@ import account.views
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer, ArtistMessageSerializer
 
 from rest_framework import viewsets, mixins, permissions
+from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
+
+from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 
 
 class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
@@ -189,6 +193,35 @@ class ArtistViewSet(mixins.ListModelMixin,
         return mixins.UpdateModelMixin.perform_update(self, serializer)
 
 
+class ArtistSlugExists(APIView):
+    """
+    View to check if artist slug already exists
+    """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, format=None, version=None):
+        """
+        Return a list of all users.
+        """
+        return Response({
+            'exists': Musician.objects.filter(slug=request.query_params.get('slug')).exists()
+            })
+
+
+class ArtistMessageViewSet(mixins.CreateModelMixin,
+                    viewsets.GenericViewSet):
+    """
+    View to send an artist message
+    """
+
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = ArtistMessageSerializer
+
+
+    def create(self, *args, **kwargs):
+        return mixins.CreateModelMixin.create(self, *args, **kwargs)
+
+
 def profile(request, slug=None):
 
 
@@ -233,6 +266,17 @@ def signup(request):
     }
 
     return opus_render(request, "musicians/signup.html", context)
+
+@login_required
+def artist_onboarding(request):
+
+    musician = Musician.objects.get(user=request.user)
+
+    context = {
+        "react_page_name": "ARTIST_ONBOARDING",
+        "musician": musician,
+    }
+    return opus_render(request, "musicians/onboarding.html", context)
 
 
 @login_required

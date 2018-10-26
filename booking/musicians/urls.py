@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social, api_test
+from .views import artist_onboarding, profile, profile_template, dashboard, editor, editor_audio, editor_video, settings, venue_questions, social, api_test
 
 urlpatterns = [
     path('api_test', api_test, name="api_test"),
@@ -27,5 +27,6 @@ urlpatterns = [
     path('settings', settings, name="musician_settings"),
     path('venue_questions', venue_questions, name="musician_app_venue_questions"),
     path('template', profile_template, name="musician_profile_template"),
+    path('onboarding', artist_onboarding, name="artist_onboarding"),
     path('<slug>', profile, name="musician_profile"),
 ]

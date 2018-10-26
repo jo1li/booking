@@ -6,7 +6,19 @@ export const updateUserBio = (data, id) => {
     return request.put(`/v1/artists/${id}/`, getFormData(data));
 }
 
+export const sendArtistMessage = (artistId, data) => {
+    console.log("SendArtistMessageForm request", artistId, data);
+    return request.post(`/v1/artists/${artistId}/messages/`, data);
+}
+
 // TODO: autogenerate basic CRUD requests
+
+export const createArtist = (data) => {
+    return request.post(`/v1/artists/`, data, {
+        credentials: 'same-origin',
+        withCredentials: true
+    });
+}
 
 export const getVideos = ({artistId}) => {
     return request.get(`/v1/artists/${artistId}/videos/`);

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { CheckCircle } from './icons';
 import Button from './form/Button';
@@ -12,53 +12,60 @@ const styles = theme => ({
   },
   wideButton: {
     minWidth: '137px',
+    margin: theme.spacing.unit, // To match margin on raised button, allows centering
+  },
+  centerer: {
+    paddingTop: '12px',
+    marginBottom: 0,
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
-class CancelConfirm  extends Component {
-    render() {
-        const {
-            classes,
-            onClickCancel,
-            onClickConfirm,
-            isLoading,
-            success,
-            disabled,
-        } = this.props;
+const CancelConfirm = (props) => {
+  const {
+    classes,
+    onClickCancel,
+    onClickConfirm,
+    isLoading,
+    success,
+    disabled
+  } = props;
 
-        return (
-            <Grid container spacing={24}>
-                <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
-                    <Button
-                        onClick={onClickCancel}
-                        className={classes.wideButton}
-                    >
-                        { !success ? 'Cancel' : 'Close' }
-                    </Button>
-                    <RaisedButton
-                        type="submit"
-                        onClick={onClickConfirm}
-                        className={classes.wideButton}
-                        disabled={disabled}
-                    >
-
-                        {/* TODO refactor this, this is awful*/}
-                        { isLoading ? <CircularProgress /> : null }
-                        { !isLoading && success ? <CheckCircle /> : null }
-                        { !isLoading && !success ?
-                            <Fragment>
-                                Save
-                            </Fragment>: null
-                        }
-                    </RaisedButton>
-                </Grid>
-            </Grid>
-        )
-    }
+  return (
+    <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
+      <Button onClick={onClickCancel} className={classes.wideButton}>
+        { !success ? 'Cancel' : 'Close' }
+      </Button>
+      <RaisedButton
+          type="submit"
+          onClick={onClickConfirm}
+          className={classes.wideButton}
+          disabled={disabled} >
+        {/* TODO refactor this, this is awful*/}
+        { isLoading ? <CircularProgress /> : null }
+        { !isLoading && success ? <CheckCircle /> : null }
+        { !isLoading && !success ? <Fragment>Save</Fragment> : null }
+      </RaisedButton>
+    </Grid>
+  );
 }
+
+const CenteredCancelConfirm = (props) => {
+  return (
+    <div
+        className={`
+          ${props.classes.centerer}
+          ${props.className || ''}
+        `}>
+      <CancelConfirm {...props} />
+    </div>
+  );
+}
+
 
 CancelConfirm.defaultProps = {
     disabled: false
 }
 
-export default withStyles(styles)(CancelConfirm);
+export default withStyles(styles)(CenteredCancelConfirm);

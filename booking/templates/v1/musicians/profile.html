@@ -35,14 +35,20 @@
     musicianId="{{ musician.pk|default_if_none:"" }}"
     bio="{{ musician.bio|default_if_none:"" }}"
 ></div>
+<div id="send-artist-message-form"
+    musicianId="{{ musician.pk }}"
+></div>
 <div id="photo-modal"></div>
 
 <section class="artist-placeholder">
     <div id="cover-photo-wrapper">
-        <div id="cover-photo" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
+        <div id="cover-photo" tabindex="0" style="background-image: url('{{ musician.image_hero.image.url }}');"></div>
     </div>
     <div class="container">
         <div class="photo-buttons">
+            <div class="action-btn">
+                <a id="open-send-artist-message-form" href="#" class="message-button">Message</a>
+            </div>
             <span href="#" id="open-photo-carousel">
                 <a href="#" class="edit photo-modal-button {% if not photos_count %}hidden{% endif %}">
                     <img src="{% static 'images/camera.svg' %}" alt="camera icon">
@@ -57,17 +63,6 @@
             </a>
         </div>
     </div>
-    <div class="artist-name-box fixed-on-scroll" id="artist-scroll">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="heading-xl heading-light">{{ musician.stage_name }}</h1>
-                <div class="action-btn">
-                    <a href="#" class="btn"><i class="far fa-comment-alt"></i><span class="mobile-hidden">Message</span></a>
-                    <a href="#" class="btn"><i class="far fa-star"></i><span class="mobile-hidden">Follow</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 <section class="main-content">
     <div class="container">
@@ -75,6 +70,7 @@
             <div class="col-md-4 js-container">
                 <aside class="sidebar">
                     <div class="edit-box">
+                        <h2 class="headline">{{ musician.stage_name }}</h2>
                         {% if musician.on_tour %}
                         <h3 class="bold-text heading-orange text-center">on tour</h3>
                         {% endif %}

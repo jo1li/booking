@@ -117,6 +117,7 @@ TEMPLATES = [
                 "booking.context_processors.static_js",
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
+                "booking.context_processors.profile_url",
                 "booking.context_processors.absolute_url",
                 "booking.context_processors.common_words",
 
@@ -289,3 +290,6 @@ SOCIAL_TWITTER_CONSUMER_KEY = 'S5pewaBl5sB7rpUXnKRl8ysRZ'
 SOCIAL_TWITTER_CONSUMER_SECRET = 'fKG8fOAwB3iiK72tTlyge7EBnlliHg1H5x60LUik743Om2EPUo'
 SOCIAL_TWITTER_ACCESS_TOKEN = '30171536-GxwENbTPA2RF3Em1CiZ9VgZCAGpyDw4bQNWfmenuz'
 SOCIAL_TWITTER_ACCESS_TOKEN_SECRET = 'oH8jw9RccbFKwQ9AgAvlnTNNxY3sjwzjxI1TTl1homk7c'
+
+# App config
+MESSAGE_ARTIST_CC = get_env_variable('MESSAGE_ARTIST_CC', default='info@opuslive.io')

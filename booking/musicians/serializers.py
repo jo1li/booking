@@ -1,9 +1,14 @@
+from django.conf import settings
 from home.models import OpusUser
 
 from django.contrib.auth import login
+from django.core.mail import EmailMessage
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
+
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
 
 
 artist_fields = (
@@ -156,17 +161,25 @@ class ArtistUpdateSerializer(ArtistSerializer):
 
 class ArtistCreateSerializer(serializers.Serializer):
 
-    email = serializers.EmailField()
     password = serializers.CharField(max_length=200)
     account_type = serializers.ChoiceField([c[0] for c in Musician.ACCOUNT_TYPE_CHOICES])
     name = serializers.CharField()
-    slug = serializers.SlugField()
+    email = serializers.EmailField(
+            validators=[UniqueValidator(queryset=OpusUser.objects.all())]
+        )
+    slug = serializers.SlugField(
+            validators=[UniqueValidator(queryset=Musician.objects.all())]
+        )
 
 
     def create(self, validated_data):
 
-        u = OpusUser.objects.create(email=validated_data.get('email'))
+        u = OpusUser.objects.create(
+            email=validated_data.get('email'),
+            username=validated_data.get('email')
+        )
         u.set_password(validated_data.get('password'))
+        u.save()
 
         Musician.objects.create(user=u,
             stage_name=validated_data.get('name'),
@@ -174,8 +187,9 @@ class ArtistCreateSerializer(serializers.Serializer):
             account_type=validated_data.get('account_type')
         )
 
-        # This is a bit janky, I think
-        login(self.context['request'], u, backend="account.auth_backends.EmailAuthenticationBackend")
+        # Start a web session
+        #   If we ever cut to token auth, revisit this.
+        login(self.context['request'], u, backend="django.contrib.auth.backends.ModelBackend")
 
         return {
             'email': validated_data.get('email'),
@@ -186,9 +200,42 @@ class ArtistCreateSerializer(serializers.Serializer):
         }
 
 
+
 class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
     url_api = serializers.HyperlinkedIdentityField(view_name='artists-detail')
 
     class Meta:
         model = Musician
         fields = artist_fields
+
+
+class ArtistMessageSerializer(serializers.Serializer):
+
+    email = serializers.EmailField()
+    name = serializers.CharField()
+    message = serializers.CharField(max_length=10240)
+    sent = serializers.BooleanField(read_only=True, required=False)
+
+
+    def create(self, validated_data):
+
+        m = Musician.objects.get(pk=self.context['view'].kwargs['artist_pk'])
+
+        from_email = "{} <{}>".format(validated_data.get('name'), validated_data.get('email'))
+
+        email = EmailMessage(
+            'A message via Opus',
+            validated_data.get('message'),
+            from_email,
+            [m.user.email, settings.MESSAGE_ARTIST_CC],
+            [],
+            reply_to=[validated_data.get('email')],
+        )
+        email.send(fail_silently=False)
+
+        return {
+            'email': validated_data.get('email'),
+            'name': validated_data.get('name'),
+            'message': validated_data.get('message'),
+            'sent': True
+        }
