@@ -70,8 +70,6 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-// Doesnt seem to work, since we're not using Field components
-// https://redux-form.com/7.4.2/examples/syncvalidation/
 const validate = values => {
 
   return {
@@ -90,7 +88,6 @@ const warn = values => {
 let VideoEditFormBase = compose(
   reduxForm({
     form: EDIT_VIDEOS,
-
     // The form fields will not be validated until they are 'touched'
     // this sets touched to true so they are validate always
     // https://github.com/erikras/redux-form/blob/master/src/createReduxForm.js#L289

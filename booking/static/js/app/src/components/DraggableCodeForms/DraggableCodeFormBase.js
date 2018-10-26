@@ -80,15 +80,6 @@ class CodeFormBase extends Component {
 
     const checkableItems = itemsToUpdate.concat(itemsToCreate)
 
-    // console.log("submit values", values)
-    // console.log("submit", validate_video_embeds(values))
-
-    // throw new SubmissionError({
-    //   videos: [{code: "dis is F'ed, to."}],
-    //   _error: "Everything is sad."
-    // });
-
-
     const updateRequests = _.map(itemsToUpdate, (item) => {
       updateArtistItem({
         id: item.id,
@@ -144,9 +135,6 @@ class CodeFormBase extends Component {
       error,
       valid,
     } = this.props;
-
-    console.log("CodeFormBase", this.props);
-    console.log("currentValues", currentValues.videos);
 
     return (
       <Grid container spacing={24}>

@@ -1,14 +1,17 @@
 import _ from 'lodash';
 
+// TODO: could def be DRYed up a bit, but fine for now.
+
 export const validate_video_embeds = (videos) => {
 
+  const noEmbedCodeErrorMessage = 'Please paste an embed code from Youtube.'
   const whitelist = ['youtube.com']
 
   var validation_results = _.map(videos, (item) => {
 
     if(item.code === undefined) { return {} };
 
-    var result = validate_embed(item.code, whitelist);
+    var result = validate_embed(item.code, whitelist, noEmbedCodeErrorMessage);
 
     if(result === true) {
       return {}
@@ -23,9 +26,32 @@ export const validate_video_embeds = (videos) => {
 }
 
 
-export const validate_embed = (code, whitelist) => {
+export const validate_audio_embeds = (videos) => {
 
-  const noEmbedCodeErrorMessage = 'Please paste an embed code from Youtube.'
+  const noEmbedCodeErrorMessage = 'Please paste an embed code from SoundCloud.'
+  const whitelist = ['soundcloud.com']
+
+  var validation_results = _.map(videos, (item) => {
+
+    if(item.code === undefined) { return {} };
+
+    var result = validate_embed(item.code, whitelist, noEmbedCodeErrorMessage);
+
+    if(result === true) {
+      return {}
+    } else {
+      return {code: result}
+    }
+
+  });
+
+  return validation_results;
+
+}
+
+
+export const validate_embed = (code, whitelist, noEmbedCodeErrorMessage) => {
+
   var parser = new DOMParser();
   var doc = parser.parseFromString(code, "text/html");
   var iframe = doc.body.childNodes[0]
@@ -38,12 +64,12 @@ export const validate_embed = (code, whitelist) => {
   //  Will need to change if we encounter a valid embed
   //  code that's not an iframe
   if( iframe.tagName !== 'IFRAME' ) {
-    return "Code is not an iframe.";
+    return noEmbedCodeErrorMessage;
   }
 
   // Very basically, iframe needs to have a src
   if( !iframe.hasAttribute('src') ) {
-    return "Iframe code has no src attribute.";
+    return noEmbedCodeErrorMessage;
   }
 
   // Check the src against our whitelist
