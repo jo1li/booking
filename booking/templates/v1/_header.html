@@ -1,31 +1,18 @@
 {% load i18n %}
 {% load staticfiles %}
-<header id="header">
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-center">
-            <button type="button" class="menu-opener burger">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <a href="{{ home_url }}" class="logo"><img src="{% static 'images/logo_bw_negative.svg' %}" style="width:94px; height:40px;" alt="Opus"></a>
-        </div>
-    </div>
-</header>
-<div class="sidebar-menu">
-    <button type="button" class="menu-opener close"></button>
-
-    <span class="artist heading-xxl heading-light">Artist</span>
-    <div class="sidebar-nav">
-        <a href="#">browse venues</a>
-        <a href="#">browse artists</a>
-        <hr>
-        <a href="{% url 'musician_dash' %}">Application History</a>
-        <a href="{% url 'musician_settings' %}">Account Settings</a>
-
-        <form method="POST" action="{% url "account_logout" %}">
-            {% csrf_token %}
-            <button type="submit" class="link sign-out">{% trans "Sign Out" %}</button>
-        </form>
-
-    </div>
-</div>
+<!-- TODO: support passing of nav items dynamically -->
+<!-- TODO: add logic in template to pass different attributes based on user authed state -->
+<header
+    id="main-navigation-bar"
+    image='{% firstof musician.image_url "" %}'
+    artist="{% firstof musician.stage_name '' %}"
+    url_home="{% url 'home' %}"
+    url_profile='{{ profile_url }}'
+    url_venues="/venues"
+    url_bookings="/bookings"
+    url_signup="{% url 'opus_react_signup' %}"
+    url_settings="{% url 'musician_settings' %}"
+    url_signout="{% url 'opus_logout' %}"
+    csrftoken='{% firstof csrf_token "" %}'
+    authed="{% if request.user.is_authenticated %}true{% endif %}"
+></header>
