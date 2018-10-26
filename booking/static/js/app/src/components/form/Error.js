@@ -16,7 +16,7 @@ const styles = theme => ({
   }
 });
 
-const ErrorDispaly = ({
+const ErrorDisplay = ({
     error,
     touched,
     classes: {
@@ -35,4 +35,4 @@ const ErrorDispaly = ({
     </div>
   )
 
-export default withStyles(styles)(ErrorDispaly);
+export default withStyles(styles)(ErrorDisplay);

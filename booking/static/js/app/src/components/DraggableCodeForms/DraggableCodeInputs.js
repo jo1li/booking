@@ -24,8 +24,6 @@ class DraggableCodeInput extends Component {
       placeholder,
     } = this.props;
 
-    console.log("DraggableCodeInput.render", this.props)
-
     return (
       <div
           ref={innerRef}

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
-import SubmissionError from 'redux-form/lib/SubmissionError'
 
 import CancelConfirm from '../CancelConfirm';
 import DraggableCodeInputs from './DraggableCodeInputs';
@@ -69,7 +68,6 @@ class CodeFormBase extends Component {
     const currentItems = this.getItemsWithCodes();
     const initialItems = initialValues[itemName];
 
-    // NB itemsToUpdate only includes items that have been changed
     const itemsToUpdate = getUpdatedItems({
       currentItems,
       initialItems,
@@ -77,8 +75,6 @@ class CodeFormBase extends Component {
     });
     const itemsToCreate = getCreatedItems({currentItems});
     const itemsToDestroy = getDestroyedItems({currentItems, initialItems});
-
-    const checkableItems = itemsToUpdate.concat(itemsToCreate)
 
     const updateRequests = _.map(itemsToUpdate, (item) => {
       updateArtistItem({
@@ -181,7 +177,6 @@ class CodeFormBase extends Component {
 
 const DraggableCodeFormBase = (props) => {
   const { classes, itemName, formName, currentValues, change } = props;
-  console.log("DraggableCodeFormBase", props)
   return (
     <DroppableContainer
         change={change}
