@@ -31,7 +31,7 @@ const CoverPhoto = (props) => {
       className={_.size(photos) ? classes.clickable : ''}
       style={{
         backgroundImage: `url(${coverPhoto.image})`,
-    }} />
+    }}><div id="cover-photo-fade"></div></div>
   );
 }
 

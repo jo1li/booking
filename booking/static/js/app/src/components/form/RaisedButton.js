@@ -23,6 +23,7 @@ function RaisedButtons(props) {
     onClick,
     type,
     className,
+    disabled,
     ...remainingProps,
   } = props;
 
@@ -31,6 +32,7 @@ function RaisedButtons(props) {
       type={type}
       variant="contained"
       color="secondary"
+      disabled={disabled}
       onClick={onClick}
 
       // for some reason outline will not go away unless its an inline style

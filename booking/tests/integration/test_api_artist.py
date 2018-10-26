@@ -11,14 +11,6 @@ from unittest import skip
 
 class ApiArtistTest(OpusTestCase):
 
-    def get_csrf_from_headers(self, result):
-
-        for header in result.headerlist:
-            if header[0] == 'Set-Cookie':
-                if 'csrftoken' in header[1]:
-                    tokenstr = header[1].split(';')[0]
-                    return tokenstr.replace('csrftoken=', '').strip()
-
 
     @skip
     def test_artist_list(self):

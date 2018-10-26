@@ -29,6 +29,7 @@ const CancelConfirm = (props) => {
     onClickConfirm,
     isLoading,
     success,
+    disabled
   } = props;
 
   return (
@@ -39,7 +40,8 @@ const CancelConfirm = (props) => {
       <RaisedButton
           type="submit"
           onClick={onClickConfirm}
-          className={classes.wideButton} >
+          className={classes.wideButton}
+          disabled={disabled} >
         {/* TODO refactor this, this is awful*/}
         { isLoading ? <CircularProgress /> : null }
         { !isLoading && success ? <CheckCircle /> : null }
@@ -59,6 +61,11 @@ const CenteredCancelConfirm = (props) => {
       <CancelConfirm {...props} />
     </div>
   );
+}
+
+
+CancelConfirm.defaultProps = {
+    disabled: false
 }
 
 export default withStyles(styles)(CenteredCancelConfirm);

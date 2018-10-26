@@ -15,6 +15,7 @@ import {
   getDestroyedItems,
   removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
+import { validate_video_embeds } from '../../utils/validators';
 
 // A base for editing models with a `code` attribute that needs a textarea
 class CodeFormBase extends Component {
@@ -127,6 +128,8 @@ class CodeFormBase extends Component {
       closeDialog,
       submitting,
       submitSucceeded,
+      error,
+      valid,
     } = this.props;
 
     return (
@@ -149,12 +152,17 @@ class CodeFormBase extends Component {
                   width={width}
                   remove={this.removeItemFromForm} />
             </form>
+            {error && <strong>{error}</strong>}
             <CancelConfirm
                 onClickCancel={closeDialog}
                 onClickConfirm={this.submit}
                 isLoading={submitting}
                 success={submitSucceeded}
-                className={classes.footer} />
+                className={classes.footer}
+                isContainer={false}
+                disabled={!valid}
+              />
+
           </Fragment>
 
           <HelpSection
