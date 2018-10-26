@@ -256,6 +256,14 @@ class OnboardingForm extends Component {
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
+                  name="website"
+                  label="Your Website"
+                  placeholder="http://"
+                  component={TextField}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field
                   name="facebook"
                   label="Facebook Page"
                   placeholder="https://"
