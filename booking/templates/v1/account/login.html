@@ -1,4 +1,4 @@
-{% extends "site_base2.html" %}
+{% extends "home/base.html" %}
 
 {% load i18n %}
 {% load bootstrap3 %}
@@ -6,6 +6,13 @@
 {% block head_title %}Login{% endblock %}
 
 {% block main %}
+
+<style type="text/css">
+    #mission, #opus-presents, .video-holder {
+        display:none;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-around mt-5 mb-5">
         <div class="col-md-4">
