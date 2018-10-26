@@ -27,7 +27,7 @@ from venues.views_admin import create
 from musicians.views import signup
 
 # API Views
-from musicians.views import SignupView, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet, ArtistMessageViewSet
+from musicians.views import SignupView, ArtistSlugExists, ArtistViewSet, ArtistVideoViewSet, ArtistAudioViewSet, ArtistImageViewSet, GenreTagViewSet, ArtistMessageViewSet
 from venues.views import VenueViewSet, EventViewSet, SlotViewSet
 
 from .utils import v_url
@@ -46,6 +46,7 @@ artist_router.register(r'audios', ArtistAudioViewSet, base_name='artist-audios')
 artist_router.register(r'photos', ArtistImageViewSet, base_name='artist-photos')
 artist_router.register(r'messages', ArtistMessageViewSet, base_name='artist-messages')
 
+
 venue_router = routers.NestedSimpleRouter(top_router, r'venues', lookup='venue')
 
 
@@ -53,6 +54,7 @@ urlpatterns = [
     path('signup/', signup, name="opus_react_signup"),
     re_path(v_url(''), include(top_router.urls)),
     re_path(v_url(''), include(artist_router.urls)),
+    re_path(v_url('') + "artists/slug_exists", ArtistSlugExists.as_view(), name='artist-slug-exists'),
     re_path(v_url(''), include(venue_router.urls)),
     path('', include("home.urls")),
     path('', include('social_django.urls', namespace='social')),

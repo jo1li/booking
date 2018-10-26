@@ -32,7 +32,7 @@ import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
 import IconInstagram from '../ArtistCard/IconInstagram';
 
-import { 
+import {
   updateUserBio,
   getGenres,
 } from '../../request/requests';
@@ -65,7 +65,7 @@ const styles = theme => ({
   },
   state: {
     minWidth: 110,
-    width: 'auto', 
+    width: 'auto',
     maxWidth: '100%',
   },
   city: {
@@ -206,14 +206,14 @@ class OnboardingForm extends Component {
                   type="file"
                   imagefile={this.state.imageFile}
                   handleOnDrop={this.handleFileDrop}
-                  validate={[imageIsRequired]}  
+                  validate={[imageIsRequired]}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="bio_short" 
+                <Field
+                  name="bio_short"
                   label="Tagline"
-                  multiline={true} 
+                  multiline={true}
                   maxLength="60"
                   component={TextField}
                   normalize={normalizeTagline}
@@ -221,10 +221,10 @@ class OnboardingForm extends Component {
                 <FormHelperText>Up to 60 characters long</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="genres" 
-                  component={SelectField} 
-                  label="Genres" 
+                <Field
+                  name="genres"
+                  component={SelectField}
+                  label="Genres"
                   multiple
                   format={value => value || []}
                   normalize={normalizeGenres}
@@ -236,8 +236,8 @@ class OnboardingForm extends Component {
                 <FormHelperText>Select up to three</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="facebook" 
+                <Field
+                  name="facebook"
                   label="Facebook Page"
                   placeholder="https://"
                   component={TextField}
@@ -247,8 +247,8 @@ class OnboardingForm extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="instagram" 
+                <Field
+                  name="instagram"
                   label="Instagram Profile"
                   placeholder="https://"
                   component={TextField}
@@ -258,8 +258,8 @@ class OnboardingForm extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="spotify" 
+                <Field
+                  name="spotify"
                   label="Spotify Artist Page"
                   placeholder="https://"
                   component={TextField}
@@ -271,9 +271,9 @@ class OnboardingForm extends Component {
               <Grid container spacing={16}>
                 <Grid item style={{flexGrow: 1}}>
                   <FormControl margin="normal" fullWidth>
-                    <Field 
-                      name="hometown" 
-                      label="City" 
+                    <Field
+                      name="hometown"
+                      label="City"
                       component={TextField}
                     />
                   </FormControl>
@@ -292,8 +292,8 @@ class OnboardingForm extends Component {
                   </FormControl>
                 </Grid>
               </Grid>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={pristine || submitting}
                 fullWidth
                 variant="contained"

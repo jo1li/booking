@@ -1,6 +1,7 @@
 from musicians.models import Musician
 
 from tests.utils import OpusTestCase
+from tests.mommy_recipes import musician_recipe, user_musician_recipe
 
 import sure
 from sure import expect
@@ -9,15 +10,6 @@ from http import HTTPStatus
 
 
 class ApiArtistCreateTest(OpusTestCase):
-
-    def get_csrf_from_headers(self, result):
-
-        for header in result.headerlist:
-            if header[0] == 'Set-Cookie':
-                if 'csrftoken' in header[1]:
-                    tokenstr = header[1].split(';')[0]
-                    return tokenstr.replace('csrftoken=', '').strip()
-
 
     def test_artist_create(self):
 
@@ -61,3 +53,62 @@ class ApiArtistCreateTest(OpusTestCase):
         m.slug.should.equal(slug)
         m.account_type.should.equal(account_type)
 
+
+    def test_artist_create_unique(self):
+
+        artist_list_url = self.reverse_api('artists-list')
+
+        result = self.app.get('/')
+        csrf_token = self.get_csrf_from_headers(result)
+
+        email = 'test@sink.sendgrid.net'
+        slug = 'jim-stark'
+
+        musician_recipe.make(
+            user=user_musician_recipe.make(email=email),
+            slug=slug
+        )
+
+        headers = {
+            'X-CSRFToken': csrf_token,
+        }
+        params = {
+            'email': email,
+            'password': 'password',
+            'account_type': 'individual',
+            'name': 'Jim Stark',
+            'slug': slug
+        }
+        result = self.app_api.post(artist_list_url, params, headers=headers)
+        result.status_code.should.equal(HTTPStatus.BAD_REQUEST)
+        result.json()['slug'][0].should.equal('This field must be unique.')
+        result.json()['email'][0].should.equal('This field must be unique.')
+
+
+    def test_artist_create_slug_exists(self):
+
+        artist_check_url = self.reverse_api('artist-slug-exists')
+
+        result = self.app.get('/')
+        csrf_token = self.get_csrf_from_headers(result)
+
+        email = 'test@sink.sendgrid.net'
+        slug = 'jim-stark'
+
+        musician_recipe.make(
+            user=user_musician_recipe.make(email=email),
+            slug=slug
+        )
+
+        headers = {
+            'X-CSRFToken': csrf_token,
+        }
+        params = {
+            'slug': slug
+        }
+        result = self.app_api.get(artist_check_url, params, headers=headers)
+        result.json()['exists'].should.equal(True)
+
+
+        result = self.app_api.get(artist_check_url, {'slug': 'doesnt-exist'}, headers=headers)
+        result.json()['exists'].should.equal(False)

@@ -5,7 +5,10 @@ from django.contrib.auth import login
 from django.core.mail import EmailMessage
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
+
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
 
 
 artist_fields = (
@@ -158,11 +161,15 @@ class ArtistUpdateSerializer(ArtistSerializer):
 
 class ArtistCreateSerializer(serializers.Serializer):
 
-    email = serializers.EmailField()
     password = serializers.CharField(max_length=200)
     account_type = serializers.ChoiceField([c[0] for c in Musician.ACCOUNT_TYPE_CHOICES])
     name = serializers.CharField()
-    slug = serializers.SlugField()
+    email = serializers.EmailField(
+            validators=[UniqueValidator(queryset=OpusUser.objects.all())]
+        )
+    slug = serializers.SlugField(
+            validators=[UniqueValidator(queryset=Musician.objects.all())]
+        )
 
 
     def create(self, validated_data):
@@ -180,7 +187,8 @@ class ArtistCreateSerializer(serializers.Serializer):
             account_type=validated_data.get('account_type')
         )
 
-        # This is a bit janky, I think
+        # Start a web session
+        #   If we ever cut to token auth, revisit this.
         login(self.context['request'], u, backend="django.contrib.auth.backends.ModelBackend")
 
         return {
@@ -190,6 +198,7 @@ class ArtistCreateSerializer(serializers.Serializer):
             'name': validated_data.get('name'),
             'slug': validated_data.get('slug'),
         }
+
 
 
 class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
