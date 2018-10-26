@@ -3,8 +3,9 @@ import React from 'react';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import ReduxFromField from '../HOComponents/ReduxFormField';
-import classNames from 'classnames'
+import ReduxFormField from '../HOComponents/ReduxFormField';
+import Error from '../form/Error';
+import classNames from 'classnames';
 
 const styles = theme => ({
   textArea: {
@@ -32,13 +33,18 @@ let TextArea = (props) => {
   const {
     classes,
     className,
+    touched,
+    error,
+    warning,
+    ...rest,
   } = props;
 
   return (
+      <div>
         <Input
             multiline
             fullWidth
-            {...props}
+            {...rest}
             rows={10}
             type="textArea"
             classes={{
@@ -47,11 +53,13 @@ let TextArea = (props) => {
             }}
             className={classNames(classes.textArea, className)}
         />
+        <Error touched={true} error={error} />
+      </div>
     )
   }
 
 
 export default compose(
-  ReduxFromField,
+  ReduxFormField,
    withStyles(styles)
 )(TextArea);

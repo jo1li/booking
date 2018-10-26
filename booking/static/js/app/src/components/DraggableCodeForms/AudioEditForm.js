@@ -17,6 +17,7 @@ import {
   LEFT_DOUBLE_QUOTES,
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
+import { validate_audio_embeds } from '../../utils/validators';
 
 const title = 'Edit Audio';
 
@@ -57,6 +58,21 @@ const mapStateToProps = (state, props) => ({
   currentValues: getFormValues(EDIT_AUDIOS)(state) || {},
 });
 
+const validate = values => {
+
+  return {
+    audios: validate_audio_embeds(values.audios)
+  };
+
+}
+const warn = values => {
+
+  return {
+    audios: validate_audio_embeds(values.audios)
+  };
+
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getArtistItems: AudioActions.getArtistAudios,
@@ -69,6 +85,11 @@ const mapDispatchToProps = (dispatch) => {
 let AudioEditFormBase = compose(
   reduxForm({
     form: EDIT_AUDIOS,
+    // The form fields will not be validated until they are 'touched'
+    // this sets touched to true so they are validate always
+    // https://github.com/erikras/redux-form/blob/master/src/createReduxForm.js#L289
+    touchOnChange: true,
+    validate, // <--- validation function given to redux-form
     // This allows `initialValues` to be updated below
     enableReinitialize: true,
   }),

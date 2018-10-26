@@ -11,6 +11,7 @@ import { DeleteButton } from '../form/FabButton';
 import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
 
 class DraggableCodeInput extends Component {
+
   render() {
     const {
       order,
