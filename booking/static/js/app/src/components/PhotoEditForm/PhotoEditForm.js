@@ -129,7 +129,7 @@ class PhotoEditFormBase extends Component {
       currentValues,
       profile,
       updateProfile,
-      photos,
+      indexedPhotos,
     } = this.props;
 
     // TODO: support multiple pending images at once
@@ -149,7 +149,7 @@ class PhotoEditFormBase extends Component {
 
     // Cover photo could have been deleted since page was loaded, so don't
     // just check that the ID isn't null.
-    const userHasCoverPhoto = photos[profile.image_hero_id] != undefined;
+    const userHasCoverPhoto = indexedPhotos[profile.image_hero_id] != undefined;
 
     this.props.createArtistItem({
       file: data,
@@ -228,6 +228,7 @@ const mapStateToProps = (state, props) => ({
     photos: _.sortBy(_.values(state.photos), p => p.order),
   },
   photos: _.sortBy(_.values(state.photos), p => p.order),
+  indexedPhotos: state.photos, // Not in order, just indexed by ID
   pendingPhotos: state.pending_photos,
   profile: state.profile,
   currentValues: getFormValues(EDIT_PHOTOS)(state) || {},
