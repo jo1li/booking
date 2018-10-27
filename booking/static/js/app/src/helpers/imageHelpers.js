@@ -11,3 +11,15 @@ export const getThumbnailImageURL = (imageURL) => {
   return imageURL.replace(/upload\/()v1/gi, 'upload/w_114,h_80,c_fill/v1');
 }
 
+/**
+* uploaded images on mobile are typically oriented incorrectly.
+* loadImage corrects the image orientation.
+* https://github.com/blueimp/JavaScript-Load-Image
+*/
+export const orientImage = (file, callback, options) => {
+  window.loadImage(
+    file,
+    img => callback(img.toDataURL("image/png")),
+    { ...options, orientation: true }, // Give a `maxWidth` to make it go faster
+  );
+}
