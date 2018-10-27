@@ -8,8 +8,9 @@ export function createArtistPhoto({artistId, file}, callback) {
         return requests.createPhoto({artistId, file}
             ).then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
-            }).then(() => {
-                if(callback) callback();
+                return res;
+            }).then((res) => {
+                if(callback) callback(res);
             });
     }
 }
