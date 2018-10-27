@@ -172,46 +172,7 @@
                 </div>
             </section>
         </main>
-        <footer id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 col-md-3">
-                        <h3>Artists</h3>
-                        <ul class="footer-links">
-                            <li><a href="/artists/#why">Why Opus</a></li>
-                            <li><a href="/artists/#how">How Opus Works</a></li>
-                            <li><a href="/artists/#contact-us">Reserve My Spot</a></li>
-                            <li><a href="{% url 'account_login' %}">Sign In</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h3>Venues</h3>
-                        <ul class="footer-links">
-                            <li><a href="/venues/#why">Why Opus</a></li>
-                            <li><a href="/venues/#how">How Opus Works</a></li>
-                            <li><a href="/venues/#contact-us">Reserve My Spot</a></li>
-                            {# <li><a href="{% url 'account_login' %}">Sign In</a></li> #}
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h3>Company</h3>
-                        <ul class="footer-links">
-                            <li><a href="/terms/">Terms &amp; Conditions</a></li>
-                            <li><a href="/privacy/">Privacy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <h3>Stay In Touch</h3>
-                        <ul class="social-networks">
-                            <li><a href="mailto:info@opuslive.io"><img src="{% static 'home/images/mail.svg' %}" alt="Mail" width="20" height="20"></a></li>
-                            <li><a href="https://www.facebook.com/opuslivemusic/" target="_blank"><img src="{% static 'home/images/facebook.svg' %}" alt="Facebook" width="20" height="20"></a></li>
-                            <li><a href="https://www.instagram.com/opuslive/" target="_blank"><img src="{% static 'home/images/instagram.svg' %}" alt="Instagram" width="20" height="20"></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <p>&copy; 2018 <a href="#">Opus</a> Apps Inc.</p>
-            </div>
-        </footer>
+        {% include "_footer.html" %}
     </div>
 </body>
 </html>
