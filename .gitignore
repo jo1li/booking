@@ -97,6 +97,8 @@ ENV/
 # mypy
 .mypy_cache/
 
+booking/db.sqlite3
+
 mysql-data
 booking/static/*
 !booking/static/images

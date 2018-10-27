@@ -1,0 +1,40 @@
+name: booking-stage
+cluster: booking-stage
+docker:
+  image_name: booking
+  repo_uri: 519644672566.dkr.ecr.us-east-2.amazonaws.com
+  pre_build: rm -Rfv booking/static/js/app/build && docker-compose run web-js npm run build
+service:
+  name: booking-stage
+task:
+  name: booking-stage
+  port: 80
+  cpu: 0.25 vCPU
+  memory: 1GB
+  units: 1
+  role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
+  execution_role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
+elb:
+  name: booking-stage
+  security_groups:
+    -
+  certificate_arn:  arn:aws:acm:us-east-2:519644672566:certificate/c9f93c96-5f3f-478f-95b3-7d41d15e5f8e
+  port: 80
+  https_port: 443
+  health_check:
+    interval: 15s
+    path: /healthcheck
+    status: 200-299
+    timeout: 10s
+    healthy_limit: 3
+    unhealthy_limit: 3
+logging:
+  options: {}
+vpc:
+  vpc_id: vpc-0a2a7d63cdf96b8a8
+  subnets:
+    - subnet-0de3205c89e93e710
+    - subnet-060d48e8c9243ee3d
+    - subnet-030ad699e0b1b0817
+  security_groups:
+    - sg-0d90783d53ae1c4b8

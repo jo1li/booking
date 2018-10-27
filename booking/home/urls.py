@@ -10,7 +10,7 @@ urlpatterns = [
     path('privacy/', privacy, name="privacy"),
     path('privacy-2/', privacy, name="privacy"),
     path('terms/', terms, name="terms"),
-    path('_ah/health', healthcheck),
+    path('healthcheck', healthcheck),
     path('account/log_out/', logout, name="opus_logout"),
     path('account/login/', LoginView.as_view(), name="opus_login"),
 ]
