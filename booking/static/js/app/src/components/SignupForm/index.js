@@ -93,7 +93,7 @@ class SignupForm extends Component {
     const errors = {}
 
     // password validation
-    if(data.password.length < 8) {
+    if(!data.password || data.password.length < 8) {
       errors.password = 'Password must be atleast 8 characters';
     }
 

@@ -5,6 +5,7 @@ import {
   Field,
   reduxForm,
   getFormValues,
+  SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
@@ -185,18 +186,64 @@ class OnboardingForm extends Component {
       image: _.get(values, 'image.0'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
-      if(res.status === 200) {
-        if(res.data.url_fq) {
-          window.location.href = res.data.url_fq
-        } else {
-          // uhhh
+    const errors = {}
+
+    // tagline validation
+    if(!data.bio_short) {
+      errors.bio_short = "This field is required.";
+    }
+
+    // image validation
+    if(!data.image) {
+      errors.image = "Please add a profile photo.";
+    }
+
+    // genres validation
+    if(_.isEmpty(data.genres)) {
+      errors.genres = "Please select at least 1 genre.";
+    }
+
+    // url regex
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+    
+    // website validation
+    if (data.website && !simple_url_regex.test(data.website)) {
+      errors.website = "This link looks invalid. Please check for typos.";
+    }
+
+    // facebook validation
+    if (data.facebook && !simple_url_regex.test(data.facebook)) {
+      errors.facebook = "This link looks invalid. Please check for typos.";
+    }
+
+    // instagram validation
+    if (data.instagram && !simple_url_regex.test(data.instagram)) {
+      errors.instagram = "This link looks invalid. Please check for typos.";
+    }
+
+    // spotify validation
+    if (data.spotify && !simple_url_regex.test(data.spotify)) {
+      errors.spotify = "This link looks invalid. Please check for typos.";
+    }
+    
+
+    if(Object.keys(errors).length === 0) {
+      return updateUserBio(data, musicianid).then(res => {
+        if(res.status === 200) {
+          if(res.data.url_fq) {
+            window.location.href = res.data.url_fq
+          } else {
+            // uhhh
+          }
         }
-      }
-    })
-    .catch(errors => {
-      console.log('errors', errors);
-    });
+      })
+      .catch(errors => {
+        console.log('errors', errors);
+      });
+    } else {
+      throw new SubmissionError(errors);
+    }
+
   }
 
   handleFileDrop = newImageFile => {
@@ -204,13 +251,13 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit, currentValues } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues, invalid } = this.props
+    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.image || !currentValues.bio_short ? true : false;
     return (
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
           <Typography variant="headline" align="center">Onboarding</Typography>
-          {console.log("currentValues: ", currentValues.genres)}
           <Paper className={classes.paper}>
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" className={classes.uploadArea} fullWidth>
@@ -222,6 +269,7 @@ class OnboardingForm extends Component {
                   handleOnDrop={this.handleFileDrop}
                   validate={[imageIsRequired]}
                 />
+                <FormHelperText>Required</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -232,7 +280,7 @@ class OnboardingForm extends Component {
                   component={TextField}
                   normalize={normalizeTagline}
                 />
-                <FormHelperText>Up to 60 characters long</FormHelperText>
+                <FormHelperText>Required • Up to 60 characters long</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -252,7 +300,7 @@ class OnboardingForm extends Component {
                     </MenuItem>
                   ))}
                 </Field>
-                <FormHelperText>Select up to three</FormHelperText>
+                <FormHelperText>Required • Select up to three.</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -321,7 +369,7 @@ class OnboardingForm extends Component {
               </Grid>
               <Button
                 type="submit"
-                disabled={pristine || submitting}
+                disabled={requiredEmpty || invalid || pristine || submitting}
                 fullWidth
                 variant="contained"
                 color="primary"
