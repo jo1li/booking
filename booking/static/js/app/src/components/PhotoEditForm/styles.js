@@ -1,6 +1,7 @@
 import editModalStyles from '../../sharedStyles/editModalStyles';
 
 const SMALL_SCREEN_ROW_HEIGHT = '106px';
+const SMALL_SCREEN_TOP_ROW_HEIGHT = '65px';
 const LARGE_SCREEN_ROW_HEIGHT = '80px';
 
 const styles = theme => {
@@ -34,10 +35,15 @@ const styles = theme => {
       color: theme.palette.grey[500],
       border: 'none',
       alignSelf: 'center',
-      padding: '0 35px',
-      width: '89px',
+      boxSizing: 'content-box',
+      width: '22px',
+      height: '22px',
+      padding: '10px',
+      borderRadius: 0, // Overwrite MUI icon radius. Looks horrible rn.
       backgroundColor: 'transparent',
       outline: 'none', // TODO: more accessibility
+      marginRight: '19px',
+      marginLeft: 'auto', // Push to the right end of the container
     },
     dragHandle: {
       width: '40px',
@@ -50,7 +56,6 @@ const styles = theme => {
       color: theme.palette.grey[500],
     },
     editPhotoImageWrapper: {
-      height: LARGE_SCREEN_ROW_HEIGHT, // If this is a % instead of absolute, preview image resizes it
       width: '114px',
       overflow: 'hidden',
     },
@@ -76,7 +81,6 @@ const styles = theme => {
       }
     },
     photoFormRow: {
-      height: LARGE_SCREEN_ROW_HEIGHT,
       borderRadius: '3px',
       // TODO: get this color into themes somewhere?
       boxShadow: '0 2px 3px 0 rgba(0, 0, 0, 0.5)',
@@ -96,17 +100,53 @@ const styles = theme => {
       color: theme.palette.secondary.main,
       cursor: 'pointer',
     },
+    removed: {
+      animationDuration: '0.4s',
+      animationName: 'hide-photo-row',
+      opacity: 0,
+      paddingBottom: 0,
+      zIndex: -1,
+      height: 0,
+    },
+    previewPhoto: {
+      // Height and width attrs needed for object-fit to work
+      height: '100%',
+      width: '100%',
+      objectFit: 'cover',
+    },
+    // TODO: Move into edit form styles once styling is consistent
+    aboveFooter: {
+      padding: '12px 1px 0',
+      marginBottom: '12px',
+      overflowY: 'scroll',
+    },
 
+    // Media queries don't add precedence, and Material-UI moved them around.
+    [theme.breakpoints.up('sm')]: {
+      ...parentStyles[theme.breakpoints.up('sm')],
+      photoFormRow: {
+        height: LARGE_SCREEN_ROW_HEIGHT,
+      },
+      editPhotoImageWrapper: {
+        height: LARGE_SCREEN_ROW_HEIGHT, // If this is a % instead of absolute, preview image resizes it
+      },
+      photoFormRowTop: {
+        height: LARGE_SCREEN_ROW_HEIGHT,
+      },
+      deleteButton: {
+        marginLeft: 0,
+      }
+    },
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
       photoFormRow: {
         height: SMALL_SCREEN_ROW_HEIGHT,
       },
       editPhotoImageWrapper: {
-        height: SMALL_SCREEN_ROW_HEIGHT,
+        height: SMALL_SCREEN_TOP_ROW_HEIGHT, // If this is a % instead of absolute, preview image resizes it
       },
       photoFormRowTop: {
-        height: '65px',
+        height: SMALL_SCREEN_TOP_ROW_HEIGHT,
       },
       photoFormRowBottom: {
         padding: '9px 8px',
@@ -117,29 +157,6 @@ const styles = theme => {
         marginLeft: 'auto',
       }
     },
-
-    removed: {
-      animationDuration: '0.4s',
-      animationName: 'hide-photo-row',
-      opacity: 0,
-      paddingBottom: 0,
-      zIndex: -1,
-      height: 0,
-    },
-
-    previewPhoto: {
-      // Height and width attrs needed for object-fit to work
-      height: '100%',
-      width: '100%',
-      objectFit: 'cover',
-    },
-
-    // TODO: Move into edit form styles once styling is consistent
-    aboveFooter: {
-      padding: '12px 1px 0',
-      marginBottom: '12px',
-      overflowY: 'scroll',
-    },
 
   };
 }
