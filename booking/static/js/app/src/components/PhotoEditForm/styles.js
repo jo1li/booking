@@ -1,5 +1,8 @@
 import editModalStyles from '../../sharedStyles/editModalStyles';
 
+const SMALL_SCREEN_ROW_HEIGHT = '106px';
+const LARGE_SCREEN_ROW_HEIGHT = '80px';
+
 const styles = theme => {
   const parentStyles = editModalStyles(theme);
   const xs = parentStyles[theme.breakpoints.down('xs')];
@@ -47,7 +50,7 @@ const styles = theme => {
       color: theme.palette.grey[500],
     },
     editPhotoImageWrapper: {
-      height: '100%',
+      height: LARGE_SCREEN_ROW_HEIGHT, // If this is a % instead of absolute, preview image resizes it
       width: '114px',
       overflow: 'hidden',
     },
@@ -73,7 +76,7 @@ const styles = theme => {
       }
     },
     photoFormRow: {
-      height: '80px',
+      height: LARGE_SCREEN_ROW_HEIGHT,
       borderRadius: '3px',
       // TODO: get this color into themes somewhere?
       boxShadow: '0 2px 3px 0 rgba(0, 0, 0, 0.5)',
@@ -97,7 +100,10 @@ const styles = theme => {
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
       photoFormRow: {
-        height: '106px',
+        height: SMALL_SCREEN_ROW_HEIGHT,
+      },
+      editPhotoImageWrapper: {
+        height: SMALL_SCREEN_ROW_HEIGHT,
       },
       photoFormRowTop: {
         height: '65px',
