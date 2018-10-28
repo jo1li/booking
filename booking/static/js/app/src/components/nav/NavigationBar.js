@@ -16,7 +16,7 @@ import DownIcon from 'react-feather/dist/icons/chevron-down';
 import NavigationMobileMenu from './NavigationMobileMenu';
 import NavBarLogo from './NavBarLogo';
 
-import { getDefaultThumbnailImageURL } from '../../helpers/imageHelpers';
+import { getFaceThumbnailImageURL } from '../../helpers/imageHelpers';
 
 const styles = theme => ({
   root: {
@@ -200,7 +200,7 @@ class NavigationBar extends React.Component {
                   >
                     <div className={classes.avatar}
                       style={{
-                        backgroundImage: `url(${getDefaultThumbnailImageURL(this.props.image)})`,
+                        backgroundImage: `url(${getFaceThumbnailImageURL(this.props.image)})`,
                         backgroundSize: '100%'
                       }}
                     ></div>

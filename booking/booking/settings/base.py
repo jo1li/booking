@@ -190,7 +190,7 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder'
 ]
 
-STATIC_JS_APP_BASE_URL = 'http://localhost:3000/static/js/'
+STATIC_JS_APP_BASE_URL = 'http://localhost:9000/static/js/'
 STATIC_JS_APP_BUNDLE = get_env_variable('STATIC_JS_APP_BUNDLE', default='bundle.js')
 
 # Cloudinary
