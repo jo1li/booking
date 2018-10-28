@@ -68,45 +68,8 @@
     <div class="container">
         <div class="row js-container">
             <div class="col-md-4 js-container">
-                <aside class="sidebar">
-                    <div class="edit-box">
-                        <h2 class="headline">{{ musician.stage_name }}</h2>
-                        {% if musician.on_tour %}
-                        <h3 class="bold-text heading-orange text-center">on tour</h3>
-                        {% endif %}
-                        <div class="edit{% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
-                    </div>
-
-                    <div class="artist-photo text-center">
-                        {% cloudinary musician.image.name width=180 height=180 crop="thumb" class="rounded-circle" %}
-                    </div>
-
-                    <ul class="social-subscribe">
-                        <li>
-                            <a href="{{ musician.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <span class="subscribers-count">36.3K</span>
-                        </li>
-                        <li>
-                            <a href="{{ musician.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
-                        </li>
-                        <li>
-                            <a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i></a>
-                            <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
-                        </li>
-                    </ul>
-
-                    <div class="info text-center">
-                        <p class="body-text">{{ musician.hometown }}, {{ musician.state }}</p>
-                        <p class="body-text">{{ musician.genres|opus_replace:"search=, &replace= / " }}</p>
-                        {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}" target="_blank">{{ musician.website }}</a></p>{% endif %}
-                    </div>
-
-                    <div class="about"  id="temp-edit-bio-form">
-                        <p class="body-text regular">{{ musician.bio_short }}</p>
-                    </div>
-
-                    <a href="#biography-long" id="see-full-bio-link" class="bold-text heading-secondary">See Full Bio</a>
+                <aside id="artist-card">
+                    <!-- TODO: loading image? -->
                 </aside>
             </div>
             <div class="col-md-8">
