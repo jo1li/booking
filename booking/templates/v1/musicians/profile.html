@@ -129,6 +129,7 @@
             state: {{ musician.state|default_if_none:"null" }},
             website: {{ musician.website|default_if_none:"null" }},
             instagram: {{ musician.instagram|default_if_none:"null" }},
+            genres: "{{ musician.genres|default_if_none:"" }}".split(','),
         },
         photos: {{ photos_json | safe }},
     };

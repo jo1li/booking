@@ -16,11 +16,14 @@ import styles from './styles';
 class ArtistCard extends React.Component {
 
   renderMedia(props) {
+    const { classes, profile } = props;
+    const { image, stage_name, on_tour } = profile;
+
     return (
-      <CardMedia className={props.classes.avatarSection} image={props.image} title={props.artist}>
-        {(props.onTour && (
+      <CardMedia className={classes.avatarSection} image={image} title={stage_name}>
+        {(on_tour && (
           <div style={{position: 'relative', height: '100%'}}>
-            <Typography variant="caption" align="left" className={props.classes.tourlabel}>
+            <Typography variant="caption" align="left" className={classes.tourlabel}>
               On Tour
             </Typography>
           </div>
@@ -65,11 +68,15 @@ class ArtistCard extends React.Component {
   }
 
   renderLocation(props) {
-    const { hometown, state } = props;
+    const { profile: { hometown, state} } = props;
 
     if(!hometown && !state) return null;
-    if(hometown ^ state) return hometown || state;
+    if(!hometown ^ !state) return hometown || state;
     return `${hometown}, ${state}`;
+  }
+
+  renderUserEditForm(props) {
+    props.openDialog(<UserEditForm {...props.profile} />);
   }
 
   render() {
@@ -77,8 +84,13 @@ class ArtistCard extends React.Component {
       classes,
       editable,
       inReview,
-      artist,
-      tagline,
+      profile,
+      openDialog,
+    } = this.props;
+
+    const {
+      stage_name,
+      bio_short,
       genres,
       website,
       hometown,
@@ -89,7 +101,8 @@ class ArtistCard extends React.Component {
       instagramMetric,
       spotify,
       spotifyMetric,
-    } = this.props;
+    } = profile;
+
     return (
       <Card elevation="8" className={classes.card}>
         {inReview && (
@@ -102,7 +115,7 @@ class ArtistCard extends React.Component {
               <Grid container wrap="nowrap" spacing={8} justify="space-between">
                 <Grid item>
                   <Typography variant="title" component="h2" align="left">
-                    {artist}
+                    {stage_name}
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -114,14 +127,14 @@ class ArtistCard extends React.Component {
             )}
             {!editable && (
               <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
-                {artist}
+                {stage_name}
               </Typography>
             )}
             <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
               {genres.join(', ')}
             </Typography>
             <Typography variant="body1" align="left" style={{paddingTop: '8px'}}>
-              {tagline}
+              {bio_short}
             </Typography>
           </CardContent>
           <Grid container className={classes.audience} spacing={16} gutterBottom>
