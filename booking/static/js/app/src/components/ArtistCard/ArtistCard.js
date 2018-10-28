@@ -38,12 +38,12 @@ class ArtistCard extends React.Component {
       <ButtonBase disabled={url ? false : true} className={props.classes.serviceButton}>
         <Paper elevation="0" className={serviceClasses}>
           <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
-          {metric 
+          {metric
             ? (<Typography variant="body1" className={props.classes.stat} noWrap>{metric}</Typography>)
             : (<Typography variant="body1" className={props.classes.disabledColor}>—</Typography>)
           }
         </Paper>
-      </ButtonBase>  
+      </ButtonBase>
     )
 
     if (url) {
@@ -63,10 +63,10 @@ class ArtistCard extends React.Component {
     }
   }
   render() {
-    const { 
-      classes, 
-      editable, 
-      inReview, 
+    const {
+      classes,
+      editable,
+      inReview,
       artist,
       tagline,
       genres,
