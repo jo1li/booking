@@ -13,9 +13,7 @@ import Edit from 'react-feather/dist/icons/edit';
 
 
 class ArtistCard extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   renderMedia(props) {
     return (
       <CardMedia className={props.classes.media} image={props.image} title={props.artist}>
