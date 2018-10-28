@@ -62,6 +62,15 @@ class ArtistCard extends React.Component {
       )
     }
   }
+
+  renderLocation(props) {
+    const { hometown, state } = props;
+
+    if(!hometown && !state) return null;
+    if(hometown ^ state) return hometown || state;
+    return `${hometown}, ${state}`;
+  }
+
   render() {
     const {
       classes,
@@ -126,7 +135,7 @@ class ArtistCard extends React.Component {
           <Grid container spacing={8} justify='space-between'>
             <Grid item>
               <Typography component="p" variant="caption" noWrap align="left">
-                {hometown}, {state}
+                {this.renderLocation(this.props)}
               </Typography>
             </Grid>
             <Grid item className={classes.websiteMeta}>
