@@ -9,7 +9,6 @@ import PhotoModalButton from '../components/PhotoModalButton';
 import EditPhotosButton from '../components/EditPhotosButton';
 import CoverPhoto from '../components/CoverPhoto';
 import { ClickToOpenDialog } from '../components/Dialog';
-import NavigationBar from '../components/nav/NavigationBar';
 import RenderFromDomNode from '../renderFromDomNode';
 import _ from 'lodash';
 
