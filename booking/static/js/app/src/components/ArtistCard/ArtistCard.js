@@ -10,7 +10,9 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import ConnectedServiceIcon from './ConnectedServiceIcon';
 import Edit from 'react-feather/dist/icons/edit';
+
 import styles from './styles';
+import UserEditForm from '../UserEditForm';
 
 
 class ArtistCard extends React.Component {
@@ -120,7 +122,7 @@ class ArtistCard extends React.Component {
                 </Grid>
                 <Grid item>
                   <ButtonBase className={classes.editIcon}>
-                    <Edit size={22} />
+                    <Edit size={22} onClick={() => this.renderUserEditForm(this.props)}/>
                   </ButtonBase>
                 </Grid>
               </Grid>

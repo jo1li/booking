@@ -102,9 +102,6 @@ class UserEditForm extends Component {
       genres
     } = this.state;
 
-    console.log(currentValues);
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
@@ -305,12 +302,12 @@ const mapStateToProps = (state, props) => ({
   // TODO add defaults value function
   initialValues: {
     stage_name: props.stage_name,
-    image: props.avatar,
+    image: props.image,
     facebook: props.facebook,
     instagram: props.instagram,
     spotify: props.spotify,
     hometown: props.hometown,
-    genres: props.genres.split(', ') || [],
+    genres: props.genres,
     state: props.state,
     website: props.website,
     bio_short: props.bio_short,

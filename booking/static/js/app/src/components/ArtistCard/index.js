@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+
 import ArtistCard from './ArtistCard';
+import { FullScreenDialog } from '../Dialog';
 
 // TODO: Do social stats exist yet? Not bootstrapping in profile yet.
 const mapStateToProps = (state, props) => ({
@@ -9,4 +12,7 @@ const mapStateToProps = (state, props) => ({
   inReview: false, // TODO: ??
 });
 
-export default connect(mapStateToProps)(ArtistCard);
+export default compose(
+  connect(mapStateToProps),
+  FullScreenDialog,
+)(ArtistCard);

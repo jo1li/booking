@@ -31,14 +31,6 @@ export default function render_artist_profile() {
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
-                triggerSelector: '#open-edit-user-profile',
-                DialogContent: UserEditForm,
-            }),
-        node: 'user-edit-form',
-    });
-
-    RenderFromDomNode({
-        Component: ClickToOpenDialog({
             triggerSelector: '#open-edit-biography',
             DialogContent: EditBioForm,
         }),
