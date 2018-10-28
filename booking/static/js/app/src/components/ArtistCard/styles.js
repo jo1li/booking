@@ -1,14 +1,105 @@
 const styles = theme => ({
   card: {
-    width: '235px',
-    margin: '20px',
+    display: 'flex',
+
     '& > hr': {
       opacity: '0.5',
     },
+
+    ['@media (min-width:768px)']: {
+      width: '235px',
+      flexDirection: 'column',
+      margin: '0 auto',
+      position: 'sticky',
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      width: 'auto',
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      margin: '0 0 40px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: 'auto',
+      flexDirection: 'column',
+      margin: '0 0 40px',
+    },
   },
+
+  avatarSection: {
+    marginTop: '0px',
+    backgroundColor: theme.palette.grey[200],
+
+    ['@media (min-width:768px)']: {
+      height: '110px',
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      width: '45%',
+      height: '174px',
+      order: 0,
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: '110px',
+    },
+  },
+  infoSection: {
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      width: '55%',
+      height: '174px',
+      order: 1,
+    },
+  },
+  metaSection: {
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      width: '100%',
+      order: 2,
+    },
+  },
+  metaList: {
+    ['@media (min-width:768px)']: {
+      justifyContent: 'space-between',
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      justifyContent: 'flex-end',
+    },
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'space-between',
+    },
+  },
+
+  socialServices: {
+    ['@media (min-width:768px)']: {
+      justifyContent: 'center',
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      justifyContent: 'auto',
+    },
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+    },
+  },
+
+  tourlabel: {
+    position: 'absolute',
+    left: theme.spacing.unit * 1.5,
+    textTransform: 'uppercase',
+    padding: '2px 4px',
+    background: theme.palette.secondary.main,
+    color: 'black',
+    borderRadius: '2px',
+
+    ['@media (min-width:768px)']: {
+      bottom: '6px',
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      bottom: '-31px',
+    },
+    [theme.breakpoints.down('xs')]: {
+      bottom: '6px',
+    },
+  },
+
   editIcon: {
     padding: theme.spacing.unit / 2,
-    // borderRadius: theme.shape.borderRadius,
     borderRadius: '4px',
     marginRight: `-${theme.spacing.unit}px`,
     marginTop: `-${theme.spacing.unit/2}px`,
@@ -23,6 +114,7 @@ const styles = theme => ({
   padTopSm: {
     paddingTop: theme.spacing.unit / 2
   },
+  // TODO: needed?
   media: {
     marginTop: '0px',
     height: 110,
@@ -35,7 +127,8 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit / 2,
   },
   disabledColor: {
-    color: theme.palette.grey[300],
+    color: theme.palette.grey[200],
+    marginTop: 4,
   },
   service: {
     paddingTop: theme.spacing.unit,
@@ -43,14 +136,12 @@ const styles = theme => ({
     width: 48,
   },
   serviceConnected: {
-    // borderRadius: theme.shape.borderRadius,
     borderRadius: '4px',
     '&:hover': {
       cursor: 'pointer',
     }
   },
   serviceButton: {
-    // borderRadius: theme.shape.borderRadius,
     borderRadius: '4px',
     color: theme.palette.grey[400],
   },
@@ -82,16 +173,6 @@ const styles = theme => ({
   actionContainer: {
     backgroundColor: 'rgba(0,0,0,0.1)'
   },
-  tourlabel: {
-    position: 'absolute',
-    bottom: '6px',
-    left: theme.spacing.unit * 1.5,
-    textTransform: 'uppercase',
-    padding: '2px 4px',
-    background: theme.palette.secondary.main,
-    color: 'black',
-    borderRadius: '2px'
-  },
   meta: {
     paddingTop: '8px',
     paddingBottom: '8px',
@@ -108,6 +189,7 @@ const styles = theme => ({
     }
   },
   websiteMeta: {
+    marginLeft: theme.spacing.unit * 3,
     '& a': {
       textDecoration: 'none',
       color: theme.palette.text.secondary,
@@ -129,4 +211,5 @@ const styles = theme => ({
     }
   }
 });
+
 export default styles;

@@ -17,7 +17,7 @@ class ArtistCard extends React.Component {
 
   renderMedia(props) {
     return (
-      <CardMedia className={props.classes.media} image={props.image} title={props.artist}>
+      <CardMedia className={props.classes.avatarSection} image={props.image} title={props.artist}>
         {(props.onTour && (
           <div style={{position: 'relative', height: '100%'}}>
             <Typography variant="caption" align="left" className={props.classes.tourlabel}>
@@ -28,6 +28,7 @@ class ArtistCard extends React.Component {
       </CardMedia>
     )
   }
+
   renderSocialService(name, service_url, service_metric, props) {
     const url = service_url != "" ? service_url : undefined;
     const metric = service_metric != "" ? service_metric : undefined;
@@ -94,57 +95,64 @@ class ArtistCard extends React.Component {
         {inReview && (
           this.renderMedia(this.props)
         )}
-        <CardContent className={classes.content}>
-          {editable && (
-            <Grid container wrap="nowrap" spacing={8} justify="space-between">
+
+        <div className={classes.infoSection}>
+          <CardContent className={classes.content}>
+            {editable && (
+              <Grid container wrap="nowrap" spacing={8} justify="space-between">
+                <Grid item>
+                  <Typography variant="title" component="h2" align="left">
+                    {artist}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <ButtonBase className={classes.editIcon}>
+                    <Edit size={22} />
+                  </ButtonBase>
+                </Grid>
+              </Grid>
+            )}
+            {!editable && (
+              <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
+                {artist}
+              </Typography>
+            )}
+            <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
+              {genres.join(', ')}
+            </Typography>
+            <Typography variant="body1" align="left" style={{paddingTop: '8px'}}>
+              {tagline}
+            </Typography>
+          </CardContent>
+          <Grid container className={classes.audience} spacing={16} gutterBottom>
+            <Grid item xs={12}>
+              <Grid container className={classes.socialServices} spacing={16}>
+                {this.renderSocialService("facebook",facebook,facebookMetric,this.props)}
+                {this.renderSocialService("instagram",instagram,instagramMetric,this.props)}
+                {this.renderSocialService("spotify",spotify,spotifyMetric,this.props)}
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
+
+        <div className={classes.metaSection}>
+          <Divider/>
+          <CardContent className={`${classes.meta}`}>
+            <Grid container spacing={8} className={classes.metaList}>
               <Grid item>
-                <Typography variant="title" component="h2" align="left">
-                  {artist}
+                <Typography component="p" variant="caption" noWrap align="left">
+                  {this.renderLocation(this.props)}
                 </Typography>
               </Grid>
-              <Grid item>
-                <ButtonBase className={classes.editIcon}>
-                  <Edit size={22} />
-                </ButtonBase>
+              <Grid item className={classes.websiteMeta}>
+                <Typography component="p" variant="caption" align="right">
+                  { website ? <a href={website} target="_blank">Website</a> : null }
+                </Typography>
               </Grid>
             </Grid>
-          )}
-          {!editable && (
-            <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
-              {artist}
-            </Typography>
-          )}
-          <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
-            {genres.join(', ')}
-          </Typography>
-          <Typography variant="body1" align="left" style={{paddingTop: '8px'}}>
-            {tagline}
-          </Typography>
-        </CardContent>
-        <Grid container className={classes.audience} spacing={16} gutterBottom>
-          <Grid item xs={12}>
-            <Grid container className={classes.demo} justify="center" spacing={16}>
-              {this.renderSocialService("facebook",facebook,facebookMetric,this.props)}
-              {this.renderSocialService("instagram",instagram,instagramMetric,this.props)}
-              {this.renderSocialService("spotify",spotify,spotifyMetric,this.props)}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Divider/>
-        <CardContent className={`${classes.meta}`}>
-          <Grid container spacing={8} justify='space-between'>
-            <Grid item>
-              <Typography component="p" variant="caption" noWrap align="left">
-                {this.renderLocation(this.props)}
-              </Typography>
-            </Grid>
-            <Grid item className={classes.websiteMeta}>
-              <Typography component="p" variant="caption" align="right">
-                { website ? <a href={website} target="_blank">Website</a> : null }
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
+          </CardContent>
+        </div>
+
         {!inReview && (
           this.renderMedia(this.props)
         )}
