@@ -15,14 +15,13 @@ function initFixedBlocks() {
     ResponsiveHelper.addRange({
       '768..': {
         on: function() {
-          jQuery('.sidebar').stickyScrollBlock({
+          jQuery('#artist-card').stickyScrollBlock({
             setBoxHeight: false,
             activeClass: 'fixed-position',
             container: '.js-container',
             positionType: 'fixed',
             extraTop: function() {
               var indent = barHolder.outerHeight() + 64 + parseInt(main.css('padding-top'));
-              console.log(indent)
 
               return 160;
             }
@@ -31,7 +30,7 @@ function initFixedBlocks() {
       },
       '..767': {
         on: function() {
-          jQuery('.sidebar').stickyScrollBlock('destroy');
+          jQuery('#artist-card').stickyScrollBlock('destroy');
         }
       }
     });
