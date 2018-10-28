@@ -73,7 +73,7 @@ function initFixedBlocks() {
           bottom: ''
         }).removeClass(fixedClass);
         main.css({
-          paddingTop: '40px'
+          paddingTop: '32px'
         });
       }
     };
