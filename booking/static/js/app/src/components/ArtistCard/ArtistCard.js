@@ -84,8 +84,8 @@ class ArtistCard extends React.Component {
   render() {
     const {
       classes,
-      editable,
-      inReview,
+      isEditable,
+      isInReview,
       profile,
       openDialog,
     } = this.props;
@@ -107,13 +107,13 @@ class ArtistCard extends React.Component {
 
     return (
       <Card elevation="8" className={classes.card}>
-        {inReview && (
+        {isInReview && (
           this.renderMedia(this.props)
         )}
 
         <div className={classes.infoSection}>
           <CardContent className={classes.content}>
-            {editable && (
+            {isEditable && (
               <Grid container wrap="nowrap" spacing={8} justify="space-between">
                 <Grid item>
                   <Typography variant="title" component="h2" align="left">
@@ -127,7 +127,7 @@ class ArtistCard extends React.Component {
                 </Grid>
               </Grid>
             )}
-            {!editable && (
+            {!isEditable && (
               <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
                 {stage_name}
               </Typography>
@@ -168,10 +168,10 @@ class ArtistCard extends React.Component {
           </CardContent>
         </div>
 
-        {!inReview && (
+        {!isInReview && (
           this.renderMedia(this.props)
         )}
-        {(inReview && (
+        {(isInReview && (
           <React.Fragment>
             <Divider/>
             <Grid container spacing={0}>

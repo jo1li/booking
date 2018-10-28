@@ -8,8 +8,8 @@ import { FullScreenDialog } from '../Dialog';
 // TODO: Do social stats exist yet? Not bootstrapping in profile yet.
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
-  editable: true, // TODO: only if logged in
-  inReview: false, // TODO: ??
+  isEditable: state.is_current_user,
+  isInReview: false, // TODO: Where does this come from? Also, test responsiveness when in review.
 });
 
 export default compose(

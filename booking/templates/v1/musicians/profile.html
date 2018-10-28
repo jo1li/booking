@@ -115,6 +115,7 @@
 </section>
 <script>
     window.initialState = {
+        is_current_user: {{ is_owner_viewing|yesno:"true,false" }},
         profile: {
             id: {{ musician.pk }},
             stage_name: "{{ musician.stage_name }}",
