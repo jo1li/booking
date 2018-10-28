@@ -43,20 +43,20 @@ def new_task_rev_and_update_service(task_image, env):
             loadBalancers=[
                 {
                     'targetGroupArn': target_group_arn,
-                    'containerName': 'baton-stage',
+                    'containerName': service_name,
                     'containerPort': 80
                 },
             ],
             desiredCount=1,
             launchType='FARGATE',
             deploymentConfiguration={
-                'maximumPercent': 100,
-                'minimumHealthyPercent': 0
+                'maximumPercent': 200,
+                'minimumHealthyPercent': 100
             },
             networkConfiguration={
                 'awsvpcConfiguration': {
-                    'subnets': env['subnets'],
-                    'securityGroups': env['security_groups'],
+                    'subnets': env['vpc']['subnets'],
+                    'securityGroups': env['vpc']['security_groups'],
                     'assignPublicIp': 'ENABLED'
                 }
             },
@@ -69,7 +69,11 @@ def new_task_rev_and_update_service(task_image, env):
             cluster=cluster,
             service=service_name,
             taskDefinition=task_definition_arn,
-            forceNewDeployment=True
+            forceNewDeployment=True,
+            deploymentConfiguration={
+                'maximumPercent': 200,
+                'minimumHealthyPercent': 100
+            }
         )
         jprint(response)
 
@@ -139,14 +143,14 @@ def deploy_info():
         "deployed_on": datetime.now().strftime("%Y-%m-%d %H:%M")
     }
 
-    path = os.path.join(get_path(), "baton/deploy.json")
+    path = os.path.join(get_path(), "booking/deploy.json")
     with open(path, 'w') as outfile:
         json.dump(deploy_data, outfile)
 
 
 if __name__ == "__main__":
 
-    envs = ["opus-stage"]
+    envs = ["booking-stage"]
 
     description = """
         This script will prompt users to add the remote for the tier
@@ -157,7 +161,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("--verbose", help="increase output verbosity",
                         action="store_true")
-    parser.add_argument("--env", help="Which environment to deploy to", default='opus-stage',
+    parser.add_argument("--env", help="Which environment to deploy to", default='booking-stage',
                         action="store", choices=envs)
     args = parser.parse_args()
 

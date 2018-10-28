@@ -17,7 +17,7 @@ task:
 elb:
   name: booking-stage
   security_groups:
-    -
+    - sg-074bb9fc78b591fcb
   certificate_arn:  arn:aws:acm:us-east-2:519644672566:certificate/c9f93c96-5f3f-478f-95b3-7d41d15e5f8e
   port: 80
   https_port: 443

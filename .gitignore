@@ -97,7 +97,9 @@ ENV/
 # mypy
 .mypy_cache/
 
+# Deploy
 booking/db.sqlite3
+booking/deploy.json
 
 mysql-data
 booking/static/*

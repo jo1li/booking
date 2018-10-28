@@ -10,7 +10,7 @@ def create_elb(vpc, elb):
 
     elb_response = elb_client.create_load_balancer(
         # TODO: make this specific to branch
-        Name='baton-stage',
+        Name=elb['name'],
         Subnets=vpc['subnets'],
         SecurityGroups=elb['security_groups'] + vpc['security_groups'],
         Scheme='internet-facing',
@@ -20,7 +20,7 @@ def create_elb(vpc, elb):
     elb_arn = elb_response['LoadBalancers'][0]['LoadBalancerArn']
 
     target_group_response = elb_client.create_target_group(
-        Name='baton-stage',
+        Name=elb['name'],
         Protocol='HTTP',
         Port=80,
         VpcId=vpc['vpc_id'],

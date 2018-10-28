@@ -70,7 +70,7 @@ def register_task_definition(task_image, log_group, task):
                 'environment': [
                     {
                         'name': 'DJANGO_SETTINGS_MODULE',
-                        'value': 'booking.settings.stage'
+                        'value': 'booking.settings.stage-aws'
                     },
                     {
                         'name': 'SENDGRID_API_KEY',
