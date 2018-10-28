@@ -1,3 +1,4 @@
+import ArtistCard from '../components/ArtistCard';
 import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
 import SendArtistMessageForm from '../components/SendArtistMessageForm';
@@ -14,6 +15,11 @@ import RenderFromDomNode from '../renderFromDomNode';
 import _ from 'lodash';
 
 export default function render_artist_profile() {
+
+    RenderFromDomNode({
+        Component: ArtistCard,
+        node: 'artist-card',
+    });
 
     RenderFromDomNode({
         Component: ClickToOpenDialog({
