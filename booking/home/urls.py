@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import index, healthcheck, logout, LoginView, artists, venues, privacy, terms, contact_us
+from .views import index, healthcheck, deploy, logout, LoginView, artists, venues, privacy, terms, contact_us
 
 urlpatterns = [
     path('', index, name="home"),
+    path('deploy', deploy, name="deploy"),
     path('artists/', artists, name="artists"),
     path('venues/', venues, name="venues"),
     path('contact-us/', contact_us, name="contact_us"),

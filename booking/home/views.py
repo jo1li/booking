@@ -1,4 +1,6 @@
-from django.http import HttpResponse
+import os
+import json
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -13,6 +15,15 @@ import account.views
 # Create your views here.
 def healthcheck(request):
     return HttpResponse("<html><body>Healthy</body></html>")
+
+
+def deploy(request):
+    deploy_json_path = '/app/deploy.json'
+
+    if os.path.isfile(deploy_json_path):
+        return JsonResponse(json.load(open(deploy_json_path)))
+    else:
+        return JsonResponse({})
 
 
 @ensure_csrf_cookie
