@@ -59,7 +59,7 @@ class UserEditForm extends Component {
 
   submit(values) {
     const {
-      musicianid,
+      musicianId,
       updateUserBio,
     } = this.props;
 
@@ -68,7 +68,7 @@ class UserEditForm extends Component {
       image: _.get(values, 'image.file'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
+    return updateUserBio(data, musicianId).then(res => {
       // TODO: Prob a better to check for this
       if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
@@ -317,7 +317,7 @@ const mapStateToProps = (state, props) => ({
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
   getGenres: getGenres,
-  musicianId: props.musicianId,
+  musicianId: props.id,
 })
 
 export default connect(mapStateToProps)(UserEditForm);
