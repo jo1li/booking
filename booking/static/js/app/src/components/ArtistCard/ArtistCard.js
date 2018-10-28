@@ -140,7 +140,7 @@ class ArtistCard extends React.Component {
             </Grid>
             <Grid item className={classes.websiteMeta}>
               <Typography component="p" variant="caption" align="right">
-                <a href={website} target="_blank">Website</a>
+                { website ? <a href={website} target="_blank">Website</a> : null }
               </Typography>
             </Grid>
           </Grid>
