@@ -122,7 +122,7 @@
             bio_short: "{{ musician.bio_short|default_if_none:"" }}",
             image_hero_id: {{ musician.image_hero_id|default_if_none:"null" }},
             on_tour: {{ musician.on_tour|yesno:"true,false" }},
-            image: "{{ musician.image_url|default_if_none:"" }}", // TODO: default image? also what is this.
+            image: "{{ musician.image_url|default_if_none:"" }}", // TODO: default image? also, name could be more descriptive.
             hometown: {{ musician.hometown|default_if_none:"null" }},
             state: {{ musician.state|default_if_none:"null" }},
             website: {{ musician.website|default_if_none:"null" }},
