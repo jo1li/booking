@@ -24,6 +24,7 @@ artist_fields = (
             'bio_short',
             'website',
             'facebook',
+            'facebook_followers',
             'instagram',
             'instagram_followers',
             'twitter',
