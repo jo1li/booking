@@ -9,7 +9,7 @@ import { FullScreenDialog } from '../Dialog';
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
   isEditable: state.is_current_user,
-  isInReview: false, // TODO: Where does this come from? Also, styles broken when true.
+  isInReview: false, // TODO: Make this dynamic and handle in-review styling when review flow exists.
 });
 
 export default compose(
