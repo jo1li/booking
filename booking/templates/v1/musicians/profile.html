@@ -142,7 +142,7 @@
                         <a href="#" class="edit {% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-biography" src="{% static 'images/edit.png' %}" alt=""></a>
                     </div>
 
-                    <p id="biography-long-content">{{ musician.bio }}</p>
+                    <p id="biography-long-content">{{ musician.bio|default_if_none:"" }}</p>
                     <a href="#" class="bold-text heading-secondary">show more</a>
                     </div>
                 </div>
