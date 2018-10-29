@@ -63,7 +63,7 @@ class EditBioForm extends Component {
       <div className={classes.container}>
         <Grid container spacing={24}>
           <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-            <Display1 className={classes.caption} >Edit Basic Info</Display1>
+            <Display1 className={classes.caption} >Edit Bio</Display1>
           </Grid>
           <Grid item xs={12} lg={12}>
             <form onSubmit={handleSubmit(this.submit)}>
