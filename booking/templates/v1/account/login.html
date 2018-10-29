@@ -1,4 +1,4 @@
-{% extends "site_base2.html" %}
+{% extends "home/base.html" %}
 
 {% load i18n %}
 {% load bootstrap3 %}
@@ -6,20 +6,27 @@
 {% block head_title %}Login{% endblock %}
 
 {% block main %}
+
+<style type="text/css">
+    #mission, #opus-presents, .video-holder {
+        display:none;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-around mt-5 mb-5">
         <div class="col-md-4">
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                <legend>{% trans "Log in" %}</legend>
+                <h2>{% trans "Log in" %}</h2>
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
                 <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
-                <a href="{% url "account_password_reset" %}" class="btn btn-link">{% trans "Forgot your password?" %}</a>
+                <a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a>
                 <div class="mt-4">
-                    Not a member yet? <a href="{% url 'account_signup' %}">Sign up!</a>
+                    Not a member yet? <a href="{% url 'opus_react_signup' %}">Sign up!</a>
                 </div>
             </form>
         </div>

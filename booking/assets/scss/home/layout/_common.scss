@@ -324,7 +324,7 @@
 }
 form{
 	label{
-		color: $dusty-gray;
+		color: $black;
 		@include font(12px,18px);
 		text-transform: uppercase;
 		font-weight: 500;
@@ -335,7 +335,7 @@ form{
 		height: 132px;
 	}
 	.form-control{
-		border-bottom: 1px solid rgba($mine-shaft,0.05);
+		border-bottom: 1px solid rgba($mine-shaft,0.35);
 		@include font(20px,30px);
 		font-weight: 500;
 	}
