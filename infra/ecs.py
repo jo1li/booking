@@ -1,6 +1,6 @@
 import boto3
 
-from utils import jprint
+from utils import jprint, env_file_to_dict
 
 def get_docker_repo(image_name):
 
@@ -41,8 +41,7 @@ def register_task_definition(task_image, log_group, task):
     task_role_arn = task['role_arn']
     task_execution_role_arn = task['execution_role_arn']
 
-    # TODO: write a new function that will read in .env or other config
-    #   and produce a list of environment suitable for container definition below.
+    environment = env_file_to_dict("./infra/config/{}.env".format(task_name))
 
     # Will create the task family if it doesn't exist
     task_response = client.register_task_definition(
@@ -67,16 +66,7 @@ def register_task_definition(task_image, log_group, task):
                 'command': [
                     "./scripts/cmd-web.sh"
                 ],
-                'environment': [
-                    {
-                        'name': 'DJANGO_SETTINGS_MODULE',
-                        'value': 'booking.settings.stage-aws'
-                    },
-                    {
-                        'name': 'SENDGRID_API_KEY',
-                        'value': 'SG.rest-of-the-key-shouldnt-be-commited'
-                    },
-                ],
+                'environment': environment,
                 'mountPoints': [],
                 'volumesFrom': [],
                 'logConfiguration': {

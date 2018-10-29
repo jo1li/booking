@@ -1,13 +1,15 @@
 from .base import *
 
-import urllib
-import dj_database_url
-
-DATABASES = {}
-DATABASES['default'] = dj_database_url.parse(
-    "mysql://booking_stage:{}@booking-stage.cuo6krbubjof.us-east-2.rds.amazonaws.com:3306/booking_stage".format(urllib.parse.quote_plus("A;vj,ayDF7hUJ2V$V[}9yZPx")),
-    conn_max_age=0
-)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': get_env_variable('MYSQL_HOST'),
+        'NAME': get_env_variable('MYSQL_DATABASE'),
+        'PORT': get_env_variable('MYSQL_PORT'),
+        'USER': get_env_variable('MYSQL_OPUS_USER'),
+        'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
+    },
+}
 
 SITE_DOMAIN = 'booking-stage-1029564567.us-east-2.elb.amazonaws.com'
 ALLOWED_HOSTS = [

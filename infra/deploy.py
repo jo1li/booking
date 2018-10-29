@@ -11,7 +11,7 @@ import yaml
 from executor import execute
 from datetime import datetime
 
-from utils import docker_output_stream, get_path, jprint
+from utils import docker_output_stream, get_path, jprint, env_file_to_dict
 from utils_git import get_git_sha, get_git_repo, get_git_repo_remote
 from ecs import create_log_group, register_task_definition
 from elb import create_elb
@@ -173,6 +173,7 @@ if __name__ == "__main__":
             yaml_env = yaml.load(stream)
         except yaml.YAMLError as exc:
             print(exc)
+
 
     # Drop the json file with build info
     deploy_info()

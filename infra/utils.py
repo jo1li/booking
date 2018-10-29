@@ -23,3 +23,25 @@ def docker_output_stream(stream, error_key='errorDetail'):
                     raise Exception(chunkletJson[error_key])
 
         print(chunk)
+
+
+def env_file_to_dict(file):
+
+    retval = []
+
+    with open(file, 'r') as f:
+        line = f.readline()
+        while line:
+            if line.strip() == "":
+                line = f.readline()
+                continue
+
+            pair = line.strip().split('=')
+            keyval = {
+                'name': pair[0],
+                'value': pair[1],
+            }
+            retval.append(keyval)
+            line = f.readline()
+
+    return retval
