@@ -29,6 +29,40 @@ class ArtistCard extends React.Component {
       </CardMedia>
     )
   }
+  renderSocialService(name, service_url, service_metric, props) {
+    const url = service_url != "" ? service_url : undefined;
+    const metric = service_metric != "" ? service_metric : undefined;
+    const activeClass = url ? props.classes.serviceConnected : '';
+    const serviceClasses = `${props.classes.service} ${activeClass}`;
+
+    const base = (
+      <ButtonBase disabled={url ? false : true} className={props.classes.serviceButton}>
+        <Paper elevation="0" className={serviceClasses}>
+          <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
+          {metric 
+            ? (<Typography variant="body1" className={props.classes.stat} noWrap>{metric}</Typography>)
+            : (<Typography variant="body1" className={props.classes.disabledColor}>—</Typography>)
+          }
+        </Paper>
+      </ButtonBase>  
+    )
+
+    if (url) {
+      return (
+        <Grid key={name} item align="center">
+          <a href={url} className={props.classes.serviceLink}>
+            {base}
+          </a>
+        </Grid>
+      )
+    } else {
+      return (
+        <Grid key={name} item align="center">
+          {base}
+        </Grid>
+      )
+    }
+  }
   render() {
     const { 
       classes, 
@@ -37,9 +71,15 @@ class ArtistCard extends React.Component {
       artist,
       tagline,
       genres,
-      audience,
       website,
-      location,
+      hometown,
+      state,
+      facebook,
+      facebookMetric,
+      instagram,
+      instagramMetric,
+      spotify,
+      spotifyMetric,
     } = this.props;
     return (
       <Card elevation="8" className={classes.card}>
@@ -76,28 +116,9 @@ class ArtistCard extends React.Component {
         <Grid container className={classes.audience} spacing={16} gutterBottom>
           <Grid item xs={12}>
             <Grid container className={classes.demo} justify="center" spacing={16}>
-              {audience.map(value => (
-                <Grid key={value.service} item align="center">
-  
-                  {value.connected && (
-                    <a href={value.url} className={classes.serviceLink}>
-                      <ButtonBase className={classes.serviceButton}>
-                        <Paper elevation="0" className={`${classes.service} ${classes.serviceConnected}`}>
-                          <ConnectedServiceIcon className={classes.padTopSm} service={value.service} active />
-                          <Typography variant="body1" className={classes.stat} noWrap>{value.stat}</Typography>
-                        </Paper>
-                      </ButtonBase>    
-                    </a>  
-                  )}
-                  {!value.connected && (
-                    <Paper elevation="0" className={classes.service}>
-                      <ConnectedServiceIcon service={value.service} />
-                      <Typography variant="caption" className={classes.disabledColor}>—</Typography>
-                    </Paper>
-                  )}
-  
-                </Grid>
-              ))}
+              {this.renderSocialService("facebook",facebook,facebookMetric,this.props)}
+              {this.renderSocialService("instagram",instagram,instagramMetric,this.props)}
+              {this.renderSocialService("spotify",spotify,spotifyMetric,this.props)}
             </Grid>
           </Grid>
         </Grid>
@@ -106,7 +127,7 @@ class ArtistCard extends React.Component {
           <Grid container spacing={8} justify='space-between'>
             <Grid item>
               <Typography component="p" variant="caption" noWrap align="left">
-                {location}
+                {hometown}, {state}
               </Typography>
             </Grid>
             <Grid item className={classes.websiteMeta}>
@@ -159,7 +180,6 @@ const styles = theme => ({
     },
     editIcon: {
       padding: theme.spacing.unit / 2,
-      // borderRadius: theme.shape.borderRadius,
       borderRadius: '4px',
       marginRight: `-${theme.spacing.unit}px`,
       marginTop: `-${theme.spacing.unit/2}px`,
@@ -186,7 +206,8 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit / 2,
     },
     disabledColor: {
-      color: theme.palette.grey[300],
+      color: theme.palette.grey[200],
+      marginTop: 4,
     },
     service: {
       paddingTop: theme.spacing.unit,
