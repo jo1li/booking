@@ -108,7 +108,7 @@ class UserEditForm extends Component {
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
-          <Display1 className={classes.caption} >Edit Basic Info</Display1>
+          <Display1 className={classes.caption} >Edit Your Info</Display1>
         </Grid>
         <Grid className={classes.aboveFooter} xs={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)}>
