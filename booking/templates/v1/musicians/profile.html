@@ -126,7 +126,7 @@
             hometown: {{ musician.hometown|default_if_none:"null" }},
             state: {{ musician.state|default_if_none:"null" }},
             website: {{ musician.website|default_if_none:"null" }},
-            genres: "{{ musician.genres|default_if_none:"" }}".split(','),
+            genres: "{{ musician.genres|default_if_none:"" }}".split(', '), // TODO: better way to serialize this?
             facebook: {{ musician.facebook|default_if_none:"null" }},
             facebook_followers: {{ musician.facebook_followers|default_if_none:"null" }},
             instagram: {{ musician.instagram|default_if_none:"null" }},
