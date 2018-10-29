@@ -1,45 +1,27 @@
+{% load staticfiles %}
+
 <footer id="footer">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="footer-col">
-                <h3 class="title heading-light">Artists</h3>
-                <ul class="footer-list">
-                    <li><a href="#">Why Opus</a></li>
-                    <li><a href="#">How Does It Work</a></li>
-                    <li><a href="{% url 'opus_signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'account_login' %} ">Sign In</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 class="title heading-light">Venues</h3>
-                <ul class="footer-list">
-                    <li><a href="#">Why Opus</a></li>
-                    <li><a href="#">How Does It Work</a></li>
-                    <li><a href="#">Sign Up</a></li>
-                    <li><a href="#">Sign In</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 class="title heading-light">Company</h3>
-                <ul class="footer-list">
-                    <!--
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Team</a></li>
-                    -->
-                    <li><a href="{% url 'terms' %}">Terms &amp; Conditions</a></li>
-                    <li><a href="{% url 'privacy' %}">Privacy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 class="title heading-light">Stay In Touch</h3>
-                <ul class="footer-list social">
-                    <li><a href="mailto:info@opuslive.io"><i class="fa fa-envelope"></i></a></li>
-                    <li><a href="https://www.facebook.com/opuslivemusic/"><i class="fab fa-facebook"></i></a></li>
-                    <li><a href="https://www.instagram.com/opuslive/"><i class="fab fa-instagram"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <p class="body-text regular heading-light copyright">&copy; {% now "Y" %} <a href="#">Opus Apps Inc.</a></p>
+    <div class="footer-container">
+        <ul class="footer-list footer-nav-links full-row">
+            <li><a class="footer-nav-link" href="/">Home</a></li>
+            <li><a class="footer-nav-link" href="/signup">Sign up</a></li>
+            <li><a class="footer-nav-link" href="/account/login">Log in</a></li>
+        </ul>
+
+        <ul class="footer-list footer-social-links">
+            <li><a target="_blank" class="footer-social-link" href="https://www.facebook.com/opuslivemusic/"><img src="{% static 'images/facebook-icon.svg' %}"></a></li>
+            <li><a target="_blank" class="footer-social-link" href="https://www.instagram.com/opuslive/"><img src="{% static 'images/instagram-icon.svg' %}"></a></li>
+            <li class="follow-us-text">Follow us for updates</li>
+        </ul>
+
+        <ul class="footer-list footer-info-links">
+            <li><a class="footer-info-link" href="/terms">Terms</a></li>
+            <li><a class="footer-info-link" href="/privacy">Privacy</a></li>
+            <li><a class="footer-info-link" href="mailto:info@opuslive.io">Contact</a></li>
+        </ul>
+
+        <ul class="footer-list footer-copyright">
+            <li class="regular copyright">&copy; {% now "Y" %} Opus Apps Inc.</p></li>
+        </ul>
     </div>
 </footer>
