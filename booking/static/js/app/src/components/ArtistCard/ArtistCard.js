@@ -98,11 +98,11 @@ class ArtistCard extends React.Component {
       hometown,
       state,
       facebook,
-      facebookMetric,
+      facebook_followers,
       instagram,
-      instagramMetric,
+      instagram_followers,
       spotify,
-      spotifyMetric,
+      spotify_followers,
     } = profile;
 
     return (
@@ -142,9 +142,9 @@ class ArtistCard extends React.Component {
           <Grid container className={classes.audience} spacing={16} gutterBottom>
             <Grid item xs={12}>
               <Grid container className={classes.socialServices} spacing={16}>
-                {this.renderSocialService("facebook",facebook,facebookMetric,this.props)}
-                {this.renderSocialService("instagram",instagram,instagramMetric,this.props)}
-                {this.renderSocialService("spotify",spotify,spotifyMetric,this.props)}
+                {this.renderSocialService("facebook",facebook,facebook_followers,this.props)}
+                {this.renderSocialService("instagram",instagram,instagram_followers,this.props)}
+                {this.renderSocialService("spotify",spotify,spotify_followers,this.props)}
               </Grid>
             </Grid>
           </Grid>
