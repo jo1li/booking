@@ -14,7 +14,6 @@ const styles = theme => ({
       width: '235px',
       flexDirection: 'column',
       margin: '0 auto',
-      position: 'sticky',
     },
     ['@media (max-width:768px) and (min-width:600px)']: {
       width: 'auto',
