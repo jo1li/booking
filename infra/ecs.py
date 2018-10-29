@@ -1,6 +1,6 @@
 import boto3
 
-from utils import jprint, env_file_to_dict
+from utils import jprint, parse_env_file
 
 def get_docker_repo(image_name):
 
@@ -28,7 +28,7 @@ def create_log_group(name):
         jprint(log_response)
 
 
-def register_task_definition(task_image, log_group, task):
+def register_task_definition(task_image, task, extra_env={}):
 
     client = boto3.client('ecs')
 
@@ -41,7 +41,14 @@ def register_task_definition(task_image, log_group, task):
     task_role_arn = task['role_arn']
     task_execution_role_arn = task['execution_role_arn']
 
-    environment = env_file_to_dict("./infra/config/{}.env".format(task_name))
+    environment = parse_env_file("./infra/config/{}.env".format(task_name))
+
+    if(len(extra_env) > 0):
+        environment.append(extra_env)
+
+    # Log group setup
+    log_group = "/ecs/{}".format(task_name)
+    create_log_group(log_group)
 
     # Will create the task family if it doesn't exist
     task_response = client.register_task_definition(

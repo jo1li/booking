@@ -25,7 +25,7 @@ def docker_output_stream(stream, error_key='errorDetail'):
         print(chunk)
 
 
-def env_file_to_dict(file):
+def parse_env_file(file):
 
     retval = []
 

@@ -11,22 +11,15 @@ import yaml
 from executor import execute
 from datetime import datetime
 
-from utils import docker_output_stream, get_path, jprint, env_file_to_dict
+from utils import docker_output_stream, get_path, jprint, parse_env_file
 from utils_git import get_git_sha, get_git_repo, get_git_repo_remote
-from ecs import create_log_group, register_task_definition
+from ecs import register_task_definition
 from elb import create_elb
 
-def new_task_rev_and_update_service(task_image, env):
+def new_task_rev_and_update_service(task_arn, env):
 
     cluster = env['cluster']
     service_name = env['service']['name']
-
-    # Log group setup
-    log_group = "/ecs/{}".format(service_name)
-    create_log_group(log_group)
-
-    # Returns arn
-    task_definition_arn = register_task_definition(task_image, log_group, env['task'])
 
     target_group_arn = create_elb(env['vpc'], env['elb'])
 
@@ -175,12 +168,20 @@ if __name__ == "__main__":
             print(exc)
 
 
+    js_bundle = execute("ls -l booking/static/js/app/build/static/js/| grep 'js$' | awk '{print $9}'", capture=True)
+    extra_env = {
+        'name': 'STATIC_JS_APP_BUNDLE',
+        'value': js_bundle
+    }
+
     # Drop the json file with build info
     deploy_info()
 
-    # Build out the
+    # Build out the image
     new_image = build_and_push_image(yaml_env)
 
-    new_task_rev_and_update_service(new_image, yaml_env)
+    task_definition_arn = register_task_definition(new_image, yaml_env['task'], extra_env)
+
+    new_task_rev_and_update_service(task_definition_arn, yaml_env)
 
 
