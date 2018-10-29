@@ -95,6 +95,8 @@ class SignupForm extends Component {
     // password validation
     if(!data.password || data.password.length < 8) {
       errors.password = 'Password must be atleast 8 characters';
+    } else if (data.password.length > 128) {
+      errors.password = 'Password cannot be longer than 128 characters';
     }
 
     // email validation
