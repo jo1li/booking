@@ -268,7 +268,7 @@ class UserEditForm extends Component {
                       // TODO move this out of the onChange function
                       // prevent input form going beyond MAX_BIO_SHORT_INPUT_LENGTH in characters
                       if (changeObj.target.value.length > MAX_BIO_SHORT_INPUT_LENGTH) {
-                        change('bio_short', changeObj.target.value.subString(0, MAX_BIO_SHORT_INPUT_LENGTH))
+                        change('bio_short', changeObj.target.value.substring(0, MAX_BIO_SHORT_INPUT_LENGTH))
                       }
 
                         return changeObj
