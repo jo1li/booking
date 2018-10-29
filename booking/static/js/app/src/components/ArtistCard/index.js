@@ -5,7 +5,6 @@ import { compose } from 'redux';
 import ArtistCard from './ArtistCard';
 import { FullScreenDialog } from '../Dialog';
 
-// TODO: Do social stats exist yet? Not bootstrapping in profile yet.
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
   isEditable: state.is_current_user,
