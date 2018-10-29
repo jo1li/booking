@@ -6,6 +6,10 @@ const styles = theme => ({
       opacity: '0.5',
     },
 
+    // NOTE: Compiler isn't happy about this "unnecessary calculation", but
+    // it is the only way I know of to get these custom-width media queries in,
+    // bc it prevents processing done on the key.
+    // See https://stackoverflow.com/questions/45847090/media-queries-in-material-ui-components
     ['@media (min-width:768px)']: {
       width: '235px',
       flexDirection: 'column',
