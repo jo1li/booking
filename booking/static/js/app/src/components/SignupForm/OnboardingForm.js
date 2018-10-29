@@ -244,7 +244,10 @@ class OnboardingForm extends Component {
         }
       })
       .catch(errors => {
-        console.log('errors', errors);
+        if (error.response.data) {
+          throw new SubmissionError(error.response.data);
+          // TODO: this should mark form as invalid so submit button is disabled
+        }
       });
     } else {
       throw new SubmissionError(errors);

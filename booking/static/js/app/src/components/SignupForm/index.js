@@ -83,9 +83,9 @@ class SignupForm extends Component {
 
     const data = {
       email: values.email,
-      name: values.artistName,
-      slug: values.artistHandle,
-      account_type: values.artistType,
+      name: values.name,
+      slug: values.slug,
+      account_type: values.account_type,
       password: values.password
     }
     const { createArtist } = this.props;
@@ -128,9 +128,11 @@ class SignupForm extends Component {
           window.location.href = '/m/onboarding';
         }
       })
-      .catch(errors => {
-        console.log('errors:', errors);
-        // TODO: This is all placeholder
+      .catch(error => {
+        if(error.response.data) {
+          throw new SubmissionError(error.response.data);
+          // TODO: this should also mark form as invalid to disable the submit button
+        }
       });
     } else {
       throw new SubmissionError(errors);
@@ -157,7 +159,7 @@ class SignupForm extends Component {
                   <Field
                     component={RadioGroup}
                     aria-label="artist type"
-                    name="artistType"
+                    name="account_type"
                   >
                     <FormControlLabel value="individual" control={<Radio />} label="Individual" />
                     <FormControlLabel value="group" control={<Radio />} label="Group" />
@@ -166,14 +168,14 @@ class SignupForm extends Component {
               </div>
               <FormControl margin="normal" fullWidth>
                 <Field
-                  name="artistName"
+                  name="name"
                   label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field 
-                  name="artistHandle" 
+                  name="slug" 
                   label="Your Opus URL" 
                   component={TextField}
                   normalize={normalizeHandle}
