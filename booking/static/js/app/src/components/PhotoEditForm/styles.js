@@ -120,6 +120,15 @@ const styles = theme => {
       marginBottom: '12px',
       overflowY: 'scroll',
     },
+    loadingIcon: {
+      alignSelf: 'center',
+    },
+    loadingText: {
+      marginLeft: '8px',
+      alignSelf: 'center',
+      color: 'black',
+      letterSpacing: '0.3px',
+    },
 
     // Media queries don't add precedence, and Material-UI moved them around.
     [theme.breakpoints.up('sm')]: {
@@ -135,7 +144,10 @@ const styles = theme => {
       },
       deleteButton: {
         marginLeft: 0,
-      }
+      },
+      loadingIcon: {
+        marginLeft: '24px',
+      },
     },
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
@@ -155,7 +167,10 @@ const styles = theme => {
       },
       deleteButton: {
         marginLeft: 'auto',
-      }
+      },
+      loadingIcon: {
+        marginLeft: '8px',
+      },
     },
 
   };
