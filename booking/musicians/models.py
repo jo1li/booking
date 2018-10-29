@@ -190,7 +190,7 @@ class Musician(TimeStampedModel):
 
         print("******* facebook_followers ********")
 
-        page_name = parse.urlparse(self.facebook).path.lstrip('/').rstrip('/')
+        page_name = parse.urlparse(self.facebook).path.lstrip(b'/').rstrip(b'/')
         print(page_name)
 
         try:
