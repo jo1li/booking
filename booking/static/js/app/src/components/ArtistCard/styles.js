@@ -45,6 +45,7 @@ const styles = theme => ({
       height: '110px',
     },
   },
+
   infoSection: {
     ['@media (max-width:768px) and (min-width:600px)']: {
       width: '55%',
@@ -52,12 +53,32 @@ const styles = theme => ({
       order: 1,
     },
   },
+
+  content: {
+    paddingTop: theme.spacing.unit,
+
+    ['@media (min-width:768px)']: {
+      paddingLeft: theme.spacing.unit * 2,
+      paddingRight: theme.spacing.unit * 2,
+      paddingBottom: 0,
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      paddingLeft: theme.spacing.unit * 3,
+      paddingRight: theme.spacing.unit * 2,
+      paddingBottom: 0,
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: theme.spacing.unit
+    },
+  },
+
   metaSection: {
     ['@media (max-width:768px) and (min-width:600px)']: {
       width: '100%',
       order: 2,
     },
   },
+
   metaList: {
     ['@media (min-width:768px)']: {
       justifyContent: 'space-between',
@@ -101,7 +122,16 @@ const styles = theme => ({
       bottom: '6px',
     },
   },
+  tagline: {
+    boxSizing: 'content-box',
+    paddingTop: theme.spacing.unit,
+    height: '42px',
+    overflow: 'hidden', // TODO: Behavior here? Can't do ellipsis with multi-line.
+  },
 
+  stageName: {
+    fontSize: '27px',
+  },
   editIcon: {
     padding: theme.spacing.unit / 2,
     borderRadius: '4px',
@@ -129,6 +159,10 @@ const styles = theme => ({
   },
   audience: {
     marginBottom: theme.spacing.unit / 2,
+
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      paddingLeft: theme.spacing.unit * 1.5,
+    },
   },
   disabledColor: {
     color: theme.palette.grey[200],
@@ -138,6 +172,15 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit / 2,
     width: 48,
+
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      paddingBottom: 0,
+    },
+  },
+  serviceMetric: {
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      marginTop: 0,
+    },
   },
   serviceConnected: {
     borderRadius: '4px',
@@ -202,18 +245,6 @@ const styles = theme => ({
       color: theme.palette.primary.main,
     }
   },
-  content: {
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit * 1.5,
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2,
-      paddingBottom: '0px'
-    },
-    [theme.breakpoints.up('xs')]: {
-      paddingTop: theme.spacing.unit * 1.5,
-      paddingBottom: theme.spacing.unit
-    }
-  }
 });
 
 export default styles;

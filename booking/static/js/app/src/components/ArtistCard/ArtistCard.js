@@ -45,8 +45,8 @@ class ArtistCard extends React.Component {
         <Paper elevation="0" className={serviceClasses}>
           <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
           {metric
-            ? (<Typography variant="body1" className={props.classes.stat} noWrap>{metric}</Typography>)
-            : (<Typography variant="body1" className={props.classes.disabledColor}>—</Typography>)
+            ? (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.stat}`} noWrap>{metric}</Typography>)
+            : (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.disabledColor}`}>—</Typography>)
           }
         </Paper>
       </ButtonBase>
@@ -116,7 +116,7 @@ class ArtistCard extends React.Component {
             {isEditable && (
               <Grid container wrap="nowrap" spacing={8} justify="space-between">
                 <Grid item>
-                  <Typography variant="title" component="h2" align="left">
+                  <Typography variant="title" className={classes.stageName} component="h2" align="left">
                     {stage_name}
                   </Typography>
                 </Grid>
@@ -135,7 +135,7 @@ class ArtistCard extends React.Component {
             <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
               {genres.join(', ')}
             </Typography>
-            <Typography variant="body1" align="left" style={{paddingTop: '8px'}}>
+            <Typography className={classes.tagline} variant="body1" align="left">
               {bio_short}
             </Typography>
           </CardContent>
