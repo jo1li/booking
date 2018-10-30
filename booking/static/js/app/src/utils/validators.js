@@ -28,8 +28,8 @@ export const validate_video_embeds = (videos) => {
 
 export const validate_audio_embeds = (videos) => {
 
-  const noEmbedCodeErrorMessage = 'Please paste an embed code from SoundCloud.'
-  const whitelist = ['soundcloud.com']
+  const noEmbedCodeErrorMessage = 'Please paste an embed code from SoundCloud or Spotify.'
+  const whitelist = ['soundcloud.com', 'spotify.com']
 
   var validation_results = _.map(videos, (item) => {
 
