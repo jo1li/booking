@@ -8,7 +8,7 @@
 
 {% block og %}
   {{ block.super }}
-  <meta property="og:description" content="Artist: Awesome artist that puts on awesome shows" />
+  <meta property="og:description" content="{{ musician.bio_short|default_if_none:"" }}" />
   <script src="{% static 'js/jquery.profile.js' %}" defer></script>
 {% endblock og %}
 
