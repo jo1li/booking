@@ -32,4 +32,17 @@ export const getOpusThumbnailImageURL = (imageURL) => (
 // and helps with data/rendering
 export const getFaceThumbnailImageURL = (imageURL) => (
   getCloudinaryURL(imageURL, {thumbnail: true, face: true, width: 42, height: 32})
-)
+);
+
+/**
+* uploaded images on mobile are typically oriented incorrectly.
+* loadImage corrects the image orientation.
+* https://github.com/blueimp/JavaScript-Load-Image
+*/
+export const orientImage = (file, callback, options) => {
+  window.loadImage(
+    file,
+    img => callback(img.toDataURL("image/png")),
+    { ...options, orientation: true }, // Give a `maxWidth` to make it go faster
+  );
+}
