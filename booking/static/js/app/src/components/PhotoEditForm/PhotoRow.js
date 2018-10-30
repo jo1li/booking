@@ -98,12 +98,14 @@ const BottomRow = (props) => {
     width,
     isCoverPhoto,
     useAsCoverPhoto,
+    item,
   } = props;
 
   return <Grid item className={classes.photoFormRowBottom}>
     <CoverPhotoIndicatorGate
         show={width === 'xs'}
         classes={classes}
+        item={item}
         isCoverPhoto={isCoverPhoto}
         useAsCoverPhoto={useAsCoverPhoto} />
   </Grid>

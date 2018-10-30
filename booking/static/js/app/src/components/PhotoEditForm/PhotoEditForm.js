@@ -25,6 +25,9 @@ import {
   getDestroyedItems,
   flagItemForRemoval,
 } from '../../helpers/dragAndDropHelpers';
+import {
+  orientImage
+} from '../../helpers/imageHelpers';
 
 class PhotoUploadButton extends Component {
   handleChange(files) {
@@ -136,12 +139,10 @@ class PhotoEditFormBase extends Component {
     const pendingImage = {id: 1};
 
     // Preview the image
-    const reader = new FileReader();
-    reader.addEventListener('load', function () {
-      pendingImage.image = reader.result;
+    orientImage(file, (result) => {
+      pendingImage.image = result;
       addToStore(pendingImage);
-    }, false);
-    reader.readAsDataURL(file);
+    }, { maxWidth: 200 });
 
     // Send it to the server, and remove the preview when complete
     const data = new FormData();
