@@ -126,7 +126,7 @@ const MenuProps = {
   },
 };
 
-const TAGLINE_CHARS_MAX = 60
+const TAGLINE_CHARS_MAX = 75
 const GENRES_MAX = 3
 const imageIsRequired = value =>  {
   isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
