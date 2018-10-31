@@ -182,7 +182,7 @@ class OnboardingForm extends Component {
   submit = (values) => {
     const { updateUserBio, musicianid, stagename } = this.props;
     const data = Object.assign({}, values, {
-      genres: values.genres,
+      genres: values.genres ? values.genres.join(",") : "",
       image: _.get(values, 'image.0'),
     });
 
