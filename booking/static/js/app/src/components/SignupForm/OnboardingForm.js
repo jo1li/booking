@@ -285,11 +285,11 @@ class OnboardingForm extends Component {
                   name="bio_short"
                   label="Tagline"
                   multiline={true}
-                  maxLength="60"
+                  maxLength="75"
                   component={TextField}
                   normalize={normalizeTagline}
                 />
-                <FormHelperText>Required • Up to 60 characters long</FormHelperText>
+                <FormHelperText>Required • Up to 75 characters long</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
