@@ -19,11 +19,13 @@ const styles = theme => ({
 const InputInternal = (props) => {
     const {
         classes,
+        touched,
+        ...remainingProps,
     } = props;
 
     return <Input
         classes={classes}
-        {...props}
+        {...remainingProps}
     />
 }
 

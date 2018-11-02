@@ -42,7 +42,7 @@ class ArtistCard extends React.Component {
 
     const base = (
       <ButtonBase disabled={url ? false : true} className={props.classes.serviceButton}>
-        <Paper elevation="0" className={serviceClasses}>
+        <Paper elevation={0} className={serviceClasses}>
           <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
           {metric
             ? (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.stat}`} noWrap>{metric}</Typography>)
@@ -106,7 +106,7 @@ class ArtistCard extends React.Component {
     } = profile;
 
     return (
-      <Card elevation="8" className={classes.card}>
+      <Card elevation={8} className={classes.card}>
         {isInReview && (
           this.renderMedia(this.props)
         )}
@@ -132,14 +132,14 @@ class ArtistCard extends React.Component {
                 {stage_name}
               </Typography>
             )}
-            <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
+            <Typography gutterBottom={true} variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap align="left">
               {genres.join(', ')}
             </Typography>
             <Typography className={classes.tagline} variant="body1" align="left">
               {bio_short}
             </Typography>
           </CardContent>
-          <Grid container className={classes.audience} spacing={16} gutterBottom>
+          <Grid container className={classes.audience} spacing={16} gutterBottom={true}>
             <Grid item xs={12}>
               <Grid container className={classes.socialServices} spacing={16}>
                 {this.renderSocialService("facebook",facebook,facebook_followers,this.props)}
