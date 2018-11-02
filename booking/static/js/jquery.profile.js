@@ -1,6 +1,5 @@
 $(document).ready(function() {
   initFixedBlocks();
-  bindLinks();
 });
 
 function initFixedBlocks() {
@@ -82,25 +81,6 @@ function initFixedBlocks() {
     win.on('scroll', onScroll);
     onScroll(); // Get the header to the right location on initial load
   });
-}
-
-function bindLinks() {
-  var link = document.getElementById('see-full-bio-link');
-  var fullBio = document.getElementById('biography-long');
-  // var header = document.getElementById('artist-scroll');
-  var header = document.getElementsByClassName('artist-placeholder')[0];
-
-  link.onclick = function(event) {
-    event.preventDefault();
-
-    fullBio.scrollIntoView();
-
-    var fullBioTop = fullBio.getBoundingClientRect().top;
-    var headerBottom = header.getBoundingClientRect().bottom;
-    if(fullBioTop < headerBottom) {
-      window.scrollBy(0, fullBioTop - headerBottom);
-    }
-  }
 }
 
 /*
