@@ -147,12 +147,6 @@ const styles = theme => ({
   padTopSm: {
     paddingTop: theme.spacing.unit / 2
   },
-  // TODO: needed?
-  media: {
-    marginTop: '0px',
-    height: 110,
-    backgroundColor: theme.palette.grey[200],
-  },
   gridRoot: {
     flexGrow: 1,
   },
