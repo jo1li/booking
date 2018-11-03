@@ -19,19 +19,27 @@ class ArtistCard extends React.Component {
 
   renderMedia(props) {
     const { classes, profile } = props;
-    const { image, stage_name, on_tour } = profile;
+    const { image, stage_name } = profile;
 
     return (
       <CardMedia className={classes.avatarSection} image={image} title={stage_name}>
-        {(on_tour && (
-          <div style={{position: 'relative', height: '100%'}}>
-            <Typography variant="caption" align="left" className={classes.tourlabel}>
-              On Tour
-            </Typography>
-          </div>
-        ))}
+        { !image ? <span className={classes.avatarStandIn}>No Photo</span> : null}
+        { this.renderOnTour(props) }
       </CardMedia>
-    )
+    );
+  }
+
+  renderOnTour(props) {
+    const { on_tour, classes } = props;
+    if(!on_tour) return null;
+
+    reutrn (
+      <div style={{position: 'relative', height: '100%'}}>
+        <Typography variant="caption" align="left" className={classes.tourlabel}>
+          On Tour
+        </Typography>
+      </div>
+    );
   }
 
   renderSocialService(name, service_url, service_metric, props) {

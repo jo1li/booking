@@ -128,6 +128,15 @@ const styles = theme => ({
     overflow: 'hidden', // TODO: Behavior here? Can't do ellipsis with multi-line.
   },
 
+  avatarStandIn: {
+    display: 'block',
+    lineHeight: '110px',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: '16px',
+    color: 'rgba(0,0,0,0.25)',
+    fontWeight: 500,
+  },
   stageName: {
     fontSize: '27px',
   },
