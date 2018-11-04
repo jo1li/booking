@@ -49,20 +49,20 @@ const DraggablePhotoRows = (props) => {
           );
         })
       }
-      <PendingRows pendingItems={pendingItems} classes={classes} itemName={itemName} />
+      <PendingRows pendingItems={pendingItems} classes={classes} itemName={itemName} width={width} />
     </div>
   );
 }
 
 const PendingRows = (props) => {
-  const { pendingItems, classes, itemName } = props;
-
+  const { pendingItems, classes, itemName, width } = props;
   return _.map(pendingItems, (props, idx) => (
     <PendingPhotoRow
         key={`pending-${itemName}-${idx}`}
         classes={classes}
         item={pendingItems[idx]}
         idx={idx}
+        width={width}
         itemName={itemName} />
   ));
 }

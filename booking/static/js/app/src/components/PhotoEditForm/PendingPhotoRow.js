@@ -14,12 +14,12 @@ const PlacholderDragHandle = (props) => {
 };
 
 const ProgressThing = (props) => {
-  const { show } = props;
+  const { show, classes } = props;
 
   return (
     <Fragment>
-      <CircularProgress size="24px" style={{marginLeft: '24px', alignSelf: 'center'}}/>
-      <a style={{marginLeft: '8px', alignSelf: 'center', color: 'black', letterSpacing: '0.3px'}}>Processing { show ? 'Image' : ''}</a>
+      <CircularProgress className={classes.loadingIcon} size="24px" />
+      <a className={classes.loadingText}>Processing { show ? 'Image' : ''}</a>
     </Fragment>
   );
 }
@@ -40,7 +40,7 @@ const PendingTopRow = (props) => {
         <img src={item.image || ''} className={classes.previewPhoto} alt="thumbnail"/>
         <input type="hidden" value={item.id} name={`${itemName}[${idx}]`}/>
       </div>
-      <ProgressThing show={width !== 'xs'} />
+      <ProgressThing show={width !== 'xs'} classes={classes} />
     </Grid>
   );
 }

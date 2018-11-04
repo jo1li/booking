@@ -17,7 +17,6 @@ from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
 
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView
 
 
 class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):

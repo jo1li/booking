@@ -1,12 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
+from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from booking.utils import opus_render
 
-from account.compat import is_authenticated
+from musicians.models import Musician
 
+from account.compat import is_authenticated
 import account.forms
 import account.views
 
@@ -49,3 +51,15 @@ def logout(request):
 class LoginView(account.views.LoginView):
 
     form_class = account.forms.LoginEmailForm
+
+    def get_success_url(self, fallback_url=None, **kwargs):
+
+        # TODO: we'll need to make this more flexible for venues / bookers
+        musician = Musician.objects.get(user=self.request.user)
+        url = reverse("musician_profile", kwargs={'slug': musician.slug})
+
+        return url
+
+
+
+
