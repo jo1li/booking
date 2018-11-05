@@ -7,6 +7,8 @@ function initFixedBlocks() {
   var fixedClass = 'fixed-bar';
 
   jQuery('#wrapper').each(function(){
+    var navBar = jQuery('#main-navigation-bar header');
+    var fixedCoverPhoto = jQuery('#cover-photo-fade');
     var barHolder = jQuery('.artist-placeholder');
     var main = jQuery('.main-content');
     var offsetTop = barHolder.outerHeight() - 64;
@@ -20,9 +22,11 @@ function initFixedBlocks() {
             container: '.js-container',
             positionType: 'fixed',
             extraTop: function() {
-              var indent = barHolder.outerHeight() + 64 + parseInt(main.css('padding-top'));
+              const NAV_BAR_HEIGHT = navBar.outerHeight();
+              const COVER_PHOTO_HEIGHT = fixedCoverPhoto.outerHeight();
+              const OVERLAP = 49;
 
-              return 160;
+              return NAV_BAR_HEIGHT + COVER_PHOTO_HEIGHT - OVERLAP;
             }
           });
         }
