@@ -4,6 +4,7 @@ docker:
   image_name: booking
   repo_uri: 519644672566.dkr.ecr.us-east-2.amazonaws.com
   pre_build: rm -Rfv booking/static/js/app/build && docker-compose run web-js npm run build
+  js_find: ls -l baton/static/js/app/public/| grep 'js$' | awk '{print $9}'
 service:
   name: booking-stage
 task:
