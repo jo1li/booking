@@ -11,7 +11,7 @@ function initFixedBlocks() {
     var fixedCoverPhoto = jQuery('#cover-photo-fade');
     var barHolder = jQuery('.artist-placeholder');
     var main = jQuery('.main-content');
-    var offsetTop = barHolder.outerHeight() - 64;
+    var offsetTop = barHolder.outerHeight() - 60;
 
     ResponsiveHelper.addRange({
       '768..': {
@@ -40,7 +40,7 @@ function initFixedBlocks() {
 
 
     win.on('resize orientationchange', function(){
-      offsetTop = barHolder.outerHeight() - 64;
+      offsetTop = barHolder.outerHeight() - 60;
     });
 
     // var onScroll = function() {
@@ -299,7 +299,7 @@ function initFixedBlocks() {
         this.winScrollTop = $win.scrollTop();
         var isActiveSticky = this.winScrollTop -
           (this.options.showAfterScrolled ? this.extraTop : 0) -
-          (this.options.showAfterScrolled ? this.data.boxHeight + this.extraTop : 0) >
+          (this.options.showAfterScrolled ? this.data.boxHeight + this.extraTop : 0) >=
           this.data.boxOffsetTop - this.extraTop;
 
         if (isActiveSticky) {
@@ -370,8 +370,6 @@ function initFixedBlocks() {
           this.parentForActive.addClass(this.options.activeClass);
           this.$stickyBox.css({
             width: this.data.boxWidth,
-            transition: 'transform ' + this.options.animSpeed + 's ease',
-            '-webkit-transition': 'transform ' + this.options.animSpeed + 's ease',
           });
 
           if (this.isWrap) {
