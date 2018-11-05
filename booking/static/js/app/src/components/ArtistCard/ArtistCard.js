@@ -147,7 +147,7 @@ class ArtistCard extends React.Component {
               {bio_short}
             </Typography>
           </CardContent>
-          <Grid container className={classes.audience} spacing={16} gutterBottom={true}>
+          <Grid container className={classes.audience} spacing={16}>
             <Grid item xs={12}>
               <Grid container className={classes.socialServices} spacing={16}>
                 {this.renderSocialService("facebook",facebook,facebook_followers,this.props)}
