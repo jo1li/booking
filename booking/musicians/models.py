@@ -191,6 +191,9 @@ class Musician(TimeStampedModel):
         if not self.facebook:
             return None
 
+        # TODO: remove this once facebook follower code works
+        return None
+
         page_name = parse.urlparse(self.facebook).path.lstrip('/').rstrip('/')
 
         try:
@@ -203,7 +206,6 @@ class Musician(TimeStampedModel):
         import facebook
         graph = facebook.GraphAPI(access_token=facebook_auth.extra_data['access_token'])
 
-        # TODO: Does this actually get followers? Looks like the value may be nested.
         return graph.get_object("me/accounts")
 
 
