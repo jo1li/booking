@@ -33,7 +33,7 @@ class ArtistCard extends React.Component {
     const { on_tour, classes } = props;
     if(!on_tour) return null;
 
-    reutrn (
+    return (
       <div style={{position: 'relative', height: '100%'}}>
         <Typography variant="caption" align="left" className={classes.tourlabel}>
           On Tour
