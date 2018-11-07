@@ -169,7 +169,7 @@ class CodeFormBase extends Component {
               className={`${classes.tabBody} ${classes.scrollableBody}`}
               classes={classes}
               helpCopyRows={copy.helpRows}
-              itle={copy.helpSectionTitle} />
+              title={copy.helpSectionTitle} />
 
         </TabbedList>
       </Fragment>
