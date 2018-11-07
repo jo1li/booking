@@ -65,13 +65,15 @@ const styles = theme => {
     photoEditFormSubmitButton: {
       cursor: 'pointer',
       color: theme.palette.secondary.main,
-      fontSize: '16px',
+      fontSize: '15px',
       backgroundColor: theme.palette.grey[100],
       width: '100%',
       height: '60px',
       borderRadius: '2px',
-      lineHeight: '60px',
-      textAlign: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textTransform: 'uppercase',
     },
     photoForm: {
       '& > div:not($photoFormRowContainer)': {
