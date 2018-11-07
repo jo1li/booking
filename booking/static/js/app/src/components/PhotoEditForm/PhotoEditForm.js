@@ -17,8 +17,8 @@ import * as ProfileActions from '../../actions/profile';
 import styles from './styles';
 import { EDIT_PHOTOS } from '../../constants/forms';
 import CancelConfirm from '../CancelConfirm';
+import ModalHeader from '../ModalHeader';
 import DraggablePhotoRows from './DraggablePhotoRows';
-import { Display1 } from '../typography';
 import DroppableContainer from '../dragAndDrop/DroppableContainer';
 import {
   getUpdatedItems,
@@ -181,9 +181,7 @@ class PhotoEditFormBase extends Component {
 
     return (
       <Fragment>
-        <Grid item className={`${classes.caption} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
-          <Display1>Edit Photos</Display1>
-        </Grid>
+        <ModalHeader classes={classes}>Edit Photos</ModalHeader>
         <Grid item className={classes.aboveFooter} xs={12} sm={12} md={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
             <DraggablePhotoRows

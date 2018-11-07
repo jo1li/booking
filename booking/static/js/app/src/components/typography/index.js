@@ -9,4 +9,13 @@ export const Display1 = ({ children, className }) =>
         { children }
     </Typography>
 
+
+export const Headline = ({ children, className }) =>
+    <Typography
+        variant="headline"
+        className={className}
+    >
+        { children }
+    </Typography>
+
 export const Caption = ({ children }) => <Typography variant="caption">{ children }</Typography>
