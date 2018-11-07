@@ -14,7 +14,15 @@ const styles = theme => ({
   },
 
   caption: {
-    color: theme.palette.grey['A400'],
+    color: theme.palette.black,
+    padding: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 2,
+    borderBottom: `1px solid ${theme.palette.grey[200]}`,
+  },
+  captionAboveTabs: {
+    color: theme.palette.black,
+    padding: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit,
   },
 
   scrollableBody: {
