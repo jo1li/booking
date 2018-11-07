@@ -178,6 +178,7 @@ class PhotoEditFormBase extends Component {
       submitSucceeded,
       pendingPhotos,
       profile,
+      theme,
     } = this.props;
 
     return (
@@ -191,6 +192,7 @@ class PhotoEditFormBase extends Component {
                 itemName={'photos'}
                 classes={classes}
                 width={width}
+                theme={theme}
                 heroImageURL={profile.hero_image_url}
                 remove={(order) => this.removeItemFromForm(order)} />
             <PhotoUploadButton
@@ -253,8 +255,8 @@ const PhotoEditForm = compose(
     // This allows `initialValues` to be updated
     enableReinitialize: true,
   }),
-  withStyles(styles),
   withWidth(),
+  withStyles(styles, { withTheme: true }),
 )(DroppablePhotoEditFormBase);
 
 export default PhotoEditForm;
