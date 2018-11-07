@@ -6,8 +6,9 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   button: {
-    borderRadius: '22px',
-    height: '44px',
+    // TODO: Do we want these button styles to be *everywhere*? bc now they are.
+    borderRadius: '5px',
+    height: '38px',
     border: `solid 1px ${theme.palette.secondary.main}`,
     borderColor: theme.palette.secondary.main,
     outline: 'none',
