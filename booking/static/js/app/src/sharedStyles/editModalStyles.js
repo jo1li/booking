@@ -17,6 +17,11 @@ const styles = theme => ({
     color: theme.palette.grey['A400'],
   },
 
+  scrollableBody: {
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+    overflowY: 'scroll',
+  },
+
   // For footers
   footer: {
     borderTop: `1px solid ${theme.palette.grey[200]}`,

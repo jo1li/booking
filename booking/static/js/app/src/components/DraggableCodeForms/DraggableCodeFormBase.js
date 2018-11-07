@@ -143,7 +143,7 @@ class CodeFormBase extends Component {
             <form
                 onSubmit={handleSubmit(this.submit)}
                 ref={provided.innerRef}
-                className={`${classes.tabBody} ${classes.aboveFooter}`} >
+                className={`${classes.tabBody} ${classes.scrollableBody}`} >
               <DraggableCodeInputs
                   items={currentValues[itemName]}
                   itemName={itemName}
@@ -166,7 +166,7 @@ class CodeFormBase extends Component {
           </Fragment>
 
           <HelpSection
-              className={classes.tabBody}
+              className={`${classes.tabBody} ${classes.scrollableBody}`}
               classes={classes}
               helpCopyRows={copy.helpRows}
               itle={copy.helpSectionTitle} />

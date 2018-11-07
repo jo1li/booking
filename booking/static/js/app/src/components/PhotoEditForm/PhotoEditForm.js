@@ -182,7 +182,7 @@ class PhotoEditFormBase extends Component {
     return (
       <Fragment>
         <ModalHeader classes={classes}>Edit Photos</ModalHeader>
-        <Grid item className={classes.aboveFooter} xs={12} sm={12} md={12} lg={12}>
+        <Grid item className={classes.scrollableBody} xs={12} sm={12} md={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
             <DraggablePhotoRows
                 items={currentValues.photos}

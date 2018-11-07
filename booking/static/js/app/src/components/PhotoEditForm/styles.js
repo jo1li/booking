@@ -114,12 +114,6 @@ const styles = theme => {
       width: '100%',
       objectFit: 'cover',
     },
-    // TODO: Move into edit form styles once styling is consistent
-    aboveFooter: {
-      padding: '12px 1px 0',
-      marginBottom: '12px',
-      overflowY: 'scroll',
-    },
     loadingIcon: {
       alignSelf: 'center',
     },

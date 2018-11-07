@@ -67,11 +67,6 @@ const styles = theme => {
       borderBottom: `1px solid ${theme.palette.grey[200]}`,
     },
 
-    // TODO: Move into edit form styles once styling is consistent
-    aboveFooter: {
-      marginBottom: '12px',
-    },
-
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
       button: {

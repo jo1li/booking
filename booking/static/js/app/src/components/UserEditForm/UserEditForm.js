@@ -107,7 +107,7 @@ class UserEditForm extends Component {
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Your Info</ModalHeader>
-        <Grid className={classes.aboveFooter} xs={12} lg={12}>
+        <Grid className={classes.scrollableBody} xs={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)}>
             <Grid container spacing={24} direction="row">
               <Grid item xs={12} sm={12} md={12} lg={12}>
