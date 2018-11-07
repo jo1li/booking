@@ -63,7 +63,7 @@ const styles = theme => {
       }
     },
     captionTop: {
-      padding: '0!important',
+      padding: `0 ${theme.spacing.unit * 3}px`,
       borderBottom: `1px solid ${theme.palette.grey[200]}`,
     },
 
