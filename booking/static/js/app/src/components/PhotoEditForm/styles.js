@@ -167,6 +167,9 @@ const styles = theme => {
       },
     },
 
+    uploadIcon: {
+      paddingRight: '5px',
+    }
   };
 }
 

@@ -13,6 +13,7 @@ import {
 } from 'redux-form';
 
 import * as PhotoActions from '../../actions/photos';
+import { CloudUpload } from '../icons';
 import * as ProfileActions from '../../actions/profile';
 import styles from './styles';
 import { EDIT_PHOTOS } from '../../constants/forms';
@@ -194,7 +195,7 @@ class PhotoEditFormBase extends Component {
                 remove={(order) => this.removeItemFromForm(order)} />
             <PhotoUploadButton
                 className={classes.photoEditFormSubmitButton}
-                label={'+ Upload Photo'}
+                label={<Fragment><CloudUpload className={classes.uploadIcon}/> Upload Photo</Fragment>}
                 handleChange={this.previewAndUpload} />
           </form>
         </Grid>
