@@ -209,6 +209,7 @@ task_definition = t.add_resource(TaskDefinition(
 service = t.add_resource(Service(
     'EcsService',
     Cluster=Ref(cluster_name),
+    DependsOn=["ALB", "Elb80Listener", "Elb443Listener", "TargetGroup"],
     # Todo: Connect config for DesiredCount
     DesiredCount=1,
     TaskDefinition=Ref(task_definition),
