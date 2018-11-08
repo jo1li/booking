@@ -6,7 +6,7 @@ docker:
   image_name: booking
   repo_uri: 519644672566.dkr.ecr.us-east-2.amazonaws.com
   pre_build: rm -Rfv booking/static/js/app/build && docker-compose run web-js npm run build
-  js_find: ls -l booking/static/js/app/public/| grep 'js$' | awk '{print $9}'
+  js_find: ls -l booking/static/js/app/build/static/js/| grep 'js$' | awk '{print $9}'
 service:
   desired_count: 1
   deploy:
@@ -19,8 +19,7 @@ task:
   units: 1
   role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
   execution_role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
-  env_file: infra/config/booking-stage.env
-  django_settings_module: booking.settings.stage-aws
+  django_settings_module: booking.settings.stage_aws
 elb:
   name: booking-stage
   security_groups:
