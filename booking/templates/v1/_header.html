@@ -4,12 +4,11 @@
 <!-- TODO: add logic in template to pass different attributes based on user authed state -->
 <header
     id="main-navigation-bar"
-    image='{% firstof musician.image_url "" %}'
-    artist="{% firstof musician.stage_name '' %}"
+    image='{% firstof request.user.musician.image_url "" %}'
+    artist="{% firstof request.user.musician.stage_name '' %}"
     url_home="{% url 'home' %}"
     url_profile='{{ profile_url }}'
     url_venues="/venues"
-    url_bookings="/bookings"
     url_signup="{% url 'opus_react_signup' %}"
     url_settings="{% url 'musician_settings' %}"
     url_signout="{% url 'opus_logout' %}"

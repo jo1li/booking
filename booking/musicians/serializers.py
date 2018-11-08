@@ -176,7 +176,8 @@ class ArtistCreateSerializer(serializers.Serializer):
 
         u = OpusUser.objects.create(
             email=validated_data.get('email'),
-            username=validated_data.get('email')
+            username=validated_data.get('email'),
+            is_musician=True
         )
         u.set_password(validated_data.get('password'))
         u.save()

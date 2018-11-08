@@ -16,6 +16,8 @@ import DownIcon from 'react-feather/dist/icons/chevron-down';
 import NavigationMobileMenu from './NavigationMobileMenu';
 import NavBarLogo from './NavBarLogo';
 
+import { getFaceThumbnailImageURL } from '../../helpers/imageHelpers';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -160,7 +162,7 @@ class NavigationBar extends React.Component {
             <a href={this.props.url_home}>
             <div className={classes.logo}>
               <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
-                Opus 
+                Opus
               </NavBarLogo>
             </div>
             </a>
@@ -170,11 +172,6 @@ class NavigationBar extends React.Component {
                   <li>
                     <Typography variant="body1">
                       <a href={this.props.url_venues}>Venues</a>
-                    </Typography>
-                  </li>
-                  <li>
-                    <Typography variant="body1">
-                      <a href={this.props.url_bookings}>Bookings</a>
                     </Typography>
                   </li>
                   <li>
@@ -196,9 +193,9 @@ class NavigationBar extends React.Component {
                     color="inherit"
                     className={classes.avatarMenu}
                   >
-                    <div className={classes.avatar} 
+                    <div className={classes.avatar}
                       style={{
-                        backgroundImage: `url(${this.props.image})`,
+                        backgroundImage: `url(${getFaceThumbnailImageURL(this.props.image)})`,
                         backgroundSize: '100%'
                       }}
                     ></div>
@@ -216,7 +213,7 @@ class NavigationBar extends React.Component {
                     color="inherit"
                     className={classes.avatarMenu}
                   >
-                    <div className={classes.avatar} 
+                    <div className={classes.avatar}
                       style={{
                         backgroundImage: `url(${this.props.image})`,
                         backgroundSize: '100%'
@@ -245,11 +242,10 @@ class NavigationBar extends React.Component {
         </AppBar>
         {authed && renderMenu}
         {authed && (
-          <NavigationMobileMenu 
+          <NavigationMobileMenu
             open={this.state.mobileDrawerOpen}
             toggleFunction={this.toggleMobileDrawer}
             url_venues={this.props.url_venues}
-            url_bookings={this.props.url_bookings}
             url_profile={this.props.url_profile}
             url_signout={this.props.url_signout}
             url_settings={this.props.url_settings}

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-import { getThumbnailImageURL } from '../../helpers/imageHelpers';
+import { getOpusThumbnailImageURL } from '../../helpers/imageHelpers';
 import { Code, CheckCircle, Delete } from '../icons';
 import * as ProfileActions from '../../actions/profile';
 
@@ -77,7 +77,7 @@ const TopRow = (props) => {
         dndProvidedProps={dndProvidedProps}
         classes={classes} />
     <div className={classes.editPhotoImageWrapper} style={{textAlign: 'center'}}>
-      <img src={item.image && getThumbnailImageURL(item.image)} className={classes.photoImg} alt="thumbnail"/>
+      <img src={item.image && getOpusThumbnailImageURL(item.image)} className={classes.photoImg} alt="thumbnail"/>
       <input type="hidden" value={item.id} name={`${itemName}[${idx}]`}/>
     </div>
     <CoverPhotoIndicatorGate
@@ -98,12 +98,14 @@ const BottomRow = (props) => {
     width,
     isCoverPhoto,
     useAsCoverPhoto,
+    item,
   } = props;
 
   return <Grid item className={classes.photoFormRowBottom}>
     <CoverPhotoIndicatorGate
         show={width === 'xs'}
         classes={classes}
+        item={item}
         isCoverPhoto={isCoverPhoto}
         useAsCoverPhoto={useAsCoverPhoto} />
   </Grid>

@@ -52,6 +52,7 @@ class ApiArtistCreateTest(OpusTestCase):
         m.stage_name.should.equal(name)
         m.slug.should.equal(slug)
         m.account_type.should.equal(account_type)
+        m.user.is_musician.should.equal(True)
 
 
     def test_artist_create_unique(self):
