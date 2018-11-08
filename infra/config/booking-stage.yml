@@ -1,20 +1,26 @@
 name: booking-stage
 cluster: booking-stage
+# from the root of the repo
+deploy_info_file: booking/deploy.json
 docker:
   image_name: booking
   repo_uri: 519644672566.dkr.ecr.us-east-2.amazonaws.com
   pre_build: rm -Rfv booking/static/js/app/build && docker-compose run web-js npm run build
-  js_find: ls -l baton/static/js/app/public/| grep 'js$' | awk '{print $9}'
+  js_find: ls -l booking/static/js/app/public/| grep 'js$' | awk '{print $9}'
 service:
-  name: booking-stage
+  desired_count: 1
+  deploy:
+    maximum_percent: 200
+    minimum_healthy_percent: 100
 task:
-  name: booking-stage
   port: 80
   cpu: 0.25 vCPU
   memory: 1GB
   units: 1
   role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
   execution_role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
+  env_file: infra/config/booking-stage.env
+  django_settings_module: booking.settings.stage-aws
 elb:
   name: booking-stage
   security_groups:

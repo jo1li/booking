@@ -1,6 +1,12 @@
 import boto3
+import docker
+import base64
 
-from utils import jprint, parse_env_file
+from executor import execute
+
+from utils import docker_output_stream, get_path
+from utils_git import get_git_sha
+
 
 def get_docker_repo(image_name):
 
@@ -14,84 +20,44 @@ def get_docker_repo(image_name):
     return response['repositories'][0]
 
 
-def create_log_group(name):
+def build_and_push_image(env):
 
-    log_client = boto3.client('logs')
-    log_check_response = log_client.describe_log_groups(
-        logGroupNamePrefix=name,
-    )
-
-    if len(log_check_response["logGroups"]) == 0:
-        log_response = log_client.create_log_group(
-            logGroupName=name,
-        )
-        jprint(log_response)
+    # TODO: at some point, we're going to want dupe builds with the same sha
+    #   in that case, run a check against tags, and add another random identifier
+    #   if the current sha exists
+    sha = get_git_sha()
+    image_name = env['docker']['image_name']
+    repo_uri = "{}/{}".format(env['docker']['repo_uri'], image_name)
+    pre_build = env['docker']['pre_build'] if 'pre_build' in env['docker'] else False
 
 
-def register_task_definition(task_image, task, extra_env={}):
+    full_repo_uri = "{}:{}".format(repo_uri, sha)
 
-    client = boto3.client('ecs')
+    # From docker.pre_build
+    if pre_build:
+        execute(pre_build)
 
-    task_family = task['name']
-    task_name = task['name']
+    cli = docker.APIClient()
+    stream = cli.build(path=get_path(), rm=True, tag=full_repo_uri)
 
-    # Sane defaults
-    task_cpu = task['cpu']
-    task_memory = task['memory']
-    task_role_arn = task['role_arn']
-    task_execution_role_arn = task['execution_role_arn']
+    docker_output_stream(stream)
 
-    environment = parse_env_file("./infra/config/{}.env".format(task_name))
+    ecr_client = boto3.client('ecr')
+    docker_client = docker.from_env()
 
-    if(len(extra_env) > 0):
-        environment.append(extra_env)
+    # login to aws registry
+    ecr_resp = ecr_client.get_authorization_token()
+    ecr_token = ecr_resp['authorizationData'][0]['authorizationToken']
+    ecr_decoded = base64.b64decode(ecr_token).split(':')
 
-    # Log group setup
-    log_group = "/ecs/{}".format(task_name)
-    create_log_group(log_group)
+    auth_config = {
+        'username': ecr_decoded[0],
+        'password': ecr_decoded[1],
+        'registry': ecr_resp['authorizationData'][0]['proxyEndpoint']
+    }
 
-    # Will create the task family if it doesn't exist
-    task_response = client.register_task_definition(
-        family=task_family,
-        taskRoleArn=task_role_arn,
-        executionRoleArn=task_execution_role_arn,
-        networkMode="awsvpc",
-        cpu=task_cpu,
-        memory=task_memory,
-        containerDefinitions=[
-            {
-                'name': task_name,
-                'image': task_image,
-                'portMappings': [
-                    {
-                        'containerPort': 80,
-                        'hostPort': 80,
-                        'protocol': 'tcp'
-                    },
-                ],
-                'essential': True,
-                'command': [
-                    "./scripts/cmd-web.sh"
-                ],
-                'environment': environment,
-                'mountPoints': [],
-                'volumesFrom': [],
-                'logConfiguration': {
-                    'logDriver': 'awslogs',
-                    'options': {
-                        "awslogs-group": log_group,
-                        "awslogs-region": "us-east-2",
-                        "awslogs-stream-prefix": "ecs"
-                    }
-                },
-            },
-        ],
-        volumes=[],
-        requiresCompatibilities=[
-            'FARGATE',
-        ]
-    )
+    print("Pushing {} to {}".format(sha, repo_uri))
+    stream = docker_client.images.push(repo_uri, tag=sha, auth_config=auth_config, stream=True)
+    docker_output_stream(stream)
 
-    jprint(task_response)
-
-    return task_response['taskDefinition']['taskDefinitionArn']
+    return full_repo_uri

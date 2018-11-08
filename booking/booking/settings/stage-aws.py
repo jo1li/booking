@@ -3,11 +3,11 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': get_env_variable('MYSQL_HOST'),
-        'NAME': get_env_variable('MYSQL_DATABASE'),
-        'PORT': get_env_variable('MYSQL_PORT'),
-        'USER': get_env_variable('MYSQL_OPUS_USER'),
-        'PASSWORD': get_env_variable('MYSQL_PASSWORD'),
+        'HOST': 'booking-stage.cuo6krbubjof.us-east-2.rds.amazonaws.com',
+        'NAME': 'booking_stage',
+        'PORT': '3306',
+        'USER': 'booking_stage',
+        'PASSWORD': 'A;vj,ayDF7hUJ2V$V[}9yZPx',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             # Tell MySQLdb to connect with 'utf8mb4' character set
