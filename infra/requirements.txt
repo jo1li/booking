@@ -2,7 +2,9 @@ backports.ssl-match-hostname==3.5.0.1
 boto3==1.9.19
 botocore==1.12.19
 certifi==2018.8.24
+cfn-flip==1.0.3
 chardet==3.0.4
+Click==7.0
 coloredlogs==10.0
 docker==3.5.0
 docker-pycreds==0.3.0
@@ -24,6 +26,7 @@ requests==2.19.1
 s3transfer==0.1.13
 six==1.11.0
 smmap2==2.0.4
+troposphere==2.3.4
 urllib3==1.23
 verboselogs==1.7
 websocket-client==0.53.0
