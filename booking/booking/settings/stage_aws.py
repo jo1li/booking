@@ -16,7 +16,7 @@ DATABASES = {
     },
 }
 
-SITE_DOMAIN = 'booking-stage-1029564567.us-east-2.elb.amazonaws.com'
+SITE_DOMAIN = 'opus-stage.com'
 ALLOWED_HOSTS = [
     SITE_DOMAIN,
     "*"

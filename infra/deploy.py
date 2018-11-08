@@ -161,6 +161,7 @@ if __name__ == "__main__":
 
     if args.branch:
         yaml_env['name'] = "{}-{}".format(yaml_env['name'], args.branch)
+        yaml_env['task']['django_settings_module'] = 'booking.settings.stage-aws-branch'
 
     # Build out the image
     new_image = build_and_push_image(yaml_env)
