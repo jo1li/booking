@@ -7,6 +7,8 @@ jobs:
     working_directory: ~/booking
     steps:
 
+      - checkout
+
       # NOTE: Circle has an outdated version of docker-compose, this will install
       #   a more modern version.
       # However, Circle seems to lock down the `/usr/local/bin` directory, hence the non-standard install location
@@ -24,25 +26,17 @@ jobs:
               docker --version
               ~/booking/docker-compose --version
 
-      # - run:
-      #     name:  Download cc-test-reporter
-      #     command: |
-      #       mkdir -p ~/booking/tmp/coverage
-      #       curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/booking/tmp/cc-test-reporter
-      #       chmod +x ~/booking/tmp/cc-test-reporter
 
       - persist_to_workspace:
           root: ~/booking
           paths:
-            - docker-compose
-            - tmp/coverage
-            - tmp/cc-test-reporter
+            - ./*
+
 
   unit-python:
     machine: true
     working_directory: ~/booking
     steps:
-      - checkout
       - attach_workspace:
           at: ~/booking
 
@@ -59,7 +53,6 @@ jobs:
     machine: true
     working_directory: ~/booking
     steps:
-      - checkout
       - attach_workspace:
           at: ~/booking
 
@@ -72,6 +65,30 @@ jobs:
               sudo ~/booking/docker-compose run web-js npm run build
 
 
+  deploy:
+    machine: true
+    working_directory: ~/booking
+    steps:
+      - attach_workspace:
+          at: ~/booking
+      - run:
+          command: env
+      - run:
+          name: Deploy to sandbox env
+          command: |
+            cd ~/booking/
+
+            # Install dependencies
+            pip install -r ./infra/requirements.txt
+
+            # Build
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./infra/deploy.py --env-file ./infra/config/booking-stage.yml
+            else
+              BRANCH_NAME=$(echo $CIRCLE_BRANCH | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
+              ./infra/deploy.py --env-file ./infra/config/booking-stage.yml --branch=$BRANCH_NAME
+            fi
+
 workflows:
   version: 2
   build:
@@ -83,4 +100,7 @@ workflows:
       - unit-js:
             requires:
               - build
-
+      - deploy:
+            requires:
+              - unit-python
+              - unit-js

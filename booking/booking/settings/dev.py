@@ -1,14 +1,13 @@
 from .base import *
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
 ALLOWED_HOSTS = [
     "localhost",
     "booking.localopuslive.io",
     "opus.ngrok.io",
 ]
 
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
