@@ -176,11 +176,6 @@ class NavigationBar extends React.Component {
                   </li>
                   <li>
                     <Typography variant="body1">
-                      <a href={this.props.url_bookings}>Bookings</a>
-                    </Typography>
-                  </li>
-                  <li>
-                    <Typography variant="body1">
                       <a href={this.props.url_profile}>Profile</a>
                     </Typography>
                   </li>
@@ -251,7 +246,6 @@ class NavigationBar extends React.Component {
             open={this.state.mobileDrawerOpen}
             toggleFunction={this.toggleMobileDrawer}
             url_venues={this.props.url_venues}
-            url_bookings={this.props.url_bookings}
             url_profile={this.props.url_profile}
             url_signout={this.props.url_signout}
             url_settings={this.props.url_settings}

@@ -24,12 +24,6 @@ class NavigationMobileMenu extends React.Component {
         </List>
         <Divider />
         <List>
-          <ListItem component='a' href={this.props.url_bookings} button>
-            <ListItemText primary="Bookings" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
           <ListItem component='a' href={this.props.url_profile} button>
             <ListItemText primary="Profile" />
           </ListItem>
