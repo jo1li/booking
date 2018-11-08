@@ -100,8 +100,6 @@ ENV/
 # Deploy
 booking/db.sqlite3
 booking/deploy.json
-infra/config/*.env
-
 
 mysql-data
 booking/static/*
@@ -111,4 +109,3 @@ booking/static/*
 
 # docker
 docker-compose.override.yaml
-
