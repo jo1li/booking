@@ -163,6 +163,9 @@ if __name__ == "__main__":
         yaml_env['name'] = "{}-{}".format(yaml_env['name'], args.branch)
         yaml_env['task']['django_settings_module'] = 'booking.settings.stage_aws_branch'
 
+    # Write out deploy info file
+    deploy_info(yaml_env)
+
     # Build out the image
     new_image = build_and_push_image(yaml_env)
     js_bundle = execute(yaml_env['docker']['js_find'], capture=True)
