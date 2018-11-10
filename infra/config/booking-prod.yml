@@ -1,0 +1,46 @@
+name: booking-prod
+cluster: booking-prod
+# from the root of the repo
+deploy_info_file: booking/deploy.json
+docker:
+  image_name: booking
+  repo_uri: 519644672566.dkr.ecr.us-east-2.amazonaws.com
+  pre_build: rm -Rfv booking/static/js/app/build && docker-compose run web-js npm run build
+  js_find: ls -l booking/static/js/app/build/static/js/| grep 'js$' | awk '{print $9}'
+service:
+  desired_count: 1
+  deploy:
+    maximum_percent: 200
+    minimum_healthy_percent: 100
+task:
+  port: 80
+  cpu: 0.25 vCPU
+  memory: 1GB
+  units: 1
+  role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
+  execution_role_arn: arn:aws:iam::519644672566:role/ecsTaskExecutionRole
+  django_settings_module: booking.settings.prod_aws
+elb:
+  name: booking-prod
+  security_groups:
+    - sg-0c9080a48fc2f732e
+  certificate_arn: arn:aws:acm:us-east-2:519644672566:certificate/bb5a23b2-0a4a-46f0-9030-7b03fa00503e
+  port: 80
+  https_port: 443
+  health_check:
+    interval: 15s
+    path: /healthcheck
+    status: 200-299
+    timeout: 10s
+    healthy_limit: 3
+    unhealthy_limit: 3
+logging:
+  options: {}
+vpc:
+  vpc_id: vpc-0671798d31d70bad9
+  subnets:
+    - subnet-05f0dfc92711157bf
+    - subnet-050ba5384f561c8bd
+    - subnet-0e06c2151dde8870d
+  security_groups:
+    - sg-00228792a28c3a59a
