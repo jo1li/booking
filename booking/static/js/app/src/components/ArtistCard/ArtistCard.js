@@ -160,7 +160,7 @@ class ArtistCard extends React.Component {
 
         <div className={classes.metaSection}>
           <Divider/>
-          <CardContent className={`${classes.meta}`}>
+          <div className={classes.meta}>
             <Grid container spacing={8} className={classes.metaList}>
               <Grid item>
                 <Typography component="p" variant="caption" noWrap align="left">
@@ -173,7 +173,7 @@ class ArtistCard extends React.Component {
                 </Typography>
               </Grid>
             </Grid>
-          </CardContent>
+          </div>
         </div>
 
         {!isInReview && (
