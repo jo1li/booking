@@ -114,6 +114,7 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
 
+                "booking.context_processors.settings_context_processor",
                 "booking.context_processors.static_js",
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
@@ -293,3 +294,5 @@ SOCIAL_TWITTER_ACCESS_TOKEN_SECRET = 'oH8jw9RccbFKwQ9AgAvlnTNNxY3sjwzjxI1TTl1hom
 
 # App config
 MESSAGE_ARTIST_CC = get_env_variable('MESSAGE_ARTIST_CC', default='info@opuslive.io')
+
+SHOW_LOGIN_SIGNUP = True
