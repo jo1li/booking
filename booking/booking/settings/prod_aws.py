@@ -1,28 +1,22 @@
 from .base import *
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': 'booking-prod.cuo6krbubjof.us-east-2.rds.amazonaws.com',
-#         'NAME': 'booking_prod',
-#         'PORT': '3306',
-#         'USER': 'booking_prod',
-#         'PASSWORD': 'a8mK9vU[RkAvzTc*Dm4M.>^E',
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#             # Tell MySQLdb to connect with 'utf8mb4' character set
-#             'charset': 'utf8mb4'
-#         }
-#     },
-# }
-
-import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'booking-prod.cuo6krbubjof.us-east-2.rds.amazonaws.com',
+        'NAME': 'booking_prod',
+        'USER': 'booking_prod',
+        'PORT': '3306',
+        'PASSWORD': 'a8mK9vU[RkAvzTc*Dm4M.>^E',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8mb4'
+        }
+    },
 }
+
+DEBUG = False
 
 SITE_DOMAIN = 'opuslive.io'
 ALLOWED_HOSTS = [
