@@ -16,8 +16,6 @@ DATABASES = {
     },
 }
 
-DEBUG = False
-
 SITE_DOMAIN = 'opuslive.io'
 ALLOWED_HOSTS = [
     SITE_DOMAIN,
