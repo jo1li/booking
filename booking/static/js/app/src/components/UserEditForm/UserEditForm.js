@@ -307,7 +307,7 @@ const mapStateToProps = (state, props) => ({
     instagram: props.instagram,
     spotify: props.spotify,
     hometown: props.hometown,
-    genres: props.genres,
+    genres: props.genres.map(g => g.name),
     state: props.state,
     website: props.website,
     bio_short: props.bio_short,

@@ -141,7 +141,7 @@ class ArtistCard extends React.Component {
               </Typography>
             )}
             <Typography gutterBottom={true} variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap align="left">
-              {genres.join(', ')}
+              {genres.map(g => g.name).join(', ')}
             </Typography>
             <Typography className={classes.tagline} variant="body1" align="left">
               {bio_short}

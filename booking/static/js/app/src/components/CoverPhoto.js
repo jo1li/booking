@@ -21,7 +21,7 @@ const styles = (theme) => ({
 
 const CoverPhoto = (props) => {
   const { photos, profile, classes } = props;
-  const coverPhoto = photos[profile.image_hero_id];
+  const coverPhoto = photos[_.get(profile, 'image_hero.id', null)];
   if(!coverPhoto) return <div id="cover-photo" />;
 
   return (
