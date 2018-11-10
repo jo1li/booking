@@ -7,9 +7,15 @@ then
     ./scripts/wait-for-it.sh $MYSQL_HOST:$MYSQL_PORT --timeout=30 --strict -- echo "DB is up!!!1!!"
 fi
 
-if [ "$DJANGO_SETTINGS_MODULE" == "booking.settings.stage-aws" ]
+# TODO: set this up a bit better
+if [ "$DJANGO_SETTINGS_MODULE" == "booking.settings.stage_aws" ]
 then
     ./scripts/wait-for-it.sh booking-stage.cuo6krbubjof.us-east-2.rds.amazonaws.com:3306 --timeout=30 --strict -- echo "DB is up!!!1!!"
+fi
+
+if [ "$DJANGO_SETTINGS_MODULE" == "booking.settings.prod_aws" ]
+then
+    ./scripts/wait-for-it.sh booking-prod.cuo6krbubjof.us-east-2.rds.amazonaws.com:3306 --timeout=30 --strict -- echo "DB is up!!!1!!"
 fi
 
 # Run migrations
@@ -27,7 +33,7 @@ else
 fi
 
 # Load fixture data, but not in prod
-if [ "$DJANGO_SETTINGS_MODULE" != "booking.settings.prod" ]
+if [ "$DJANGO_SETTINGS_MODULE" != "booking.settings.prod_aws" ]
 then
     echo "Fixturizing!!!1!"
     python manage.py loaddata fixtures/home.opususer.json

@@ -8,8 +8,31 @@ You can login to the admin with chris@opuslive.io / opusadmin.
 
 # Deploy
 
+## Automatic deploys
+
+This app is deployed to staging environments automatically, and in 2 different ways.
+
+First, whenever a PR is opened, CI will run tests against the newly opened branch. If they succeed, CI will build out fresh infrastructure to test on. To find the URL;
+
+* Navigate to the PR page.
+* Scroll down to the Checks section.
+* There will be a check labeled `ci/circleci: deploy`. Click the details link.
+* This brings you to the CircleCI job page.
+* Scroll down, and expand the `Deploy to sandbox env` section.
+* Scroll down, again. There's a lot of output here.
+* The last object to be printed is the response of an Amazon API.
+  * There will be section labeled `Outputs`. The `OutputValue` will be the hostname you can access your PR at.
+
+After merging a PR, master will automatically be built out to [https://opus-stage.com](https://opus-stage.com).
+
+## To deploy manually
+
+* Ensure that the requirements noted in `infra/requirements.txt` are installed.
+* You'll need AWS credentials with correct permissions.
+
+Then, from the root of this repo
 ```bash
-echo "y" | gcloud app deploy app.yaml --project opus-booking-stage
+./infra/deploy.py --env-file=infra/config/booking-stage.yml
 ```
 
 # A note on templates
