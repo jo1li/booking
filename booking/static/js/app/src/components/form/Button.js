@@ -15,7 +15,7 @@ const styles = theme => ({
     outlineColor: 'none',
     '&:disabled': {
         opacity: '0.2',
-        color: theme.palette.secondary.main,
+        color: theme.palette.secondary.contrastText,
     }
   },
 });
