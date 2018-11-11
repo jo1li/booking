@@ -184,7 +184,7 @@ class PhotoEditFormBase extends Component {
     return (
       <Fragment>
         <ModalHeader classes={classes}>Edit Photos</ModalHeader>
-        <Grid item className={classes.scrollableBody} xs={12} sm={12} md={12} lg={12}>
+        <div className={classes.scrollableBody} xs={12} sm={12} md={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)} ref={provided.innerRef}>
             <DraggablePhotoRows
                 items={currentValues.photos}
@@ -200,7 +200,7 @@ class PhotoEditFormBase extends Component {
                 label={<Fragment><CloudUpload className={classes.uploadIcon}/> Upload Photo</Fragment>}
                 handleChange={this.previewAndUpload} />
           </form>
-        </Grid>
+        </div>
         <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={this.submit}
