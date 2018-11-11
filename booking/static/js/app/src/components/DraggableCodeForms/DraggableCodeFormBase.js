@@ -177,6 +177,8 @@ class CodeFormBase extends Component {
       copy,
     } = this.props;
 
+    const helpSectionTitles = copy.helpSections.map(section => section.title);
+
     return (
       <Fragment>
         <TabbedList
@@ -185,11 +187,16 @@ class CodeFormBase extends Component {
           <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
           <FormSection {...this.props} submit={this.submit} remove={this.removeItemFromForm}/>
-          <HelpSection
-              className={`${classes.tabBody} ${classes.scrollableBody}`}
-              classes={classes}
-              helpCopyRows={copy.helpRows} />
-          )
+
+          {
+            copy.helpSections.map((section, idx) => {
+              return <HelpSection
+                  key={idx}
+                  className={`${classes.tabBody} ${classes.scrollableBody}`}
+                  classes={classes}
+                  helpCopyRows={section.helpRows} />;
+            })
+          }
 
         </TabbedList>
       </Fragment>

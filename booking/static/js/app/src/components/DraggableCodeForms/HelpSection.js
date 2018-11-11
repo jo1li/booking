@@ -4,7 +4,6 @@ import _ from 'lodash'
 
 const HelpSection = (props) => {
   const { classes, className, helpCopyRows, goToTab } = props;
-
   return <Fragment>
     <div className={className || ''}>
       <Grid container direction="column" spacing={24}>
