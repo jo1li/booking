@@ -46,6 +46,7 @@ const FormSection = (props) => {
           props[itemName].length ?
           null :
           <GettingStarted
+              copy={copy.gettingStarted}
               className={classes.gettingStarted}
               classes={classes}
               goToTab={goToTab} />
@@ -180,7 +181,7 @@ class CodeFormBase extends Component {
       <Fragment>
         <TabbedList
             classes={classes}
-            tabNames={['embed', 'help']} >
+            tabNames={['embed'].concat(helpSectionTitles)} >
           <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
           <FormSection {...this.props} submit={this.submit} remove={this.removeItemFromForm}/>
