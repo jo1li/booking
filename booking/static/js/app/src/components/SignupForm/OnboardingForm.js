@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { compose } from 'recompose'
 import { connect } from 'react-redux';
+import autoBind from 'react-autobind';
 import { ARTIST_ONBOARDING } from '../../constants/forms';
 import {
   Field,
@@ -26,10 +28,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import UploadDropZone from './UploadDropZone';
 import isEmpty from "lodash/isEmpty";
+import FullScreenDialog from '../Dialog/FullScreenDialog';
+import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
 
 import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
 import IconInstagram from '../ArtistCard/IconInstagram';
+import { selectImageFile, selectImagePreview } from '../../selectors/onboardingSelectors';
 
 import MultiSelect from '../form/MultiSelect';
 
@@ -64,7 +69,7 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   genreLabel: {
-    fontSize: 16, 
+    fontSize: 16,
     color: 'rgba(0,0,0,0.54)',
     paddingBottom: theme.spacing.unit/2,
   },
@@ -172,10 +177,14 @@ const SpotifyAdornment = (
 )
 
 class OnboardingForm extends Component {
+  constructor() {
+    super();
+
+    autoBind(this);
+  }
 
   state = {
     genres: [],
-    imageFile: {},
   }
 
   componentWillMount() {
@@ -187,7 +196,8 @@ class OnboardingForm extends Component {
   }
 
   submit = (values) => {
-    const { updateUserBio, musicianid, stagename } = this.props;
+    const { updateUserBio, musicianid, stagename, imageFile } = this.props;
+
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
       genres: genres,
@@ -213,7 +223,7 @@ class OnboardingForm extends Component {
 
     // url regex
     const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/|www\.){1}[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
-    
+
     // website validation
     if (data.website && !simple_url_regex.test(data.website)) {
       errors.website = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
@@ -239,36 +249,42 @@ class OnboardingForm extends Component {
     } else if (data.spotify && !simple_url_regex.test(data.spotify)) {
       errors.spotify = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
     }
-    
+
 
     if(Object.keys(errors).length === 0) {
-      return updateUserBio(data, musicianid).then(res => {
-        if(res.status === 200) {
-          if(res.data.url_fq) {
+       try {
+          const res = await updateUserBio(data, musicianid);
+
+          if (res.data.url_fq) {
             window.location.href = res.data.url_fq
-          } else {
-            // uhhh
           }
-        }
-      })
-      .catch(error => {
-        if (error.response.data) {
-          throw new SubmissionError(error.response.data);
-          // TODO: this should mark form as invalid so submit button is disabled
-        }
-      });
+        } catch(errors) {
+          console.error('Error in OnboardingForm submit', errors);
+        };
     } else {
       throw new SubmissionError(errors);
     }
-
   }
 
-  handleFileDrop = newImageFile => {
-    this.setState({ imageFile: newImageFile })
+  openPhotoEditor(imageFile) {
+    const {
+      change,
+      openDialog,
+    } = this.props;
+
+    const file = _.get(imageFile, '[0]');
+
+    openDialog(
+      <ProfilePhotoEditorForm
+        image={file.preview}
+        imageName={file.name}
+        onClickConfirm={file => change('image', file)}
+      />
+    )
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit, currentValues, invalid } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid } = this.props
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.image || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
       value: g,
@@ -286,8 +302,8 @@ class OnboardingForm extends Component {
                   name="image"
                   component={UploadDropZone}
                   type="file"
-                  imagefile={this.state.imageFile}
-                  handleOnDrop={this.handleFileDrop}
+                  imagefile={currentValues.image}
+                  handleOnDrop={this.openPhotoEditor}
                   validate={[imageIsRequired]}
                 />
                 <FormHelperText>Required</FormHelperText>
@@ -398,12 +414,6 @@ class OnboardingForm extends Component {
   }
 }
 
-OnboardingForm = withStyles(styles)(OnboardingForm)
-
-OnboardingForm = reduxForm({
-  form: ARTIST_ONBOARDING,
-})(OnboardingForm);
-
 const mapStateToProps = (state, props) => ({
   initialValues: { hometown: "New York", state: "NY" },
   currentValues: getFormValues(ARTIST_ONBOARDING)(state) || {},
@@ -413,6 +423,15 @@ const mapStateToProps = (state, props) => ({
   getGenres: getGenres,
   musicianId: props.musicianId,
   stagename: props.stage_name,
+  imageFile: selectImageFile(state),
+  imagePreview: selectImagePreview(state),
 })
 
-export default connect(mapStateToProps)(OnboardingForm);
+export default compose(
+  withStyles(styles),
+  reduxForm({
+    form: ARTIST_ONBOARDING,
+  }),
+  connect(mapStateToProps),
+  FullScreenDialog,
+)(OnboardingForm);

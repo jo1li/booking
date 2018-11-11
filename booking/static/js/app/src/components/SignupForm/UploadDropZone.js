@@ -4,6 +4,7 @@ import DropZone from "react-dropzone";
 import { UploadCloud } from "react-feather";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { geGetImageFiletPreview } from '../../utils/formHelpers';
 
 
 const renderImagePreview = imagefile => (
@@ -26,7 +27,6 @@ const DropZoneField = ({
       accept="image/jpeg, image/png"
       className="upload-container"
       onDrop={handleOnDrop}
-      onChange={file => input.onChange(file)}
     >
         <Fragment>
           <Grid container style={{ flexGrow: 1 }}>
