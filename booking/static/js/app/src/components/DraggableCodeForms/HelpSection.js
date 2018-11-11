@@ -11,7 +11,7 @@ const HelpSection = (props) => {
           _.map(helpCopyRows, (row, idx) => {
             return <Grid item container direction="row" key={`help-section-row-${idx}`}>
               <Grid item className={classes.helpScreenshotContainer}>{row[0]}</Grid>
-              <Grid item className={classes.helpRowNumber}>{idx}</Grid>
+              <Grid item className={classes.helpRowNumber}>{idx + 1}</Grid>
               <Grid item className={classes.helpTextContainer}>{row[1]}</Grid>
             </Grid>;
           })
