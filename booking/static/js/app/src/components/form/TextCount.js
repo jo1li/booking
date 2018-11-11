@@ -16,6 +16,7 @@ const styles = theme => ({
   },
   bold: {
     fontWeight: 'bold',
+    color: 'red',
   }
 });
 
