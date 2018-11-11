@@ -35,7 +35,12 @@ export default class TabbedList extends Component {
             }
           </Tabs>
         </Grid>
-        { tabItems[selectedTabIndex] }
+        {
+          React.cloneElement(
+            tabItems[selectedTabIndex],
+            { goToTab: (tabIdx) => this.changeTab(null, tabIdx) },
+          )
+        }
       </Fragment>
     );
   }
