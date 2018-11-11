@@ -89,3 +89,16 @@ export const validate_embed = (code, whitelist, noEmbedCodeErrorMessage) => {
 
 }
 
+// TODO: Probably want a different validation function for each social
+// URL, to validate e.g. `https://facebook.com/[username]` specifically
+export const validateURL = (val) => {
+  if(!val) return undefined;
+  // Regex credit: https://www.regextester.com/94502 (modified to require protocol)
+  const URL_REGEX = /^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+  return URL_REGEX.test(val) ? undefined : 'A valid URL starting with http or https is required.';
+}
+
+export const validateMaxLength = (maxLength) => (val) => {
+  if(!val) return undefined;
+  return val.length < maxLength ? undefined : `This value should not exceed ${maxLength} characters.`;
+}
