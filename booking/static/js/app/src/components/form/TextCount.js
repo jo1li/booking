@@ -9,10 +9,13 @@ const styles = theme => ({
     position: 'relative',
   },
   count: {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      transform: 'translateY(-100%)'
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    transform: 'translateY(-100%)'
+  },
+  bold: {
+    fontWeight: 'bold',
   }
 });
 
@@ -24,10 +27,15 @@ let TextCount = (props) => {
     children,
   } = props;
 
+  const isTooLong = currentLength > maxLength;
+
   return (
         <div className={classes.countContainer}>
             <div className={classes.count}>
-                <Caption>{`${currentLength} / ${maxLength}`}</Caption>
+                <Caption>
+                    <span className={isTooLong ? classes.bold : ''}>{currentLength}</span>
+                    {` / ${maxLength}`}
+                </Caption>
             </div>
             {children}
         </div>
