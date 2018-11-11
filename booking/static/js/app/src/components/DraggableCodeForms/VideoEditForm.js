@@ -1,7 +1,7 @@
 // TODO: This can be DRYed up a little bit more with AudioEditForm, but want
 //       to wait until DRYing up with other modals so we don't abstract at wrong
 //       level and make more work for ourselves
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import {
   reduxForm,
@@ -22,24 +22,26 @@ import {
 } from '../../constants/unicodeCharacters';
 import { validate_video_embeds } from '../../utils/validators';
 
-const title = 'Edit Videos';
+const title = 'Edit YouTube Video Embeds';
 
 const inputPlaceholder = 'Copy and paste video player embed code here.';
 
-// TODO: Use real screenshots once we have them
+// TODO: Do we want to check these images in to the repo? Leaning toward no.
 const helpRows = [
   [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go to the YouTube page of the video you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
+    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-1_exsg6d" alt="Screenshot"/>,
+    <Fragment>
+      Click the <strong>Share</strong> option on the YouTube video.
+    </Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to display the embed video code.`,
+    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-2_nigzex" alt="Screenshot"/>,
+    <Fragment>Select the <strong>Embed</strong> option.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Click ${LEFT_DOUBLE_QUOTES}COPY${RIGHT_DOUBLE_QUOTES} to copy the entire embed video code.`,
+    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-3_ctgcor" alt="Screenshot"/>,
+    <Fragment>Copy the Embed Code.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go back to the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} tab, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVE${RIGHT_DOUBLE_QUOTES}. The video is now added to your Opus profile!`,
+    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-4_xxcltt" alt="Screenshot"/>,
+    <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];
 
