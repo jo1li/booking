@@ -90,6 +90,27 @@ const styles = theme => {
       borderBottom: `1px solid ${theme.palette.grey[200]}`,
     },
 
+    gettingStarted: {
+      fontSize: '16px',
+      marginBottom: theme.spacing.unit * 5.5,
+    },
+    gettingStartedExample: {
+      fontSize: '11px',
+      marginTop: '5px',
+    },
+    gettingStartedHelpButton: {
+      marginTop: theme.spacing.unit * 2,
+      padding: 0,
+      border: 0,
+      background: 'none',
+      color: theme.palette.secondary.main,
+      fontWeight: 'bold',
+      textTransform: 'uppercase',
+      lineHeight: '1.5',
+      fontSize: '14px',
+      cursor: 'pointer',
+    },
+
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
       button: {
