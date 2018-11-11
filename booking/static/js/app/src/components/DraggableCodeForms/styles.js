@@ -41,17 +41,40 @@ const styles = theme => {
       backgroundColor: 'white', // Looks better when moving over other items
     },
     helpScreenshotContainer: {
-      textAlign: 'center',
-      border: '2px solid #eeeeee',
-      height: '150px',
-      // TODO: get real images, then remove this
+      height: '129px',
+      width: '198px',
       '& img': {
         height: '100%',
-        width: 'auto',
+        width: '100%',
       }
     },
+    helpRowNumber: {
+      paddingLeft: theme.spacing.unit * 3,
+      height: '22px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      lineHeight: '1.38',
+      color: 'black',
+    },
     helpTextContainer: {
-      paddingLeft: '24px',
+      paddingLeft: theme.spacing.unit * 2,
+      width: '170px',
+      '& strong': {
+        fontWeight: 500,
+        fontStyle: 'italic',
+      }
+    },
+    helpSectionBackButton: {
+      textTransform: 'uppercase',
+      color: theme.palette.secondary.main,
+      fontWeight: 500,
+      fontSize: '14px',
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      height: '54px', // To match buttons in main tab footer
+      boxSizing: 'border-box',
+      padding: 0,
     },
     tab: {
       '&:focus': {
