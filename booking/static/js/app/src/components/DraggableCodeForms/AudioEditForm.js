@@ -18,6 +18,7 @@ import {
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
 import { validate_audio_embeds } from '../../utils/validators';
+import CONFIGS from '../../configs';
 
 const title = 'Edit Audio';
 
@@ -25,36 +26,36 @@ const inputPlaceholder = 'Copy and paste audio player embed code here.';
 
 const soundcloudHelpRows = [
   [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/soundcloud-help-image-1_fad5ul" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-1.png`} alt="Screenshot"/>,
     <Fragment>
       Click the <strong>Share</strong> option on the Soundcloud audio track.
     </Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/soundcloud-help-image-2_bymqkc" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-2.png`} alt="Screenshot"/>,
     <Fragment>Select the <strong>Embed</strong> option.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/soundcloud-help-image-3_xs1wx8" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-3.png`} alt="Screenshot"/>,
     <Fragment>Copy the Embed Code.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/soundcloud-help-image-4_pqnrra" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-4.png`} alt="Screenshot"/>,
     <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];
 
 const spotifyHelpRows = [
   [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/spotify-help-image-1_w3g3rw" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-1.png`} alt="Screenshot"/>,
     <Fragment>
       Click the <strong>More</strong> option on a Spotify track.
     </Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/spotify-help-image-2_bbhjse" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-2.png`} alt="Screenshot"/>,
     <Fragment>Select the <strong>Share</strong> menu option.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/spotify-help-image-3_bp5loy" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-3.png`} alt="Screenshot"/>,
     <Fragment>Click <strong>Copy Embed Code</strong>.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/spotify-help-image-4_sdpng4" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-4.png`} alt="Screenshot"/>,
     <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];

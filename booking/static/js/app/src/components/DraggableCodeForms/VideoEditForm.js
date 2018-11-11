@@ -21,26 +21,26 @@ import {
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
 import { validate_video_embeds } from '../../utils/validators';
+import CONFIGS from '../../configs';
 
 const title = 'Edit YouTube Video Embeds';
 
 const inputPlaceholder = 'Copy and paste video player embed code here.';
 
-// TODO: Do we want to check these images in to the repo? Leaning toward no.
 const helpRows = [
   [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-1_exsg6d" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-1.png`} alt="Screenshot"/>,
     <Fragment>
       Click the <strong>Share</strong> option on the YouTube video.
     </Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-2_nigzex" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-2.png`} alt="Screenshot"/>,
     <Fragment>Select the <strong>Embed</strong> option.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-3_ctgcor" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-3.png`} alt="Screenshot"/>,
     <Fragment>Copy the Embed Code.</Fragment>,
   ], [
-    <img src="https://res.cloudinary.com/opus-dev/image/upload/v1/media/help-image-4_xxcltt" alt="Screenshot"/>,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-4.png`} alt="Screenshot"/>,
     <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];
