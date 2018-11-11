@@ -103,6 +103,9 @@ const styles = theme => {
     gettingStartedExample: {
       fontSize: '11px',
       marginTop: '5px',
+      overflowWrap: 'break-word',
+      wordWrap: 'break-word', // Officially synonymous with the above, but some browsers support only one or the other
+      wordBreak: 'break-word',
     },
     gettingStartedHelpButton: {
       marginTop: theme.spacing.unit * 2,
