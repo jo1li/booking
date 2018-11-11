@@ -45,16 +45,22 @@ const styles = theme => {
       width: '198px',
       '& img': {
         height: '100%',
-        width: '100%',
+        width: 'auto',
       }
     },
     helpRowNumber: {
-      paddingLeft: theme.spacing.unit * 3,
       height: '22px',
       fontSize: '16px',
       fontWeight: 'bold',
       lineHeight: '1.38',
       color: 'black',
+      [theme.breakpoints.down('xs')]: {
+        paddingLeft: 0,
+        marginTop: theme.spacing.unit,
+      },
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing.unit * 3,
+      },
     },
     helpTextContainer: {
       paddingLeft: theme.spacing.unit * 2,
@@ -115,6 +121,9 @@ const styles = theme => {
       ...parentStyles[theme.breakpoints.down('xs')],
       gettingStartedExampleContainer: {
         display: 'none',
+      },
+      helpTextContainer: {
+        marginTop: theme.spacing.unit,
       },
       button: {
         padding: '8px 12px',
