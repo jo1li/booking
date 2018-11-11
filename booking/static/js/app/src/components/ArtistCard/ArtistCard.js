@@ -95,7 +95,6 @@ class ArtistCard extends React.Component {
       isEditable,
       isInReview,
       profile,
-      openDialog,
     } = this.props;
 
     const {
@@ -103,8 +102,6 @@ class ArtistCard extends React.Component {
       bio_short,
       genres,
       website,
-      hometown,
-      state,
       facebook,
       facebook_followers,
       instagram,
