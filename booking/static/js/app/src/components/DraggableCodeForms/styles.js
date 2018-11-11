@@ -113,6 +113,9 @@ const styles = theme => {
 
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
+      gettingStartedExampleContainer: {
+        display: 'none',
+      },
       button: {
         padding: '8px 12px',
         width: '127px',
