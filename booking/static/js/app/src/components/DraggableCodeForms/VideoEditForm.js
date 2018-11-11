@@ -26,8 +26,6 @@ const title = 'Edit Videos';
 
 const inputPlaceholder = 'Copy and paste video player embed code here.';
 
-const helpSectionTitle = 'How to embed YouTube Video';
-
 // TODO: Use real screenshots once we have them
 const helpRows = [
   [
@@ -48,7 +46,6 @@ const helpRows = [
 const copy = {
   title,
   inputPlaceholder,
-  helpSectionTitle,
   helpRows,
 }
 

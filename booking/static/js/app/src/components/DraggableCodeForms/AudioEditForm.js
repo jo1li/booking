@@ -23,8 +23,6 @@ const title = 'Edit Audio';
 
 const inputPlaceholder = 'Copy and paste audio player embed code here.';
 
-const helpSectionTitle = 'How to embed Soundcloud Audio';
-
 // TODO: Use real screenshots once we have them
 const helpRows = [
   [
@@ -45,7 +43,6 @@ const helpRows = [
 const copy = {
   title,
   inputPlaceholder,
-  helpSectionTitle,
   helpRows,
 }
 
