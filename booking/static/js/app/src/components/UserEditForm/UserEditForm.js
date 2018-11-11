@@ -26,6 +26,10 @@ import TextArea from '../form/TextArea';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
+import {
+  validateURL,
+  validateMaxLength,
+} from '../../utils/validators';
 
 import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
 
@@ -35,6 +39,8 @@ import {
 } from '../../request/requests';
 import styles from './styles';
 
+// NB: Don't define this in the prop value; it won't work the way you expect.
+const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -95,7 +101,8 @@ class UserEditForm extends Component {
         handleSubmit,
         currentValues,
         submitSucceeded,
-        classes
+        classes,
+        valid,
     } = this.props;
 
     const {
@@ -141,6 +148,7 @@ class UserEditForm extends Component {
                   name="facebook"
                   placeholder="Connect Facebook account"
                   type="text"
+                  validate={[validateURL]}
                 >
                   <AddButton mobileText="CONNECT"/>
                   <DeleteButton
@@ -156,6 +164,7 @@ class UserEditForm extends Component {
                   name="instagram"
                   placeholder="Connect Instagram account"
                   type="text"
+                  validate={[validateURL]}
                 >
                   <AddButton mobileText="CONNECT"/>
                   <DeleteButton
@@ -170,6 +179,7 @@ class UserEditForm extends Component {
                   label="spotify"
                   name="spotify"
                   placeholder="Connect Spotify account"
+                  validate={[validateURL]}
                 >
                   <AddButton mobileText="CONNECT"/>
                   <DeleteButton
@@ -190,7 +200,7 @@ class UserEditForm extends Component {
                     id="hometown"
                     label="hometown"
                     name="hometown"
-                    placeholder="What is your home town"
+                    placeholder="What is your home town?"
                     type="text"
                 />
               </Grid>
@@ -248,6 +258,7 @@ class UserEditForm extends Component {
                     name="website"
                     placeholder="website"
                     type="text"
+                    validate={[validateURL]}
                   />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -274,6 +285,7 @@ class UserEditForm extends Component {
                         return changeObj
                       }
                     }
+                    validate={[validateTaglineMaxLength]}
                     multiline
                     fullWidth
                   />
@@ -286,6 +298,7 @@ class UserEditForm extends Component {
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
             isLoading={submitting}
+            disabled={!valid}
             success={submitSucceeded}
             className={classes.footer}
         />
