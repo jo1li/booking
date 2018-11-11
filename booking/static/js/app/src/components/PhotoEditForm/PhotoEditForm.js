@@ -162,11 +162,6 @@ class PhotoEditFormBase extends Component {
       if(!userHasCoverPhoto) {
         updateProfile({
           image_hero_id: res.data.id,
-          // TODO: If you don't send genres to the server, and in this format,
-          // it thinks we want the genres deleted. Maybe something to do with
-          // being a charfield?
-          // Anyway fix that.
-          genres: profile.genres.map(g => g.name).join(','),
         },
         profile.id);
       }

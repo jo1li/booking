@@ -147,11 +147,6 @@ class PhotoRow extends Component {
     const { profile, updateProfile } = this.props;
     return updateProfile({
       image_hero_id: photo.id,
-      // TODO: If you don't send genres to the server, and in this format,
-      // it thinks we want the genres deleted. Maybe something to do with
-      // being a charfield?
-      // Anyway fix that.
-      genres: profile.genres.map(g => g.name).join(','),
     },
     profile.id);
   }
