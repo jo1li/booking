@@ -14,12 +14,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from './TextField';
 import SelectState from '../form/SelectState';
-import SelectField from './SelectField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Checkbox from '@material-ui/core/Checkbox';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -34,6 +30,9 @@ import isEmpty from "lodash/isEmpty";
 import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
 import IconInstagram from '../ArtistCard/IconInstagram';
+
+import MultiSelect from '../form/MultiSelect';
+
 
 import {
   updateUserBio,
@@ -61,6 +60,11 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  genreLabel: {
+    fontSize: 16, 
+    color: 'rgba(0,0,0,0.54)',
+    paddingBottom: theme.spacing.unit/2,
   },
   avatar: {
     margin: theme.spacing.unit,
@@ -181,8 +185,9 @@ class OnboardingForm extends Component {
 
   submit = (values) => {
     const { updateUserBio, musicianid, stagename } = this.props;
+    const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
-      genres: values.genres ? values.genres.join(",") : "",
+      genres: genres,
       image: _.get(values, 'image.0'),
     });
 
@@ -262,6 +267,10 @@ class OnboardingForm extends Component {
   render() {
     const { classes, pristine, submitting, handleSubmit, currentValues, invalid } = this.props
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.image || !currentValues.bio_short ? true : false;
+    const genresForSelect = this.state.genres.map(g => ({
+      value: g,
+      label: g
+    }));
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -292,24 +301,17 @@ class OnboardingForm extends Component {
                 <FormHelperText>Required • Up to 75 characters long</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
+                <Typography className={classes.genreLabel}>Genres</Typography>
                 <Field
                   name="genres"
-                  component={SelectField}
                   label="Genres"
-                  multiple
-                  format={value => value || []}
+                  isMulti
+                  component={MultiSelect}
+                  options={genresForSelect}
+                  helpText="Required • Select up to three."
                   normalize={normalizeGenres}
-                  renderValue={selected => selected.join(', ')}
-                  MenuProps={MenuProps}
                 >
-                  {this.state.genres.map(genre => (
-                    <MenuItem key={genre} value={genre}>
-                      <Checkbox checked={currentValues.genres ? currentValues.genres.indexOf(genre) > -1 : false} />
-                      <ListItemText>{genre}</ListItemText>
-                    </MenuItem>
-                  ))}
                 </Field>
-                <FormHelperText>Required • Select up to three.</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field

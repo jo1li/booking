@@ -23,6 +23,7 @@
     "react-feature": "^2.0.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
+    "react-select": "^2.1.1",
     "react-swipeable-views": "^0.12.14",
     "redux-form": "^7.4.2",
     "redux-form-validators": "^2.7.1",
