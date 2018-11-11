@@ -43,8 +43,8 @@ class ArtistCard extends React.Component {
   }
 
   renderSocialService(name, service_url, service_metric, props) {
-    const url = service_url != "" ? service_url : undefined;
-    const metric = service_metric != "" ? service_metric : undefined;
+    const url = service_url !== null ? service_url : undefined;
+    const metric = service_metric !== null ? service_metric : undefined;
     const activeClass = url ? props.classes.serviceConnected : '';
     const serviceClasses = `${props.classes.service} ${activeClass}`;
 
