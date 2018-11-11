@@ -253,7 +253,7 @@ def profile(request, slug=None):
         "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
         "photos_count": len(photos),
         "photos_json": json.dumps(photos_dict),
-        "genres_json": json.dumps(ArtistGenreTagSerializer(musician.genres.all(), many=True).data),
+        "genres": ArtistGenreTagSerializer(musician.genres.all(), many=True).data,
         "image_hero_json": json.dumps(ArtistImageSerializer(musician.image_hero).data),
         "react_page_name": "ARTIST_PROFILE"
     }

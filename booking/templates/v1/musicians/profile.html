@@ -126,7 +126,11 @@
             hometown: {% if musician.hometown is not None %}"{{ musician.hometown }}"{% else %}null{% endif %},
             state: {% if musician.state is not None %}"{{ musician.state }}"{% else %}null{% endif %},
             website: {% if musician.website is not None %}"{{ musician.website }}"{% else %}null{% endif %},
-            genres: {{ genres_json | safe }}, // TODO: DON'T MERGE LIKE THIS. it looks like this actually is not safe, bc we don't validate the tags the client sends.
+            genres: [
+                {% for genre in genres %}
+                    { name: "{{ genre.name }}" },
+                {% endfor %}
+            ],
             facebook: {% if musician.facebook is not None %}"{{ musician.facebook }}"{% else %}null{% endif %},
             facebook_followers: {{ musician.facebook_followers|default_if_none:"null" }},
             instagram: {% if musician.instagram is not None %}"{{ musician.instagram }}"{% else %}null{% endif %},
