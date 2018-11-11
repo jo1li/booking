@@ -85,9 +85,11 @@
                             <li class="nav-item {% ifequal request.path contact_us %}active{% endifequal %}">
                                 <a class="nav-link" href="{{ contact_us }}">Contact Us</a>
                             </li>
+                            {% if tsettings.SHOW_LOGIN_SIGNUP %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
