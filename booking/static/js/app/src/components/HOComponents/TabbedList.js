@@ -21,7 +21,9 @@ export default class TabbedList extends Component {
     const { selectedTabIndex } = this.state;
 
     const header = children[0];
-    const tabItems = children.slice(1);
+    // flattening allows some children to be individuals, and some to come
+    // from a map and be nested under an array
+    const tabItems = _.flattenDeep(children.slice(1));
 
     return (
       <Fragment>
