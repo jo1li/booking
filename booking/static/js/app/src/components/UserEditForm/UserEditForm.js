@@ -109,9 +109,6 @@ class UserEditForm extends Component {
       genres
     } = this.state;
 
-    console.log(currentValues);
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
@@ -254,15 +251,15 @@ class UserEditForm extends Component {
                   <Field
                     component={Input}
                     id="website"
-                    label="website"
+                    label="Website"
                     name="website"
-                    placeholder="website"
+                    placeholder="Website"
                     type="text"
                     validate={[validateURL]}
                   />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>SUMMARY</Caption>
+                <Caption>TAGLINE</Caption>
                 <TextCount
                   maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                   currentLength={_.get(currentValues, 'bio_short', []).length }
@@ -272,7 +269,7 @@ class UserEditForm extends Component {
                     id="bio_short"
                     label="bio_short"
                     name="bio_short"
-                    placeholder="Your bio"
+                    placeholder="Your tagline"
                     type="textarea"
                     onChange={changeObj => {
 
