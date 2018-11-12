@@ -12,12 +12,20 @@ const styles = theme => ({
   },
 
   caption: {
+    '& > *': {
+      fontWeight: 'normal',
+      fontSize: '18px',
+    },
     color: theme.palette.black,
     padding: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit * 2,
     borderBottom: `1px solid ${theme.palette.grey[200]}`,
   },
   captionAboveTabs: {
+    '& > *': {
+      fontWeight: 'normal',
+      fontSize: '18px',
+    },
     color: theme.palette.black,
     padding: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit,

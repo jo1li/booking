@@ -1,5 +1,5 @@
 import React from 'react';
-import { Headline } from './typography';
+import { Title } from './typography';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 
@@ -14,7 +14,7 @@ const ModalHeader = (props) => {
         item
         className={classNames(captionClassName, classes.fixedHeight)}
         xs={12} sm={12} md={12} lg={12}>
-      <Headline>{children}</Headline>
+      <Title>{children}</Title>
     </Grid>
   );
 }
