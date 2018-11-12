@@ -213,28 +213,28 @@ class OnboardingForm extends Component {
     
     // website validation
     if (data.website && !simple_url_regex.test(data.website)) {
-      errors.website = "This link looks invalid. Please check for typos.";
+      errors.website = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
     }
 
     // facebook validation
     if (data.facebook && data.facebook.indexOf('facebook.com') === -1) {
       errors.facebook = "Please use a Facebook link here."
     } else if (data.facebook && !simple_url_regex.test(data.facebook)) {
-      errors.facebook = "This link looks invalid. Please check for typos.";
+      errors.facebook = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
     }
 
     // instagram validation
     if (data.instagram && data.instagram.indexOf('instagram.com') === -1) {
       errors.facebook = "Please use an Instagram link here."
     } else if (data.instagram && !simple_url_regex.test(data.instagram)) {
-      errors.instagram = "This link looks invalid. Please check for typos.";
+      errors.instagram = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
     }
 
     // spotify validation
     if (data.spotify && data.spotify.indexOf('spotify.com') === -1) {
       errors.spotify = "Please use a Spotify link here."
     } else if (data.spotify && !simple_url_regex.test(data.spotify)) {
-      errors.spotify = "This link looks invalid. Please check for typos.";
+      errors.spotify = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
     }
     
 
