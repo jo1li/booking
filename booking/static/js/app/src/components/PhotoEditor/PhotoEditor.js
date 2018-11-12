@@ -20,20 +20,6 @@ import { ReactPinchZoomPan } from 'react-pinch-zoom-pan';
 const MAX_SCALE = 3;
 const MIN_SCALE = 1;
 
-
-/**
- * Returns new object of default values with
- * values from newValuesObj overwritting default values.
- * Only keys in defaultsObj are passed from newValuesObj
- * to return obj
- *
- * Does not maintain object key order.
- */
-function getDefaults(defaultsObj, newValuesObj) {
-    const newValues = _.pick(newValuesObj, _.keys(defaultsObj));
-    return _.defaults(newValues, defaultsObj);
-}
-
 /**
  * Creates a function that creates a setTimeout.
  * Each time the returned function is called if there exists a
