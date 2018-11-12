@@ -30,7 +30,6 @@ class EditBioForm extends Component {
   }
 
   updatePreviewImage() {
-    console.log('updatePreviewImage')
     this.props.updateBase64Img(this.photoEditor.getBase64Image())
   }
 

@@ -201,7 +201,7 @@ class OnboardingForm extends Component {
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
       genres: genres,
-      image: _.get(values, 'image.0'),
+      image: imageFile
     });
 
     const errors = {}

@@ -229,6 +229,9 @@ class PhotoEdit extends React.Component {
                 render={(obj) => {
 
                     let nextScale = parseFloat(obj.scale);
+
+                    // This is throwing an error 'Cannot update during an existing state transition' one time on mount
+                    // but needs to be here to allow for mobile pinch zoom and external zooming.
                     onScaleChange && onScaleChange(nextScale)
 
                     return (
