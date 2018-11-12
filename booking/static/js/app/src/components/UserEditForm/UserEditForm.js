@@ -23,6 +23,7 @@ import {
 import Input from '../form/Input';
 import Select from '../form/Select';
 import TextArea from '../form/TextArea';
+import TextField from '@material-ui/core/TextField';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
@@ -248,15 +249,12 @@ class UserEditForm extends Component {
                   currentLength={_.get(currentValues, 'bio_short', []).length }
                 >
                   <Field
-                    component={TextArea}
-                    id="bio_short"
-                    label="bio_short"
                     name="bio_short"
+                    label="Tagline"
                     placeholder="Your tagline"
-                    type="textarea"
-                    validate={[validateTaglineMaxLength]}
-                    multiline
-                    fullWidth
+                    multiline={true}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    component={Input}
                   />
                 </TextCount>
               </Grid>
