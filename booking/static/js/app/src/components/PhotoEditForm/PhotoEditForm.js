@@ -150,7 +150,7 @@ class PhotoEditFormBase extends Component {
 
     // Cover photo could have been deleted since page was loaded, so don't
     // just check that the ID isn't null.
-    const userHasCoverPhoto = indexedPhotos[profile.image_hero_id] != undefined;
+    const userHasCoverPhoto = indexedPhotos[_.get(profile, 'image_hero.id', null)] != undefined;
 
     this.props.createArtistItem({
       file: data,
@@ -160,7 +160,10 @@ class PhotoEditFormBase extends Component {
       removeFromStore(pendingImage);
 
       if(!userHasCoverPhoto) {
-        updateProfile({image_hero_id: res.data.id}, profile.id);
+        updateProfile({
+          image_hero_id: res.data.id,
+        },
+        profile.id);
       }
     });
   }
