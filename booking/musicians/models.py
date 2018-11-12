@@ -197,10 +197,13 @@ class Musician(TimeStampedModel):
 
     def facebook_followers(self):
 
-        print("******* facebook_followers ********")
+        if not self.facebook:
+            return None
+
+        # TODO: remove this once facebook follower code works
+        return None
 
         page_name = parse.urlparse(self.facebook).path.lstrip('/').rstrip('/')
-        print(page_name)
 
         try:
 

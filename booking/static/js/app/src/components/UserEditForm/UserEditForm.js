@@ -59,7 +59,7 @@ class UserEditForm extends Component {
 
   submit(values) {
     const {
-      musicianid,
+      musicianId,
       updateUserBio,
     } = this.props;
 
@@ -68,7 +68,7 @@ class UserEditForm extends Component {
       image: _.get(values, 'image.file'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
+    return updateUserBio(data, musicianId).then(res => {
       // TODO: Prob a better to check for this
       if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
@@ -102,15 +102,12 @@ class UserEditForm extends Component {
       genres
     } = this.state;
 
-    console.log(currentValues);
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
           <Display1 className={classes.caption} >Edit Your Info</Display1>
         </Grid>
-        <Grid className={classes.aboveFooter} xs={12} lg={12}>
+        <Grid container item className={classes.aboveFooter} xs={12} lg={12}>
           <form onSubmit={handleSubmit(this.submit)}>
             <Grid container spacing={24} direction="row">
               <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -305,12 +302,12 @@ const mapStateToProps = (state, props) => ({
   // TODO add defaults value function
   initialValues: {
     stage_name: props.stage_name,
-    image: props.avatar,
+    image: props.image,
     facebook: props.facebook,
     instagram: props.instagram,
     spotify: props.spotify,
     hometown: props.hometown,
-    genres: props.genres.split(', ') || [],
+    genres: props.genres.map(g => g.name),
     state: props.state,
     website: props.website,
     bio_short: props.bio_short,
@@ -320,7 +317,7 @@ const mapStateToProps = (state, props) => ({
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
   getGenres: getGenres,
-  musicianId: props.musicianId,
+  musicianId: props.id,
 })
 
 export default connect(mapStateToProps)(UserEditForm);

@@ -175,7 +175,12 @@ class ArtistViewSet(mixins.ListModelMixin,
 
     def update(self, *args, **kwargs):
         self.serializer_class = ArtistUpdateSerializer
-        return mixins.UpdateModelMixin.update(self, *args, **kwargs)
+        mixins.UpdateModelMixin.update(self, *args, **kwargs)
+
+        # TODO: This ensures the genres get sent back to the client
+        # in list format, instead of as a comma-separated string.
+        self.serializer_class = ArtistSerializer
+        return mixins.RetrieveModelMixin.retrieve(self, *args, **kwargs)
 
 
     def create(self, *args, **kwargs):
@@ -248,6 +253,8 @@ def profile(request, slug=None):
         "audios_json": json.dumps(ArtistAudioSerializer(audios, many=True).data),
         "photos_count": len(photos),
         "photos_json": json.dumps(photos_dict),
+        "genres": ArtistGenreTagSerializer(musician.genres.all(), many=True).data,
+        "image_hero_json": json.dumps(ArtistImageSerializer(musician.image_hero).data),
         "react_page_name": "ARTIST_PROFILE"
     }
 
