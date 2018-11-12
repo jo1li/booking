@@ -21,13 +21,14 @@ const InputInternal = (props) => {
         classes,
         error,
         touched,
+        ...remainingProps,
     } = props;
 
     return (
         <Fragment>
             <Input
                 classes={classes}
-                {...props} />
+                {...remainingProps} />
             <Error touched={true} error={error} />
         </Fragment>
     );
