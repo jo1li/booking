@@ -22,7 +22,9 @@ const styles = (theme) => ({
 const CoverPhoto = (props) => {
   const { photos, profile, classes } = props;
   const coverPhoto = photos[_.get(profile, 'image_hero.id', null)];
-  if(!coverPhoto) return <div id="cover-photo" />;
+  // NB: cover-photo-fade needs to be here in order for sticky
+  // artist card to work when there is no cover photo
+  if(!coverPhoto) return <div id="cover-photo"><div id="cover-photo-fade"/></div>;
 
   return (
     <div
