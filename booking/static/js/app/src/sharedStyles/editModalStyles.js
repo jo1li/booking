@@ -1,7 +1,7 @@
 const styles = theme => ({
   container: {
     maxWidth: '700px',
-    width: `calc(100vw - ${theme.spacing.unit * 8}px)`,
+    width: `calc(100vw - ${theme.spacing.unit * 12}px)`,
     height: `calc(100vh - ${theme.spacing.unit * 12}px)`,
   },
   [theme.breakpoints.down('xs')]: {
