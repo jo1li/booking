@@ -301,7 +301,6 @@ class OnboardingForm extends Component {
                 <FormHelperText>Required • Up to 75 characters long</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Typography className={classes.genreLabel}>Genres</Typography>
                 <Field
                   name="genres"
                   label="Genres"
