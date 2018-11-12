@@ -114,6 +114,7 @@ TEMPLATES = [
                 'account.context_processors.account',
                 'pinax_theme_bootstrap.context_processors.theme',
 
+                "booking.context_processors.settings_context_processor",
                 "booking.context_processors.static_js",
                 "booking.context_processors.template_version",
                 "booking.context_processors.home_url",
@@ -209,7 +210,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Email config
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = get_env_variable("SENDGRID_API_KEY")
+SENDGRID_API_KEY = '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'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 ####################################
@@ -293,3 +294,5 @@ SOCIAL_TWITTER_ACCESS_TOKEN_SECRET = 'oH8jw9RccbFKwQ9AgAvlnTNNxY3sjwzjxI1TTl1hom
 
 # App config
 MESSAGE_ARTIST_CC = get_env_variable('MESSAGE_ARTIST_CC', default='info@opuslive.io')
+
+SHOW_LOGIN_SIGNUP = True
