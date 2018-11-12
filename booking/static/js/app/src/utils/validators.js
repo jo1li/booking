@@ -100,5 +100,5 @@ export const validateURL = (val) => {
 
 export const validateMaxLength = (maxLength) => (val) => {
   if(!val) return undefined;
-  return val.length < maxLength ? undefined : `This value should not exceed ${maxLength} characters.`;
+  return val.length <= maxLength ? undefined : `This value should not exceed ${maxLength} characters.`;
 }
