@@ -2,6 +2,7 @@ from django.conf import settings
 from home.models import OpusUser
 
 from django.contrib.auth import login
+from account.models import EmailAddress
 from django.core.mail import EmailMessage
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
@@ -187,6 +188,9 @@ class ArtistCreateSerializer(serializers.Serializer):
             slug=validated_data.get('slug'),
             account_type=validated_data.get('account_type')
         )
+
+        e = EmailAddress.objects.get(email=validated_data.get('email'))
+        e.send_confirmation()
 
         # Start a web session
         #   If we ever cut to token auth, revisit this.

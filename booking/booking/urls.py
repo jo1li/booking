@@ -49,6 +49,7 @@ artist_router.register(r'messages', ArtistMessageViewSet, base_name='artist-mess
 
 venue_router = routers.NestedSimpleRouter(top_router, r'venues', lookup='venue')
 
+# Django will serve the *first* urlpattern that matches
 
 urlpatterns = [
     path('', include("home.urls")),
