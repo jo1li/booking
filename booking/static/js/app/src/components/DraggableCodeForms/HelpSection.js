@@ -6,7 +6,7 @@ const HelpSection = (props) => {
   const { classes, className, helpCopyRows, goToTab } = props;
   return <Fragment>
     <div className={className || ''}>
-      <Grid container direction="column" spacing={24}>
+      <Grid container className={classes.helpList} direction="column" spacing={24}>
         {
           _.map(helpCopyRows, (row, idx) => {
             return <Grid item container direction="row" key={`help-section-row-${idx}`}>

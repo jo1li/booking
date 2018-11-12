@@ -70,6 +70,9 @@ const styles = theme => {
         fontStyle: 'italic',
       }
     },
+    helpList: {
+      paddingTop: theme.spacing.unit * 2,
+    },
     helpSectionBackButton: {
       textTransform: 'uppercase',
       color: theme.palette.secondary.main,
@@ -99,6 +102,7 @@ const styles = theme => {
     gettingStarted: {
       fontSize: '16px',
       marginBottom: theme.spacing.unit * 5.5,
+      paddingTop: theme.spacing.unit * 2,
     },
     gettingStartedExample: {
       fontSize: '11px',
