@@ -43,7 +43,6 @@ const ReduxFormSelect = ({
           className={className}
           classes={{
             icon: classes.icon,
-            underline: classes.underline,
           }}
           IconComponent={IconComponent || ExpandMore}
           fullWidth
