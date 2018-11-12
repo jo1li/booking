@@ -1,9 +1,9 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import ReduxFormField from '../HOComponents/ReduxFormField';
+import Error from '../form/Error';
 
 const styles = theme => ({
     underline: {
@@ -19,14 +19,19 @@ const styles = theme => ({
 const InputInternal = (props) => {
     const {
         classes,
+        error,
         touched,
         ...remainingProps,
     } = props;
 
-    return <Input
-        classes={classes}
-        {...remainingProps}
-    />
+    return (
+        <Fragment>
+            <Input
+                classes={classes}
+                {...remainingProps} />
+            <Error touched={true} error={error} />
+        </Fragment>
+    );
 }
 
 export default compose(

@@ -23,9 +23,14 @@ import {
 import Input from '../form/Input';
 import Select from '../form/Select';
 import TextArea from '../form/TextArea';
+import TextField from '@material-ui/core/TextField';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
+import {
+  validateURL,
+  validateMaxLength,
+} from '../../utils/validators';
 
 import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
 
@@ -35,6 +40,8 @@ import {
 } from '../../request/requests';
 import styles from './styles';
 
+// NB: Don't define this in the prop value; it won't work the way you expect.
+const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -95,7 +102,8 @@ class UserEditForm extends Component {
         handleSubmit,
         currentValues,
         submitSucceeded,
-        classes
+        classes,
+        valid,
     } = this.props;
 
     const {
@@ -128,53 +136,39 @@ class UserEditForm extends Component {
                   </ImageUploadContainer>
                 </InputButtons>
 
-                <Grid  item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >SOCIAL PROFILES</Caption>
-                </Grid>
-               <InputButtons
-                  component={Input}
-                  id="facebook"
-                  label="facebook"
-                  name="facebook"
-                  placeholder="Connect Facebook account"
-                  type="text"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.facebook}
-                    onClick={() => change('facebook', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="instagram"
-                  label="instagram"
-                  name="instagram"
-                  placeholder="Connect Instagram account"
-                  type="text"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.instagram}
-                    onClick={() => change('instagram', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="spotify"
-                  label="spotify"
-                  name="spotify"
-                  placeholder="Connect Spotify account"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.spotify}
-                    onClick={() => change('spotify', '')}
-                  />
-                </InputButtons>
+              <Grid  item xs={12} sm={12} md={12} lg={12}>
+                <Caption >SOCIAL PROFILES</Caption>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="facebook"
+                    label="facebook"
+                    name="facebook"
+                    placeholder="Connect Facebook account"
+                    validate={[validateURL]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="instagram"
+                    label="instagram"
+                    name="instagram"
+                    placeholder="Connect Instagram account"
+                    validate={[validateURL]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="spotify"
+                    label="spotify"
+                    name="spotify"
+                    placeholder="Connect Spotify account"
+                    validate={[validateURL]}
+                />
+              </Grid>
               <Grid item xs={12} sm={8} md={8} lg={8}>
                 <Caption >HOME TOWN</Caption>
               </Grid>
@@ -187,7 +181,7 @@ class UserEditForm extends Component {
                     id="hometown"
                     label="hometown"
                     name="hometown"
-                    placeholder="What is your home town"
+                    placeholder="What is your home town?"
                     type="text"
                 />
               </Grid>
@@ -241,38 +235,27 @@ class UserEditForm extends Component {
                   <Field
                     component={Input}
                     id="website"
-                    label="website"
+                    label="Website"
                     name="website"
-                    placeholder="website"
+                    placeholder="Website"
                     type="text"
+                    validate={[validateURL]}
                   />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>SUMMARY</Caption>
+                <Caption>TAGLINE</Caption>
                 <TextCount
                   maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                   currentLength={_.get(currentValues, 'bio_short', []).length }
                 >
                   <Field
-                    component={TextArea}
-                    id="bio_short"
-                    label="bio_short"
                     name="bio_short"
-                    placeholder="Your bio"
-                    type="textarea"
-                    onChange={changeObj => {
-
-                      // TODO move this out of the onChange function
-                      // prevent input form going beyond MAX_BIO_SHORT_INPUT_LENGTH in characters
-                      if (changeObj.target.value.length > MAX_BIO_SHORT_INPUT_LENGTH) {
-                        change('bio_short', changeObj.target.value.subString(0, MAX_BIO_SHORT_INPUT_LENGTH))
-                      }
-
-                        return changeObj
-                      }
-                    }
-                    multiline
-                    fullWidth
+                    label="Tagline"
+                    placeholder="Your tagline"
+                    multiline={true}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    component={Input}
+                    validate={[validateTaglineMaxLength]}
                   />
                 </TextCount>
               </Grid>
@@ -283,6 +266,7 @@ class UserEditForm extends Component {
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
             isLoading={submitting}
+            disabled={!valid}
             success={submitSucceeded}
             className={classes.footer}
         />
