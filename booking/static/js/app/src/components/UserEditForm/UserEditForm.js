@@ -135,56 +135,39 @@ class UserEditForm extends Component {
                   </ImageUploadContainer>
                 </InputButtons>
 
-                <Grid  item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >SOCIAL PROFILES</Caption>
-                </Grid>
-               <InputButtons
-                  component={Input}
-                  id="facebook"
-                  label="facebook"
-                  name="facebook"
-                  placeholder="Connect Facebook account"
-                  type="text"
-                  validate={[validateURL]}
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.facebook}
-                    onClick={() => change('facebook', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="instagram"
-                  label="instagram"
-                  name="instagram"
-                  placeholder="Connect Instagram account"
-                  type="text"
-                  validate={[validateURL]}
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.instagram}
-                    onClick={() => change('instagram', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="spotify"
-                  label="spotify"
-                  name="spotify"
-                  placeholder="Connect Spotify account"
-                  validate={[validateURL]}
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.spotify}
-                    onClick={() => change('spotify', '')}
-                  />
-                </InputButtons>
+              <Grid  item xs={12} sm={12} md={12} lg={12}>
+                <Caption >SOCIAL PROFILES</Caption>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="facebook"
+                    label="facebook"
+                    name="facebook"
+                    placeholder="Connect Facebook account"
+                    validate={[validateURL]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="instagram"
+                    label="instagram"
+                    name="instagram"
+                    placeholder="Connect Instagram account"
+                    validate={[validateURL]}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Field
+                    component={Input}
+                    id="spotify"
+                    label="spotify"
+                    name="spotify"
+                    placeholder="Connect Spotify account"
+                    validate={[validateURL]}
+                />
+              </Grid>
               <Grid item xs={12} sm={8} md={8} lg={8}>
                 <Caption >HOME TOWN</Caption>
               </Grid>
