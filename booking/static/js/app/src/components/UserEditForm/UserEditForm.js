@@ -255,6 +255,7 @@ class UserEditForm extends Component {
                     multiline={true}
                     maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                     component={Input}
+                    validate={[validateTaglineMaxLength]}
                   />
                 </TextCount>
               </Grid>
