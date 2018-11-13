@@ -250,8 +250,8 @@ class NavigationBar extends React.Component {
           <NavigationMobileMenu
             open={this.state.mobileDrawerOpen}
             toggleFunction={this.toggleMobileDrawer}
-            url_venues={this.props.url_venues}
-            url_artists={this.props.url_artists}
+            url_venues_logged_in={this.props.url_venues_logged_in}
+            url_artists_logged_in={this.props.url_artists_logged_in}
             url_profile={this.props.url_profile}
             url_signout={this.props.url_signout}
             url_settings={this.props.url_settings}
