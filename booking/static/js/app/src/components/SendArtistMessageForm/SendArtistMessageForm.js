@@ -13,8 +13,8 @@ import { withStyles } from '@material-ui/core/styles';
 import CancelConfirm from '../CancelConfirm';
 import Input from '../form/Input';
 import TextArea from '../form/TextArea';
-import { Display1 } from '../typography';
-import { SubmissionError } from 'redux-form'
+import { SubmissionError } from 'redux-form';
+import ModalHeader from '../ModalHeader';
 
 import {
   sendArtistMessage,
@@ -81,58 +81,59 @@ class SendArtistMessageForm extends Component {
     } = this.props;
 
     return (
-      <div className={classes.container}>
-        <Grid container spacing={24}>
-          <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-            <Display1 className={classes.caption}>Send a Message</Display1>
+      <div className={`${classes.container} ${classes.withFooter}`}>
+        <ModalHeader classes={classes}>Send a Message</ModalHeader>
+        <div className={classes.scrollableBody}>
+          <Grid container spacing={24}>
+            <Grid item xs={12} lg={12}>
+              <form onSubmit={handleSubmit(this.submit)}>
+                <Grid container spacing={24} direction="row">
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Field
+                        component={Input}
+                        id="name"
+                        label="name"
+                        name="name"
+                        placeholder="Your name"
+                        type="text"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Field
+                        component={Input}
+                        id="email"
+                        label="email"
+                        name="email"
+                        placeholder="Your email"
+                        type="text"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={TextArea}
+                        className={classes.textArea}
+                        id="message"
+                        label="message"
+                        name="message"
+                        placeholder="Your message"
+                        type="textarea"
+                        multiline
+                        fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              </form>
+            </Grid>
           </Grid>
-          <Grid item xs={12} lg={12}>
-            <form onSubmit={handleSubmit(this.submit)}>
-              <Grid container spacing={24} direction="row">
-                <Grid item xs={12} sm={6} md={6} lg={6}>
-                  <Field
-                      component={Input}
-                      id="name"
-                      label="name"
-                      name="name"
-                      placeholder="Your name"
-                      type="text"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6}>
-                  <Field
-                      component={Input}
-                      id="email"
-                      label="email"
-                      name="email"
-                      placeholder="Your email"
-                      type="text"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <Field
-                      component={TextArea}
-                      className={classes.textArea}
-                      id="message"
-                      label="message"
-                      name="message"
-                      placeholder="Your message"
-                      type="textarea"
-                      multiline
-                      fullWidth
-                  />
-                </Grid>
-              </Grid>
-              <CancelConfirm
-                  onClickCancel={closeDialog}
-                  onClickConfirm={handleSubmit(this.submit)}
-                  isLoading={submitting}
-                  success={submitSucceeded}
-                  title={'Send Message'}
-              />
-            </form>
-          </Grid>
-        </Grid>
+        </div>
+        <CancelConfirm
+            onClickCancel={closeDialog}
+            onClickConfirm={handleSubmit(this.submit)}
+            isLoading={submitting}
+            success={submitSucceeded}
+            className={classes.footer}
+            title={'Send Message'}
+        />
       </div>
     );
   }

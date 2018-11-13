@@ -20,12 +20,18 @@ import {
   AddButton,
 } from '../form/FabButton';
 
+import ModalHeader from '../ModalHeader';
 import Input from '../form/Input';
 import Select from '../form/Select';
 import TextArea from '../form/TextArea';
+import TextField from '@material-ui/core/TextField';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from '../form/ImageUploadContainer';
 import TextCount from '../form/TextCount';
+import {
+  validateURL,
+  validateMaxLength,
+} from '../../utils/validators';
 
 import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
 
@@ -35,6 +41,8 @@ import {
 } from '../../request/requests';
 import styles from './styles';
 
+// NB: Don't define this in the prop value; it won't work the way you expect.
+const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -59,7 +67,7 @@ class UserEditForm extends Component {
 
   submit(values) {
     const {
-      musicianid,
+      musicianId,
       updateUserBio,
     } = this.props;
 
@@ -68,7 +76,7 @@ class UserEditForm extends Component {
       image: _.get(values, 'image.file'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
+    return updateUserBio(data, musicianId).then(res => {
       // TODO: Prob a better to check for this
       if(res.status === 200) {
         // TODO: Don't *actually* refresh the page, but update with submitted values
@@ -95,197 +103,170 @@ class UserEditForm extends Component {
         handleSubmit,
         currentValues,
         submitSucceeded,
-        classes
+        classes,
+        valid,
     } = this.props;
 
     const {
       genres
     } = this.state;
 
-    console.log(currentValues);
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
-        <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
-          <Display1 className={classes.caption} >Edit Your Info</Display1>
-        </Grid>
-        <Grid className={classes.aboveFooter} xs={12} lg={12}>
-          <form onSubmit={handleSubmit(this.submit)}>
-            <Grid container spacing={24} direction="row">
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption >PICTURE AVATAR</Caption>
-              </Grid>
-               <InputButtons
-                  component={Input}
-                  id="image"
-                  label="image"
-                  name="image.name"
-                  placeholder="Your Avatar"
-                  type="text"
-                >
-                  <ImageUploadContainer
-                    onUpload={values => change('image', values)}
-                  >
-                    <UploadButton/>
-                  </ImageUploadContainer>
-                </InputButtons>
-
-                <Grid  item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >SOCIAL PROFILES</Caption>
-                </Grid>
-               <InputButtons
-                  component={Input}
-                  id="facebook"
-                  label="facebook"
-                  name="facebook"
-                  placeholder="Connect Facebook account"
-                  type="text"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.facebook}
-                    onClick={() => change('facebook', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="instagram"
-                  label="instagram"
-                  name="instagram"
-                  placeholder="Connect Instagram account"
-                  type="text"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.instagram}
-                    onClick={() => change('instagram', '')}
-                  />
-               </InputButtons>
-               <InputButtons
-                  component={Input}
-                  id="spotify"
-                  label="spotify"
-                  name="spotify"
-                  placeholder="Connect Spotify account"
-                >
-                  <AddButton mobileText="CONNECT"/>
-                  <DeleteButton
-                    mobileText="DISCONNECT"
-                    disabled={!currentValues.spotify}
-                    onClick={() => change('spotify', '')}
-                  />
-                </InputButtons>
-              <Grid item xs={12} sm={8} md={8} lg={8}>
-                <Caption >HOME TOWN</Caption>
-              </Grid>
-               <Grid item xs={12} sm={4} md={4} lg={4}>
-                <Caption >STATE</Caption>
-              </Grid>
-              <Grid item xs={12} sm={8} md={8} lg={8}>
-                <Field
-                    component={Input}
-                    id="hometown"
-                    label="hometown"
-                    name="hometown"
-                    placeholder="What is your home town"
-                    type="text"
-                />
-              </Grid>
-              <Grid item xs={12} sm={4} md={4} lg={4}>
-                <Field
-                    component={SelectState}
-                    id="state"
-                    label="state"
-                    name="state"
-                    placeholder="state"
-                    type="select"
-                />
-              </Grid>
-              <Grid  item xs={12} sm={12} md={12} lg={12}>
-                <Caption >GENRE</Caption>
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Field
-                    component={Select}
-                    id="genre"
-                    label="genre"
-                    name="genres.0"
-                    placeholder="Select a genre"
-                    items={genres}
-                  />
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Field
-                    component={Select}
-                    id="genre"
-                    label="genre"
-                    name="genres.1"
-                    placeholder="Select a genre"
-                    items={genres}
-                  />
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Field
-                    component={Select}
-                    id="genre"
-                    label="genre"
-                    name="genres.2"
-                    placeholder="Select a genre"
-                    items={genres}
-                  />
-                </Grid>
-                <Grid  item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >WEBSITE</Caption>
-                </Grid>
+        <ModalHeader classes={classes}>Edit Your Info</ModalHeader>
+        <div className={classes.scrollableBody}>
+          <Grid xs={12} lg={12}>
+            <form onSubmit={handleSubmit(this.submit)}>
+              <Grid container spacing={24} direction="row">
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <Field
+                  <Caption >PICTURE AVATAR</Caption>
+                </Grid>
+                 <InputButtons
                     component={Input}
-                    id="website"
-                    label="website"
-                    name="website"
-                    placeholder="website"
+                    id="image"
+                    label="image"
+                    name="image.name"
+                    placeholder="Your Avatar"
                     type="text"
-                  />
+                  >
+                    <ImageUploadContainer
+                      onUpload={values => change('image', values)}
+                    >
+                      <UploadButton/>
+                    </ImageUploadContainer>
+                  </InputButtons>
+                  <Grid  item xs={12} sm={12} md={12} lg={12}>
+                    <Caption >SOCIAL PROFILES</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="facebook"
+                        label="facebook"
+                        name="facebook"
+                        placeholder="Connect Facebook account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="instagram"
+                        label="instagram"
+                        name="instagram"
+                        placeholder="Connect Instagram account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="spotify"
+                        label="spotify"
+                        name="spotify"
+                        placeholder="Connect Spotify account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={8} md={8} lg={8}>
+                    <Caption >HOME TOWN</Caption>
+                  </Grid>
+                   <Grid item xs={12} sm={4} md={4} lg={4}>
+                    <Caption >STATE</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={8} md={8} lg={8}>
+                    <Field
+                        component={Input}
+                        id="hometown"
+                        label="hometown"
+                        name="hometown"
+                        placeholder="What is your home town?"
+                        type="text"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={4} md={4} lg={4}>
+                    <Field
+                        component={SelectState}
+                        id="state"
+                        label="state"
+                        name="state"
+                        placeholder="State"
+                        type="select"
+                    />
+                  </Grid>
+                  <Grid  item xs={12} sm={12} md={12} lg={12}>
+                    <Caption >GENRE</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Select}
+                        id="genre"
+                        label="genre"
+                        name="genres.0"
+                        placeholder="Select a genre"
+                        items={genres}
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Select}
+                        id="genre"
+                        label="genre"
+                        name="genres.1"
+                        placeholder="Select a genre"
+                        items={genres}
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Select}
+                        id="genre"
+                        label="genre"
+                        name="genres.2"
+                        placeholder="Select a genre"
+                        items={genres}
+                      />
+                    </Grid>
+                    <Grid  item xs={12} sm={12} md={12} lg={12}>
+                      <Caption >WEBSITE</Caption>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                      <Field
+                        component={Input}
+                        id="website"
+                        label="Website"
+                        name="website"
+                        placeholder="Website"
+                        type="text"
+                        validate={[validateURL]}
+                      />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Caption>TAGLINE</Caption>
+                    <TextCount
+                      maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                      currentLength={_.get(currentValues, 'bio_short', []).length }
+                    >
+                      <Field
+                        name="bio_short"
+                        label="Tagline"
+                        placeholder="Your tagline"
+                        multiline={true}
+                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                        component={Input}
+                        validate={[validateTaglineMaxLength]}
+                      />
+                    </TextCount>
+                  </Grid>
               </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Caption>SUMMARY</Caption>
-                <TextCount
-                  maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                  currentLength={_.get(currentValues, 'bio_short', []).length }
-                >
-                  <Field
-                    component={TextArea}
-                    id="bio_short"
-                    label="bio_short"
-                    name="bio_short"
-                    placeholder="Your bio"
-                    type="textarea"
-                    onChange={changeObj => {
-
-                      // TODO move this out of the onChange function
-                      // prevent input form going beyond MAX_BIO_SHORT_INPUT_LENGTH in characters
-                      if (changeObj.target.value.length > MAX_BIO_SHORT_INPUT_LENGTH) {
-                        change('bio_short', changeObj.target.value.subString(0, MAX_BIO_SHORT_INPUT_LENGTH))
-                      }
-
-                        return changeObj
-                      }
-                    }
-                    multiline
-                    fullWidth
-                  />
-                </TextCount>
-              </Grid>
-            </Grid>
-          </form>
-        </Grid>
+            </form>
+          </Grid>
+        </div>
         <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
             isLoading={submitting}
+            disabled={!valid}
             success={submitSucceeded}
             className={classes.footer}
         />
@@ -305,12 +286,12 @@ const mapStateToProps = (state, props) => ({
   // TODO add defaults value function
   initialValues: {
     stage_name: props.stage_name,
-    image: props.avatar,
+    image: props.image,
     facebook: props.facebook,
     instagram: props.instagram,
     spotify: props.spotify,
     hometown: props.hometown,
-    genres: props.genres.split(', ') || [],
+    genres: props.genres.map(g => g.name),
     state: props.state,
     website: props.website,
     bio_short: props.bio_short,
@@ -320,7 +301,7 @@ const mapStateToProps = (state, props) => ({
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
   getGenres: getGenres,
-  musicianId: props.musicianId,
+  musicianId: props.id,
 })
 
 export default connect(mapStateToProps)(UserEditForm);

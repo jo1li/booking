@@ -15,13 +15,6 @@ const styles = theme => ({
       marginLeft: '0px',
     }
   },
-  // TODO: move into edit form styles once styling is consistent
-  aboveFooter: {
-    padding: '12px 1px',
-    marginBottom: '12px',
-    overflowY: 'scroll',
-  },
-
 });
 
 export default styles;

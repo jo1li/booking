@@ -2,6 +2,7 @@ from django.conf import settings
 from home.models import OpusUser
 
 from django.contrib.auth import login
+from account.models import EmailAddress
 from django.core.mail import EmailMessage
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
@@ -24,6 +25,7 @@ artist_fields = (
             'bio_short',
             'website',
             'facebook',
+            'facebook_followers',
             'instagram',
             'instagram_followers',
             'twitter',
@@ -153,7 +155,9 @@ class ArtistUpdateSerializer(ArtistSerializer):
         if validated_data.get('image_hero') is None:
             validated_data.pop('image_hero', None)
 
-        instance.genres = validated_data.get('genres')
+        if 'genres' in validated_data:
+            instance.genres = validated_data['genres']
+
         instance.save()
 
         return instance
@@ -187,6 +191,9 @@ class ArtistCreateSerializer(serializers.Serializer):
             slug=validated_data.get('slug'),
             account_type=validated_data.get('account_type')
         )
+
+        e = EmailAddress.objects.get(email=validated_data.get('email'))
+        e.send_confirmation()
 
         # Start a web session
         #   If we ever cut to token auth, revisit this.

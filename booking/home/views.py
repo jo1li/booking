@@ -36,7 +36,6 @@ def index(request):
 def artists(request):
     return opus_render(request, "home/artists.html")
 
-
 def venues(request):
     return opus_render(request, "home/venues.html")
 
@@ -73,4 +72,16 @@ class LoginView(account.views.LoginView):
 
 
 
+class ConfirmEmailView(account.views.ConfirmEmailView):
 
+
+    def get_redirect_url(self):
+
+        if is_authenticated(self.user):
+            # TODO: we'll need to make this more flexible for venues / bookers
+            musician = Musician.objects.get(user=self.request.user)
+            url = reverse("musician_profile", kwargs={'slug': musician.slug})
+        else:
+            return reverse("opus_login")
+
+        return url

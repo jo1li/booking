@@ -9,9 +9,10 @@ import { getOpusThumbnailImageURL } from '../../helpers/imageHelpers';
 import { Code, CheckCircle, Delete } from '../icons';
 import * as ProfileActions from '../../actions/profile';
 
-// TODO: Using `IconButton` but rectangle shape for this gives an oblong hover
-// background; change jss to cope with this
-const DeleteButton = (props) => <IconButton {...props}><Delete/></IconButton>;
+const DeleteButton = (props) => {
+  const { color, ...remainingProps } = props;
+  return <IconButton {...remainingProps}><Delete color={color}/></IconButton>;
+}
 
 class DragHandle extends Component {
   render() {
@@ -70,6 +71,7 @@ const TopRow = (props) => {
     idx,
     isCoverPhoto,
     useAsCoverPhoto,
+    theme,
   } = props;
 
   return <Grid item container direction="row" className={classes.photoFormRowTop}>
@@ -88,6 +90,7 @@ const TopRow = (props) => {
         useAsCoverPhoto={useAsCoverPhoto} />
     <DeleteButton
         onClick={() => remove(idx)}
+        color={theme.palette.secondary.main}
         className={`${classes.button} ${classes.deleteButton}`} />
   </Grid>
 }
@@ -145,7 +148,10 @@ class PhotoRow extends Component {
 
   useAsCoverPhoto(photo) {
     const { profile, updateProfile } = this.props;
-    return updateProfile({image_hero_id: photo.id}, profile.id);
+    return updateProfile({
+      image_hero_id: photo.id,
+    },
+    profile.id);
   }
 
   render() {
