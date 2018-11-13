@@ -28,7 +28,7 @@ urlpatterns = [
     path('venue_questions', venue_questions, name="musician_app_venue_questions"),
     path('template', profile_template, name="musician_profile_template"),
     path('onboarding', artist_onboarding, name="artist_onboarding"),
-    path('artists', artists_coming_soon, name="artists"),
-    path('venues', venues_coming_soon, name="venues"),
+    path('artists', artists_coming_soon, name="artists_coming_soon"),
+    path('venues', venues_coming_soon, name="venues_coming_soon"),
     path('<slug>', profile, name="musician_profile"),
 ]
