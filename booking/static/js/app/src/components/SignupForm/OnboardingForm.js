@@ -39,6 +39,8 @@ import {
   getGenres,
 } from '../../request/requests';
 
+import { MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
+
 const styles = theme => ({
   layout: {
     width: 'auto',
@@ -119,6 +121,7 @@ const styles = theme => ({
   },
 });
 
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -130,7 +133,7 @@ const MenuProps = {
   },
 };
 
-const TAGLINE_CHARS_MAX = 75
+const TAGLINE_CHARS_MAX = MAX_BIO_SHORT_INPUT_LENGTH
 const GENRES_MAX = 3
 const imageIsRequired = value =>  {
   isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
@@ -294,11 +297,11 @@ class OnboardingForm extends Component {
                   name="bio_short"
                   label="Tagline"
                   multiline={true}
-                  maxLength="75"
+                  maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                   component={TextField}
                   normalize={normalizeTagline}
                 />
-                <FormHelperText>Required • Up to 75 characters long</FormHelperText>
+                <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field

@@ -1,6 +1,6 @@
 
 export const EDIT_BASIC_INFO = 'EDIT_BASIC_INFO';
-export const MAX_BIO_SHORT_INPUT_LENGTH = 300;
+export const MAX_BIO_SHORT_INPUT_LENGTH = 75;
 
 export const ARTIST_PROFILE = 'ARTIST_PROFILE';
 export const ARTIST_SIGNUP = 'ARTIST_SIGNUP';

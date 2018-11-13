@@ -11,40 +11,53 @@ import Divider from '@material-ui/core/Divider';
 import ConnectedServiceIcon from './ConnectedServiceIcon';
 import Edit from 'react-feather/dist/icons/edit';
 
+import styles from './styles';
+import UserEditForm from '../UserEditForm';
+
 
 class ArtistCard extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+
   renderMedia(props) {
+    const { classes, profile } = props;
+    const { image, stage_name } = profile;
+
     return (
-      <CardMedia className={props.classes.media} image={props.image} title={props.artist}>
-        {(props.onTour && (
-          <div style={{position: 'relative', height: '100%'}}>
-            <Typography variant="caption" align="left" className={props.classes.tourlabel}>
-              On Tour
-            </Typography>
-          </div>
-        ))}
+      <CardMedia className={classes.avatarSection} image={image} title={stage_name}>
+        { !image ? <span className={classes.avatarStandIn}>No Photo</span> : null}
+        { this.renderOnTour(props) }
       </CardMedia>
-    )
+    );
   }
+
+  renderOnTour(props) {
+    const { on_tour, classes } = props;
+    if(!on_tour) return null;
+
+    return (
+      <div style={{position: 'relative', height: '100%'}}>
+        <Typography variant="caption" align="left" className={classes.tourlabel}>
+          On Tour
+        </Typography>
+      </div>
+    );
+  }
+
   renderSocialService(name, service_url, service_metric, props) {
-    const url = service_url != "" ? service_url : undefined;
-    const metric = service_metric != "" ? service_metric : undefined;
+    const url = service_url !== null ? service_url : undefined;
+    const metric = service_metric !== null ? service_metric : undefined;
     const activeClass = url ? props.classes.serviceConnected : '';
     const serviceClasses = `${props.classes.service} ${activeClass}`;
 
     const base = (
       <ButtonBase disabled={url ? false : true} className={props.classes.serviceButton}>
-        <Paper elevation="0" className={serviceClasses}>
+        <Paper elevation={0} className={serviceClasses}>
           <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
-          {metric 
-            ? (<Typography variant="body1" className={props.classes.stat} noWrap>{metric}</Typography>)
-            : (<Typography variant="body1" className={props.classes.disabledColor}>—</Typography>)
+          {metric
+            ? (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.stat}`} noWrap>{metric}</Typography>)
+            : (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.disabledColor}`}>—</Typography>)
           }
         </Paper>
-      </ButtonBase>  
+      </ButtonBase>
     )
 
     if (url) {
@@ -63,84 +76,107 @@ class ArtistCard extends React.Component {
       )
     }
   }
+
+  renderLocation(props) {
+    const { profile: { hometown, state} } = props;
+
+    if(!hometown && !state) return null;
+    if(!hometown ^ !state) return hometown || state;
+    return `${hometown}, ${state}`;
+  }
+
+  renderUserEditForm(props) {
+    props.openDialog(<UserEditForm {...props.profile} />);
+  }
+
   render() {
-    const { 
-      classes, 
-      editable, 
-      inReview, 
-      artist,
-      tagline,
+    const {
+      classes,
+      isEditable,
+      isInReview,
+      profile,
+    } = this.props;
+
+    const {
+      stage_name,
+      bio_short,
       genres,
       website,
-      hometown,
-      state,
       facebook,
-      facebookMetric,
+      facebook_followers,
       instagram,
-      instagramMetric,
+      instagram_followers,
       spotify,
-      spotifyMetric,
-    } = this.props;
+      spotify_followers,
+    } = profile;
+
     return (
-      <Card elevation="8" className={classes.card}>
-        {inReview && (
+      <Card elevation={8} className={classes.card}>
+        {isInReview && (
           this.renderMedia(this.props)
         )}
-        <CardContent className={classes.content}>
-          {editable && (
-            <Grid container wrap="nowrap" spacing={8} justify="space-between">
+
+        <div className={classes.infoSection}>
+          <CardContent className={classes.content}>
+            {isEditable && (
+              <Grid container wrap="nowrap" spacing={8} justify="space-between">
+                <Grid item>
+                  <Typography variant="title" className={classes.stageName} component="h2" align="left">
+                    {stage_name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <ButtonBase className={classes.editIcon}>
+                    <Edit size={22} onClick={() => this.renderUserEditForm(this.props)}/>
+                  </ButtonBase>
+                </Grid>
+              </Grid>
+            )}
+            {!isEditable && (
+              <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
+                {stage_name}
+              </Typography>
+            )}
+            <Typography gutterBottom={true} variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap align="left">
+              {genres.map(g => g.name).join(', ')}
+            </Typography>
+            <Typography className={classes.tagline} variant="body1" align="left">
+              {bio_short}
+            </Typography>
+          </CardContent>
+          <Grid container className={classes.audience} spacing={16}>
+            <Grid item xs={12}>
+              <Grid container className={classes.socialServices} spacing={16}>
+                {this.renderSocialService("facebook",facebook,facebook_followers,this.props)}
+                {this.renderSocialService("instagram",instagram,instagram_followers,this.props)}
+                {this.renderSocialService("spotify",spotify,spotify_followers,this.props)}
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
+
+        <div className={classes.metaSection}>
+          <Divider/>
+          <div className={classes.meta}>
+            <Grid container spacing={8} className={classes.metaList}>
               <Grid item>
-                <Typography variant="title" component="h2" align="left">
-                  {artist}
+                <Typography component="p" variant="caption" noWrap align="left">
+                  {this.renderLocation(this.props)}
                 </Typography>
               </Grid>
-              <Grid item>
-                <ButtonBase className={classes.editIcon}>
-                  <Edit size={22} />
-                </ButtonBase>
+              <Grid item className={classes.websiteMeta}>
+                <Typography component="p" variant="caption" align="right">
+                  { website ? <a href={website} target="_blank">Website</a> : null }
+                </Typography>
               </Grid>
             </Grid>
-          )}
-          {!editable && (
-            <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
-              {artist}
-            </Typography>
-          )}
-          <Typography gutterBottom variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap color="grey" align="left">
-            {genres.join(', ')}
-          </Typography>
-          <Typography variant="body1" align="left" style={{paddingTop: '8px'}}>
-            {tagline}
-          </Typography>
-        </CardContent>
-        <Grid container className={classes.audience} spacing={16} gutterBottom>
-          <Grid item xs={12}>
-            <Grid container className={classes.demo} justify="center" spacing={16}>
-              {this.renderSocialService("facebook",facebook,facebookMetric,this.props)}
-              {this.renderSocialService("instagram",instagram,instagramMetric,this.props)}
-              {this.renderSocialService("spotify",spotify,spotifyMetric,this.props)}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Divider/>
-        <CardContent className={`${classes.meta}`}>
-          <Grid container spacing={8} justify='space-between'>
-            <Grid item>
-              <Typography component="p" variant="caption" noWrap align="left">
-                {hometown}, {state}
-              </Typography>
-            </Grid>
-            <Grid item className={classes.websiteMeta}>
-              <Typography component="p" variant="caption" align="right">
-                <a href={website} target="_blank">Website</a>
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-        {!inReview && (
+          </div>
+        </div>
+
+        {!isInReview && (
           this.renderMedia(this.props)
         )}
-        {(inReview && (
+        {(isInReview && (
           <React.Fragment>
             <Divider/>
             <Grid container spacing={0}>
@@ -169,138 +205,5 @@ class ArtistCard extends React.Component {
     );
   }
 }
-  
-const styles = theme => ({
-    card: {
-      width: '235px',
-      margin: '20px',
-      '& > hr': {
-        opacity: '0.5',
-      },
-    },
-    editIcon: {
-      padding: theme.spacing.unit / 2,
-      borderRadius: '4px',
-      marginRight: `-${theme.spacing.unit}px`,
-      marginTop: `-${theme.spacing.unit/2}px`,
-      color: theme.palette.grey[400],
-      '&:hover': {
-        color: theme.palette.grey[600],
-      },
-      '&:active': {
-        color: theme.palette.primary.main,
-      },
-    },
-    padTopSm: {
-      paddingTop: theme.spacing.unit / 2
-    },
-    media: {
-      marginTop: '0px',
-      height: 110,
-      backgroundColor: theme.palette.grey[200],
-    },
-    gridRoot: {
-      flexGrow: 1,
-    },
-    audience: {
-      marginBottom: theme.spacing.unit / 2,
-    },
-    disabledColor: {
-      color: theme.palette.grey[200],
-      marginTop: 4,
-    },
-    service: {
-      paddingTop: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit / 2,
-      width: 48,
-    },
-    serviceConnected: {
-      // borderRadius: theme.shape.borderRadius,
-      borderRadius: '4px',
-      '&:hover': {
-        cursor: 'pointer',
-      } 
-    },
-    serviceButton: {
-      // borderRadius: theme.shape.borderRadius,
-      borderRadius: '4px',
-      color: theme.palette.grey[400],
-    },
-    serviceLink: {
-      color: theme.palette.text.primary,
-      textDecoration: 'none',
-    },
-    stat: {
-      paddingTop: theme.spacing.unit / 2,
-      fontWeight: '500'
-    },
-    actions: {
-      padding: theme.spacing.unit * 2,
-      width: '100%',
-      color: theme.palette.primary.main,
-      backgroundColor: theme.palette.common.white,
-      '&:hover': {
-        backgroundColor: theme.palette.grey[100]
-      },
-    },
-    actionLabels: {
-      color: theme.palette.primary.main,
-    },
-    reviewAction: {
-      '& > a': {
-        textDecoration: 'none'
-      }
-    },
-    actionContainer: {
-      backgroundColor: 'rgba(0,0,0,0.1)'
-    },
-    tourlabel: {
-      position: 'absolute',
-      bottom: '6px',
-      left: theme.spacing.unit * 1.5,
-      textTransform: 'uppercase',
-      padding: '2px 4px',
-      background: theme.palette.secondary.main,
-      color: 'black',
-      borderRadius: '2px'
-    },
-    meta: {
-      paddingTop: '8px',
-      paddingBottom: '8px',
-      marginBottom: '0px',
-      [theme.breakpoints.up('sm')]: {
-        paddingTop: theme.spacing.unit * 1.5,
-        paddingBottom: theme.spacing.unit * 1.5,
-        paddingLeft: theme.spacing.unit * 2,
-        paddingRight: theme.spacing.unit * 2
-      },
-      [theme.breakpoints.up('xs')]: {
-        paddingTop: theme.spacing.unit * 1.5,
-        paddingBottom: theme.spacing.unit * 1.5,
-      }
-    },
-    websiteMeta: {
-      '& a': {
-        textDecoration: 'none',
-        color: theme.palette.text.secondary,
-      },
-      '& a:hover': {
-        color: theme.palette.primary.main, 
-      }
-    },
-    content: {
-      [theme.breakpoints.up('sm')]: {
-        paddingTop: theme.spacing.unit * 1.5,
-        paddingLeft: theme.spacing.unit * 2,
-        paddingRight: theme.spacing.unit * 2,
-        paddingBottom: '0px'
-      },
-      [theme.breakpoints.up('xs')]: {
-        paddingTop: theme.spacing.unit * 1.5,
-        paddingBottom: theme.spacing.unit
-      }
-    }
-  });
-
 
 export default withStyles(styles)(ArtistCard);

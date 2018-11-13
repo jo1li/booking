@@ -4,16 +4,9 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import configureStore from './store';
+import loadInitialState from './loadInitialState';
 
-// Not sure if this is the best place for default states.
-var windowState = window.initialState || {};
-var initialStateDefaults = {
-    // false denotes videos haven't been loaded in to state, an array indicates they have
-    videos: false,
-    audios: false
-}
-var initialState = _.assign({}, initialStateDefaults, windowState);
-
+const initialState = loadInitialState();
 const store = configureStore(initialState);
 
 const theme = createMuiTheme({

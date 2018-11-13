@@ -8,80 +8,92 @@ storiesOf('ArtistCard', module)
   .addDecorator(story => <Provider story={story()}/>)
   .add('Basic', () => (
     <ArtistCard
-      artist="The Rolling Stones"
-      tagline="Pretty famous band you might've heard of."
-      image="https://i.imgur.com/MT6POWY.jpg"
-      genres={["rock","punk rock"]}
-      hometown="Brooklyn"
-      state="NY"
-      website="https://google.com"
-      facebook="https://www.facebook.com/opuslivemusic/"
-      facebookMetric=""
-      instagram=""
-      instagramMetric=""
-      spotify="https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe"
-      spotifyMetric="450"
-      onTour={false}
+      profile={{
+        id: 1,
+        stage_name: "The Rolling Stones",
+        bio_short: "Pretty famous band you might've heard of.",
+        image: "https://i.imgur.com/MT6POWY.jpg",
+        genres: [{name: "rock"},{name: "punk rock"}],
+        hometown: "Brooklyn",
+        state: "NY",
+        website: "https://google.com",
+        facebook: "https://www.facebook.com/opuslivemusic/",
+        facebook_followers: null,
+        instagram: null,
+        instagram_followers: null,
+        spotify: "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe",
+        spotify_followers: "450",
+        on_tour: false,
+      }}
       editable={false}
       inReview={false}
     />
   ))
   .add('On Tour', () => (
     <ArtistCard
-      artist="The Rolling Stones"
-      tagline="Pretty famous band you might've heard of."
-      image="https://i.imgur.com/MT6POWY.jpg"
-      genres={["rock","punk rock"]}
-      hometown="Brooklyn"
-      state="NY"
-      website="https://google.com"
-      facebook="https://www.facebook.com/opuslivemusic/"
-      facebookMetric=""
-      instagram=""
-      instagramMetric=""
-      spotify="https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe"
-      spotifyMetric="450"
-      onTour={true}
+      profile={{
+        id: 1,
+        stage_name: "The Rolling Stones",
+        bio_short: "Pretty famous band you might've heard of.",
+        image: "https://i.imgur.com/MT6POWY.jpg",
+        genres: [{name: "rock"},{name: "punk rock"}],
+        hometown: "Brooklyn",
+        state: "NY",
+        website: "https://google.com",
+        facebook: "https://www.facebook.com/opuslivemusic/",
+        facebook_followers: null,
+        instagram: null,
+        instagram_followers: null,
+        spotify: "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe",
+        spotify_followers: "450",
+        on_tour: true,
+      }}
       editable={false}
       inReview={false}
     />
   ))
   .add('Editable', () => (
     <ArtistCard
-      artist="The Rolling Stones"
-      tagline="Pretty famous band you might've heard of."
-      image="https://i.imgur.com/MT6POWY.jpg"
-      genres={["rock","punk rock"]}
-      hometown="Brooklyn"
-      state="NY"
-      website="https://google.com"
-      facebook="https://www.facebook.com/opuslivemusic/"
-      facebookMetric=""
-      instagram=""
-      instagramMetric=""
-      spotify="https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe"
-      spotifyMetric="450"
-      onTour={true}
+      profile={{
+        id: 1,
+        stage_name: "The Rolling Stones",
+        bio_short: "Pretty famous band you might've heard of.",
+        image: "https://i.imgur.com/MT6POWY.jpg",
+        genres: [{name: "rock"},{name: "punk rock"}],
+        hometown: "Brooklyn",
+        state: "NY",
+        website: "https://google.com",
+        facebook: "https://www.facebook.com/opuslivemusic/",
+        facebook_followers: null,
+        instagram: null,
+        instagram_followers: null,
+        spotify: "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe",
+        spotify_followers: "450",
+        on_tour: true,
+      }}
       editable={true}
       inReview={false}
     />
   ))
   .add('In Review', () => (
     <ArtistCard
-      artist="The Rolling Stones"
-      tagline="Pretty famous band you might've heard of."
-      image="https://i.imgur.com/MT6POWY.jpg"
-      genres={["rock","punk rock"]}
-      hometown="Brooklyn"
-      state="NY"
-      website="https://google.com"
-      facebook="https://www.facebook.com/opuslivemusic/"
-      facebookMetric=""
-      instagram=""
-      instagramMetric=""
-      spotify="https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe"
-      spotifyMetric="450"
-      onTour={true}
+      profile={{
+        id: 1,
+        stage_name: "The Rolling Stones",
+        bio_short: "Pretty famous band you might've heard of.",
+        image: "https://i.imgur.com/MT6POWY.jpg",
+        genres: [{name: "rock"}, {name: "punk rock"}],
+        hometown: "Brooklyn",
+        state: "NY",
+        website: "https://google.com",
+        facebook: "https://www.facebook.com/opuslivemusic/",
+        facebook_followers: null,
+        instagram: null,
+        instagram_followers: null,
+        spotify: "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe",
+        spotify_followers: "450",
+        on_tour: true,
+      }}
       editable={false}
       inReview={true}
     />
