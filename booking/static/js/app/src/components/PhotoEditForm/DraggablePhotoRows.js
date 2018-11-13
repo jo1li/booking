@@ -19,6 +19,7 @@ const DraggablePhotoRows = (props) => {
     profile,
     pendingItems,
     coverPhotoID,
+    theme,
   } = props;
 
   return (
@@ -37,6 +38,7 @@ const DraggablePhotoRows = (props) => {
                     dndProvidedProps={provided}
                     innerRef={provided.innerRef}
                     classes={classes}
+                    theme={theme}
                     item={item}
                     isCoverPhoto={item.id === coverPhotoID}
                     idx={idx}
