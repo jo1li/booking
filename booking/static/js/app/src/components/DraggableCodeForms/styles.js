@@ -63,13 +63,8 @@ const styles = theme => {
       }
     },
     captionTop: {
-      padding: '0!important',
+      padding: `0 ${theme.spacing.unit * 3}px`,
       borderBottom: `1px solid ${theme.palette.grey[200]}`,
-    },
-
-    // TODO: Move into edit form styles once styling is consistent
-    aboveFooter: {
-      marginBottom: '12px',
     },
 
     [theme.breakpoints.down('xs')]: {

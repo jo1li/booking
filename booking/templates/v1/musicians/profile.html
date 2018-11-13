@@ -68,45 +68,8 @@
     <div class="container">
         <div class="row js-container">
             <div class="col-md-4 js-container">
-                <aside class="sidebar">
-                    <div class="edit-box">
-                        <h2 class="headline">{{ musician.stage_name }}</h2>
-                        {% if musician.on_tour %}
-                        <h3 class="bold-text heading-orange text-center">on tour</h3>
-                        {% endif %}
-                        <div class="edit{% if is_owner_viewing is False %} hidden{% endif %}"><img id="open-edit-user-profile" src="{% static 'images/edit.png' %}" alt=""></div>
-                    </div>
-
-                    <div class="artist-photo text-center">
-                        {% cloudinary musician.image.name width=180 height=180 crop="thumb" class="rounded-circle" %}
-                    </div>
-
-                    <ul class="social-subscribe">
-                        <li>
-                            <a href="{{ musician.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <span class="subscribers-count">36.3K</span>
-                        </li>
-                        <li>
-                            <a href="{{ musician.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <span class="subscribers-count">{% if not musician.instagram_followers %}N/A{% else %}{{ musician.instagram_followers }}{% endif %}</span>
-                        </li>
-                        <li>
-                            <a href="{{ musician.spotify }}" target="_blank"><i class="fab fa-spotify"></i></a>
-                            <span class="subscribers-count">{% if not musician.spotify_followers %}N/A{% else %}{{ musician.spotify_followers }}{% endif %}</span>
-                        </li>
-                    </ul>
-
-                    <div class="info text-center">
-                        <p class="body-text">{{ musician.hometown }}, {{ musician.state }}</p>
-                        <p class="body-text">{{ musician.genres|opus_replace:"search=, &replace= / " }}</p>
-                        {% if musician.website %}<p class="body-text regular"><a href="{{ musician.website }}" target="_blank">{{ musician.website }}</a></p>{% endif %}
-                    </div>
-
-                    <div class="about"  id="temp-edit-bio-form">
-                        <p class="body-text regular">{{ musician.bio_short }}</p>
-                    </div>
-
-                    <a href="#biography-long" id="see-full-bio-link" class="bold-text heading-secondary">See Full Bio</a>
+                <aside id="artist-card">
+                    <!-- TODO: loading image? -->
                 </aside>
             </div>
             <div class="col-md-8">
@@ -152,9 +115,30 @@
 </section>
 <script>
     window.initialState = {
+        is_current_user: {{ is_owner_viewing|yesno:"true,false" }},
         profile: {
             id: {{ musician.pk }},
-            image_hero_id: {{ musician.image_hero_id|default_if_none:"null" }},
+            stage_name: "{{ musician.stage_name }}",
+            bio_short: "{{ musician.bio_short|default_if_none:"" }}",
+            image_hero: {{ image_hero_json | safe }},
+            on_tour: {{ musician.on_tour|yesno:"true,false" }},
+            image: "{{ musician.image_url|default_if_none:"" }}", // TODO: default image? also, name could be more descriptive.
+            hometown: {% if musician.hometown is not None %}"{{ musician.hometown }}"{% else %}null{% endif %},
+            state: {% if musician.state is not None %}"{{ musician.state }}"{% else %}null{% endif %},
+            website: {% if musician.website is not None %}"{{ musician.website }}"{% else %}null{% endif %},
+            genres: [
+                {% for genre in genres %}
+                    { name: "{{ genre.name }}" },
+                {% endfor %}
+            ],
+            facebook: {% if musician.facebook is not None %}"{{ musician.facebook }}"{% else %}null{% endif %},
+            facebook_followers: {{ musician.facebook_followers|default_if_none:"null" }},
+            instagram: {% if musician.instagram is not None %}"{{ musician.instagram }}"{% else %}null{% endif %},
+            instagram_followers: {{ musician.instagram_followers|default_if_none:"null" }},
+            soundcloud: {% if musician.soundcloud is not None %}"{{ musician.soundcloud }}"{% else %}null{% endif %},
+            spotify: {% if musician.spotify is not None %}"{{ musician.spotify }}"{% else %}null{% endif %},
+            spotify_followers: {{ musician.spotify_followers|default_if_none:"null" }},
+            bandcamp: {% if musician.bandcamp is not None %}"{{ musician.bandcamp }}"{% else %}null{% endif %},
         },
         photos: {{ photos_json | safe }},
     };

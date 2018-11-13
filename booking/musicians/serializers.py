@@ -25,6 +25,7 @@ artist_fields = (
             'bio_short',
             'website',
             'facebook',
+            'facebook_followers',
             'instagram',
             'instagram_followers',
             'twitter',
@@ -154,7 +155,9 @@ class ArtistUpdateSerializer(ArtistSerializer):
         if validated_data.get('image_hero') is None:
             validated_data.pop('image_hero', None)
 
-        instance.genres = validated_data.get('genres')
+        if 'genres' in validated_data:
+            instance.genres = validated_data['genres']
+
         instance.save()
 
         return instance

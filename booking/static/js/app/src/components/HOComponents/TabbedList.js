@@ -25,9 +25,7 @@ export default class TabbedList extends Component {
 
     return (
       <Fragment>
-        <Grid item className={`${classes.caption} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
-          { header }
-        </Grid>
+        { header }
         <Grid item className={`${classes.captionTop} ${classes.fixedHeight}`} xs={12} sm={12} md={12} lg={12}>
           <Tabs value={selectedTabIndex} onChange={this.changeTab} >
             {

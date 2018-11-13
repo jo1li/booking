@@ -11,9 +11,6 @@ const styles = theme => ({
     zIndex: 1,
     cursor: 'pointer',
   },
-  icon: {
-    colorPrimary: theme.palette.primary.main
-  },
 });
 
 const DialogBase = ({
@@ -24,6 +21,7 @@ const DialogBase = ({
       maxWidth,
       isOpen,
       close,
+      theme,
     }) =>
         <Dialog
           fullScreen={fullScreen}
@@ -37,7 +35,7 @@ const DialogBase = ({
         >
           <div className={classes.iconContainer}>
             <Close
-              color="secondary"
+              color={theme.palette.secondary.main}
               onClick={close}
             />
           </div>
@@ -48,4 +46,4 @@ DialogBase.defaultProps = {
   fullScreen: false
 }
 
-export default withStyles(styles)(DialogBase);
+export default withStyles(styles, { withTheme: true })(DialogBase);
