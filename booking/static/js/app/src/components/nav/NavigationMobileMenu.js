@@ -18,7 +18,13 @@ class NavigationMobileMenu extends React.Component {
     const fullList = (
       <div className={classes.fullList}>
         <List>
-          <ListItem component='a' href={this.props.url_venues} button>
+          <ListItem component='a' href={this.props.url_artists_logged_in} button>
+            <ListItemText primary="Artists" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem component='a' href={this.props.url_venues_logged_in} button>
             <ListItemText primary="Venues" />
           </ListItem>
         </List>

@@ -474,3 +474,11 @@ class SignupView(account.views.SignupView):
         self.created_user.is_musician = True
         self.created_user.save()
 
+# Login required not for security, just intention of ux
+@login_required
+def artists_coming_soon(request):
+    return opus_render(request, "musicians/coming-soon-artists.html")
+
+@login_required
+def venues_coming_soon(request):
+    return opus_render(request, "musicians/coming-soon-venues.html")

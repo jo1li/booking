@@ -1,0 +1,31 @@
+{% extends "site_base2.html" %}
+{% load staticfiles %}
+{% load repeatedblocks %}
+{% load cloudinary %}
+{% load booking_extras %}
+
+{% block head_title %}Artists on Opus{% endblock %}
+
+{% block og %}
+  {{ block.super }}
+  <meta property="og:description" content="Artists on Opus" />
+{% endblock og %}
+
+{% block main %}
+
+<div id="coming-soon">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-8 content-wrapper justify-content-center">
+            <div class="row justify-content-center">
+                <div class="gif-wrapper">
+                  <img src="{% static 'images/waiting-kid.gif' %}">
+                </div>
+                <div class="content-column">
+                    <div class="row content-1">Soon, you’ll be able to browse and search artists on Opus.</div>
+                    <div class="row content-2">In the meantime, head over to your profile and make sure it’s ready.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

@@ -49,19 +49,20 @@ artist_router.register(r'messages', ArtistMessageViewSet, base_name='artist-mess
 
 venue_router = routers.NestedSimpleRouter(top_router, r'venues', lookup='venue')
 
+# Django will serve the *first* urlpattern that matches
 
 urlpatterns = [
-    path('signup/', signup, name="opus_react_signup"),
-    re_path(v_url(''), include(top_router.urls)),
-    re_path(v_url(''), include(artist_router.urls)),
-    re_path(v_url('') + "artists/slug_exists", ArtistSlugExists.as_view(), name='artist-slug-exists'),
-    re_path(v_url(''), include(venue_router.urls)),
     path('', include("home.urls")),
     path('', include('social_django.urls', namespace='social')),
+    path('signup/', signup, name="opus_react_signup"),
     path('opus-control/booking-agent/create/', create, name="admin_booking_agent_create"),
     path('opus-control/', admin.site.urls),
     path('account/signup/', SignupView.as_view(), name="opus_signup"),
     path('account/', include("account.urls")),
     path('m/',  include('musicians.urls')),
     path('v/',  include('venues.urls')),
+    re_path(v_url(''), include(top_router.urls)),
+    re_path(v_url(''), include(artist_router.urls)),
+    re_path(v_url('') + "artists/slug_exists", ArtistSlugExists.as_view(), name='artist-slug-exists'),
+    re_path(v_url(''), include(venue_router.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
