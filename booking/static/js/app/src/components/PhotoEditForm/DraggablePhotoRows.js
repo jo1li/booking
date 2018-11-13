@@ -71,7 +71,7 @@ const PendingRows = (props) => {
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
-  coverPhotoID: state.profile.image_hero_id,
+  coverPhotoID: _.get(state.profile, 'image_hero.id', null),
   updateUserBio,
 })
 

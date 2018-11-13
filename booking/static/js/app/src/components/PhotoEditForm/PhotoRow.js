@@ -148,7 +148,10 @@ class PhotoRow extends Component {
 
   useAsCoverPhoto(photo) {
     const { profile, updateProfile } = this.props;
-    return updateProfile({image_hero_id: photo.id}, profile.id);
+    return updateProfile({
+      image_hero_id: photo.id,
+    },
+    profile.id);
   }
 
   render() {

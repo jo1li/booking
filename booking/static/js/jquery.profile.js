@@ -1,6 +1,5 @@
 $(document).ready(function() {
   initFixedBlocks();
-  bindLinks();
 });
 
 function initFixedBlocks() {
@@ -8,37 +7,40 @@ function initFixedBlocks() {
   var fixedClass = 'fixed-bar';
 
   jQuery('#wrapper').each(function(){
+    var navBar = jQuery('#main-navigation-bar header');
+    var fixedCoverPhoto = jQuery('#cover-photo-fade');
     var barHolder = jQuery('.artist-placeholder');
     var main = jQuery('.main-content');
-    var offsetTop = barHolder.outerHeight() - 64;
+    var offsetTop = barHolder.outerHeight() - 60;
 
     ResponsiveHelper.addRange({
       '768..': {
         on: function() {
-          jQuery('.sidebar').stickyScrollBlock({
+          jQuery('#artist-card').stickyScrollBlock({
             setBoxHeight: false,
             activeClass: 'fixed-position',
             container: '.js-container',
             positionType: 'fixed',
             extraTop: function() {
-              var indent = barHolder.outerHeight() + 64 + parseInt(main.css('padding-top'));
-              console.log(indent)
+              const NAV_BAR_HEIGHT = navBar.outerHeight();
+              const COVER_PHOTO_HEIGHT = fixedCoverPhoto.outerHeight();
+              const OVERLAP = 49;
 
-              return 160;
+              return NAV_BAR_HEIGHT + COVER_PHOTO_HEIGHT - OVERLAP;
             }
           });
         }
       },
       '..767': {
         on: function() {
-          jQuery('.sidebar').stickyScrollBlock('destroy');
+          jQuery('#artist-card').stickyScrollBlock('destroy');
         }
       }
     });
 
 
     win.on('resize orientationchange', function(){
-      offsetTop = barHolder.outerHeight() - 64;
+      offsetTop = barHolder.outerHeight() - 60;
     });
 
     // var onScroll = function() {
@@ -74,7 +76,7 @@ function initFixedBlocks() {
           bottom: ''
         }).removeClass(fixedClass);
         main.css({
-          paddingTop: '40px'
+          paddingTop: '32px'
         });
       }
     };
@@ -83,25 +85,6 @@ function initFixedBlocks() {
     win.on('scroll', onScroll);
     onScroll(); // Get the header to the right location on initial load
   });
-}
-
-function bindLinks() {
-  var link = document.getElementById('see-full-bio-link');
-  var fullBio = document.getElementById('biography-long');
-  // var header = document.getElementById('artist-scroll');
-  var header = document.getElementsByClassName('artist-placeholder')[0];
-
-  link.onclick = function(event) {
-    event.preventDefault();
-
-    fullBio.scrollIntoView();
-
-    var fullBioTop = fullBio.getBoundingClientRect().top;
-    var headerBottom = header.getBoundingClientRect().bottom;
-    if(fullBioTop < headerBottom) {
-      window.scrollBy(0, fullBioTop - headerBottom);
-    }
-  }
 }
 
 /*
@@ -316,7 +299,7 @@ function bindLinks() {
         this.winScrollTop = $win.scrollTop();
         var isActiveSticky = this.winScrollTop -
           (this.options.showAfterScrolled ? this.extraTop : 0) -
-          (this.options.showAfterScrolled ? this.data.boxHeight + this.extraTop : 0) >
+          (this.options.showAfterScrolled ? this.data.boxHeight + this.extraTop : 0) >=
           this.data.boxOffsetTop - this.extraTop;
 
         if (isActiveSticky) {
@@ -387,8 +370,6 @@ function bindLinks() {
           this.parentForActive.addClass(this.options.activeClass);
           this.$stickyBox.css({
             width: this.data.boxWidth,
-            transition: 'transform ' + this.options.animSpeed + 's ease',
-            '-webkit-transition': 'transform ' + this.options.animSpeed + 's ease',
           });
 
           if (this.isWrap) {
