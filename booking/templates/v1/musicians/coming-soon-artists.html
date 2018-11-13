@@ -1,17 +1,18 @@
-{% extends "home/base.html" %}
+{% extends "site_base2.html" %}
+{% load staticfiles %}
+{% load repeatedblocks %}
+{% load cloudinary %}
+{% load booking_extras %}
 
-{% load i18n %}
-{% load bootstrap3 %}
+{% block head_title %}{{ musician.stage_name }}{% endblock %}
 
-{% block head_title %}Artists{% endblock %}
+{% block og %}
+  {{ block.super }}
+  <meta property="og:description" content="{{ musician.bio_short|default_if_none:"" }}" />
+  <script src="{% static 'js/jquery.profile.js' %}" defer></script>
+{% endblock og %}
 
 {% block main %}
-
-<style type="text/css">
-    #mission, #opus-presents, .video-holder {
-        display:none;
-    }
-</style>
 
 <div id="coming-soon">
     <div class="row justify-content-center mt-5 mb-5">

@@ -34,10 +34,10 @@ def index(request):
 
 
 def artists(request):
-    return opus_render(request, "home/coming-soon-artists.html")
+    return opus_render(request, "home/artists.html")
 
 def venues(request):
-    return opus_render(request, "home/coming-soon-venues.html")
+    return opus_render(request, "home/venues.html")
 
 
 def contact_us(request):

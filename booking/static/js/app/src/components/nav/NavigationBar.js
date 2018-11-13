@@ -171,12 +171,12 @@ class NavigationBar extends React.Component {
                 <ul className={classes.destinations}>
                   <li>
                     <Typography variant="body1">
-                      <a href={this.props.url_venues}>Venues</a>
+                      <a href={this.props.url_venues_logged_in}>Venues</a>
                     </Typography>
                   </li>
                   <li>
                     <Typography variant="body1">
-                      <a href={this.props.url_artists}>Artists</a>
+                      <a href={this.props.url_artists_logged_in}>Artists</a>
                     </Typography>
                   </li>
                   <li>
