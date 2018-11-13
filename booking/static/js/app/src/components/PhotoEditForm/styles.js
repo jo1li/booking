@@ -65,13 +65,15 @@ const styles = theme => {
     photoEditFormSubmitButton: {
       cursor: 'pointer',
       color: theme.palette.secondary.main,
-      fontSize: '16px',
+      fontSize: '15px',
       backgroundColor: theme.palette.grey[100],
       width: '100%',
       height: '60px',
       borderRadius: '2px',
-      lineHeight: '60px',
-      textAlign: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textTransform: 'uppercase',
     },
     photoForm: {
       '& > div:not($photoFormRowContainer)': {
@@ -113,12 +115,6 @@ const styles = theme => {
       height: '100%',
       width: '100%',
       objectFit: 'cover',
-    },
-    // TODO: Move into edit form styles once styling is consistent
-    aboveFooter: {
-      padding: '12px 1px 0',
-      marginBottom: '12px',
-      overflowY: 'scroll',
     },
     loadingIcon: {
       alignSelf: 'center',
@@ -173,6 +169,9 @@ const styles = theme => {
       },
     },
 
+    uploadIcon: {
+      paddingRight: '5px',
+    }
   };
 }
 

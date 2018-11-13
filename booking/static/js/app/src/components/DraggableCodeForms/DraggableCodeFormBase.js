@@ -7,7 +7,7 @@ import CancelConfirm from '../CancelConfirm';
 import DraggableCodeInputs from './DraggableCodeInputs';
 import HelpSection from './HelpSection';
 import TabbedList from '../HOComponents/TabbedList';
-import { Display1 } from '../typography';
+import ModalHeader from '../ModalHeader';
 import DroppableContainer from '../dragAndDrop/DroppableContainer';
 import {
   getCreatedItems,
@@ -137,13 +137,13 @@ class CodeFormBase extends Component {
         <TabbedList
             classes={classes}
             tabNames={['embed', 'help']} >
-          <Display1>{copy.title}</Display1>
+          <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
           <Fragment>
             <form
                 onSubmit={handleSubmit(this.submit)}
                 ref={provided.innerRef}
-                className={`${classes.tabBody} ${classes.aboveFooter}`} >
+                className={`${classes.tabBody} ${classes.scrollableBody}`} >
               <DraggableCodeInputs
                   items={currentValues[itemName]}
                   itemName={itemName}
@@ -166,10 +166,10 @@ class CodeFormBase extends Component {
           </Fragment>
 
           <HelpSection
-              className={classes.tabBody}
+              className={`${classes.tabBody} ${classes.scrollableBody}`}
               classes={classes}
               helpCopyRows={copy.helpRows}
-              itle={copy.helpSectionTitle} />
+              title={copy.helpSectionTitle} />
 
         </TabbedList>
       </Fragment>
