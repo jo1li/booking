@@ -23,6 +23,8 @@ ALLOWED_HOSTS = [
     "*"
 ]
 
+DEFAULT_HTTP_PROTOCOL = "https"
+
 STATIC_JS_APP_BASE_URL = '/static/js/app/build/static/js/'
 
 # Stage-specific social config

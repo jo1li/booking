@@ -1,0 +1,28 @@
+{% extends "home/base.html" %}
+
+{% load i18n %}
+{% block head_title %}Confirm your Email{% endblock %}
+
+{% block main %}
+
+<style type="text/css">
+    #mission, #opus-presents, .video-holder {
+        display:none;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-around mt-5 mb-5">
+        <div class="row">
+            <form method="post" action="{% url "account_confirm_email" key=confirmation.key %}">
+                <legend>{% trans "Confirm Email" %}</legend>
+                <fieldset>
+                    {% csrf_token %}
+                    <p>{% blocktrans with email=confirmation.email_address.email %}Confirm email address <b>{{ email }}</b>?{% endblocktrans %}</p>
+                    <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main %}
