@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import {
   reduxForm,
@@ -18,35 +18,65 @@ import {
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
 import { validate_audio_embeds } from '../../utils/validators';
+import CONFIGS from '../../configs';
 
 const title = 'Edit Audio';
 
 const inputPlaceholder = 'Copy and paste audio player embed code here.';
 
-const helpSectionTitle = 'How to embed Soundcloud Audio';
-
-// TODO: Use real screenshots once we have them
-const helpRows = [
+const soundcloudHelpRows = [
   [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go to the SoundCloud page of the audio you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-1.png`} alt="Screenshot"/>,
+    <Fragment>
+      Click the <strong>Share</strong> option on the Soundcloud audio track.
+    </Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to find the embed audio code.`
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-2.png`} alt="Screenshot"/>,
+    <Fragment>Select the <strong>Embed</strong> option.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Click inside the ${LEFT_DOUBLE_QUOTES}Code${RIGHT_DOUBLE_QUOTES} section to select all the code and right click to copy.`
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-3.png`} alt="Screenshot"/>,
+    <Fragment>Copy the Embed Code.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go back to the ${LEFT_DOUBLE_QUOTES}Edit Audiod${RIGHT_DOUBLE_QUOTES} page, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVEd${RIGHT_DOUBLE_QUOTES}. The audio is now added to your Opus profile!`
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/soundcloud-help-4.png`} alt="Screenshot"/>,
+    <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
+  ]
+];
+
+const spotifyHelpRows = [
+  [
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-1.png`} alt="Screenshot"/>,
+    <Fragment>
+      Click the <strong>More</strong> option on a Spotify track.
+    </Fragment>,
+  ], [
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-2.png`} alt="Screenshot"/>,
+    <Fragment>Select the <strong>Share</strong> menu option.</Fragment>,
+  ], [
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-3.png`} alt="Screenshot"/>,
+    <Fragment>Click <strong>Copy Embed Code</strong>.</Fragment>,
+  ], [
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/spotify-help-4.png`} alt="Screenshot"/>,
+    <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];
 
 const copy = {
   title,
   inputPlaceholder,
-  helpSectionTitle,
-  helpRows,
+  helpSections: [
+    {
+      title: 'Soundcloud Help',
+      helpRows: soundcloudHelpRows,
+    }, {
+      title: 'Spotify Help',
+      helpRows: spotifyHelpRows,
+    }
+  ],
+  gettingStarted: {
+    howTo: `To add an audio track, copy and paste the embed code from a Spotify or Soundcloud track below.`,
+    example: `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https%3A//api.soundcloud.com/tracks/34839210&visual=true"></iframe>`,
+    showHelpLink: false,
+  },
 }
 
 const mapStateToProps = (state, props) => ({
