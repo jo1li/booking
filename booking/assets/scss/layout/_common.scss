@@ -615,15 +615,20 @@ $border-radius: 5px;
         margin: 0; /* I could not figure out what bootstrap was trying to do here */
     }
 
-    .gif-placeholder {
+    .gif-wrapper {
         width: 187px;
         height: 144px;
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #c7d5d9;
         @media (min-width: 600px) {
             margin-right: 35px;
+        }
+
+        img {
+            height: 100%;
+            width: auto;
         }
     }
 
