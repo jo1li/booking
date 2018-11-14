@@ -64,11 +64,17 @@ const urltoFile = (url, filename, mimeType) =>
  */
 class ReactPinchZoomPanContainer extends Component {
     shouldComponentUpdate(props, lastProps) {
-        if (props.scale !== this.props.scale) {
-            return true;
-        }
+        const hasChanged = prop => props[prop] !== this.props[prop];
 
-        return false;
+        const isScaleChanged = hasChanged('scale')
+        const isWidthChanged = hasChanged('width');
+
+        const shouldReRender = [
+            isScaleChanged,
+            isWidthChanged
+        ].some(_.identity);
+
+        return shouldReRender;
     }
 
     render() {
@@ -199,6 +205,7 @@ class PhotoEdit extends React.Component {
             hide,
             onImageLoad,
             scale,
+            width,
             initialScale,
             onScaleChange,
         } = this.props;
@@ -207,18 +214,25 @@ class PhotoEdit extends React.Component {
             return <Fragment />;
         }
 
+        console.log("configs", configs)
+
         return (
             <ReactPinchZoomPanContainer
                 initialScale={scale}
+                width={width}
                 scale={scale}
                 maxScale={MAX_SCALE}
                 render={(obj) => {
+                    // This function will only rerender if some subset of the attributes change.
+                    // see `ReactPinchZoomPanContainer.shouldComponentUpdate`
 
                     let nextScale = parseFloat(obj.scale);
 
-                    // This is throwing an error 'Cannot update during an existing state transition' one time on mount
+                    // This is throwing an warning 'Cannot update during an existing state transition' one time on mount
                     // but needs to be here to allow for mobile pinch zoom and external zooming.
                     onScaleChange && onScaleChange(nextScale)
+
+                    const reducedWidth = configs.width - (configs.border * 2)
 
                     return (
                         <AvatarEditor
@@ -226,6 +240,7 @@ class PhotoEdit extends React.Component {
                             {...configs}
                             onImageChange={this.onChange()}
                             scale={nextScale}
+                            width={reducedWidth}
                             onLoadSuccess={() => onImageLoad && onImageLoad()}
                         />
                 )

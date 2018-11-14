@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose, withStateHandlers } from 'recompose'
+import { compose, withStateHandlers } from 'recompose';
+import classNames from 'classnames';
 import {
   Field,
   reduxForm,
@@ -14,6 +15,8 @@ import { withStyles } from '@material-ui/core/styles';
 import CancelConfirm from '../CancelConfirm';
 import TextArea from '../form/TextArea';
 import { Display1, H6 } from '../typography';
+import ModalHeader from '../ModalHeader';
+import ScaledElement from '../ScaledElement';
 
 import PhotoEditor from '../PhotoEditor';
 
@@ -74,48 +77,52 @@ class EditBioForm extends Component {
     const cancel = onCancel && closeDialog;
 
     return (
-      <div className={classes.container}>
-        <Grid container spacing={24}>
-          <Grid item className={classes.captionTop} xs={12} sm={12} md={12} lg={12}>
-            <Display1 className={classes.caption} >Crop Photo</Display1>
-          </Grid>
-          <Grid item xs={12} lg={12}>
-            <PhotoEditor
-                ref={(ref) => this.photoEditor = ref}
-                image={image}
-                imageName={imageName}
-                scale={zoom}
-                onCancel={() => onCancel && onCancel()}
-                onChange={this.updatePreviewImage}
-                onScaleChange={updateZoom}
-                onImageLoad={this.updatePreviewImage}
-            />
-          </Grid>
-        </Grid>
-        <Grid container direction='row' spacing={24}>
-            <Grid item xs={3} lg={3}>
-                <img src={base64Img} className={classes.preview}/>
-            </Grid>
-            <Grid item xs={4} lg={4}>
-               <H6>Scale</H6>
-               <Slider
-                value={zoom}
-                min={PhotoEditor.MIN_SCALE}
-                max={PhotoEditor.MAX_SCALE}
-                aria-labelledby="label"
-                onChange={(e, value) => updateZoom(value)}
-                className={classes.slider}
+      <div className={classNames(classes.container, classes.withFooter)}>
+        <ModalHeader classes={classes}>Crop Photo</ModalHeader>
+        <div className={classes.scrollableBody}>
+            <ScaledElement
+              className={classes.ratioContainer}
+              render={(width, height) => (
+                  <PhotoEditor
+                      ref={(ref) => this.photoEditor = ref}
+                      image={image}
+                      imageName={imageName}
+                      scale={zoom}
+                      onCancel={() => onCancel && onCancel()}
+                      onChange={this.updatePreviewImage}
+                      onScaleChange={updateZoom}
+                      onImageLoad={this.updatePreviewImage}
+                      width={width}
+                      height={height}
+                  />
+                )}
               />
+            <div className={classes.modalPadding}>
+              <Grid container direction='row'>
+                <Grid item xs={6} sm={3} md={3} lg={3}>
+                    <img src={base64Img} className={classes.preview}/>
+                </Grid>
+                <Grid item xs={6} sm={4} md={4} lg={4}>
+                  <H6>Scale</H6>
+                  <Slider
+                    value={zoom}
+                    min={PhotoEditor.MIN_SCALE}
+                    max={PhotoEditor.MAX_SCALE}
+                    aria-labelledby="label"
+                    onChange={(e, value) => updateZoom(value)}
+                    className={classes.slider}
+                  />
+                </Grid>
             </Grid>
-            <Grid item xs={12} lg={12}>
-              <CancelConfirm
-                  onClickCancel={this.onClickCancel}
-                  onClickConfirm={() => this.onConfirm()}
-                  isLoading={submitting}
-                  title={'Edit Biography'}
-              />
-            </Grid>
-        </Grid>
+          </div>
+        </div>
+        <CancelConfirm
+            onClickCancel={this.onClickCancel}
+            onClickConfirm={() => this.onConfirm()}
+            isLoading={submitting}
+            title={'Edit Biography'}
+            className={classes.footer}
+        />
       </div>
     );
   }

@@ -195,7 +195,7 @@ class OnboardingForm extends Component {
     })
   }
 
-  submit = (values) => {
+  submit = async (values) => {
     const { updateUserBio, musicianid, stagename, imageFile } = this.props;
 
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
