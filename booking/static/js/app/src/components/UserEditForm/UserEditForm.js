@@ -111,6 +111,7 @@ class UserEditForm extends Component {
       genres
     } = this.state;
 
+
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Your Info</ModalHeader>

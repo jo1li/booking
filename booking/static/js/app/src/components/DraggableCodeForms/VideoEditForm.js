@@ -1,7 +1,7 @@
 // TODO: This can be DRYed up a little bit more with AudioEditForm, but want
 //       to wait until DRYing up with other modals so we don't abstract at wrong
 //       level and make more work for ourselves
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bindActionCreators, compose } from 'redux'
 import {
   reduxForm,
@@ -21,35 +21,44 @@ import {
   RIGHT_DOUBLE_QUOTES,
 } from '../../constants/unicodeCharacters';
 import { validate_video_embeds } from '../../utils/validators';
+import CONFIGS from '../../configs';
 
-const title = 'Edit Videos';
+const title = 'Edit YouTube Video Embeds';
 
 const inputPlaceholder = 'Copy and paste video player embed code here.';
 
-const helpSectionTitle = 'How to embed YouTube Video';
-
-// TODO: Use real screenshots once we have them
 const helpRows = [
   [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go to the YouTube page of the video you want to add and click on the ${LEFT_DOUBLE_QUOTES}SHARE${RIGHT_DOUBLE_QUOTES} button.`,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-1.png`} alt="Screenshot"/>,
+    <Fragment>
+      Click the <strong>Share</strong> option on the YouTube video.
+    </Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Select the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option to display the embed video code.`,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-2.png`} alt="Screenshot"/>,
+    <Fragment>Select the <strong>Embed</strong> option.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Click ${LEFT_DOUBLE_QUOTES}COPY${RIGHT_DOUBLE_QUOTES} to copy the entire embed video code.`,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-3.png`} alt="Screenshot"/>,
+    <Fragment>Copy the Embed Code.</Fragment>,
   ], [
-    <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Screenshot"/>,
-    `Go back to the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} tab, paste the embed code into the box and click ${LEFT_DOUBLE_QUOTES}SAVE${RIGHT_DOUBLE_QUOTES}. The video is now added to your Opus profile!`,
+    <img src={`${CONFIGS.IMAGES_URL}/embed-help-screenshots/youtube-help-4.png`} alt="Screenshot"/>,
+    <Fragment>Paste the Embed Code into the Opus embed field.</Fragment>,
   ]
 ];
 
 const copy = {
   title,
   inputPlaceholder,
-  helpSectionTitle,
-  helpRows,
+  helpSections: [
+    {
+      title: 'Help',
+      helpRows,
+    }
+  ],
+  gettingStarted: {
+    howTo: `To get started, find a YouTube video, hit the Share button, and then look for the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option. Paste the embed code below.`,
+    example: `<iframe width="560" height="315" src="https://www.youtube.com/embed/0he7sPQ7xwE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
+    showHelpLink: true,
+  },
 }
 
 const mapStateToProps = (state, props) => ({
