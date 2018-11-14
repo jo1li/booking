@@ -97,10 +97,10 @@ class EditBioForm extends Component {
               />
             <div className={classes.modalPadding}>
               <Grid container direction='row'>
-                <Grid item xs={6} sm={3} md={3} lg={3}>
+                <Grid item xs={8} sm={3} md={3} lg={3}>
                     <img src={base64Img} className={classes.preview}/>
                 </Grid>
-                <Grid item xs={6} sm={4} md={4} lg={4}>
+                <Grid item xs={4} sm={4} md={4} lg={4}>
                   <H6>Scale</H6>
                   <Slider
                     value={zoom}
