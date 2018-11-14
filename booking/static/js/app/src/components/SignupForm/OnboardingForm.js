@@ -5,6 +5,7 @@ import {
   Field,
   reduxForm,
   getFormValues,
+  SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
@@ -13,8 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from './TextField';
 import SelectState from '../form/SelectState';
-import SelectField from './SelectField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '../form/RaisedButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
@@ -31,6 +30,9 @@ import isEmpty from "lodash/isEmpty";
 import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
 import IconInstagram from '../ArtistCard/IconInstagram';
+
+import MultiSelect from '../form/MultiSelect';
+
 
 import {
   updateUserBio,
@@ -60,6 +62,11 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  genreLabel: {
+    fontSize: 16, 
+    color: 'rgba(0,0,0,0.54)',
+    paddingBottom: theme.spacing.unit/2,
   },
   avatar: {
     margin: theme.spacing.unit,
@@ -113,6 +120,18 @@ const styles = theme => ({
     marginRight: 0
   },
 });
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const TAGLINE_CHARS_MAX = MAX_BIO_SHORT_INPUT_LENGTH
 const GENRES_MAX = 3
@@ -169,23 +188,79 @@ class OnboardingForm extends Component {
 
   submit = (values) => {
     const { updateUserBio, musicianid, stagename } = this.props;
+    const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
-      genres: values.genres,
+      genres: genres,
       image: _.get(values, 'image.0'),
     });
 
-    return updateUserBio(data, musicianid).then(res => {
-      if(res.status === 200) {
-        if(res.data.url_fq) {
-          window.location.href = res.data.url_fq
-        } else {
-          // uhhh
+    const errors = {}
+
+    // tagline validation
+    if(!data.bio_short) {
+      errors.bio_short = "This field is required.";
+    }
+
+    // image validation
+    if(!data.image) {
+      errors.image = "Please add a profile photo.";
+    }
+
+    // genres validation
+    if(_.isEmpty(data.genres)) {
+      errors.genres = "Please select at least 1 genre.";
+    }
+
+    // url regex
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/|www\.){1}[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+    
+    // website validation
+    if (data.website && !simple_url_regex.test(data.website)) {
+      errors.website = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+    }
+
+    // facebook validation
+    if (data.facebook && data.facebook.indexOf('facebook.com') === -1) {
+      errors.facebook = "Please use a Facebook link here."
+    } else if (data.facebook && !simple_url_regex.test(data.facebook)) {
+      errors.facebook = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+    }
+
+    // instagram validation
+    if (data.instagram && data.instagram.indexOf('instagram.com') === -1) {
+      errors.facebook = "Please use an Instagram link here."
+    } else if (data.instagram && !simple_url_regex.test(data.instagram)) {
+      errors.instagram = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+    }
+
+    // spotify validation
+    if (data.spotify && data.spotify.indexOf('spotify.com') === -1) {
+      errors.spotify = "Please use a Spotify link here."
+    } else if (data.spotify && !simple_url_regex.test(data.spotify)) {
+      errors.spotify = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+    }
+    
+
+    if(Object.keys(errors).length === 0) {
+      return updateUserBio(data, musicianid).then(res => {
+        if(res.status === 200) {
+          if(res.data.url_fq) {
+            window.location.href = res.data.url_fq
+          } else {
+            // uhhh
+          }
         }
-      }
-    })
-    .catch(errors => {
-      console.log('errors', errors);
-    });
+      })
+      .catch(error => {
+        if (error.response.data) {
+          throw new SubmissionError(error.response.data);
+          // TODO: this should mark form as invalid so submit button is disabled
+        }
+      });
+    } else {
+      throw new SubmissionError(errors);
+    }
+
   }
 
   handleFileDrop = newImageFile => {
@@ -193,7 +268,12 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues, invalid } = this.props
+    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.image || !currentValues.bio_short ? true : false;
+    const genresForSelect = this.state.genres.map(g => ({
+      value: g,
+      label: g
+    }));
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -210,6 +290,7 @@ class OnboardingForm extends Component {
                   handleOnDrop={this.handleFileDrop}
                   validate={[imageIsRequired]}
                 />
+                <FormHelperText>Required</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -220,22 +301,27 @@ class OnboardingForm extends Component {
                   component={TextField}
                   normalize={normalizeTagline}
                 />
-                <FormHelperText>{`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
+                <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="genres"
-                  component={SelectField}
                   label="Genres"
-                  multiple
-                  format={value => value || []}
+                  isMulti
+                  component={MultiSelect}
+                  options={genresForSelect}
+                  helpText="Required • Select up to three."
                   normalize={normalizeGenres}
                 >
-                  {this.state.genres.map(genre => (
-                    <MenuItem key={genre} value={genre}>{genre}</MenuItem>
-                  ))}
                 </Field>
-                <FormHelperText>Select up to three</FormHelperText>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field
+                  name="website"
+                  label="Your Website"
+                  placeholder="http://"
+                  component={TextField}
+                />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -296,7 +382,7 @@ class OnboardingForm extends Component {
               </Grid>
               <Button
                 type="submit"
-                disabled={pristine || submitting}
+                disabled={requiredEmpty || invalid || pristine || submitting}
                 fullWidth
                 variant="contained"
                 color="primary"

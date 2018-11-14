@@ -82,8 +82,8 @@ class ApiArtistCreateTest(OpusTestCase):
         }
         result = self.app_api.post(artist_list_url, params, headers=headers)
         result.status_code.should.equal(HTTPStatus.BAD_REQUEST)
-        result.json()['slug'][0].should.equal('This field must be unique.')
-        result.json()['email'][0].should.equal('This field must be unique.')
+        result.json()['slug'][0].should.equal('That username is already taken.')
+        result.json()['email'][0].should.equal('That email is already taken.')
 
 
     def test_artist_create_slug_exists(self):
