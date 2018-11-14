@@ -214,8 +214,6 @@ class PhotoEdit extends React.Component {
             return <Fragment />;
         }
 
-        console.log("configs", configs)
-
         return (
             <ReactPinchZoomPanContainer
                 initialScale={scale}

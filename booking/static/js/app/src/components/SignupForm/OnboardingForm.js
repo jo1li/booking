@@ -272,12 +272,10 @@ class OnboardingForm extends Component {
       openDialog,
     } = this.props;
 
-    const file = _.get(imageFile, '[0]');
-
     openDialog(
       <ProfilePhotoEditorForm
-        image={file.preview}
-        imageName={file.name}
+        image={imageFile.preview}
+        imageName={imageFile.name}
         onClickConfirm={file => change('image', file)}
       />
     )
