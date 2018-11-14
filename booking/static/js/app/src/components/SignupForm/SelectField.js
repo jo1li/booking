@@ -21,7 +21,7 @@ class SelectField extends React.Component {
         >
           {children}
         </Select>
-        {touched && error && <FormHelperText error="true">{error}</FormHelperText>}
+        {Boolean(touched && error) && <FormHelperText error={true}>{error}</FormHelperText>}
       </FormControl>
     )
   }

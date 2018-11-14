@@ -8,7 +8,6 @@ from django.core.mail import EmailMessage
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 
 
@@ -169,10 +168,16 @@ class ArtistCreateSerializer(serializers.Serializer):
     account_type = serializers.ChoiceField([c[0] for c in Musician.ACCOUNT_TYPE_CHOICES])
     name = serializers.CharField()
     email = serializers.EmailField(
-            validators=[UniqueValidator(queryset=OpusUser.objects.all())]
+            validators=[UniqueValidator(
+                queryset=OpusUser.objects.all(),
+                message='That email is already taken.'
+            )]
         )
     slug = serializers.SlugField(
-            validators=[UniqueValidator(queryset=Musician.objects.all())]
+            validators=[UniqueValidator(
+                queryset=Musician.objects.all(),
+                message='That username is already taken.'
+            )]
         )
 
 
