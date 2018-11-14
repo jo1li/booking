@@ -22,8 +22,6 @@ import PhotoEditor from '../PhotoEditor';
 
 import styles from './styles';
 
-
-
 class EditBioForm extends Component {
   constructor(props) {
     super(props);

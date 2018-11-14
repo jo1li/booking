@@ -57,9 +57,9 @@ const urltoFile = (url, filename, mimeType) =>
 
 /**
  * When ReactPinchZoomPan's parent re-renders ReactPinchZoomPan
- * is re-rendered and the state the internal state is reset. This
- * means that the scale property is reset after each re-render of the parent
- * and in the middle of pinching the image snaps back to the original size.
+ * is re-rendered and the internal state is reset.
+ * This means that the scale property is reset after each re-render of the parent
+ * and if the user is in the middle of zooming, the image will snap back to its original size.
  * This component prevents re-render and so maintains the scale.
  */
 class ReactPinchZoomPanContainer extends Component {
@@ -154,9 +154,7 @@ class PhotoEdit extends React.Component {
     }
 
     /**
-     * @return {Promise} resolves to an object containing a 'file' and 'src'.
-     * 'file' is a file object
-     * 'src' is a base64 encoded string
+     * @return {Promise} resolves to a file object
      */
     async getImage() {
         const src = this.getBase64Image();
@@ -198,7 +196,6 @@ class PhotoEdit extends React.Component {
 
 
     // ReactPinchZoomPan is just being used for scaling with pinch gesture
-    // TODO pinch zoom resets scale to 1 on the start of pinch zoom. it should maintian its scale
     render() {
         const configs = _.pick(this.props, AVATAR_PROPS);
         const {
@@ -221,7 +218,7 @@ class PhotoEdit extends React.Component {
                 scale={scale}
                 maxScale={MAX_SCALE}
                 render={(obj) => {
-                    // This function will only rerender if some subset of the attributes change.
+                    // This function will only rerender if some subset of ReactPinchZoomPanContainer's attributes change.
                     // see `ReactPinchZoomPanContainer.shouldComponentUpdate`
 
                     let nextScale = parseFloat(obj.scale);
@@ -258,7 +255,7 @@ PhotoEdit.defaultProps = {
     initialScale: 1,
 
     // this is not required
-    scale: MAX_SCALE,
+    scale: MIN_SCALE,
     borderRadius: 0,
     style: {},
 }
