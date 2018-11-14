@@ -108,7 +108,12 @@ class SignupForm extends Component {
 
     // name validation
     if(!data.name) {
-      errors.artistName = 'This field is required.';
+      errors.name = 'Name is required.';
+    }
+
+    // slug validation
+    if(!data.slug) {
+      errors.slug = 'This field is required.';
     }
 
     // type validation
@@ -134,8 +139,14 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit } = this.props
-    const account_type = this.props.currentValues.account_type;
+    const { classes, invalid, pristine, submitting, handleSubmit, currentValues } = this.props
+    const account_type = currentValues.account_type;
+    const requiredEmpty = 
+      !account_type || 
+      !currentValues.email || 
+      !currentValues.name ||
+      !currentValues.password ? true : false;
+
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -149,7 +160,7 @@ class SignupForm extends Component {
               </FormControl>
               <div className={classes.typeRadioGroup}>
                 <FormControl margin="normal" fullWidth>
-                  <FormLabel component="legend">Is this profile for an individual or a group?</FormLabel>
+                  <FormLabel component="legend">Is this account for an individual or a group?</FormLabel>
                   <Field
                     component={RadioGroup}
                     aria-label="artist type"
@@ -177,7 +188,7 @@ class SignupForm extends Component {
               </FormControl>
               <Button
                 type="submit"
-                disabled={pristine || submitting}
+                disabled={ invalid || submitting}
                 fullWidth
                 variant="contained"
                 color="primary"
