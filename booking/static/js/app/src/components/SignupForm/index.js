@@ -113,7 +113,7 @@ class SignupForm extends Component {
 
     // type validation
     if(!data.account_type) {
-      errors.artistType = 'Please select an artist type.';
+      errors.account_type = 'Please select an artist type.';
     }
 
     if(Object.keys(errors).length === 0) {
@@ -135,7 +135,7 @@ class SignupForm extends Component {
 
   render() {
     const { classes, pristine, submitting, handleSubmit } = this.props
-    const artistType = this.props.currentValues.artistType;
+    const account_type = this.props.currentValues.account_type;
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -163,7 +163,7 @@ class SignupForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="name"
-                  label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
+                  label={account_type === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
                 />
               </FormControl>
@@ -202,7 +202,7 @@ SignupForm = reduxForm({
 
 const mapStateToProps = (state, props) => ({
   initialValues: {
-    artistType: "individual"
+    account_type: "individual"
   },
   currentValues: getFormValues(ARTIST_SIGNUP)(state) || {},
 
