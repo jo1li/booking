@@ -4,6 +4,7 @@ jobs:
 
   build:
     machine: true
+    parallelism: 2
     working_directory: ~/booking
     steps:
 
@@ -35,6 +36,7 @@ jobs:
 
   unit-python:
     machine: true
+    parallelism: 2
     working_directory: ~/booking
     steps:
       - attach_workspace:
@@ -51,6 +53,7 @@ jobs:
 
   unit-js:
     machine: true
+    parallelism: 2
     working_directory: ~/booking
     steps:
       - attach_workspace:
@@ -67,6 +70,7 @@ jobs:
 
   deploy:
     machine: true
+    parallelism: 2
     working_directory: ~/booking
     steps:
       - attach_workspace:
