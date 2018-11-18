@@ -30,8 +30,8 @@ export const getOpusThumbnailImageURL = (imageURL) => (
 
 // Gets the cloudinary default thumnail image URL, which orients the image
 // and helps with data/rendering
-export const getFaceThumbnailImageURL = (imageURL) => (
-  getCloudinaryURL(imageURL, {thumbnail: true, face: true, width: 42, height: 32})
+export const getThumbnailImageURL = (imageURL) => (
+  getCloudinaryURL(imageURL, {thumbnail: true, width: 42, height: 32})
 );
 
 /**
