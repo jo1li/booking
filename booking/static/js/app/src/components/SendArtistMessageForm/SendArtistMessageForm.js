@@ -25,6 +25,11 @@ import styles from './styles';
 // TODO put in constants file
 const SEND_ARTIST_MESSAGE = 'SEND_ARTIST_MESSAGE';
 
+import {
+  required,
+  validateEmail,
+} from '../../utils/validators';
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class SendArtistMessageForm extends Component {
@@ -96,6 +101,7 @@ class SendArtistMessageForm extends Component {
                         name="name"
                         placeholder="Your name"
                         type="text"
+                        validate={[required]}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -106,6 +112,7 @@ class SendArtistMessageForm extends Component {
                         name="email"
                         placeholder="Your email"
                         type="text"
+                        validate={[validateEmail, required]}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -119,6 +126,7 @@ class SendArtistMessageForm extends Component {
                         type="textarea"
                         multiline
                         fullWidth
+                        validate={[required]}
                     />
                   </Grid>
                 </Grid>
