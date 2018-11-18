@@ -19,16 +19,15 @@ import ModalHeader from '../ModalHeader';
 import {
   sendArtistMessage,
 } from '../../request/requests';
+import {
+  required,
+  validateEmail,
+} from '../../utils/validators';
 
 import styles from './styles';
 
 // TODO put in constants file
 const SEND_ARTIST_MESSAGE = 'SEND_ARTIST_MESSAGE';
-
-import {
-  required,
-  validateEmail,
-} from '../../utils/validators';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
