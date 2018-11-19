@@ -132,12 +132,12 @@ def deploy(image, js_bundle, yaml_env):
             print("No changes")
         else:
             raise
-    else:
-        print(json.dumps(
-            cf_client.describe_stacks(StackName=stack_result['StackId']),
-            indent=2,
-            default=json_serial
-        ))
+
+    print(json.dumps(
+        cf_client.describe_stacks(StackName=stack_result['StackId']),
+        indent=2,
+        default=json_serial
+    ))
 
 
 if __name__ == "__main__":
