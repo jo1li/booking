@@ -5,6 +5,7 @@ jobs:
   build:
     machine: true
     working_directory: ~/booking
+    parallelism: 1
     steps:
 
       - checkout
@@ -35,6 +36,8 @@ jobs:
 
   unit-python:
     machine: true
+    docker_layer_caching: true
+    parallelism: 1
     working_directory: ~/booking
     steps:
       - attach_workspace:
@@ -51,6 +54,8 @@ jobs:
 
   unit-js:
     machine: true
+    docker_layer_caching: true
+    parallelism: 1
     working_directory: ~/booking
     steps:
       - attach_workspace:
@@ -67,6 +72,8 @@ jobs:
 
   deploy:
     machine: true
+    docker_layer_caching: true
+    parallelism: 1
     working_directory: ~/booking
     steps:
       - attach_workspace:
