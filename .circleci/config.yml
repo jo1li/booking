@@ -4,6 +4,7 @@ jobs:
 
   build:
     machine: true
+    parallelism: 2
     working_directory: ~/booking
     parallelism: 1
     steps:

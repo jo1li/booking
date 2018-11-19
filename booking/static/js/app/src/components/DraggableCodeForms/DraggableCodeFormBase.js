@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
-import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 
 import CancelConfirm from '../CancelConfirm';
@@ -8,6 +7,7 @@ import DraggableCodeInputs from './DraggableCodeInputs';
 import HelpSection from './HelpSection';
 import TabbedList from '../HOComponents/TabbedList';
 import ModalHeader from '../ModalHeader';
+import GettingStarted from './GettingStarted';
 import DroppableContainer from '../dragAndDrop/DroppableContainer';
 import {
   getCreatedItems,
@@ -16,6 +16,61 @@ import {
   removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
 import { validate_video_embeds } from '../../utils/validators';
+
+const FormSection = (props) => {
+  const {
+    handleSubmit,
+    submit,
+    provided,
+    classes,
+    currentValues,
+    itemName,
+    copy,
+    width,
+    closeDialog,
+    submitting,
+    submitSucceeded,
+    error,
+    valid,
+    remove,
+    goToTab, // Comes from tabbed list
+  } = props;
+
+  return (
+    <Fragment>
+      <form
+          onSubmit={handleSubmit(submit)}
+          ref={provided.innerRef}
+          className={`${classes.tabBody} ${classes.scrollableBody}`} >
+        {
+          props[itemName].length ?
+          null :
+          <GettingStarted
+              copy={copy.gettingStarted}
+              className={classes.gettingStarted}
+              classes={classes}
+              goToTab={goToTab} />
+        }
+        <DraggableCodeInputs
+            items={currentValues[itemName]}
+            itemName={itemName}
+            placeholder={copy.inputPlaceholder}
+            classes={classes}
+            width={width}
+            remove={remove} />
+      </form>
+      {error && <strong>{error}</strong>}
+      <CancelConfirm
+          onClickCancel={closeDialog}
+          onClickConfirm={submit}
+          isLoading={submitting}
+          success={submitSucceeded}
+          className={classes.footer}
+          isContainer={false}
+          disabled={!valid} />
+    </Fragment>
+  );
+}
 
 // A base for editing models with a `code` attribute that needs a textarea
 class CodeFormBase extends Component {
@@ -118,58 +173,30 @@ class CodeFormBase extends Component {
 
   render() {
     const {
-      handleSubmit,
-      provided,
       classes,
-      currentValues,
-      itemName,
       copy,
-      width,
-      closeDialog,
-      submitting,
-      submitSucceeded,
-      error,
-      valid,
     } = this.props;
+
+    const helpSectionTitles = copy.helpSections.map(section => section.title);
 
     return (
       <Fragment>
         <TabbedList
             classes={classes}
-            tabNames={['embed', 'help']} >
+            tabNames={['embed'].concat(helpSectionTitles)} >
           <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
-          <Fragment>
-            <form
-                onSubmit={handleSubmit(this.submit)}
-                ref={provided.innerRef}
-                className={`${classes.tabBody} ${classes.scrollableBody}`} >
-              <DraggableCodeInputs
-                  items={currentValues[itemName]}
-                  itemName={itemName}
-                  placeholder={copy.inputPlaceholder}
+          <FormSection {...this.props} submit={this.submit} remove={this.removeItemFromForm}/>
+
+          {
+            copy.helpSections.map((section, idx) => {
+              return <HelpSection
+                  key={idx}
+                  className={`${classes.tabBody} ${classes.scrollableBody}`}
                   classes={classes}
-                  width={width}
-                  remove={this.removeItemFromForm} />
-            </form>
-            {error && <strong>{error}</strong>}
-            <CancelConfirm
-                onClickCancel={closeDialog}
-                onClickConfirm={this.submit}
-                isLoading={submitting}
-                success={submitSucceeded}
-                className={classes.footer}
-                isContainer={false}
-                disabled={!valid}
-              />
-
-          </Fragment>
-
-          <HelpSection
-              className={`${classes.tabBody} ${classes.scrollableBody}`}
-              classes={classes}
-              helpCopyRows={copy.helpRows}
-              title={copy.helpSectionTitle} />
+                  helpCopyRows={section.helpRows} />;
+            })
+          }
 
         </TabbedList>
       </Fragment>
@@ -183,7 +210,7 @@ const DraggableCodeFormBase = (props) => {
     <DroppableContainer
         change={change}
         currentValues={currentValues}
-        className={`${classes.container} ${classes.withFooter}`}
+        className={`${className || ''} ${classes.container} ${classes.withFooter}`}
         itemName={itemName} >
       <CodeFormBase {...props} />
     </DroppableContainer>

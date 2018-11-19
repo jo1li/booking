@@ -15,7 +15,7 @@ class TextFieldWithReduxForm extends React.Component {
     return (
       <Fragment>
         <TextField {...input} {...rest} />
-        {Boolean(touched && error) && <FormHelperText error="true">{error}</FormHelperText>}
+        {Boolean(touched && error) && <FormHelperText error={true}>{error}</FormHelperText>}
       </Fragment>
     )
   }
