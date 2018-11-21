@@ -56,7 +56,7 @@ class ApiArtistCreateTest(OpusTestCase):
         m.user.is_musician.should.equal(True)
 
 
-    def test_artist_create_unique_no_slug(self):
+    def test_artist_create_unique_email(self):
 
         artist_list_url = self.reverse_api('artists-list')
 
@@ -64,11 +64,9 @@ class ApiArtistCreateTest(OpusTestCase):
         csrf_token = self.get_csrf_from_headers(result)
 
         email = 'test@sink.sendgrid.net'
-        slug = 'jim-stark'
 
         musician_recipe.make(
             user=user_musician_recipe.make(email=email),
-            slug=slug
         )
 
         headers = {
@@ -79,11 +77,10 @@ class ApiArtistCreateTest(OpusTestCase):
             'password': 'password',
             'account_type': 'individual',
             'name': 'Jim Stark',
-            'slug': slug
         }
         result = self.app_api.post(artist_list_url, params, headers=headers)
         result.status_code.should.equal(HTTPStatus.BAD_REQUEST)
-        result.json()['slug'][0].should.equal('That username is already taken.')
+        result.json()['email'][0].should.equal('That email is already taken.')
 
 
     def test_artist_create_unique_test_slug(self):
