@@ -260,7 +260,14 @@ def signal_musician_pre_save(sender, **kwargs):
     instance = kwargs['instance']
 
     if not instance.slug and instance.stage_name:
-        instance.slug = slugify(instance.stage_name)
+        slug = slugify(instance.stage_name)
+
+        # Check for uniqueness
+        if Musician.objects.filter(slug=slug).exists():
+            count = Musician.objects.filter(slug__startswith=slug).count()
+            slug = "{}-{}".format(slug, count)
+
+        instance.slug = slug
 
 
 @receiver(pre_delete, sender=Musician)
