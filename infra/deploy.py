@@ -151,7 +151,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("--verbose", help="increase output verbosity",
                         action="store_true")
-    parser.add_argument("--env-file", help="Which environment to deploy to", default='booking-stage',
+    parser.add_argument("--env-file", help="Which environment to deploy to",
                         action="store")
     parser.add_argument("--branch", help="Branch deploy", default=None,
                         action="store")
