@@ -89,6 +89,10 @@ export const validate_embed = (code, whitelist, noEmbedCodeErrorMessage) => {
 
 }
 
+export const required = (val) => {
+  return val ? undefined : 'This field is required.';
+}
+
 // TODO: Probably want a different validation function for each social
 // URL, to validate e.g. `https://facebook.com/[username]` specifically
 export const validateURL = (val) => {
@@ -96,6 +100,13 @@ export const validateURL = (val) => {
   // Regex credit: https://www.regextester.com/94502 (modified to require protocol)
   const URL_REGEX = /^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   return URL_REGEX.test(val) ? undefined : 'A valid URL starting with http or https is required.';
+}
+
+export const validateEmail = (val) => {
+  if(!val) return undefined;
+  // Regex credit: https://www.regular-expressions.info/email.html
+  const EMAIL_REGEX = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$', 'i');
+  return EMAIL_REGEX.test(val) ? undefined : 'This email address is not valid.';
 }
 
 export const validateMaxLength = (maxLength) => (val) => {
