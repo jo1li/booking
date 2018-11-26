@@ -84,7 +84,6 @@ class SignupForm extends Component {
     const data = {
       email: values.email,
       name: values.name,
-      slug: values.slug,
       account_type: values.account_type,
       password: values.password
     }
@@ -110,11 +109,6 @@ class SignupForm extends Component {
     // name validation
     if(!data.name) {
       errors.artistName = 'This field is required.';
-    }
-
-    // handle validation
-    if(!data.slug) {
-      errors.artistHandle = 'This field is required.';
     }
 
     // type validation
@@ -171,17 +165,6 @@ class SignupForm extends Component {
                   name="name"
                   label={artistType === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field 
-                  name="slug" 
-                  label="Your Opus URL" 
-                  component={TextField}
-                  normalize={normalizeHandle}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">opuslive.io/m/</InputAdornment>,
-                  }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>

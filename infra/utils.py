@@ -83,7 +83,12 @@ def _parse_parameters(parameters):
 
 
 def _stack_exists(stack_name):
-    stacks = cf_client.list_stacks()['StackSummaries']
+
+    stack_list = cf_client.list_stacks(StackStatusFilter=[
+        'CREATE_IN_PROGRESS','CREATE_FAILED','CREATE_COMPLETE','ROLLBACK_IN_PROGRESS','ROLLBACK_FAILED','ROLLBACK_COMPLETE','UPDATE_IN_PROGRESS','UPDATE_COMPLETE_CLEANUP_IN_PROGRESS','UPDATE_COMPLETE','UPDATE_ROLLBACK_IN_PROGRESS','UPDATE_ROLLBACK_FAILED','UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS','UPDATE_ROLLBACK_COMPLETE','REVIEW_IN_PROGRESS',
+    ])
+
+    stacks = stack_list['StackSummaries']
     for stack in stacks:
         if stack['StackStatus'] == 'DELETE_COMPLETE':
             continue
