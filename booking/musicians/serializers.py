@@ -208,7 +208,6 @@ class ArtistCreateSerializer(serializers.Serializer):
         }
 
 
-
 class ArtistListSerializer(serializers.HyperlinkedModelSerializer):
     url_api = serializers.HyperlinkedIdentityField(view_name='artists-detail')
 
@@ -231,9 +230,11 @@ class ArtistMessageSerializer(serializers.Serializer):
 
         from_email = "{} <{}>".format(validated_data.get('name'), validated_data.get('email'))
 
+        full_message = "{}\n\n---------------\n\nYou received this message via your Opus Profile. If you respond, you will be in direct contact with the sender.".format(validated_data.get('message'))
+
         email = EmailMessage(
             'A message via Opus',
-            validated_data.get('message'),
+            full_message,
             from_email,
             [m.user.email, settings.MESSAGE_ARTIST_CC],
             [],
@@ -247,3 +248,4 @@ class ArtistMessageSerializer(serializers.Serializer):
             'message': validated_data.get('message'),
             'sent': True
         }
+
