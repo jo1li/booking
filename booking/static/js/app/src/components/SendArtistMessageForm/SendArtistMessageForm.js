@@ -82,14 +82,10 @@ class SendArtistMessageForm extends Component {
         handleSubmit,
         classes,
         submitSucceeded,
+        isCurrentUser
     } = this.props;
 
-    return (
-      <div className={`${classes.container} ${classes.withFooter}`}>
-        <ModalHeader classes={classes}>Send a Message</ModalHeader>
-        <div className={classes.scrollableBody}>
-          <Grid container spacing={24}>
-            <Grid item xs={12} lg={12}>
+    const form = (
               <form onSubmit={handleSubmit(this.submit)}>
                 <Grid container spacing={24} direction="row">
                   <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -130,10 +126,32 @@ class SendArtistMessageForm extends Component {
                   </Grid>
                 </Grid>
               </form>
+    );
+
+    const currentUserMessage = (
+      <div>
+        <p>On your public profile, visitors will use this form to contact you about your music!</p>
+      </div>
+    )
+
+    if( isCurrentUser ) {
+      var header = "Opus Messaging";
+    } else {
+      var header = "Send a Message";
+    }
+
+
+    return (
+      <div className={`${classes.container} ${classes.withFooter}`}>
+        <ModalHeader classes={classes}>{header}</ModalHeader>
+        <div className={classes.scrollableBody}>
+          <Grid container spacing={24}>
+            <Grid item xs={12} lg={12}>
+              {!isCurrentUser ? form : currentUserMessage}
             </Grid>
           </Grid>
         </div>
-        <CancelConfirm
+        {!isCurrentUser && <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
             isLoading={submitting}
@@ -141,13 +159,15 @@ class SendArtistMessageForm extends Component {
             className={classes.footer}
             title={'Send Message'}
         />
+        }
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  sendArtistMessage: sendArtistMessage
+  sendArtistMessage: sendArtistMessage,
+  isCurrentUser: state.is_current_user
 })
 
 SendArtistMessageForm = compose(
