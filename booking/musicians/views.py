@@ -460,7 +460,6 @@ class ChangePasswordView(account.views.ChangePasswordView):
         return reverse('musician_settings')
 
 
-
 class SignupView(account.views.SignupView):
 
     form_class = SignupForm
