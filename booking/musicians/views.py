@@ -5,6 +5,7 @@ import json
 from booking.utils import opus_render
 from account.decorators import login_required
 import account.views
+from account.compat import is_authenticated
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
@@ -445,9 +446,19 @@ def venue_questions(request):
     return opus_render(request, "musicians/venue_questions.html")
 
 
-@login_required
-def settings(request):
-    return opus_render(request, "musicians/settings.html")
+
+class ChangePasswordView(account.views.ChangePasswordView):
+    template_name = "v1/musicians/settings.html"
+
+    def get(self, *args, **kwargs):
+        if not is_authenticated(self.request.user):
+            return redirect("opus_login")
+        return super(ChangePasswordView, self).get(*args, **kwargs)
+
+
+    def get_success_url(self):
+        return reverse('musician_settings')
+
 
 
 class SignupView(account.views.SignupView):

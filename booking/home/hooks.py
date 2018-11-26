@@ -30,4 +30,6 @@ class AccountHookSet(AccountDefaultHookSet):
         email.send(fail_silently=False)
 
 
+    def send_password_change_email(self, to, ctx):
+        pass
 
