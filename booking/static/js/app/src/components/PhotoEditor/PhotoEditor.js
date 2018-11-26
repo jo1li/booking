@@ -150,7 +150,7 @@ class PhotoEdit extends React.Component {
      * @returns {Promise} resolves to a file object
      */
     getBlobSrc(src) {
-        return urltoFile(src, this.props.imageName, 'image/png')
+        return urltoFile(src, this.props.imageName || 'image.png', 'image/png')
     }
 
     /**
@@ -158,6 +158,7 @@ class PhotoEdit extends React.Component {
      */
     async getImage() {
         const src = this.getBase64Image();
+        console.log("getImage", src);
         const file = await this.getBlobSrc(src);
         file.preview = src;
         return file;
