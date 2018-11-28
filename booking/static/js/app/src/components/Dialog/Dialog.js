@@ -51,7 +51,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
                     <Dialog
                         isOpen={this.state.isOpen}
                         close={this.closeDialog}
-                        {...this.props}
+                        paperProps={this.props.paperProps}
                     >
                         { content }
                     </Dialog>
