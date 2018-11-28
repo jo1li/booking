@@ -173,12 +173,7 @@ class ArtistCreateSerializer(serializers.Serializer):
                 message='That email is already taken.'
             )]
         )
-    slug = serializers.SlugField(
-            validators=[UniqueValidator(
-                queryset=Musician.objects.all(),
-                message='That username is already taken.'
-            )]
-        )
+    slug = serializers.SlugField(required=False)
 
 
     def create(self, validated_data):
@@ -191,7 +186,7 @@ class ArtistCreateSerializer(serializers.Serializer):
         u.set_password(validated_data.get('password'))
         u.save()
 
-        Musician.objects.create(user=u,
+        m = Musician.objects.create(user=u,
             stage_name=validated_data.get('name'),
             slug=validated_data.get('slug'),
             account_type=validated_data.get('account_type')
@@ -205,11 +200,11 @@ class ArtistCreateSerializer(serializers.Serializer):
         login(self.context['request'], u, backend="django.contrib.auth.backends.ModelBackend")
 
         return {
-            'email': validated_data.get('email'),
+            'email': u.email,
             'password': None,
-            'account_type': validated_data.get('account_type'),
-            'name': validated_data.get('name'),
-            'slug': validated_data.get('slug'),
+            'account_type': m.account_type,
+            'name': m.stage_name,
+            'slug': m.slug,
         }
 
 
