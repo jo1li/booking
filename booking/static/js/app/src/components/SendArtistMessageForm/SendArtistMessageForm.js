@@ -129,8 +129,9 @@ class SendArtistMessageForm extends Component {
     );
 
     const currentUserMessage = (
-      <div>
-        <p>On your public profile, visitors will use this form to contact you about your music!</p>
+      <div style={{textAlign: 'center'}}>
+        <p>On your public profile, visitors will use this button to send you email about your music!</p>
+        <p><img src="https://media.giphy.com/media/6wcBC9tsubD5jrDL6g/giphy.gif" height="240" /></p>
       </div>
     )
 
