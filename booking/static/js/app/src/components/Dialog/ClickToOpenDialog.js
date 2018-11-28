@@ -53,7 +53,6 @@ export const OpenDialogEvent = eventType => ({
 
     const mapStateToProps = (state, props) => ({
       isDisabled: getIsDisabled ? getIsDisabled(state) : false,
-      stupidProp: 'dumb'
     });
 
     return compose(
