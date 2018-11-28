@@ -230,7 +230,7 @@ class ArtistMessageSerializer(serializers.Serializer):
 
         from_email = "{} <{}>".format(validated_data.get('name'), validated_data.get('email'))
 
-        full_message = "{}\n\n---------------\n\nYou received this message via your Opus Profile. If you respond, you will be in direct contact with the sender.".format(validated_data.get('message'))
+        full_message = "{}\n\n---------------\n\n{} sent this message to you from your profile on Opus. Don't worry, we haven't shared your email with them. They'll only see it if you decide to respond.".format(validated_data.get('message'), validated_data.get('name'))
 
         email = EmailMessage(
             'A message via Opus',
