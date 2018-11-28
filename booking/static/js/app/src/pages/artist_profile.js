@@ -25,6 +25,7 @@ export default function render_artist_profile() {
                 triggerSelector: '#open-send-artist-message-form',
                 DialogContent: SendArtistMessageForm,
             }),
+        paperProps: { style: { maxHeight:'420px' } },
         node: 'send-artist-message-form',
     });
 
