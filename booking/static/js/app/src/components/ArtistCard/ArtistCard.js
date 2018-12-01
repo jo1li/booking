@@ -63,7 +63,7 @@ class ArtistCard extends React.Component {
     if (url) {
       return (
         <Grid key={name} item align="center">
-          <a href={url} className={props.classes.serviceLink}>
+          <a href={url} target="_blank" className={props.classes.serviceLink}>
             {base}
           </a>
         </Grid>
