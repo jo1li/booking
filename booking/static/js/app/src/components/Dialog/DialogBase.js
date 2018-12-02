@@ -16,6 +16,7 @@ const styles = theme => ({
 const DialogBase = ({
       children,
       classes,
+      paperProps,
       fullScreen,
       fullWidth,
       maxWidth,
@@ -32,6 +33,7 @@ const DialogBase = ({
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           className={classes.dialog}
+          PaperProps={paperProps}
         >
           <div className={classes.iconContainer}>
             <Close

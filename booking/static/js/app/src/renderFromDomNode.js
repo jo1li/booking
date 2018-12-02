@@ -26,7 +26,7 @@ const theme = createMuiTheme({
     }
 });
 
-const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) => {
+const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className, ...props }) => {
     const domNode = document.getElementById(node);
     if (!domNode) {
         return;
@@ -45,6 +45,7 @@ const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className }) =
                         <Component
                             domNode={domNode}
                             {...componentProps}
+                            {...props}
                             className={className || ''}
                         />
                 </Provider>
