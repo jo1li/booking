@@ -30,6 +30,18 @@
     <script src="{% static 'js/load-image.all.min.js' %}" defer></script>
     {% endblock %}
 
+    {% if tsettings.ENABLE_GOOGLE_ANALYTICS %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77106169-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-77106169-3');
+    </script>
+    {% endif %}
+
 </head>
 <body>
     <div id="wrapper">

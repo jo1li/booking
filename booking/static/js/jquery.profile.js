@@ -19,7 +19,6 @@ function initFixedBlocks() {
           jQuery('#artist-card').stickyScrollBlock({
             setBoxHeight: false,
             activeClass: 'fixed-position',
-            container: '.js-container',
             positionType: 'fixed',
             extraTop: function() {
               const NAV_BAR_HEIGHT = navBar.outerHeight();

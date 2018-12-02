@@ -9,7 +9,8 @@ def settings_context_processor(request):
         'tsettings': {
             'SHOW_LOGIN_SIGNUP': settings.SHOW_LOGIN_SIGNUP,
             'STATIC_JS_APP_BASE_URL': settings.STATIC_JS_APP_BASE_URL,
-            'STATIC_JS_APP_BUNDLE': settings.STATIC_JS_APP_BUNDLE
+            'STATIC_JS_APP_BUNDLE': settings.STATIC_JS_APP_BUNDLE,
+            'ENABLE_GOOGLE_ANALYTICS': settings.ENABLE_GOOGLE_ANALYTICS
         }
     }
 
