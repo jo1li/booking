@@ -291,6 +291,10 @@ class OnboardingForm extends Component {
       value: g,
       label: g
     }));
+
+    console.log("requiredEmpty: ", requiredEmpty)
+    console.log("invalid: ", invalid)
+
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -399,7 +403,7 @@ class OnboardingForm extends Component {
               </Grid>
               <Button
                 type="submit"
-                disabled={requiredEmpty || invalid || pristine || submitting}
+                disabled={requiredEmpty || submitting}
                 fullWidth
                 variant="contained"
                 color="primary"
