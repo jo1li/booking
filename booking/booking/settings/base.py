@@ -298,3 +298,4 @@ MESSAGE_ARTIST_CC = get_env_variable('MESSAGE_ARTIST_CC', default='info@opuslive
 
 SHOW_LOGIN_SIGNUP = True
 ENABLE_GOOGLE_ANALYTICS = False
+ENABLE_HOTJAR = False
