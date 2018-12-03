@@ -73,6 +73,7 @@ const copy = {
     }
   ],
   gettingStarted: {
+    mobileHowTo: "We're still ironing out the kinks on mobile devices. For the best experience, add audio tracks on a laptop or desktop computer.",
     howTo: `To add an audio track, copy and paste the embed code from a Spotify or Soundcloud track below.`,
     example: `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https%3A//api.soundcloud.com/tracks/34839210&visual=true"></iframe>`,
     showHelpLink: false,

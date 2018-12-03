@@ -8,7 +8,8 @@ const GettingStarted = (props) => {
     <div className={className || ''}>
       <Grid container direction="row" spacing={32}>
         <Grid container item direction="column" xs={12} sm={6} md={6} lg={6}>
-          <Grid item>{copy.howTo}</Grid>
+          <Grid className={classes.mobileHowTo} item>{copy.mobileHowTo}</Grid>
+          <Grid className={classes.howTo} item>{copy.howTo}</Grid>
           <Grid item>
             {
               showHelpLink ?
