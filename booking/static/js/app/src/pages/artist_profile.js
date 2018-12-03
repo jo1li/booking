@@ -11,6 +11,7 @@ import EditPhotosButton from '../components/EditPhotosButton';
 import CoverPhoto from '../components/CoverPhoto';
 import { ClickToOpenDialog } from '../components/Dialog';
 import RenderFromDomNode from '../renderFromDomNode';
+import loadInitialState from '../loadInitialState';
 import _ from 'lodash';
 
 export default function render_artist_profile() {
@@ -20,11 +21,14 @@ export default function render_artist_profile() {
         node: 'artist-card',
     });
 
+    const initialState = loadInitialState();
+
     RenderFromDomNode({
         Component: ClickToOpenDialog({
                 triggerSelector: '#open-send-artist-message-form',
                 DialogContent: SendArtistMessageForm,
             }),
+        paperProps: initialState.is_current_user ? { style: { maxHeight:'420px' } } : null,
         node: 'send-artist-message-form',
     });
 

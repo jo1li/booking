@@ -22,6 +22,7 @@ export const OpenDialogEvent = eventType => ({
     DialogContent,
     DialogComponent = FullScreenDialog,
     getIsDisabled,
+    paperProps
 }) => {
     class Container extends Component {
         constructor() {
