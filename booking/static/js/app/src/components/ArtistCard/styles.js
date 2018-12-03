@@ -167,6 +167,7 @@ const styles = theme => ({
     },
   },
   disabledColor: {
+    opacity: 0,
     color: theme.palette.grey[200],
     marginTop: 4,
   },
