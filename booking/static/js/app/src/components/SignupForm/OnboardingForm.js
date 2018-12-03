@@ -196,7 +196,7 @@ class OnboardingForm extends Component {
   }
 
   submit = async (values) => {
-    const { updateUserBio, musicianid, stagename, imageFile } = this.props;
+    const { updateUserBio, musicianid, imageFile } = this.props;
 
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
@@ -222,32 +222,34 @@ class OnboardingForm extends Component {
     }
 
     // url regex
-    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/|www\.){1}[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
 
     // website validation
     if (data.website && !simple_url_regex.test(data.website)) {
-      errors.website = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+      errors.website = "This link looks invalid. Please make sure the link starts with http:// or https://";
     }
+
+    const urlerror = "This link looks invalid. Please check for typos and make sure the link starts with https://";
 
     // facebook validation
     if (data.facebook && data.facebook.indexOf('facebook.com') === -1) {
       errors.facebook = "Please use a Facebook link here."
     } else if (data.facebook && !simple_url_regex.test(data.facebook)) {
-      errors.facebook = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+      errors.facebook = urlerror;
     }
 
     // instagram validation
     if (data.instagram && data.instagram.indexOf('instagram.com') === -1) {
-      errors.facebook = "Please use an Instagram link here."
+      errors.instagram = "Please use an Instagram link here."
     } else if (data.instagram && !simple_url_regex.test(data.instagram)) {
-      errors.instagram = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+      errors.instagram = urlerror;
     }
 
     // spotify validation
     if (data.spotify && data.spotify.indexOf('spotify.com') === -1) {
       errors.spotify = "Please use a Spotify link here."
     } else if (data.spotify && !simple_url_regex.test(data.spotify)) {
-      errors.spotify = "This link looks invalid. Please check for typos and make sure the link starts with http or www.";
+      errors.spotify = urlerror;
     }
 
 
@@ -264,6 +266,7 @@ class OnboardingForm extends Component {
     } else {
       throw new SubmissionError(errors);
     }
+
   }
 
   openPhotoEditor(imageFile) {
@@ -288,6 +291,7 @@ class OnboardingForm extends Component {
       value: g,
       label: g
     }));
+
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -304,7 +308,7 @@ class OnboardingForm extends Component {
                   handleOnDrop={this.openPhotoEditor}
                   validate={[imageIsRequired]}
                 />
-                <FormHelperText>Required</FormHelperText>
+                <FormHelperText style={{ marginLeft: '4px'}}>Required</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -396,7 +400,7 @@ class OnboardingForm extends Component {
               </Grid>
               <Button
                 type="submit"
-                disabled={requiredEmpty || invalid || pristine || submitting}
+                disabled={requiredEmpty || submitting}
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -420,16 +424,18 @@ const mapStateToProps = (state, props) => ({
   updateUserBio: updateUserBio,
   getGenres: getGenres,
   musicianId: props.musicianId,
-  stagename: props.stage_name,
   imageFile: selectImageFile(state),
   imagePreview: selectImagePreview(state),
 })
 
+// Pulling this out of compose helps initialValues behave correctly.
+//  https://stackoverflow.com/a/47475674/103315
+OnboardingForm = reduxForm({
+  form: ARTIST_ONBOARDING,
+})(OnboardingForm)
+
 export default compose(
   withStyles(styles),
-  reduxForm({
-    form: ARTIST_ONBOARDING,
-  }),
   connect(mapStateToProps),
   FullScreenDialog,
 )(OnboardingForm);
