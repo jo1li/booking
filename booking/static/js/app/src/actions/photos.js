@@ -5,8 +5,8 @@ import * as requests from '../request/requests';
 
 export function createArtistPhoto({artistId, file}, callback) {
     return (dispatch, getState) => {
-        return requests.createPhoto({artistId, file}
-            ).then(res => {
+        return requests.createPhoto({artistId, file})
+            .then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
                 return res;
             }).then((res) => {
