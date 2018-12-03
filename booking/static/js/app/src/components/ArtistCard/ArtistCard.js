@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import ConnectedServiceIcon from './ConnectedServiceIcon';
 import Edit from 'react-feather/dist/icons/edit';
 
+import { getOrientedImageURL } from '../../helpers/imageHelpers';
 import styles from './styles';
 import UserEditForm from '../UserEditForm';
 
@@ -21,8 +22,10 @@ class ArtistCard extends React.Component {
     const { classes, profile } = props;
     const { image, stage_name } = profile;
 
+    const orientedImage = getOrientedImageURL(image)
+
     return (
-      <CardMedia className={classes.avatarSection} image={image} title={stage_name}>
+      <CardMedia className={classes.avatarSection} image={orientedImage} title={stage_name}>
         { !image ? <span className={classes.avatarStandIn}>No Photo</span> : null}
         { this.renderOnTour(props) }
       </CardMedia>
