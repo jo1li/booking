@@ -292,9 +292,6 @@ class OnboardingForm extends Component {
       label: g
     }));
 
-    console.log("requiredEmpty: ", requiredEmpty)
-    console.log("invalid: ", invalid)
-
     return (
       <React.Fragment>
         <CssBaseline/>
@@ -431,11 +428,14 @@ const mapStateToProps = (state, props) => ({
   imagePreview: selectImagePreview(state),
 })
 
+// Pulling this out of compose helps initialValues behave correctly.
+//  https://stackoverflow.com/a/47475674/103315
+OnboardingForm = reduxForm({
+  form: ARTIST_ONBOARDING,
+})(OnboardingForm)
+
 export default compose(
   withStyles(styles),
-  reduxForm({
-    form: ARTIST_ONBOARDING,
-  }),
   connect(mapStateToProps),
   FullScreenDialog,
 )(OnboardingForm);
