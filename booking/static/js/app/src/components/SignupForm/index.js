@@ -111,11 +111,6 @@ class SignupForm extends Component {
       errors.name = 'Name is required.';
     }
 
-    // slug validation
-    if(!data.slug) {
-      errors.slug = 'This field is required.';
-    }
-
     // type validation
     if(!data.account_type) {
       errors.account_type = 'Please select an artist type.';
@@ -141,9 +136,9 @@ class SignupForm extends Component {
   render() {
     const { classes, invalid, pristine, submitting, handleSubmit, currentValues } = this.props
     const account_type = currentValues.account_type;
-    const requiredEmpty = 
-      !account_type || 
-      !currentValues.email || 
+    const requiredEmpty =
+      !account_type ||
+      !currentValues.email ||
       !currentValues.name ||
       !currentValues.password ? true : false;
 
