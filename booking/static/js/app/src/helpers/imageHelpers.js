@@ -37,6 +37,7 @@ export const getThumbnailImageURL = (imageURL) => (
 /**
 * uploaded images on mobile are typically oriented incorrectly.
 * loadImage corrects the image orientation.
+* loadImage is located in load-image.all.min.js in booking/static/js/
 * https://github.com/blueimp/JavaScript-Load-Image
 */
 export const orientImage = (file, callback, options) => {
