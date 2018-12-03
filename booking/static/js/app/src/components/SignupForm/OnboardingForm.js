@@ -196,7 +196,7 @@ class OnboardingForm extends Component {
   }
 
   submit = async (values) => {
-    const { updateUserBio, musicianid, stagename, imageFile } = this.props;
+    const { updateUserBio, musicianid, imageFile } = this.props;
 
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
     const data = Object.assign({}, values, {
@@ -307,7 +307,7 @@ class OnboardingForm extends Component {
                   handleOnDrop={this.openPhotoEditor}
                   validate={[imageIsRequired]}
                 />
-                <FormHelperText>Required</FormHelperText>
+                <FormHelperText style={{ marginLeft: '4px'}}>Required</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -423,7 +423,6 @@ const mapStateToProps = (state, props) => ({
   updateUserBio: updateUserBio,
   getGenres: getGenres,
   musicianId: props.musicianId,
-  stagename: props.stage_name,
   imageFile: selectImageFile(state),
   imagePreview: selectImagePreview(state),
 })
