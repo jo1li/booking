@@ -55,6 +55,7 @@ const copy = {
     }
   ],
   gettingStarted: {
+    mobileHowTo: "We're still ironing out the kinks on mobile devices. For the best experience, add videos on a laptop or desktop computer.",
     howTo: `To get started, find a YouTube video, hit the Share button, and then look for the ${LEFT_DOUBLE_QUOTES}Embed${RIGHT_DOUBLE_QUOTES} option. Paste the embed code below.`,
     example: `<iframe width="560" height="315" src="https://www.youtube.com/embed/0he7sPQ7xwE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
     showHelpLink: true,

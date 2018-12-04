@@ -123,11 +123,27 @@ const styles = theme => {
       fontSize: '14px',
       cursor: 'pointer',
     },
+    mobileHowTo: {
+      backgroundColor: theme.palette.grey[200],
+      padding: theme.spacing.unit * 2,
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      mobileHowTo: {
+        display: 'none',
+      }
+    },
 
     [theme.breakpoints.down('xs')]: {
       ...parentStyles[theme.breakpoints.down('xs')],
       gettingStartedExampleContainer: {
         display: 'none',
+      },
+      howTo: {
+        display: 'none',
+      },
+      mobileHowTo: {
+        display: 'block',
       },
       helpTextContainer: {
         marginTop: theme.spacing.unit,
