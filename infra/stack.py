@@ -184,16 +184,16 @@ task_definition = t.add_resource(TaskDefinition(
                     Value=Ref(static_js_app_bundle)
                 )
             ],
-            HealthCheck=HealthCheck(
-                Command=[
-                    "CMD-SHELL",
-                    "curl -f http://localhost/healthcheck || exit 1"
-                ],
-                Interval=10,
-                Timeout=5,
-                Retries=3,
-                StartPeriod=15
-            ),
+            # HealthCheck=HealthCheck(
+            #     Command=[
+            #         "CMD-SHELL",
+            #         "curl -f http://localhost/healthcheck || exit 1"
+            #     ],
+            #     Interval=10,
+            #     Timeout=5,
+            #     Retries=3,
+            #     StartPeriod=15
+            # ),
             LogConfiguration=LogConfiguration(
                 LogDriver='awslogs',
                 Options={
