@@ -8,6 +8,7 @@ const URL_OPTIONS = {
   fill: () => 'c_fill',
   face: () => 'g_face',
   thumbnail: () => 'c_thumb',
+  autoOriented: () => 'a_auto',
 }
 
 const getCloudinaryURL = (imageURL, options) => {
@@ -32,6 +33,13 @@ export const getOpusThumbnailImageURL = (imageURL) => (
 // and helps with data/rendering
 export const getThumbnailImageURL = (imageURL) => (
   getCloudinaryURL(imageURL, {thumbnail: true, width: 42, height: 32})
+);
+
+// Gets the cloudinary image URL with an auto-orientation transformation
+// NB This doesn't seem to be necessary if any other transformation config is
+// present in the URL.
+export const getOrientedImageURL = (imageURL) => (
+  getCloudinaryURL(imageURL, {autoOriented: true})
 );
 
 /**
