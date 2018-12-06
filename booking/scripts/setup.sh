@@ -27,6 +27,7 @@ python manage.py initial_tags
 # Move static assets into place
 if [[ $* != *--skip-collect* ]]
 then
+    python manage.py compilescss
     python manage.py collectstatic --noinput -i node_modules
 else
     echo "Skipping collect 4 speedzz!!!1!"
