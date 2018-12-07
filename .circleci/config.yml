@@ -112,3 +112,5 @@ workflows:
             requires:
               - unit-python
               - unit-js
+            branches:
+                ignore: /production/
