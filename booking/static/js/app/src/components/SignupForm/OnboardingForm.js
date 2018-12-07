@@ -40,7 +40,12 @@ import MultiSelect from '../form/MultiSelect';
 
 import validator from 'validator';
 
-console.log(validator);
+import {
+  updateUserBio,
+  getGenres,
+} from '../../request/requests';
+
+import { MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
 
 const validatorOptions = {
   protocols: ['http','https'],
@@ -51,14 +56,6 @@ const validatorOptions = {
 const validateURL = (url) => {
   return validator.isURL(url, validatorOptions);
 }
-
-
-import {
-  updateUserBio,
-  getGenres,
-} from '../../request/requests';
-
-import { MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
 
 const styles = theme => ({
   layout: {
