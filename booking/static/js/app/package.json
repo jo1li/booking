@@ -31,7 +31,8 @@
     "react-swipeable-views": "^0.12.14",
     "redux-form": "^7.4.2",
     "redux-form-validators": "^2.7.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

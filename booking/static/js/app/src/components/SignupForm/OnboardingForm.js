@@ -38,6 +38,20 @@ import { selectImageFile, selectImagePreview } from '../../selectors/onboardingS
 
 import MultiSelect from '../form/MultiSelect';
 
+import validator from 'validator';
+
+console.log(validator);
+
+const validatorOptions = {
+  protocols: ['http','https'],
+  require_protocol: true,
+  disallow_auth: true
+}
+
+const validateURL = (url) => {
+  return validator.isURL(url, validatorOptions);
+}
+
 
 import {
   updateUserBio,
@@ -222,7 +236,7 @@ class OnboardingForm extends Component {
     }
 
     // url regex
-    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
 
     // website validation
     if (data.website && !simple_url_regex.test(data.website)) {
@@ -232,23 +246,23 @@ class OnboardingForm extends Component {
     const urlerror = "This link looks invalid. Please check for typos and make sure the link starts with https://";
 
     // facebook validation
-    if (data.facebook && data.facebook.indexOf('facebook.com') === -1) {
+    if (data.facebook && data.facebook.toLowerCase().indexOf('facebook.com') === -1) {
       errors.facebook = "Please use a Facebook link here."
-    } else if (data.facebook && !simple_url_regex.test(data.facebook)) {
+    } else if (data.facebook && !validateURL(data.facebook)) {
       errors.facebook = urlerror;
     }
 
     // instagram validation
-    if (data.instagram && data.instagram.indexOf('instagram.com') === -1) {
+    if (data.instagram && data.instagram.toLowerCase().indexOf('instagram.com') === -1) {
       errors.instagram = "Please use an Instagram link here."
-    } else if (data.instagram && !simple_url_regex.test(data.instagram)) {
+    } else if (data.instagram && !validateURL(data.instagram)) {
       errors.instagram = urlerror;
     }
 
     // spotify validation
-    if (data.spotify && data.spotify.indexOf('spotify.com') === -1) {
+    if (data.spotify && data.spotify.toLowerCase().indexOf('spotify.com') === -1) {
       errors.spotify = "Please use a Spotify link here."
-    } else if (data.spotify && !simple_url_regex.test(data.spotify)) {
+    } else if (data.spotify && !validateURL(data.spotify)) {
       errors.spotify = urlerror;
     }
 
