@@ -97,15 +97,29 @@ jobs:
 
       - restore_cache:
           keys:
+            - infra-requirements-v2-{{ checksum "./infra/requirements.txt" }}
+
+      - restore_cache:
+          keys:
             - node-modules-v2-{{ checksum "booking/static/js/app/package.json" }}
+
+      - run:
+          name: Install infra requirements
+          command: |
+            cd ~/booking/
+
+            virtualenv infra-requirements
+            source infra-requirements/bin/activate
+
+            # Install dependencies
+            pip install -r ./infra/requirements.txt
 
       - run:
           name: Deploy to sandbox env
           command: |
             cd ~/booking/
 
-            # Install dependencies
-            pip install -r ./infra/requirements.txt
+            source infra-requirements/bin/activate
 
             # Build
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
@@ -114,6 +128,11 @@ jobs:
               BRANCH_NAME=$(echo $CIRCLE_BRANCH | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
               ./infra/deploy.py --env-file ./infra/config/booking-stage.yml --branch=$BRANCH_NAME
             fi
+
+      - save_cache:
+          key: infra-requirements-v2-{{ checksum "./infra/requirements.txt" }}
+          paths:
+            - infra-requirements
 
       - save_cache:
           key: node-modules-v2-{{ checksum "booking/static/js/app/package.json" }}
