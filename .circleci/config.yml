@@ -62,8 +62,17 @@ jobs:
       - attach_workspace:
           at: ~/booking
 
+      - restore_cache:
+          keys:
+            - node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+
       - run:
           command: sudo ~/booking/docker-compose build web-js
+
+      - save_cache:
+          key: node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+          paths:
+            - ./booking/static/js/app/node_modules/
 
       - run:
           name: Run Javascript Tests!!!!!1!!
@@ -81,6 +90,11 @@ jobs:
           at: ~/booking
       - run:
           command: env
+
+      - restore_cache:
+          keys:
+            - node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+
       - run:
           name: Deploy to sandbox env
           command: |
@@ -96,6 +110,11 @@ jobs:
               BRANCH_NAME=$(echo $CIRCLE_BRANCH | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
               ./infra/deploy.py --env-file ./infra/config/booking-stage.yml --branch=$BRANCH_NAME
             fi
+
+      - save_cache:
+          key: node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+          paths:
+            - ./booking/static/js/app/node_modules/
 
 workflows:
   version: 2
