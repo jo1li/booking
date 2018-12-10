@@ -70,7 +70,7 @@ jobs:
       - run:
           command: sudo ~/booking/docker-compose build web-js
 
-      - run: ls -l booking/static/js/app/node_modules/
+      - run: ls -l booking/static/js/app/
 
       - save_cache:
           key: node-modules-v2-{{ checksum "./booking/static/js/app/package.json" }}
