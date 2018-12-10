@@ -62,17 +62,21 @@ jobs:
       - attach_workspace:
           at: ~/booking
 
+
       - restore_cache:
           keys:
-            - node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+            - node-modules-v2-{{ checksum "booking/static/js/app/package.json" }}
 
       - run:
           command: sudo ~/booking/docker-compose build web-js
 
+      - run: ls -l booking/static/js/app/node_modules/
+
       - save_cache:
-          key: node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+          key: node-modules-v2-{{ checksum "./booking/static/js/app/package.json" }}
           paths:
-            - ./booking/static/js/app/node_modules/
+            - booking/static/js/app/node_modules/
+
 
       - run:
           name: Run Javascript Tests!!!!!1!!
@@ -93,7 +97,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+            - node-modules-v2-{{ checksum "booking/static/js/app/package.json" }}
 
       - run:
           name: Deploy to sandbox env
@@ -112,9 +116,9 @@ jobs:
             fi
 
       - save_cache:
-          key: node-modules-v1-{{ checksum "./booking/static/js/app/package.json" }}
+          key: node-modules-v2-{{ checksum "booking/static/js/app/package.json" }}
           paths:
-            - ./booking/static/js/app/node_modules/
+            - booking/static/js/app/node_modules/
 
 workflows:
   version: 2
