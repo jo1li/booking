@@ -4,8 +4,10 @@
     <div class="footer-container">
         <ul class="footer-list footer-nav-links full-row">
             <li><a class="footer-nav-link" href="/">Home</a></li>
+            {% if not request.user.is_authenticated %}
             <li><a class="footer-nav-link" href="/signup">Sign up</a></li>
             <li><a class="footer-nav-link" href="/account/login">Log in</a></li>
+            {% endif %}
         </ul>
 
         <ul class="footer-list footer-social-links">

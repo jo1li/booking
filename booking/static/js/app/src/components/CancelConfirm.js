@@ -43,7 +43,8 @@ const CancelConfirm = (props) => {
     onClickConfirm,
     isLoading,
     success,
-    disabled
+    disabled,
+    confirmText
   } = props;
 
   return (
@@ -59,7 +60,7 @@ const CancelConfirm = (props) => {
         {/* TODO refactor this, this is awful*/}
         { isLoading ? <CircularProgress /> : null }
         { !isLoading && success ? <CheckCircle /> : null }
-        { !isLoading && !success ? <Fragment>Save</Fragment> : null }
+        { !isLoading && !success ? <Fragment>{confirmText}</Fragment> : null }
       </Button>
     </Grid>
   );
@@ -79,7 +80,8 @@ const CenteredCancelConfirm = (props) => {
 
 
 CancelConfirm.defaultProps = {
-    disabled: false
+    disabled: false,
+    confirmText: 'Save'
 }
 
 export default withStyles(styles)(CenteredCancelConfirm);
