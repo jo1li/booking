@@ -26,9 +26,6 @@ ALLOWED_HOSTS = [
 ]
 
 DEFAULT_HTTP_PROTOCOL = "https"
-SECURE_SSL_REDIRECT = False
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_REDIRECT_EXEMPT = ["^/healthcheck$"]
 
 STATIC_JS_APP_BASE_URL = '/static/js/app/build/static/js/'
 

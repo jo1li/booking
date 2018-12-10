@@ -155,6 +155,7 @@ class SendArtistMessageForm extends Component {
         {!isCurrentUser && <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
+            confirmText='Send'
             isLoading={submitting}
             success={submitSucceeded}
             className={classes.footer}

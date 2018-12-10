@@ -1,11 +1,20 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import format_html
+
 import tagulous
 
 from musicians.models import *
 
-class MusicianAdmin(admin.ModelAdmin):
-    list_display = ['stage_name', 'on_tour']
 
+class MusicianAdmin(admin.ModelAdmin):
+    list_display = ['stage_name', 'url_fq_html', 'on_tour']
+
+    def url_fq_html(self, obj):
+        return format_html(
+            '<a href="{url}">{url}</a>',
+            url=reverse('musician_profile', kwargs={'slug': obj.slug})
+        )
 
 class MusicianAudioAdmin(admin.ModelAdmin):
     list_display = ['musician', 'order']
