@@ -1,6 +1,6 @@
 import os
 import json
-from django.http import JsonResponse, HttpResponse, HttpResponseNotFound
+from django.http import JsonResponse, HttpResponse, HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import redirect
 from django.contrib import auth
 from django.urls import reverse
@@ -30,13 +30,19 @@ def deploy(request):
 
 
 def handler404(request):
-    print("handler404")
 
     template = opus_get_template_path(request, "404.html")
     html404 = render_to_string(template)
 
     return HttpResponseNotFound(html404)
 
+
+def handler500(request):
+
+    template = opus_get_template_path(request, "500.html")
+    html500 = render_to_string(template)
+
+    return HttpResponseServerError(html500)
 
 
 @ensure_csrf_cookie

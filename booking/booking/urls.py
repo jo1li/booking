@@ -36,11 +36,13 @@ artist_router.register(r'messages', ArtistMessageViewSet, base_name='artist-mess
 venue_router = routers.NestedSimpleRouter(top_router, r'venues', lookup='venue')
 
 from home.views import handler404 as handler404View
+from home.views import handler500 as handler500View
 
 # Django will serve the *first* urlpattern that matches
 
 urlpatterns = [
     path('404', handler404View),
+    path('500', handler500View),
     path('', include("home.urls")),
     path('', include('social_django.urls', namespace='social')),
     path('signup/', signup, name="opus_react_signup"),
