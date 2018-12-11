@@ -1,12 +1,13 @@
 import os
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.contrib import auth
 from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from booking.utils import opus_render
+from booking.utils import opus_render, opus_get_template_path
+from django.template.loader import render_to_string
 
 from musicians.models import Musician
 
@@ -28,6 +29,16 @@ def deploy(request):
         return JsonResponse({})
 
 
+def handler404(request):
+    print("handler404")
+
+    template = opus_get_template_path(request, "404.html")
+    html404 = render_to_string(template)
+
+    return HttpResponseNotFound(html404)
+
+
+
 @ensure_csrf_cookie
 def index(request):
     return opus_render(request, "home/index.html")
@@ -35,6 +46,7 @@ def index(request):
 
 def artists(request):
     return opus_render(request, "home/artists.html")
+
 
 def venues(request):
     return opus_render(request, "home/venues.html")
@@ -69,7 +81,6 @@ class LoginView(account.views.LoginView):
         url = reverse("musician_profile", kwargs={'slug': musician.slug})
 
         return url
-
 
 
 class ConfirmEmailView(account.views.ConfirmEmailView):
