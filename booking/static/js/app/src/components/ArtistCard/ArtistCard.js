@@ -48,18 +48,13 @@ class ArtistCard extends React.Component {
   renderSocialService(name, service_url, service_metric, props) {
     const url = service_url !== null ? service_url : undefined;
     const metric = service_metric !== null ? service_metric : undefined;
-    const activeClass = url ? props.classes.serviceConnected : '';
-    const serviceClasses = `${props.classes.service} ${activeClass}`;
 
     const base = (
       <ButtonBase disabled={url ? false : true} className={props.classes.serviceButton}>
-        <Paper elevation={0} className={serviceClasses}>
           <ConnectedServiceIcon className={props.classes.padTopSm} service={name} active={url ? true : false} />
-          {metric
-            ? (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.stat}`} noWrap>{metric}</Typography>)
-            : (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.disabledColor}`}>—</Typography>)
+          {metric && 
+            (<Typography variant="body1" className={`${props.classes.serviceMetric} ${props.classes.stat}`} noWrap>{metric}</Typography>)
           }
-        </Paper>
       </ButtonBase>
     )
 
@@ -114,7 +109,7 @@ class ArtistCard extends React.Component {
     } = profile;
 
     return (
-      <Card elevation={8} className={classes.card}>
+      <Card elevation={6} className={classes.card}>
         {isInReview && (
           this.renderMedia(this.props)
         )}
@@ -124,7 +119,7 @@ class ArtistCard extends React.Component {
             {isEditable && (
               <Grid container wrap="nowrap" spacing={8} justify="space-between">
                 <Grid item>
-                  <Typography variant="title" className={classes.stageName} component="h2" align="left">
+                  <Typography variant="h6" className={classes.stageName} align="left">
                     {stage_name}
                   </Typography>
                 </Grid>
@@ -136,18 +131,18 @@ class ArtistCard extends React.Component {
               </Grid>
             )}
             {!isEditable && (
-              <Typography variant="title" component="h2" align="left" style={{fontWeight: 400}}>
+              <Typography variant="h6" className={classes.stageName} align="left">
                 {stage_name}
               </Typography>
             )}
-            <Typography gutterBottom={true} variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap align="left">
+            <Typography gutterBottom={true} color="primary" variant="caption" style={{textTransform: 'uppercase', marginTop: '4px'}} noWrap align="left">
               {genres.map(g => g.name).join(', ')}
             </Typography>
             <Typography className={classes.tagline} variant="body1" align="left">
               {bio_short}
             </Typography>
           </CardContent>
-          <Grid container className={classes.audience} spacing={16}>
+          {/* <Grid container className={classes.audience} spacing={16}>
             <Grid item xs={12}>
               <Grid container className={classes.socialServices} spacing={16}>
                 {this.renderSocialService("facebook",facebook,facebook_followers,this.props)}
@@ -155,7 +150,12 @@ class ArtistCard extends React.Component {
                 {this.renderSocialService("spotify",spotify,spotify_followers,this.props)}
               </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
+          <div className={classes.socialGrid}>
+            <div className={classes.socialGridItem}>{this.renderSocialService("facebook",facebook,facebook_followers,this.props)}</div>
+            <div className={classes.socialGridItem}>{this.renderSocialService("instagram",instagram,instagram_followers,this.props)}</div>
+            <div className={classes.socialGridItem}>{this.renderSocialService("spotify",spotify,spotify_followers,this.props)}</div>
+          </div>
         </div>
 
         <div className={classes.metaSection}>
@@ -163,12 +163,12 @@ class ArtistCard extends React.Component {
           <div className={classes.meta}>
             <Grid container spacing={8} className={classes.metaList}>
               <Grid item>
-                <Typography component="p" variant="caption" noWrap align="left">
+                <Typography component="p" variant="overline" noWrap align="left">
                   {this.renderLocation(this.props)}
                 </Typography>
               </Grid>
               <Grid item className={classes.websiteMeta}>
-                <Typography component="p" variant="caption" align="right">
+                <Typography component="p" variant="overline" align="right">
                   { website ? <a href={website} target="_blank">Website</a> : null }
                 </Typography>
               </Grid>

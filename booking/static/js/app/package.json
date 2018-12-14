@@ -39,7 +39,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -s ./public/fonts -p 9001 -c .storybook"
   },
   "devDependencies": {
     "@storybook/react": "^3.4.10",

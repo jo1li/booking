@@ -10,7 +10,7 @@ storiesOf('ArtistCard', module)
     <ArtistCard
       profile={{
         id: 1,
-        stage_name: "The Rolling Stones",
+        stage_name: "The Rolling Stones And All Their Friends",
         bio_short: "Pretty famous band you might've heard of.",
         image: "https://i.imgur.com/MT6POWY.jpg",
         genres: [{name: "rock"},{name: "punk rock"}],
@@ -22,7 +22,7 @@ storiesOf('ArtistCard', module)
         instagram: null,
         instagram_followers: null,
         spotify: "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe",
-        spotify_followers: "450",
+        spotify_followers: null,
         on_tour: false,
       }}
       editable={false}
