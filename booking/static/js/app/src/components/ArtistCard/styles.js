@@ -142,8 +142,12 @@ const styles = theme => ({
     },
     '& > button': {
       width: "100%",
+      height: "100%",
       color: theme.palette.primary.main,
-    }
+    },
+    ['@media (max-width:768px) and (min-width:600px)']: {
+      lineHeight: '174px',
+    },
   },
   stageName: {
     fontSize: '27px',
