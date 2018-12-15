@@ -135,7 +135,15 @@ const styles = theme => ({
     textAlign: 'center',
     fontSize: '16px',
     color: 'rgba(0,0,0,0.25)',
+    userSelect: 'none',
     fontWeight: 500,
+    '& > button > svg': {
+      marginRight: theme.spacing.unit,
+    },
+    '& > button': {
+      width: "100%",
+      color: theme.palette.primary.main,
+    }
   },
   stageName: {
     fontSize: '27px',

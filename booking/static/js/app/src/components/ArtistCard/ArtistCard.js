@@ -10,6 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import ConnectedServiceIcon from './ConnectedServiceIcon';
 import Edit from 'react-feather/dist/icons/edit';
+import Camera from 'react-feather/dist/icons/camera';
 
 import { getOrientedImageURL } from '../../helpers/imageHelpers';
 import styles from './styles';
@@ -19,14 +20,15 @@ import UserEditForm from '../UserEditForm';
 class ArtistCard extends React.Component {
 
   renderMedia(props) {
-    const { classes, profile } = props;
+    const { classes, profile, isEditable } = props;
     const { image, stage_name } = profile;
 
     const orientedImage = getOrientedImageURL(image)
-
+    const noPhoto = <span className={classes.avatarStandIn}>No Photo</span>
+    const editableAndNoPhoto = <span className={classes.avatarStandIn}><ButtonBase onClick={() => this.renderUserEditForm(props)}><Camera size={22} /> Add Your Photo</ButtonBase></span>
     return (
-      <CardMedia className={classes.avatarSection} image={orientedImage} title={stage_name}>
-        { !image ? <span className={classes.avatarStandIn}>No Photo</span> : null}
+      <CardMedia className={classes.avatarSection} image={orientedImage} title={ image ? stage_name : null}>
+        { !image ? isEditable ? editableAndNoPhoto : noPhoto : null }
         { this.renderOnTour(props) }
       </CardMedia>
     );
