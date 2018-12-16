@@ -135,6 +135,7 @@ const styles = theme => ({
     textAlign: 'center',
     fontSize: '16px',
     color: 'rgba(0,0,0,0.25)',
+    backgroundColor: '#F5F9FA',
     userSelect: 'none',
     fontWeight: 500,
     '& > button > svg': {
