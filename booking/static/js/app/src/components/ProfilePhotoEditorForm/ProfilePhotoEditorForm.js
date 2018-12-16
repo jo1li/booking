@@ -92,6 +92,7 @@ class EditBioForm extends Component {
                       onImageLoad={this.updatePreviewImage}
                       width={width}
                       height={height}
+                      className={classes.avatarEditor}
                   />
                 )}
               />

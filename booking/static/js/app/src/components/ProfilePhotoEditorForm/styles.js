@@ -12,6 +12,10 @@ const styles = theme => {
       display: 'flex',
       flexDirection: 'column',
     },
+    avatarEditor: {
+      margin: '0 auto',
+      display: 'block',
+    },
     scrollableBody: {
       ...modalStyles.scrollableBody,
       padding: '16px 0',

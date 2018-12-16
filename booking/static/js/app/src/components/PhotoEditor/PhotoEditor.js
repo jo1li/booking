@@ -205,6 +205,7 @@ class PhotoEdit extends React.Component {
             width,
             initialScale,
             onScaleChange,
+            className,
         } = this.props;
 
         if (hide) {
@@ -238,6 +239,7 @@ class PhotoEdit extends React.Component {
                             scale={nextScale}
                             width={reducedWidth}
                             height={reducedHeight}
+                            className={className || ''}
                             onLoadSuccess={() => onImageLoad && onImageLoad()}
                         />
                 )
