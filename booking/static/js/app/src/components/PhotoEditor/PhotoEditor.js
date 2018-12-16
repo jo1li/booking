@@ -227,7 +227,8 @@ class PhotoEdit extends React.Component {
                     // but needs to be here to allow for mobile pinch zoom and external zooming.
                     onScaleChange && onScaleChange(nextScale)
 
-                    const reducedWidth = configs.width - (configs.border * 2)
+                    const reducedWidth = configs.width - (configs.border * 2);
+                    const reducedHeight = configs.height - (configs.border * 2);
 
                     return (
                         <AvatarEditor
@@ -236,6 +237,7 @@ class PhotoEdit extends React.Component {
                             onImageChange={this.onChange()}
                             scale={nextScale}
                             width={reducedWidth}
+                            height={reducedHeight}
                             onLoadSuccess={() => onImageLoad && onImageLoad()}
                         />
                 )

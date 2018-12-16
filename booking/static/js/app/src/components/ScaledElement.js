@@ -13,11 +13,12 @@ class ScaledElement extends Component {
         } = this.props;
 
         const width = this.container.offsetWidth;
+        const maxHeight = this.container.offsetHeight;
 
         return {
-            width,
-            height: width / ratio,
-        }
+            width: Math.min(width, maxHeight * ratio),
+            height: Math.min(maxHeight, width / ratio),
+        };
     }
 
     render() {
