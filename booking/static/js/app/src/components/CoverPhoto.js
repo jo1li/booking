@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import _ from 'lodash';
 
+import Camera from 'react-feather/dist/icons/camera';
+import ButtonBase from '@material-ui/core/ButtonBase';
+
 const styles = (theme) => ({
   notClickable: {
   },
@@ -20,11 +23,24 @@ const styles = (theme) => ({
 })
 
 const CoverPhoto = (props) => {
-  const { photos, profile, classes } = props;
+  const { photos, profile, isEditable, classes } = props;
   const coverPhoto = photos[_.get(profile, 'image_hero.id', null)];
-  // NB: cover-photo-fade needs to be here in order for sticky
+  // NB: cover-photo-bar needs to be here in order for sticky
   // artist card to work when there is no cover photo
-  if(!coverPhoto) return <div id="cover-photo"><div id="cover-photo-fade"/></div>;
+  if(!coverPhoto) {
+    return (
+      <div id="cover-photo-empty">
+        {isEditable && (
+          <div class="cover-photo-cta">
+            <ButtonBase><Camera size={22}/> Add a Cover Photo</ButtonBase>
+          </div>
+        )}
+        <div id="cover-photo-bar">
+          <div id="cover-photo-fade-placeholder"/>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -33,13 +49,18 @@ const CoverPhoto = (props) => {
       className={_.size(photos) ? classes.clickable : ''}
       style={{
         backgroundImage: `url(${coverPhoto.image})`,
-    }}><div id="cover-photo-fade"></div></div>
+    }}>
+      <div id="cover-photo-bar">
+        <div id="cover-photo-fade"></div>
+      </div>
+    </div>
   );
 }
 
 const mapStateToProps = (state, props) => ({
   photos: state.photos,
   profile: state.profile,
+  isEditable: state.is_current_user,
 });
 
 export default compose(
