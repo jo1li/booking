@@ -22,12 +22,10 @@ class ArtistCard extends React.Component {
   renderMedia(props) {
     const { classes, profile, isEditable } = props;
     const { image, stage_name } = profile;
-
-    const orientedImage = getOrientedImageURL(image)
     const noPhoto = <span className={classes.avatarStandIn}>No Photo</span>
     const editableAndNoPhoto = <span className={classes.avatarStandIn}><ButtonBase onClick={() => this.renderUserEditForm(props)}><Camera size={22} /> Add Your Photo</ButtonBase></span>
     return (
-      <CardMedia className={classes.avatarSection} image={orientedImage} title={ image ? stage_name : null}>
+      <CardMedia className={classes.avatarSection} image={image ? getOrientedImageURL(image) : ""} title={ image ? stage_name : null}>
         { !image ? isEditable ? editableAndNoPhoto : noPhoto : null }
         { this.renderOnTour(props) }
       </CardMedia>
