@@ -29,6 +29,7 @@ const styles = theme => {
       height: '70px'
     },
     ratioContainer: {
+      overflow: 'hidden',
       width: '100%'
     }
 }};
