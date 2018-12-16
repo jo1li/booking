@@ -77,7 +77,7 @@ class EditBioForm extends Component {
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
-        <div className={classes.scrollableBody}>
+        <div className={classes.noScrollBody}>
             <ScaledElement
               className={classes.ratioContainer}
               render={(width, height) => (

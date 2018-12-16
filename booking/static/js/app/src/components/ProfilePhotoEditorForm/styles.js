@@ -5,6 +5,13 @@ const styles = theme => {
 
   return {
     ...modalStyles,
+    noScrollBody: {
+      height: '100%',
+      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    },
     scrollableBody: {
       ...modalStyles.scrollableBody,
       padding: '16px 0',
