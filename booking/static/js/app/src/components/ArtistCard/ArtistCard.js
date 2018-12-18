@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import ConnectedServiceIcon from './ConnectedServiceIcon';
@@ -23,7 +24,7 @@ class ArtistCard extends React.Component {
     const { classes, profile, isEditable } = props;
     const { image, stage_name } = profile;
     const noPhoto = <span className={classes.avatarStandIn}>No Photo</span>
-    const editableAndNoPhoto = <span className={classes.avatarStandIn}><ButtonBase onClick={() => this.renderUserEditForm(props)}><Camera size={22} /> Add Your Photo</ButtonBase></span>
+    const editableAndNoPhoto = <span className={classes.avatarStandIn}><Button color="primary" className={classes.button} onClick={() => this.renderUserEditForm(props)}><Camera className={classes.iconLeft} size={22} /> Add Your Photo</Button></span>
     return (
       <CardMedia className={classes.avatarSection} image={image ? getOrientedImageURL(image) : ""} title={ image ? stage_name : null}>
         { !image ? isEditable ? editableAndNoPhoto : noPhoto : null }

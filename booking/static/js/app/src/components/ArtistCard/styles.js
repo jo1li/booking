@@ -27,7 +27,12 @@ const styles = theme => ({
       margin: '0 0 40px',
     },
   },
-
+  button: {
+    margin: theme.spacing.unit,
+  },
+  iconLeft: {
+    marginRight: theme.spacing.unit,
+  },
   avatarSection: {
     marginTop: '0px',
     backgroundColor: theme.palette.grey[200],
@@ -138,14 +143,6 @@ const styles = theme => ({
     backgroundColor: '#F5F9FA',
     userSelect: 'none',
     fontWeight: 500,
-    '& > button > svg': {
-      marginRight: theme.spacing.unit,
-    },
-    '& > button': {
-      width: "100%",
-      height: "100%",
-      color: theme.palette.primary.main,
-    },
     ['@media (max-width:768px) and (min-width:600px)']: {
       lineHeight: '174px',
     },
