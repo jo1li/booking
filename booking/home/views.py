@@ -45,6 +45,11 @@ def handler500(request):
     return HttpResponseServerError(html500)
 
 
+def example500(request):
+
+    raise Exception("Ruh-roh")
+
+
 @ensure_csrf_cookie
 def index(request):
     return opus_render(request, "home/index.html")
