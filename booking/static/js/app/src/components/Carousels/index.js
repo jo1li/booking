@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
-import { FullScreenDialog } from '../Dialog';
+import { Dialog } from '../Dialog';
 import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
@@ -29,7 +29,7 @@ const mapStateToProps = (state, props) => {
 export const AudioCarousel = compose(
   connect(mapStateToProps),
   withStyles(styles),
-  FullScreenDialog,
+  Dialog,
 )(props => {
     const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
@@ -60,7 +60,7 @@ export const AudioCarousel = compose(
 export const VideoCarousel = compose(
   connect(mapStateToProps),
   withStyles(styles),
-  FullScreenDialog,
+  Dialog,
 )(props => {
     const { classes, videosjson, videos: videosFromStore, openDialog } = props;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];

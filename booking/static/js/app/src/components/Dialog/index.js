@@ -1,3 +1,3 @@
 export { ClickToOpenDialog } from './ClickToOpenDialog';
-export { default as FullScreenDialog } from './FullScreenDialog';
-export { default } from './Dialog';
+export { default as Dialog, getConfiguredDialog } from './Dialog';
+export { default as DialogStateManager } from './DialogStateManager';

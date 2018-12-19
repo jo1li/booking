@@ -28,7 +28,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import UploadDropZone from './UploadDropZone';
 import isEmpty from "lodash/isEmpty";
-import FullScreenDialog from '../Dialog/FullScreenDialog';
+import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
 
 import IconSpotify from '../ArtistCard/IconSpotify';
@@ -448,5 +448,5 @@ OnboardingForm = reduxForm({
 export default compose(
   withStyles(styles),
   connect(mapStateToProps),
-  FullScreenDialog,
+  Dialog,
 )(OnboardingForm);

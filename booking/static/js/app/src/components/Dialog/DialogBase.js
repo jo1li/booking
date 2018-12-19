@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import { Close } from '../icons';
 import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash';
 
 const styles = theme => ({
   iconContainer: {
@@ -15,6 +15,7 @@ const styles = theme => ({
 
 const DialogBase = ({
       children,
+      CloseComponent,
       classes,
       paperProps,
       fullScreen,
@@ -22,27 +23,30 @@ const DialogBase = ({
       maxWidth,
       isOpen,
       close,
+      reverseColors,
       theme,
-    }) =>
-        <Dialog
-          fullScreen={fullScreen}
-          fullWidth={fullWidth}
-          maxWidth={maxWidth}
-          open={isOpen}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          className={classes.dialog}
-          PaperProps={paperProps}
-        >
-          <div className={classes.iconContainer}>
-            <Close
-              color={theme.palette.secondary.main}
-              onClick={close}
-            />
-          </div>
-            {children}
-        </Dialog>
+    }) => {
+
+      return <Dialog
+        fullScreen={fullScreen}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={isOpen}
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        className={classes.dialog}
+        PaperProps={paperProps}
+      >
+        <div className={classes.iconContainer}>
+          <CloseComponent
+            color={theme.palette.secondary.main}
+            onClick={close}
+          />
+        </div>
+          {children}
+      </Dialog>;
+}
 
 DialogBase.defaultProps = {
   fullScreen: false

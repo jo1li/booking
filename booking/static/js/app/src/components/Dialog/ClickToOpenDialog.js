@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 import BindDomEvent from '../HOComponents/BindDomEvents';
-import FullScreenDialog from '../Dialog/FullScreenDialog';
+import { Dialog } from '../Dialog';
 import Empty from '../Empty';
 
 /**
@@ -20,9 +20,9 @@ import Empty from '../Empty';
 export const OpenDialogEvent = eventType => ({
     triggerSelector,
     DialogContent,
-    DialogComponent = FullScreenDialog,
+    DialogComponent = Dialog,
     getIsDisabled,
-    paperProps
+    paperProps,
 }) => {
     class Container extends Component {
         constructor() {
