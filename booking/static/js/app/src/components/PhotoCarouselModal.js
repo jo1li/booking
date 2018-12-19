@@ -17,17 +17,21 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch);
 };
 
-const LEFT_RIGHT_PADDING = 20;
 const styles = theme => ({
   photoCarouselContainer: {
-    margin: '0 auto',
-    padding: `65px ${LEFT_RIGHT_PADDING}px 20px`,
-    maxWidth: `calc(100vw - ${LEFT_RIGHT_PADDING * 2}px)`,
+    height: '100%',
+    padding: `94px 88px 0`,
     position: 'relative',
+    [theme.breakpoints.down('xs')]: {
+      padding: '94px 0 0',
+    }
   },
   photoCarousel: {
-    width: `${MAX_IMAGE_WIDTH}px`,
-    maxWidth: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    position: 'relative', // So children can position relative to bottom
   },
   modalTitle: {
     position: 'absolute',

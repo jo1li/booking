@@ -91,12 +91,13 @@ export const VideoCarousel = compose(
 
 export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
   props => {
-    const { classes, photos } = props;
+    const { classes, styles, photos } = props;
 
     return (
       <CarouselWrapper
           classes={classes}
-          items={photos}>
+          items={photos}
+          reverseColors={true}>
         <PhotoCarouselContent
             className={classes.photoCarouselSwipeableView}
             classes={classes}

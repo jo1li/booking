@@ -37,7 +37,7 @@ class CarouselWrapper extends Component {
 
   render() {
     const { activeStep } = this.state;
-    const { classes, items } = this.props;
+    const { classes, items, reverseColors } = this.props;
 
     return (
       <Fragment>
@@ -46,6 +46,7 @@ class CarouselWrapper extends Component {
           classes={classes}
           activeStep={activeStep}
           maxSteps={items.length}
+          reverseColors={reverseColors}
           handleNext={() => this.handleNext()}
           handleBack={() => this.handleBack()} />
       </Fragment>
@@ -53,6 +54,8 @@ class CarouselWrapper extends Component {
   }
 }
 
+
+// TODO: class calculations here are wacky
 class CarouselNav extends Component {
   render() {
     const {
@@ -61,6 +64,7 @@ class CarouselNav extends Component {
       maxSteps,
       handleNext,
       handleBack,
+      reverseColors,
     } = this.props;
 
     if(!maxSteps) return null;
@@ -68,27 +72,44 @@ class CarouselNav extends Component {
     const nextBtnIsDisabled = activeStep === maxSteps - 1;
     const prevBtnIsDisabled = activeStep === 0;
 
+    let nextButtonClassName, prevButtonClassName;
+    if(nextBtnIsDisabled) {
+      if(reverseColors) {
+        nextButtonClassName = classes.reverseColorsDisabledNavButtonIcon;
+      } else {
+        nextButtonClassName = classes.disabledNavButtonIcon;
+      }
+    }
+
+    if(prevBtnIsDisabled) {
+      if(reverseColors) {
+        prevButtonClassName = classes.reverseColorsDisabledNavButtonIcon;
+      } else {
+        prevButtonClassName = classes.disabledNavButtonIcon;
+      }
+    }
+
     return (
       <Fragment>
         <MobileStepper
-          className={classes.carouselNav}
+          className={reverseColors ? classes.reverseColorsCarouselNav : classes.carouselNav}
           variant="text"
           steps={maxSteps}
           position="static"
           activeStep={activeStep}
           nextButton={
-            <ButtonBase size="small" onClick={handleNext} disabled={nextBtnIsDisabled}>
-              <Next className={classNames(classes.navButtonIcon, nextBtnIsDisabled ? classes.hidden : '')}/>
+            <ButtonBase size="small" onClick={handleNext} className={reverseColors ? classes.reverseColorsCarouselNavButton : ''} disabled={nextBtnIsDisabled}>
+              <Next className={classNames(classes.navButtonIcon, nextButtonClassName)}/>
             </ButtonBase>
           }
           backButton={
-            <ButtonBase size="small" onClick={handleBack} disabled={prevBtnIsDisabled}>
-              <Prev className={classNames(classes.navButtonIcon, prevBtnIsDisabled ? classes.hidden : '')}/>
+            <ButtonBase size="small" onClick={handleBack} className={reverseColors ? classes.reverseColorsCarouselNavButton : ''} disabled={prevBtnIsDisabled}>
+              <Prev className={classNames(classes.navButtonIcon, prevButtonClassName)}/>
             </ButtonBase>
           }
         />
-        <div className={classes.stepIndicator}>
-          {activeStep + 1}/{maxSteps}
+        <div className={reverseColors ? classes.reverseColorsStepIndicator : classes.stepIndicator}>
+          {activeStep + 1} of {maxSteps}
         </div>
       </Fragment>
     );
