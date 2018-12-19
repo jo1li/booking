@@ -6,7 +6,6 @@ const LARGE_SCREEN_ROW_HEIGHT = '80px';
 
 const styles = theme => {
   const parentStyles = editModalStyles(theme);
-  const xs = parentStyles[theme.breakpoints.down('xs')];
   return {
     ...parentStyles,
     button: {
