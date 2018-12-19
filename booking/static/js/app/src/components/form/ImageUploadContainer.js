@@ -41,10 +41,6 @@ class ImageUploadContainer extends Component {
         });
     }
 
-    triggerFileUpload() {
-        this.refs.input.click();
-    }
-
     render() {
         const {
             className,
@@ -62,12 +58,10 @@ class ImageUploadContainer extends Component {
             >
                 <label
                     htmlFor={`addPicture-${id || 0}`}
-                    onClick={onClick}
                 >
                    {
                     React.Children.map(children, child => {
                         return React.cloneElement(child, { onClick: () => {
-                            this.triggerFileUpload();
                             child.onCLick && child.onCLick();
                         }})
                     })
@@ -75,7 +69,6 @@ class ImageUploadContainer extends Component {
                 </label>
                 <input
                     type="file"
-                    ref="input"
                     className="addPicture"
                     id={`addPicture-${id || 0}`}
                     style={{display: 'none'}}
