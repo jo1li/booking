@@ -134,18 +134,15 @@ const styles = theme => ({
   },
 
   avatarStandIn: {
-    display: 'block',
-    lineHeight: '110px',
-    width: '100%',
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
     fontSize: '16px',
     color: 'rgba(0,0,0,0.25)',
     backgroundColor: '#F5F9FA',
     userSelect: 'none',
     fontWeight: 500,
-    ['@media (max-width:768px) and (min-width:600px)']: {
-      lineHeight: '174px',
-    },
   },
   stageName: {
     fontSize: '27px',
