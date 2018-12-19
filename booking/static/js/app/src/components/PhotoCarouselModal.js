@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import * as PhotoActions from './../actions/photos';
 import { PhotoCarousel } from './Carousels';
-import { MAX_IMAGE_WIDTH } from '../constants/carousels';
+import { APOSTROPHE } from '../constants/unicodeCharacters';
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
@@ -29,6 +29,17 @@ const styles = theme => ({
     width: `${MAX_IMAGE_WIDTH}px`,
     maxWidth: '100%',
   },
+  modalTitle: {
+    position: 'absolute',
+    top: theme.spacing.unit * 5,
+    left: theme.spacing.unit * 6,
+    fontSize: '16px',
+
+    [theme.breakpoints.down('xs')]: {
+      top: theme.spacing.unit * 4,
+      left: theme.spacing.unit * 3,
+    },
+  },
 });
 
 class PhotoCarouselModal extends Component {
@@ -42,10 +53,12 @@ class PhotoCarouselModal extends Component {
   }
 
   render() {
-    const { classes, photos } = this.props;
+    const { classes, photos, profile } = this.props;
 
+    // TODO: what to do about stage name too long (v likely on mobile)?
     return (
       <div className={classes.photoCarouselContainer}>
+        <span className={classes.modalTitle}>{profile.stage_name}{APOSTROPHE}s Photos</span>
         <div className={classes.photoCarousel}>
           <PhotoCarousel photos={photos} />
         </div>
