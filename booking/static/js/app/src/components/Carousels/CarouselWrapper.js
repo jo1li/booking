@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/Button';
 import isEqual from 'lodash/isEqual';
+import { Next, Prev } from '../icons';
 import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
@@ -75,20 +77,14 @@ class CarouselNav extends Component {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext} disabled={nextBtnIsDisabled}>
-              <img
-                alt="carousel next button"
-                className={`${classes.navButtonIcon} ${nextBtnIsDisabled ? classes.hidden : ''}`}
-                src={`${CONFIGS.IMAGES_URL}/next.svg`} />
-            </Button>
+            <ButtonBase size="small" onClick={handleNext} disabled={nextBtnIsDisabled}>
+              <Next className={classNames(classes.navButtonIcon, nextBtnIsDisabled ? classes.hidden : '')}/>
+            </ButtonBase>
           }
           backButton={
-            <Button size="small" onClick={handleBack} disabled={prevBtnIsDisabled}>
-              <img
-                alt="carousel back button"
-                className={`${classes.navButtonIcon} ${prevBtnIsDisabled ? classes.hidden : ''}`}
-                src={`${CONFIGS.IMAGES_URL}/prev.svg`} />
-            </Button>
+            <ButtonBase size="small" onClick={handleBack} disabled={prevBtnIsDisabled}>
+              <Prev className={classNames(classes.navButtonIcon, prevBtnIsDisabled ? classes.hidden : '')}/>
+            </ButtonBase>
           }
         />
         <div className={classes.stepIndicator}>
