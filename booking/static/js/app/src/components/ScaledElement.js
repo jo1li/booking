@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
+import autobind from 'react-autobind';
 import { withStateHandlers } from 'recompose';
 import propTypes from 'prop-types';
 
 class ScaledElement extends Component {
-    getDimensions() {
+    componentWillMount() {
+        autobind(this);
+        this.setState({});
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateContainerDimensions, 0);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateContainerDimensions);
+    }
+
+
+    // This state won't be used, except to trigger re-render if changed.
+    // There isn't a good way to use this as a value for rendering, because
+    // the container isn't set until after the initial render.
+    updateContainerDimensions() {
         if (!this.container) {
+            return;
+        }
+
+        this.setState({
+            containerWidth: this.container.offsetWidth,
+            containerHeight: this.container.offsetHeight,
+        });
+    }
+
+    getDimensions() {
+        if(!this.container) {
             return {};
         }
 
