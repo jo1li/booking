@@ -11,7 +11,8 @@ def settings_context_processor(request):
             'STATIC_JS_APP_BASE_URL': settings.STATIC_JS_APP_BASE_URL,
             'STATIC_JS_APP_BUNDLE': settings.STATIC_JS_APP_BUNDLE,
             'ENABLE_GOOGLE_ANALYTICS': settings.ENABLE_GOOGLE_ANALYTICS,
-            'ENABLE_HOTJAR': settings.ENABLE_HOTJAR
+            'ENABLE_HOTJAR': settings.ENABLE_HOTJAR,
+            'ENABLE_FULLSTORY': settings.ENABLE_FULLSTORY
         }
     }
 
