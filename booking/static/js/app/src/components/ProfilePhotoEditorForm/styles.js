@@ -41,7 +41,10 @@ const styles = theme => {
     },
     ratioContainer: {
       overflow: 'hidden',
-      width: '100%'
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        height: '100%',
+      }
     }
 }};
 
