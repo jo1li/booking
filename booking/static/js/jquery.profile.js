@@ -2,13 +2,14 @@ $(document).ready(function() {
   initFixedBlocks();
 });
 
+
 function initFixedBlocks() {
   var win = jQuery(window);
   var fixedClass = 'fixed-bar';
 
   jQuery('#wrapper').each(function(){
     var navBar = jQuery('#main-navigation-bar header');
-    var fixedCoverPhoto = jQuery('#cover-photo-fade');
+    var fixedCoverPhoto = jQuery('#cover-photo-bar');
     var barHolder = jQuery('.artist-placeholder');
     var main = jQuery('.main-content');
     var offsetTop = barHolder.outerHeight() - 60;
@@ -24,7 +25,6 @@ function initFixedBlocks() {
               const NAV_BAR_HEIGHT = navBar.outerHeight();
               const COVER_PHOTO_HEIGHT = fixedCoverPhoto.outerHeight();
               const OVERLAP = 49;
-
               return NAV_BAR_HEIGHT + COVER_PHOTO_HEIGHT - OVERLAP;
             }
           });

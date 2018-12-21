@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+{% load repeatedblocks %}
+{% load staticfiles %}
+
+
+{% block head_title %}Something went wrong...{% endblock %}
+
+{% block main %}
+
+<style type="text/css">
+    #mission, #opus-presents, .video-holder {
+        display:none;
+    }
+    form .btn-primary {
+        opacity: 1;
+    }
+    h2 {
+        font-size: 32px;
+    }
+    .responsive-image {
+        max-width: 100%
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-around mt-5 mb-5">
+        <div class="col-md-8" style="text-align:center">
+            <h2>Uh oh, something went wrong. Please try again later.</h2>
+            <img class="responsive-image" src="{% static 'images/oh-boy.gif' %}" alt="Wednesday Adams shrugging" />
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
