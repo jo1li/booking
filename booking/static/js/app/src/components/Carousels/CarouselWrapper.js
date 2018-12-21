@@ -6,36 +6,28 @@ import isEqual from 'lodash/isEqual';
 import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {activeStep: 0};
-  }
-
   componentWillReceiveProps(newProps) {
     // If we modified the content of the carousel, reset to first video
     // instead of awkwardly showing whatever video is now at the previous
     // index, or using an index that is no longer in range.
     // TODO: What do to when all videos are removed?
     if(!isEqual(this.props.items, newProps.items)) {
-      this.setState({activeStep: 0});
+      this.props.changeActiveStep(0);
     }
   }
 
   handleNext() {
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep + 1,
-    }));
+    const { changeActiveStep, activeStep } = this.props;
+    changeActiveStep(activeStep + 1);
   };
 
   handleBack() {
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep - 1,
-    }));
+    const { changeActiveStep, activeStep } = this.props;
+    changeActiveStep(activeStep - 1);
   };
 
   render() {
-    const { activeStep } = this.state;
-    const { classes, items } = this.props;
+    const { classes, items, activeStep } = this.props;
 
     return (
       <Fragment>
