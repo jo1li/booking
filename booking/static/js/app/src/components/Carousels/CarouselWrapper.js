@@ -10,7 +10,6 @@ class CarouselWrapper extends Component {
     // If we modified the content of the carousel, reset to first video
     // instead of awkwardly showing whatever video is now at the previous
     // index, or using an index that is no longer in range.
-    // TODO: What do to when all videos are removed?
     if(!isEqual(this.props.items, newProps.items)) {
       this.props.changeActiveStep(0);
     }
