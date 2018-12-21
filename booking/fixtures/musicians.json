@@ -1,6 +1,36 @@
 [
   {
     "model": "musicians.musician",
+    "pk": 1,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 1,
+      "stage_name": "Jim Stark",
+      "slug": "jim-stark",
+      "image": "",
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "",
+      "state": "",
+      "bio": "",
+      "bio_short": "Hardest working bass player in the business",
+      "website": "",
+      "facebook": "",
+      "twitter": "",
+      "instagram": "",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Punk",
+        "Rock"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
     "pk": 2,
     "fields": {
       "created": "2018-10-12T01:32:33.206Z",
