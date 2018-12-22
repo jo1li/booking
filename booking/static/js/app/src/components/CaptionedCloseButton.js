@@ -1,19 +1,34 @@
 import React from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import { withStyles } from '@material-ui/core/styles';
 import { Close } from '../components/icons';
 
-// TODO: move those styles into jss
+const styles = theme => ({
+  wrapper: {
+    backgroundColor: 'black',
+    fontSize: '16px',
+    fontWeight: 'lighter',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+    paddingLeft: theme.spacing.unit * 8,
+    zIndex: 1,
+  },
+  content: {
+    position: 'absolute',
+    top: '11px',
+    left: theme.spacing.unit * 2,
+  },
+});
+
 const CloseComponent = (props) => {
-  const { color, onClick, className } = props;
+  const { color, onClick, classes } = props;
   return (
     <ButtonBase
         color={color}
         onClick={onClick}
-        className={className}
-        style={{backgroundColor: 'black', fontSize: '16px', fontWeight: 'lighter', padding: '16px 24px', paddingLeft: '64px', zIndex: 1,}}>
-      <Close height={32} width={32} style={{position: 'absolute', top: '11px', left: '16px'}}/> Close
+        className={classes.wrapper}>
+      <Close height={32} width={32} className={classes.content}/> Close
     </ButtonBase>
   );
 };
 
-export default CloseComponent;
+export default withStyles(styles)(CloseComponent);
