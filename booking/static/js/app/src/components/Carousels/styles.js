@@ -4,27 +4,6 @@ import {
 } from '../../constants/carousels';
 
 const styles = theme => ({
-  navButtonIcon: {
-    height: '20px',
-    width: '20px',
-    fill: theme.palette.grey[500],
-    '&:hover': {
-      fill: theme.palette.primary.main,
-    },
-  },
-  reverseColorsNavButtonIcon: {
-    fill: theme.palette.primary.contrastText,
-    '&:hover': {
-      fill: theme.palette.secondary.main,
-    },
-  },
-  disabledNavButtonIcon: {
-    display: 'none',
-  },
-  reverseColorsDisabledNavButtonIcon: {
-    fill: 'rgba(256,256,256,0.3)',
-  },
-
   // Modify size of window depending on type of carousel
   audioCarouselSwipeableView: {
     '& .react-swipeable-view-container > div': {
@@ -53,57 +32,11 @@ const styles = theme => ({
       margin: '0 16px', // Padding doesn't work here
     }
   },
-
-  // TODO: can DRY up two step indicators some
-  // TODO: and/or can move some of this to be overwrites in PhotoCarouselModal.js instead
-  carouselNav: {
-    'background-color': 'transparent',
-  },
   stepIndicator: {
     position: 'absolute',
     left: '50%',
     transform: 'translateX(-50%)',
-    bottom: '14px',
-    fontSize: '12px',
-    color: theme.palette.grey[500],
-    lineHeight: '18px',
     userSelect: 'none',
-  },
-  reverseColorsCarouselNav: {
-    backgroundColor: '#0b0b0b', // TODO: do we want this in palette?
-    width: '340px',
-    height: '54px',
-    margin: '20px auto',
-    padding: 0,
-
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      height: '83px', // Actually renders as 70 (desired). Have not figured out why.
-      margin: 0,
-    },
-  },
-  reverseColorsStepIndicator: {
-    position: 'absolute',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    bottom: '20px',
-    fontSize: '16px',
-    lineHeight: '50px',
-    fontWeight: 'lighter',
-    color: theme.palette.primary.contrastText,
-    userSelect: 'none',
-
-    [theme.breakpoints.down('xs')]: {
-      lineHeight: '70px',
-      bottom: 0,
-    }
-  },
-  reverseColorsCarouselNavButton: {
-    width: '106px',
-    height: '100%',
-    '&:hover': {
-      backgroundColor: 'black',
-    },
   },
   iframe: {
     position: 'absolute',
@@ -123,7 +56,79 @@ const styles = theme => ({
   },
   hidden: {
     display: 'none',
-  }
+  },
 });
 
-export default styles;
+export const defaultColorSchemeStyles = theme => ({
+  ...styles(theme),
+
+  navButtonIcon: {
+    height: '20px',
+    width: '20px',
+    fill: theme.palette.grey[500],
+    '&:hover': {
+      fill: theme.palette.primary.main,
+    },
+  },
+  disabledNavButtonIcon: {
+    display: 'none',
+  },
+  carouselNav: {
+    'background-color': 'transparent',
+  },
+  stepIndicator: {
+    ...styles(theme).stepIndicator,
+    bottom: '14px',
+    fontSize: '12px',
+    color: theme.palette.grey[500],
+    lineHeight: '18px',
+  },
+});
+
+export const reverseColorSchemeStyles = theme => ({
+  ...styles(theme),
+
+  navButtonIcon: {
+    height: '18px',
+    fill: theme.palette.primary.contrastText,
+    '&:hover': {
+      fill: theme.palette.secondary.main,
+    },
+  },
+  disabledNavButtonIcon: {
+    fill: 'rgba(256,256,256,0.3)',
+  },
+  carouselNav: {
+    backgroundColor: '#0b0b0b', // TODO: do we want this in palette?
+    width: '340px',
+    height: '54px',
+    margin: '20px auto',
+    padding: 0,
+
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      height: '83px', // Actually renders as 70 (desired). Have not figured out why.
+      margin: 0,
+    },
+  },
+  stepIndicator: {
+    ...styles(theme).stepIndicator,
+    bottom: '20px',
+    fontSize: '16px',
+    lineHeight: '50px',
+    fontWeight: 'lighter',
+    color: theme.palette.primary.contrastText,
+
+    [theme.breakpoints.down('xs')]: {
+      lineHeight: '70px',
+      bottom: 0,
+    }
+  },
+  carouselNavButton: {
+    width: '106px',
+    height: '100%',
+    '&:hover': {
+      backgroundColor: 'black',
+    },
+  },
+});

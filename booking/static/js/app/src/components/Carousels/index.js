@@ -10,7 +10,7 @@ import $ from "jquery";
 import CarouselWrapper from './CarouselWrapper';
 import EmptyState from '../EmptyState';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
-import styles from './styles';
+import { defaultColorSchemeStyles, reverseColorSchemeStyles } from './styles';
 
 const mapStateToProps = (state, props) => {
   const videos = ( state.videos === false )
@@ -28,7 +28,7 @@ const mapStateToProps = (state, props) => {
 
 export const AudioCarousel = compose(
   connect(mapStateToProps),
-  withStyles(styles),
+  withStyles(defaultColorSchemeStyles),
   Dialog,
 )(props => {
     const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
@@ -59,7 +59,7 @@ export const AudioCarousel = compose(
 
 export const VideoCarousel = compose(
   connect(mapStateToProps),
-  withStyles(styles),
+  withStyles(defaultColorSchemeStyles),
   Dialog,
 )(props => {
     const { classes, videosjson, videos: videosFromStore, openDialog } = props;
@@ -89,15 +89,14 @@ export const VideoCarousel = compose(
     );
   });
 
-export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
+export const PhotoCarousel = connect(mapStateToProps)(withStyles(reverseColorSchemeStyles)(
   props => {
     const { classes, styles, photos } = props;
 
     return (
       <CarouselWrapper
           classes={classes}
-          items={photos}
-          reverseColors={true}>
+          items={photos}>
         <PhotoCarouselContent
             className={classes.photoCarouselSwipeableView}
             classes={classes}
