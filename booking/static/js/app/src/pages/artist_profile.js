@@ -84,7 +84,7 @@ export default function render_artist_profile() {
             DialogComponent: getConfiguredDialog({
                 isFullScreen: true,
                 CloseComponent: CaptionedCloseButton,
-                reverseColors: true,  // TODO: can probably use paperProps to do this cleaner
+                reverseColors: true,
             }),
             getIsDisabled: (state) => !_.size(state.photos),
         }),

@@ -3,19 +3,25 @@ import { compose } from 'redux';
 import DialogBase from './DialogBase';
 import DialogStateManager from './DialogStateManager';
 import withWidth from '@material-ui/core/withWidth';
-import { Close } from '../icons';
+import { withStyles } from '@material-ui/core/styles';
+import BasicCloseButton from '../BasicCloseButton';
+import {
+    defaultColorSchemeStyles,
+    reverseColorSchemeStyles,
+} from './styles';
 
-export const getConfiguredDialog = ({isFullScreen, CloseComponent = Close, reverseColors = false}) => {
-    const StatelessDialog = ({ children, width, isOpen, close, ...props }) => {
+export const getConfiguredDialog = ({isFullScreen, CloseComponent = BasicCloseButton, reverseColors = false}) => {
+    const StatelessDialog = ({ children, width, isOpen, close, classes, paperProps, ...props }) => {
         // TODO: might want to handle the isFullScreen default better, a function?
         return (
             <DialogBase
                 maxWidth={false}
                 isOpen={isOpen}
                 close={close}
-                reverseColors={reverseColors}
                 fullScreen={isFullScreen || 'xs' === width}
                 CloseComponent={CloseComponent}
+                classes={classes}
+                paperProps={paperProps}
                 {...props}
             >
                 { children }
@@ -23,10 +29,12 @@ export const getConfiguredDialog = ({isFullScreen, CloseComponent = Close, rever
         )
     }
 
+    const styles = reverseColors ? reverseColorSchemeStyles : defaultColorSchemeStyles;
     return compose(
         DialogStateManager,
+        withStyles(styles),
         withWidth(),
     )(StatelessDialog);
 }
 
-export default getConfiguredDialog({CloseComponent: Close});
+export default getConfiguredDialog({CloseComponent: BasicCloseButton});
