@@ -91,7 +91,7 @@ export const VideoCarousel = compose(
 
 export const PhotoCarousel = connect(mapStateToProps)(withStyles(reverseColorSchemeStyles)(
   props => {
-    const { classes, styles, photos } = props;
+    const { classes, photos } = props;
 
     return (
       <CarouselWrapper
