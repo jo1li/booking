@@ -39,6 +39,11 @@ const styles = theme => ({
     left: theme.spacing.unit * 6,
     fontSize: '16px',
 
+    // Handle long stage names
+    maxWidth: '50vw',
+    wordWrap: 'break-word',
+    hyphens: 'auto',
+
     [theme.breakpoints.down('xs')]: {
       top: theme.spacing.unit * 4,
       left: theme.spacing.unit * 3,
@@ -59,10 +64,9 @@ class PhotoCarouselModal extends Component {
   render() {
     const { classes, photos, profile } = this.props;
 
-    // TODO: what to do about stage name too long (v likely on mobile)?
     return (
       <div className={classes.photoCarouselContainer}>
-        <span className={classes.modalTitle}>{profile.stage_name}{APOSTROPHE}s Photos</span>
+        <div className={classes.modalTitle}>{profile.stage_name}{APOSTROPHE}s Photos</div>
         <div className={classes.photoCarousel}>
           <PhotoCarousel photos={photos} />
         </div>
