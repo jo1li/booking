@@ -37,7 +37,7 @@ const PendingTopRow = (props) => {
     <Grid item container direction="row" className={classes.photoFormRowTop}>
       <PlacholderDragHandle classes={classes} />
       <div className={classes.editPhotoImageWrapper} style={{textAlign: 'center'}}>
-        <img src={item.image || ''} className={classes.previewPhoto} alt="thumbnail"/>
+        <img src={item.image || ''} className={classes.photoImg} alt="thumbnail"/>
         <input type="hidden" value={item.id} name={`${itemName}[${idx}]`}/>
       </div>
       <ProgressThing show={width !== 'xs'} classes={classes} />

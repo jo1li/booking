@@ -93,8 +93,10 @@ const styles = theme => {
       position: 'relative', // needed for z-index when animating removing rows
     },
     photoImg: {
+      // Height and width attrs needed for object-fit to work
       height: '100%',
-      width: 'auto',
+      width: '100%',
+      objectFit: 'cover',
     },
     setAsCoverPhotoButton: {
       marginLeft: 'auto',
@@ -109,12 +111,6 @@ const styles = theme => {
       paddingBottom: 0,
       zIndex: -1,
       height: 0,
-    },
-    previewPhoto: {
-      // Height and width attrs needed for object-fit to work
-      height: '100%',
-      width: '100%',
-      objectFit: 'cover',
     },
     loadingIcon: {
       alignSelf: 'center',
