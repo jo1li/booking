@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
@@ -26,12 +27,19 @@ const mapStateToProps = (state, props) => {
   return { videos, audios, photos };
 };
 
-export const AudioCarousel = compose(
-  connect(mapStateToProps),
-  withStyles(styles),
-  FullScreenDialog,
-)(props => {
-    const { classes, audiosjson, audios: audiosFromStore, openDialog  } = props;
+class AudioCarouselBase extends Component {
+  componentWillMount() {
+    autoBind(this);
+    this.setActiveStep(0);
+  }
+
+  setActiveStep(activeStep) {
+    this.setState({activeStep});
+  }
+
+  render() {
+    const { classes, audiosjson, audios: audiosFromStore, openDialog  } = this.props;
+    const { activeStep } = this.state;
     const audiosFromDOM = audiosjson ? JSON.parse(audiosjson) : [];
 
     // If we haven't synced with the server since load, use bootstrapped values.
@@ -47,22 +55,34 @@ export const AudioCarousel = compose(
 
     return (
       <CarouselWrapper
+          changeActiveStep={this.setActiveStep}
+          activeStep={activeStep}
           classes={classes}
           items={audios}>
         <IframeCarouselContent
+            changeActiveStep={this.setActiveStep}
+            activeStep={activeStep}
             className={classes.audioCarouselSwipeableView}
             classes={classes}
             iframeSources={_.map(audios, a => a.src)}/>
       </CarouselWrapper>
     );
-  })
+  }
+}
 
-export const VideoCarousel = compose(
-  connect(mapStateToProps),
-  withStyles(styles),
-  FullScreenDialog,
-)(props => {
-    const { classes, videosjson, videos: videosFromStore, openDialog } = props;
+class VideoCarouselBase extends Component {
+  componentWillMount() {
+    autoBind(this);
+    this.setActiveStep(0);
+  }
+
+  setActiveStep(activeStep) {
+    this.setState({activeStep});
+  }
+
+  render() {
+    const { classes, videosjson, videos: videosFromStore, openDialog } = this.props;
+    const { activeStep } = this.state;
     const videosFromDOM = videosjson ? JSON.parse(videosjson) : [];
 
     // If this is the initial run, load from dom
@@ -79,29 +99,66 @@ export const VideoCarousel = compose(
 
     return (
       <CarouselWrapper
+          changeActiveStep={this.setActiveStep}
+          activeStep={activeStep}
           classes={classes}
           items={videos}>
         <IframeCarouselContent
+            changeActiveStep={this.setActiveStep}
+            activeStep={activeStep}
             className={classes.videoCarouselSwipeableView}
             classes={classes}
             iframeSources={_.map(videos, v => v.src)}/>
       </CarouselWrapper>
     );
-  });
+  }
+}
 
-export const PhotoCarousel = connect(mapStateToProps)(withStyles(styles)(
-  props => {
-    const { classes, photos } = props;
+class PhotoCarouselBase extends Component {
+  componentWillMount() {
+    autoBind(this);
+    this.setActiveStep(0);
+  }
+
+  setActiveStep(activeStep) {
+    this.setState({activeStep});
+  }
+
+  render() {
+    const { activeStep } = this.state;
+    const { classes, photos } = this.props;
 
     return (
       <CarouselWrapper
+          changeActiveStep={this.setActiveStep}
+          activeStep={activeStep}
           classes={classes}
           items={photos}>
         <PhotoCarouselContent
+            changeActiveStep={this.setActiveStep}
+            activeStep={activeStep}
             className={classes.photoCarouselSwipeableView}
             classes={classes}
             photoSources={_.map(photos, p => p.image)}/>
       </CarouselWrapper>
     );
-  })
-);
+  }
+}
+
+
+export const AudioCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(AudioCarouselBase);
+
+export const VideoCarousel = compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+  FullScreenDialog,
+)(VideoCarouselBase);
+
+export const PhotoCarousel = compose(
+ connect(mapStateToProps),
+ withStyles(styles),
+)(PhotoCarouselBase);
