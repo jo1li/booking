@@ -49,8 +49,8 @@ ScaledElement.propTypes = {
 
 ScaledElement.defaultProps = {
 
-    // defaults to 2:1
-    ratio: 2
+    // defaults to 25:16
+    ratio: 25/16
 }
 
 export default ScaledElement;
