@@ -151,9 +151,10 @@ const MenuProps = {
 
 const TAGLINE_CHARS_MAX = MAX_BIO_SHORT_INPUT_LENGTH
 const GENRES_MAX = 3
-const imageIsRequired = value =>  {
-  isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
-}
+// Not currently requiring avatar in onboarding.
+// const imageIsRequired = value =>  {
+//   isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
+// }
 
 const normalizeGenres = (genres) => {
   if (!genres) {
@@ -210,21 +211,16 @@ class OnboardingForm extends Component {
     const { updateUserBio, musicianid, imageFile } = this.props;
 
     const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
-    const data = Object.assign({}, values, {
-      genres: genres,
-      image: imageFile
-    });
+    let data = { ...values, genres: genres }
+    if(!_.isEmpty(imageFile)) {
+      data = { ...data, image: imageFile }
+    }
 
     const errors = {}
 
     // tagline validation
     if(!data.bio_short) {
       errors.bio_short = "This field is required.";
-    }
-
-    // image validation
-    if(!data.image) {
-      errors.image = "Please add a profile photo.";
     }
 
     // genres validation
@@ -297,7 +293,8 @@ class OnboardingForm extends Component {
 
   render() {
     const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid } = this.props
-    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.image || !currentValues.bio_short ? true : false;
+    // Not currently requiring image.
+    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
       value: g,
       label: g
@@ -317,9 +314,7 @@ class OnboardingForm extends Component {
                   type="file"
                   imagefile={currentValues.image}
                   handleOnDrop={this.openPhotoEditor}
-                  validate={[imageIsRequired]}
                 />
-                <FormHelperText style={{ marginLeft: '4px'}}>Required</FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field

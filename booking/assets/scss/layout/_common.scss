@@ -76,7 +76,7 @@ a, .link {
 		left: 0;
 		height: 100%;
 		width: 100%;
-		background-color: black;
+		background-color: #F5F9FA;
 
 		#cover-photo {
 			position: absolute;
@@ -84,23 +84,41 @@ a, .link {
 			left: 0;
 			height: 100%;
 			width: 100%;
+			background-color: black;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: cover;
-
-			#cover-photo-fade {
-				background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 80%);
-				background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
-				background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000', endColorstr='#000',GradientType=0 );
-				height: 60px;
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				width: 100%;
-			}
-
 		}
+
+		#cover-photo-empty {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+		}
+
+		#cover-photo-bar {
+			height: 60px;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+
+		#cover-photo-fade {
+			background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 80%);
+			background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
+			background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 80%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000', endColorstr='#000',GradientType=0 );
+			height: 100%;
+		}
+
+		#cover-photo-fade-placeholder {
+			// background: #FAFAFA;
+			height: 100%;
+		}
+
 	}
 
 	.edit-box {
@@ -112,7 +130,6 @@ a, .link {
 
 	.photo-buttons {
 		display: flex;
-		space-between: 10px;
 		position: absolute;
 
 		/* TODO: would be nice to use variables instead of hardcoding below */

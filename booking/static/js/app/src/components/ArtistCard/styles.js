@@ -27,7 +27,12 @@ const styles = theme => ({
       margin: '0 0 40px',
     },
   },
-
+  button: {
+    margin: theme.spacing.unit,
+  },
+  iconLeft: {
+    marginRight: theme.spacing.unit,
+  },
   avatarSection: {
     marginTop: '0px',
     backgroundColor: theme.palette.grey[200],
@@ -129,12 +134,14 @@ const styles = theme => ({
   },
 
   avatarStandIn: {
-    display: 'block',
-    lineHeight: '110px',
-    width: '100%',
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
     fontSize: '16px',
     color: 'rgba(0,0,0,0.25)',
+    backgroundColor: '#F5F9FA',
+    userSelect: 'none',
     fontWeight: 500,
   },
   stageName: {
