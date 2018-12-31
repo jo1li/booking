@@ -19,7 +19,7 @@ const styles = theme => ({
         borderColor: theme.palette.secondary.main,
         borderRadius: '100%',
         '&:hover': {
-            border: `1px solid ${theme.palette.secondary.mai}`,
+            border: `1px solid ${theme.palette.secondary.main}`,
             backgroundColor: 'rgba(0, 185, 209, 0.08)',
         }
     }
