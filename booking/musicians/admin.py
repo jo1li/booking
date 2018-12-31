@@ -8,6 +8,7 @@ from musicians.models import *
 
 
 class MusicianAdmin(admin.ModelAdmin):
+  
     list_display = ['stage_name', 'url_fq_html', 'email_verified']
 
     def url_fq_html(self, obj):
@@ -20,6 +21,11 @@ class MusicianAdmin(admin.ModelAdmin):
         return obj.user.emailaddress_set.first().verified
     email_verified.boolean = True
 
+    def url_fq_html(self, obj):
+        return format_html(
+            '<a href="{url}">{url}</a>',
+            url=reverse('musician_profile', kwargs={'slug': obj.slug})
+        )
 
 class MusicianAudioAdmin(admin.ModelAdmin):
     list_display = ['musician', 'order']
