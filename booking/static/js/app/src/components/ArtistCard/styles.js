@@ -146,6 +146,8 @@ const styles = theme => ({
   },
   stageName: {
     fontSize: '27px',
+    wordBreak: 'break-word',
+    hyphens: 'auto',
   },
   editIcon: {
     padding: theme.spacing.unit / 2,
