@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
 import SwipeableViews from 'react-swipeable-views';
 import { MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT } from '../../constants/carousels';
 import { getMaxSizeImageURL } from '../../helpers/imageHelpers';
 
 class IframeCarouselContent extends Component {
+  componentWillMount() {
+    autoBind(this);
+  }
+
   componentWillReceiveProps(props) {
     const { activeStep } = this.props;
 
@@ -12,6 +17,10 @@ class IframeCarouselContent extends Component {
     if(activeStep !== props.activeStep) {
       this.refreshIframe(activeStep);
     }
+  }
+
+  onChangeIndex(newIdx) {
+    this.props.changeActiveStep(newIdx);
   }
 
   refreshIframe(idx) {
@@ -33,6 +42,7 @@ class IframeCarouselContent extends Component {
       <SwipeableViews
         axis='x'
         index={activeStep}
+        onChangeIndex={this.onChangeIndex}
         enableMouseEvents
         className={className}
       >
@@ -52,6 +62,14 @@ class IframeCarouselContent extends Component {
 }
 
 class PhotoCarouselContent extends Component {
+  componentWillMount() {
+    autoBind(this);
+  }
+
+  onChangeIndex(newIdx) {
+    this.props.changeActiveStep(newIdx);
+  }
+
   render() {
     const {
       className,
@@ -64,6 +82,7 @@ class PhotoCarouselContent extends Component {
       <SwipeableViews
         axis='x'
         index={activeStep}
+        onChangeIndex={this.onChangeIndex}
         enableMouseEvents
         className={className}
       >

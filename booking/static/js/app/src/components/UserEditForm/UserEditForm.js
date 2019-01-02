@@ -15,7 +15,6 @@ import { Caption, Display1 } from '../typography';
 
 import InputButtons from './InputButtons';
 import {
-  UploadButton,
   DeleteButton,
   AddButton,
 } from '../form/FabButton';
@@ -40,6 +39,7 @@ import {
   getGenres,
 } from '../../request/requests';
 import styles from './styles';
+import UploadButton from './UploadButton';
 
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
@@ -133,7 +133,7 @@ class UserEditForm extends Component {
                     <ImageUploadContainer
                       onUpload={values => change('image', values)}
                     >
-                      <UploadButton/>
+                      <UploadButton />
                     </ImageUploadContainer>
                   </InputButtons>
                   <Grid  item xs={12} sm={12} md={12} lg={12}>
