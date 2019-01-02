@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Camera from 'react-feather/dist/icons/camera';
 import Button from '@material-ui/core/Button';
 
-import FullScreenDialog from './Dialog/FullScreenDialog';
+import { Dialog } from './Dialog';
 import PhotoEditForm from './PhotoEditForm';
 
 const styles = (theme) => ({
@@ -63,7 +63,7 @@ class CoverPhoto extends React.Component {
         </div>
       );
     }
-  
+
     return (
       <div
         id="cover-photo"
@@ -89,5 +89,5 @@ const mapStateToProps = (state, props) => ({
 export default compose(
   connect(mapStateToProps),
   withStyles(styles),
-  FullScreenDialog,
+  Dialog,
 )(CoverPhoto);
