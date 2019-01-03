@@ -1,20 +1,10 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import { Close } from '../icons';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-  iconContainer: {
-    position: 'absolute',
-    top: theme.spacing.unit * 2.5,
-    right: theme.spacing.unit * 2.5,
-    zIndex: 1,
-    cursor: 'pointer',
-  },
-});
+import _ from 'lodash';
 
 const DialogBase = ({
       children,
+      CloseComponent,
       classes,
       paperProps,
       fullScreen,
@@ -22,30 +12,29 @@ const DialogBase = ({
       maxWidth,
       isOpen,
       close,
-      theme,
-    }) =>
-        <Dialog
-          fullScreen={fullScreen}
-          fullWidth={fullWidth}
-          maxWidth={maxWidth}
-          open={isOpen}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          className={classes.dialog}
-          PaperProps={paperProps}
-        >
-          <div className={classes.iconContainer}>
-            <Close
-              color={theme.palette.secondary.main}
-              onClick={close}
-            />
-          </div>
-            {children}
-        </Dialog>
+      reverseColors,
+    }) => {
+      paperProps = _.merge({classes: {root: classes.root}}, paperProps);
+
+      return <Dialog
+        fullScreen={fullScreen}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={isOpen}
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        PaperProps={paperProps}
+      >
+        <div className={classes.iconContainer}>
+          <CloseComponent onClick={close} />
+        </div>
+          {children}
+      </Dialog>
+}
 
 DialogBase.defaultProps = {
   fullScreen: false
 }
 
-export default withStyles(styles, { withTheme: true })(DialogBase);
+export default DialogBase;

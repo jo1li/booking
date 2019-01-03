@@ -5,13 +5,13 @@ import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import { AudioEditForm, VideoEditForm } from '../DraggableCodeForms';
-import { FullScreenDialog } from '../Dialog';
+import { Dialog } from '../Dialog';
 import $ from "jquery";
 
 import CarouselWrapper from './CarouselWrapper';
 import EmptyState from '../EmptyState';
 import { IframeCarouselContent, PhotoCarouselContent } from './CarouselContent';
-import styles from './styles';
+import { defaultColorSchemeStyles, reverseColorSchemeStyles } from './styles';
 
 const mapStateToProps = (state, props) => {
   const videos = ( state.videos === false )
@@ -148,17 +148,17 @@ class PhotoCarouselBase extends Component {
 
 export const AudioCarousel = compose(
   connect(mapStateToProps),
-  withStyles(styles),
-  FullScreenDialog,
+  withStyles(defaultColorSchemeStyles),
+  Dialog,
 )(AudioCarouselBase);
 
 export const VideoCarousel = compose(
   connect(mapStateToProps),
-  withStyles(styles),
-  FullScreenDialog,
+  withStyles(defaultColorSchemeStyles),
+  Dialog,
 )(VideoCarouselBase);
 
 export const PhotoCarousel = compose(
  connect(mapStateToProps),
- withStyles(styles),
+ withStyles(reverseColorSchemeStyles),
 )(PhotoCarouselBase);

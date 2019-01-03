@@ -3,7 +3,6 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import ActionCreators from '../../actions/actionCreators';
 import autoBind from 'react-autobind';
-import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';

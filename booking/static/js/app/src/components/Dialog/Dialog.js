@@ -1,66 +1,40 @@
-import React, { Component, Fragment } from 'react';
-import autoBind from 'react-autobind';
-import Mousetrap from 'mousetrap';
-import Empty from '../Empty';
+import React from 'react';
+import { compose } from 'redux';
+import DialogBase from './DialogBase';
+import DialogStateManager from './DialogStateManager';
+import withWidth from '@material-ui/core/withWidth';
+import { withStyles } from '@material-ui/core/styles';
+import BasicCloseButton from '../BasicCloseButton';
+import {
+    defaultColorSchemeStyles,
+    reverseColorSchemeStyles,
+} from './styles';
 
-/**
- * The DialogStateManager component takes a Dialog component,
- * then a wrapped component. The wrapped component will be passed
- * openDialog and closeDialog functions
- *
- * @param {ReactElement} Dialog - a Dialog component
- * @param {ReactElement} WrappedComponent - component that will use openDialog to launch the Dialog component
- *
- * @return {ReactElement}
- */
-const DialogStateManager = Dialog => WrappedComponent => {
-    class DialogWrapper extends Component {
-        static initialState = {
-            isOpen: false,
-            content: <Empty />
-        }
-
-        constructor(props) {
-            super(props);
-            this.state = DialogWrapper.initialState;
-
-            autoBind(this);
-        }
-
-        openDialog(content) {
-            this.setState({
-                isOpen: true,
-                content,
-            })
-            Mousetrap.bind('escape', this.closeDialog);
-        }
-
-        closeDialog() {
-            this.setState(DialogWrapper.initialState);
-            Mousetrap.unbind('escape');
-        }
-
-        render() {
-            const content = React.cloneElement(this.state.content, { closeDialog: this.closeDialog })
-            return (
-                <Fragment>
-                    <WrappedComponent {...this.props}
-                        openDialog={this.openDialog}
-                        closeDialog={this.closeDialog}
-                    />
-                    <Dialog
-                        isOpen={this.state.isOpen}
-                        close={this.closeDialog}
-                        paperProps={this.props.paperProps}
-                    >
-                        { content }
-                    </Dialog>
-                </Fragment>
-            )
-        }
+export const getConfiguredDialog = ({isFullScreen, CloseComponent = BasicCloseButton, reverseColors = false}) => {
+    const StatelessDialog = ({ children, width, isOpen, close, classes, paperProps, ...props }) => {
+        // TODO: might want to handle the isFullScreen default better, a function?
+        return (
+            <DialogBase
+                maxWidth={false}
+                isOpen={isOpen}
+                close={close}
+                fullScreen={isFullScreen || 'xs' === width}
+                CloseComponent={CloseComponent}
+                classes={classes}
+                paperProps={paperProps}
+                {...props}
+            >
+                { children }
+            </DialogBase>
+        )
     }
 
-    return DialogWrapper;
+    const styles = reverseColors ? reverseColorSchemeStyles : defaultColorSchemeStyles;
+    return compose(
+        DialogStateManager,
+        withStyles(styles),
+        withWidth(),
+    )(StatelessDialog);
 }
 
-export default DialogStateManager;
+export default getConfiguredDialog({CloseComponent: BasicCloseButton});

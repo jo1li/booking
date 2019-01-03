@@ -103,18 +103,18 @@ If you get any of the following errors when running `docker-compose up`, try the
 ### Modals (Dialog)
 
 TL;DR
-- import a dialog component `import { FullScreenDialog } from './Dialog`.
+- import a dialog component `import { Dialog } from './Dialog`.
 - wrap your component with the Dialog component ` export default Dialog(YourComponent)`.
 - use `this.props.openDialog(<div/>)` from within `YourComponent` to launch a some content in a Dialog.
 
-Dialogs can be implemented using the Dialog decorators (HOC components) located in `components/Dialog`. Dialogs can be composed into the component that will be responsible for launching the Dialog. The composed component will receive the `openDialog` and `closeDialog` props. The `openDialog` function takes one react node as an argument that will be rendered as the content of the Dialog.
+Dialogs can be implemented using the Dialog decorators (higher-order components) located in `components/Dialog`. Dialogs can be composed into the component that will be responsible for launching the Dialog. The composed component will receive the `openDialog` and `closeDialog` props. The `openDialog` function takes one react node as an argument that will be rendered as the content of the Dialog.
 
-A standard dialog that is used in many places in this repo is the FullScreenDialog. Lets look at an example.
+A standard dialog that is used in many places in this repo is the default Dialog. Let's look at an example.
 
 ```
 import React, { Component } from 'react';
 import { compose } from 'redux';
-import { FullScreenDialog } from './Dialog';
+import { Dialog } from './Dialog';
 
 
 class UserPage extends Component {
@@ -133,17 +133,17 @@ class UserPage extends Component {
 
 }
 
-export default FullScreenDialog(UserPage)
+export default Dialog(UserPage)
 
 // or if you may have additional decorators
 export default compose(
-    FullScreenDialog
+    Dialog
 )(UserPage)
 ```
 
 ### Adding a new Dialog
 
-The Dialog state manager located at `components/Dialog/Dialog.js` is a curried component who's first argument is a Dialog component. The Dialog component defaults to `DialogBase`. You can create a new Dialog component from  `DialogBase` adding additional functionality or styles and compose in `Dialog` (the Dialog state manager) to the new component Similar to the implementation of FullScreenDialog.
+The Dialog state manager located at `components/Dialog/DialogStateManager.js` is a curried component whose first argument is a Dialog component. The Dialog component defaults to `DialogBase`. You can create a new Dialog component from `DialogBase` adding additional functionality or styles and compose in `DialogStateManager` to the new component, similar to the implementation of the default Dialog in `Dialog.js`.
 
 # Fixtures
 

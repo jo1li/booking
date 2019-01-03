@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/Button';
 import isEqual from 'lodash/isEqual';
+import { Next, Prev } from '../icons';
 import CONFIGS from '../../configs';
 
 class CarouselWrapper extends Component {
@@ -57,6 +59,15 @@ class CarouselNav extends Component {
     const nextBtnIsDisabled = activeStep === maxSteps - 1;
     const prevBtnIsDisabled = activeStep === 0;
 
+    const nextButtonClassName = classNames(
+      classes.navButtonIcon,
+      nextBtnIsDisabled ? classes.disabledNavButtonIcon : null
+    );
+    const prevButtonClassName = classNames(
+      classes.navButtonIcon,
+      prevBtnIsDisabled ? classes.disabledNavButtonIcon : null
+    );
+
     return (
       <Fragment>
         <MobileStepper
@@ -66,24 +77,18 @@ class CarouselNav extends Component {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext} disabled={nextBtnIsDisabled}>
-              <img
-                alt="carousel next button"
-                className={`${classes.navButtonIcon} ${nextBtnIsDisabled ? classes.hidden : ''}`}
-                src={`${CONFIGS.IMAGES_URL}/next.svg`} />
-            </Button>
+            <ButtonBase size="small" onClick={handleNext} className={classes.carouselNavButton} disabled={nextBtnIsDisabled}>
+              <Next className={nextButtonClassName}/>
+            </ButtonBase>
           }
           backButton={
-            <Button size="small" onClick={handleBack} disabled={prevBtnIsDisabled}>
-              <img
-                alt="carousel back button"
-                className={`${classes.navButtonIcon} ${prevBtnIsDisabled ? classes.hidden : ''}`}
-                src={`${CONFIGS.IMAGES_URL}/prev.svg`} />
-            </Button>
+            <ButtonBase size="small" onClick={handleBack} className={classes.carouselNavButton} disabled={prevBtnIsDisabled}>
+              <Prev className={prevButtonClassName}/>
+            </ButtonBase>
           }
         />
         <div className={classes.stepIndicator}>
-          {activeStep + 1}/{maxSteps}
+          {activeStep + 1} of {maxSteps}
         </div>
       </Fragment>
     );
