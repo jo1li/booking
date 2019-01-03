@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-import { MAX_CANVAS_IMAGE_WIDTH } from '../../constants/imageConstants';
 
 /**
  * Input that Handles uploading an image and correctly orienting the image.
@@ -22,7 +21,7 @@ class ImageUploadContainer extends Component {
         window.loadImage(
             file,
             img => callback(img.toDataURL("image/png")),
-            { maxWidth: MAX_CANVAS_IMAGE_WIDTH, canvas: true, orientation: true }
+            { canvas: true, orientation: true }
         );
     }
 

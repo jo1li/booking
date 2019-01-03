@@ -5,7 +5,6 @@ import { UploadCloud } from "react-feather";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { geGetImageFiletPreview } from '../../utils/formHelpers';
-import { MAX_CANVAS_IMAGE_WIDTH } from '../../constants/imageConstants';
 import { orientImage } from '../../helpers/imageHelpers';
 
 
@@ -33,7 +32,7 @@ const DropZoneField = ({
           ...file,
           preview: base64Image
         })
-      }, { maxWidth: MAX_CANVAS_IMAGE_WIDTH })}
+      })}
     >
         <Fragment>
           <Grid container style={{ flexGrow: 1 }}>
