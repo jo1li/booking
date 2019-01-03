@@ -21,7 +21,7 @@ class ImageUploadContainer extends Component {
         window.loadImage(
             file,
             img => callback(img.toDataURL("image/png")),
-            { maxWidth: 1200, canvas: true, orientation: true }
+            { canvas: true, orientation: true }
         );
     }
 

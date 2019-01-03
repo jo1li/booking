@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import { MAX_LOADED_IMAGE_WIDTH } from '../constants/imageConstants';
 
 const URL_OPTIONS = {
   width: (number) => `w_${number}`,
@@ -49,9 +49,11 @@ export const getOrientedImageURL = (imageURL) => (
 * https://github.com/blueimp/JavaScript-Load-Image
 */
 export const orientImage = (file, callback, options) => {
+  const DEFAULT_OPTIONS = { maxWidth: MAX_LOADED_IMAGE_WIDTH }; // Give a `maxWidth` to make it go faster and not break iphone ux
+  const mergedOptions = _.assign({}, DEFAULT_OPTIONS, options);
   window.loadImage(
     file,
     img => callback(img.toDataURL("image/png")),
-    { ...options, orientation: true }, // Give a `maxWidth` to make it go faster
+    { ...mergedOptions, orientation: true },
   );
 }
