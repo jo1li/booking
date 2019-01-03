@@ -1,3 +1,3 @@
-// Reasonable max size for most images we need to manipulate via canvas -
+// Reasonable max size for most images we need to manipulate after loading -
 // using this can prevent failures to render on mobile.
-export const MAX_CANVAS_IMAGE_WIDTH = 1200;
+export const MAX_LOADED_IMAGE_WIDTH = 1200;
