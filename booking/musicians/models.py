@@ -134,9 +134,25 @@ class Musician(TimeStampedModel):
             return self.image.url
 
     @property
+    def image_cloudinary_id(self):
+        if self.image and hasattr(self.image, 'url'):
+            return '/'.join(self.image.url.split('/')[-2:])
+        else:
+            return None
+
+
+    @property
     def image_hero_url(self):
         if self.image_hero and hasattr(self.image_hero, 'url'):
             return self.image_hero.url
+
+
+    @property
+    def image_hero_cloudinary_id(self):
+        if self.image and hasattr(self.image, 'url'):
+            return '/'.join(self.image_hero.url.split('/')[-2:])
+        else:
+            return None
 
 
     def spotify_followers(self):

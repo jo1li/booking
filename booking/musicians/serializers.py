@@ -10,6 +10,8 @@ from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, Genre
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+import cloudinary
+
 
 artist_fields = (
             'stage_name',
@@ -123,7 +125,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     url_api = serializers.HyperlinkedIdentityField(view_name='artists-detail')
 
     stage_name = serializers.CharField(required=False)
-    image = serializers.ImageField(required=False, allow_empty_file=False)
+    image = serializers.SerializerMethodField(required=False)
     image_hero = ArtistImageSerializer()
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
@@ -138,8 +140,13 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         fields = artist_fields + ('audios', 'videos', 'photos', 'genres',)
 
 
+    def get_image(self, instance):
+        return cloudinary.CloudinaryImage(instance.image_cloudinary_id).build_url(angle="exif")
+
+
 class ArtistUpdateSerializer(ArtistSerializer):
     genres = serializers.CharField(required=False)
+    image = serializers.ImageField(required=False, allow_empty_file=False)
     image_hero = ArtistImageSerializer(required=False)
     image_hero_id = serializers.IntegerField(required=False)
 
