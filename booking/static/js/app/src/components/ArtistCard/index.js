@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import ArtistCard from './ArtistCard';
-import { FullScreenDialog } from '../Dialog';
+import { Dialog } from '../Dialog';
 
 const mapStateToProps = (state, props) => ({
   profile: state.profile,
@@ -12,5 +12,5 @@ const mapStateToProps = (state, props) => ({
 
 export default compose(
   connect(mapStateToProps),
-  FullScreenDialog,
+  Dialog,
 )(ArtistCard);

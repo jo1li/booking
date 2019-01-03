@@ -8,8 +8,9 @@ import { AudioCarousel, VideoCarousel } from '../components/Carousels';
 import PhotoCarouselModal from '../components/PhotoCarouselModal';
 import PhotoModalButton from '../components/PhotoModalButton';
 import EditPhotosButton from '../components/EditPhotosButton';
+import CaptionedCloseButton from '../components/CaptionedCloseButton';
 import CoverPhoto from '../components/CoverPhoto';
-import { ClickToOpenDialog } from '../components/Dialog';
+import { ClickToOpenDialog, getConfiguredDialog } from '../components/Dialog';
 import RenderFromDomNode from '../renderFromDomNode';
 import loadInitialState from '../loadInitialState';
 import _ from 'lodash';
@@ -80,6 +81,11 @@ export default function render_artist_profile() {
         Component: ClickToOpenDialog({
             triggerSelector: '#open-photo-carousel, #cover-photo-wrapper',
             DialogContent: PhotoCarouselModal,
+            DialogComponent: getConfiguredDialog({
+                isFullScreen: true,
+                CloseComponent: CaptionedCloseButton,
+                reverseColors: true,
+            }),
             getIsDisabled: (state) => !_.size(state.photos),
         }),
         node: 'photo-modal',

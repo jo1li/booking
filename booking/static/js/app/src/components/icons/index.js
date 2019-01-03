@@ -18,3 +18,5 @@ export { CheckCircle } from 'react-feather';
 export { Camera } from 'react-feather';
 export { default as CircularProgress } from '@material-ui/core/CircularProgress';
 export const Save = IconImg({src: `${CONFIGS.IMAGES_URL}/save.svg`, alt: 'Save Icon'});
+export { default as Next } from './Next';
+export { default as Prev } from './Prev';
