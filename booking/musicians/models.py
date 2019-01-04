@@ -133,6 +133,7 @@ class Musician(TimeStampedModel):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
 
+
     @property
     def image_cloudinary_id(self):
         if self.image and hasattr(self.image, 'url'):
@@ -268,6 +269,19 @@ class MusicianImage(TimeStampedModel, OrderedModel):
 
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
+
+    @property
+    def image_cloudinary_id(self):
+        if self.image and hasattr(self.image, 'url'):
+            return '/'.join(self.image.url.split('/')[-2:])
+        else:
+            return None
 
 
 @receiver(pre_save, sender=Musician)

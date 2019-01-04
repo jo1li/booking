@@ -9,7 +9,7 @@ from account.compat import is_authenticated
 
 from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, GenreTag
 from .forms import SignupForm, MusicianForm, MusicianAudioFormSet, MusicianVideoFormSet
-from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistGenreTagSerializer, ArtistMessageSerializer
+from .serializers import ArtistSerializer, ArtistListSerializer, ArtistUpdateSerializer, ArtistCreateSerializer, ArtistVideoSerializer, ArtistAudioSerializer, ArtistImageSerializer, ArtistImageUpdateSerializer, ArtistGenreTagSerializer, ArtistMessageSerializer
 
 from rest_framework import viewsets, mixins, permissions
 from rest_framework.response import Response
@@ -18,6 +18,7 @@ from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.exceptions import PermissionDenied
 
 from rest_framework.views import APIView
+import cloudinary
 
 
 class CreateAndIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
@@ -120,6 +121,19 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
     queryset = MusicianImage.objects.all()
     serializer_class = ArtistImageSerializer
+
+
+    def create(self, *args, **kwargs):
+
+        print("HERERERERrer")
+
+        self.serializer_class = ArtistImageUpdateSerializer
+        resp = mixins.CreateModelMixin.create(self, *args, **kwargs)
+
+        i = MusicianImage.objects.get(pk=resp.data['id'])
+        resp.data['image'] = cloudinary.CloudinaryImage(i.image_cloudinary_id).build_url(angle="exif")
+
+        return resp
 
 
     def perform_create(self, serializer):

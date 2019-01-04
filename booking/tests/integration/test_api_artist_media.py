@@ -224,5 +224,5 @@ class ApiArtistPhotoTest(OpusTestCase):
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
 
         # Ensure the image comes back with a cloudinary URL
-        response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/v1/media/')
+        response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/a_exif/v1/media/')
 
