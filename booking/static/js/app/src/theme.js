@@ -1,18 +1,147 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const DISPLAY_FONT_STACK = "'Modern Era', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
+const BODY_FONT_STACK = "'GT Zirkon', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
+const BASE_FONT_SIZE = 16;
+
 export default createMuiTheme({
+    typography: {
+        useNextVariants: true,
+        htmlFontSize: BASE_FONT_SIZE,
+        fontSize: BASE_FONT_SIZE,
+        body1: {
+          fontFamily: BODY_FONT_STACK,
+          fontWeight: 300,
+          fontSize: "1rem",
+          lineHeight: 1.4285,
+          letterSpacing: "0em",
+          textRendering: "optimizeLegibility",
+          webkitFontSmoothing: "subpixel-antialiased",
+        },
+        body2: {
+          fontFamily: BODY_FONT_STACK,
+          fontWeight: 300,
+          fontSize: "0.875rem",
+          lineHeight: 1.375,
+          letterSpacing: "0",
+          textRendering: "optimizeLegibility",
+          webkitFontSmoothing: "subpixel-antialiased",
+        },
+        subtitle1: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 400,
+          fontSize: "1rem",
+          lineHeight: 1.375,
+          letterSpacing: "0em",
+          textRendering: "optimizeLegibility",
+          webkitFontSmoothing: "subpixel-antialiased",
+        },
+        subtitle2: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 400,
+          fontSize: "0.875rem",
+          lineHeight: 1.4285,
+          letterSpacing: "0",
+          textRendering: "optimizeLegibility",
+          webkitFontSmoothing: "subpixel-antialiased",
+        },
+        caption: {
+          fontFamily: BODY_FONT_STACK,
+          fontWeight: 500,
+          fontSize: "0.75rem",
+          lineHeight: 1.66,
+          letterSpacing: "0.06em",
+        },
+        overline: {
+          fontFamily: BODY_FONT_STACK,
+          fontWeight: 400,
+          fontSize: "0.75rem",
+          lineHeight: 1.66,
+          letterSpacing: "0.0133em",
+          textTransform: "uppercase",
+        },
+        h6: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 500,
+          fontSize: "1.25rem",
+          lineHeight: 1.25,
+          letterSpacing: "0.0075em",
+        },
+        h5: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 500,
+          fontSize: "1.5rem",
+          lineHeight: 1.33,
+          letterSpacing: "0em",
+        },
+        h4: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 400,
+          fontSize: "2rem",
+          lineHeight: 1.25,
+          letterSpacing: "0.00735em",
+        },
+        h3: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 600,
+          fontSize: "2.25rem",
+          lineHeight: 1.222,
+          letterSpacing: "0em",
+        },
+        h2: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 600,
+          fontSize: "3rem",
+          lineHeight: 1.229,
+          letterSpacing: "-0.00833em",
+        },
+        h1: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 600,
+          fontSize: "4rem",
+          lineHeight: 1.21875,
+          letterSpacing: "-0.01562em",
+        },
+        button: {
+          fontFamily: DISPLAY_FONT_STACK,
+          fontWeight: 600,
+          fontSize: "1rem",
+          lineHeight: 1.18,
+          letterSpacing: "0",
+          textTransform: "none",
+        },
+    },
     palette: {
         primary: {
-            light: "#7f9ca8",
-            main: "#526e79",
-            dark: "#27434d",
-            contrastText: "#fff",
+            main:"#2B4BD1",
+            light:"#7280E3",
+            dark:"#0025B2",
+            contrastText: "#FFFFFF",
         },
         secondary: {
-            light: "#53ecfd",
-            main: "#00b9d1",
-            dark: "#0089a0",
-            contrastText: "#fff",
-        }
+            main:"#2BD1B3",
+            light:"#AEEBDE",
+            dark:"#00B890",
+            contrastText: "rgba(0,0,0,0.87)",
+        },
+        grey: {
+            50:"#F5F9FA",
+            100:"#E9F2F5",
+            200:"#DDEAED",
+            300:"#CEDDE0",
+            400:"#A2B7BD",
+            500:"#83989E",
+            600:"#607175",
+            700:"#4D5C61",
+            800:"#333F42",
+            900:"#031B21",
+            A100:"#C7D3D6",
+            A200:"#96A6AB",
+            A400:"#152A30",
+            A700:"#4D5C61"
+        },
+        background: {
+            paper: "#FFFFFF"
+        },
     },
-});
+  });  
