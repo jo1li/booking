@@ -136,8 +136,8 @@ class Musician(TimeStampedModel):
 
     @property
     def image_cloudinary_id(self):
-        if self.image and hasattr(self.image, 'url'):
-            return '/'.join(self.image.url.split('/')[-2:])
+        if self.image and hasattr(self.image, 'name'):
+            return self.image.name
         else:
             return None
 
@@ -150,8 +150,8 @@ class Musician(TimeStampedModel):
 
     @property
     def image_hero_cloudinary_id(self):
-        if self.image and hasattr(self.image_hero, 'url'):
-            return '/'.join(self.image_hero.url.split('/')[-2:])
+        if self.image_hero and hasattr(self.image_hero, 'name'):
+            return self.image_hero.name
         else:
             return None
 
