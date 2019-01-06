@@ -10,8 +10,6 @@ from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, Genre
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-import cloudinary
-
 
 artist_fields = (
             'stage_name',
@@ -106,7 +104,7 @@ class ArtistImageSerializer(serializers.ModelSerializer):
 
 
     def get_image(self, instance):
-        return cloudinary.CloudinaryImage(instance.image_cloudinary_id).build_url(angle="exif")
+        return instance.image_url
 
 
 class ArtistImageUpdateSerializer(serializers.ModelSerializer):
@@ -159,7 +157,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
 
     def get_image(self, instance):
-        return cloudinary.CloudinaryImage(instance.image_cloudinary_id).build_url(angle="exif")
+        return instance.image_url
 
 
 class ArtistUpdateSerializer(ArtistSerializer):

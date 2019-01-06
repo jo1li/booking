@@ -147,13 +147,13 @@ class Musician(TimeStampedModel):
     @property
     def image_hero_url(self):
         if self.image_hero and self.image_hero.image and hasattr(self.image_hero.image, 'name'):
-            return cloudinary.CloudinaryImage(self.image_hero.image.name).build_url(angle="exif")
+            return self.image_hero.image_url
 
 
     @property
     def image_hero_cloudinary_id(self):
-        if self.image_hero and hasattr(self.image_hero, 'name'):
-            return self.image_hero.name
+        if self.image_hero and self.image_hero.image and hasattr(self.image_hero.image, 'name'):
+            return self.image_hero.image.name
         else:
             return None
 
@@ -274,14 +274,14 @@ class MusicianImage(TimeStampedModel, OrderedModel):
 
     @property
     def image_url(self):
-        if self.image and hasattr(self.image, 'url'):
-            return self.image.url
+        if self.image and hasattr(self.image, 'name'):
+            return cloudinary.CloudinaryImage(self.image.name).build_url(angle="exif")
 
 
     @property
     def image_cloudinary_id(self):
-        if self.image and hasattr(self.image, 'url'):
-            return '/'.join(self.image.url.split('/')[-2:])
+        if self.image and hasattr(self.image, 'name'):
+            return self.image.name
         else:
             return None
 
