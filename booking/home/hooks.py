@@ -5,6 +5,7 @@ from account.conf import settings
 from account.compat import reverse
 from account.hooks import AccountDefaultHookSet
 
+import re
 
 class AccountHookSet(AccountDefaultHookSet):
 
@@ -38,9 +39,8 @@ class AccountHookSet(AccountDefaultHookSet):
         ctx['password_reset_url'] = "{0}://{1}{2}".format(
             protocol,
             settings.SITE_DOMAIN,
-            ctx['password_reset_url'].replace('http://example.com', '')
+            re.sub('(http|https)://example.com', '', ctx['password_reset_url'])
         )
-        print(ctx)
 
         html_content = render_to_string("account/email/password_reset.html", ctx)
 
