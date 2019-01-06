@@ -125,8 +125,6 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
     def create(self, *args, **kwargs):
 
-        print("HERERERERrer")
-
         self.serializer_class = ArtistImageUpdateSerializer
         resp = mixins.CreateModelMixin.create(self, *args, **kwargs)
 
