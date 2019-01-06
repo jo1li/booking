@@ -210,7 +210,7 @@ class OnboardingForm extends Component {
   submit = async (values) => {
     const { updateUserBio, musicianid, imageFile } = this.props;
 
-    const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
+    const genres = values.genres ? values.genres.map(g => `"${g.value}"`).join(",") : "";
     let data = { ...values, genres: genres }
     if(!_.isEmpty(imageFile)) {
       data = { ...data, image: imageFile }
@@ -259,6 +259,7 @@ class OnboardingForm extends Component {
       errors.spotify = urlerror;
     }
 
+    console.log(data);
 
     if(Object.keys(errors).length === 0) {
        try {
