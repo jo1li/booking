@@ -102,7 +102,7 @@ class ArtistImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicianImage
         list_serializer_class = OrderedListSerializer
-        fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'image', 'image_cloudinary_id', 'artist', 'order', 'created', 'modified')
 
 
     def get_image(self, instance):
