@@ -87,6 +87,11 @@ class Musician(TimeStampedModel):
 
     stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
+
+
+    # When working with avatar and hero images, prefer the image_url and
+    #   image_hero_url properties. These will apply the default desired
+    #   transformations.
     image = models.ImageField(upload_to='media/', blank=True)
     image_hero = models.OneToOneField("MusicianImage", on_delete=models.SET_NULL, null=True, blank=True, related_name="hero_image")
     account_type = models.CharField(choices=ACCOUNT_TYPE_CHOICES, max_length=16, null=True, blank=True)
