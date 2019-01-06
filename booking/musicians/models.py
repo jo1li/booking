@@ -23,6 +23,8 @@ import spotipy
 import spotipy.util as util
 from urllib import parse
 
+import cloudinary
+
 
 class GenreTag(tagulous.models.TagModel):
     class TagMeta:
@@ -130,8 +132,8 @@ class Musician(TimeStampedModel):
 
     @property
     def image_url(self):
-        if self.image and hasattr(self.image, 'url'):
-            return self.image.url
+        if self.image and hasattr(self.image, 'name'):
+            return cloudinary.CloudinaryImage(self.image.name).build_url(angle="exif")
 
 
     @property
@@ -144,8 +146,8 @@ class Musician(TimeStampedModel):
 
     @property
     def image_hero_url(self):
-        if self.image_hero and hasattr(self.image_hero, 'url'):
-            return self.image_hero.url
+        if self.image_hero and self.image_hero.image and hasattr(self.image_hero.image, 'name'):
+            return cloudinary.CloudinaryImage(self.image_hero.image.name).build_url(angle="exif")
 
 
     @property
