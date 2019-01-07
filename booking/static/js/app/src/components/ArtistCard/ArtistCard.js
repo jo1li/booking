@@ -130,8 +130,8 @@ class ArtistCard extends React.Component {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <ButtonBase className={classes.editIcon}>
-                    <Edit size={22} onClick={() => this.renderUserEditForm(this.props)}/>
+                  <ButtonBase className={classes.editIcon} onClick={() => this.renderUserEditForm(this.props)}>
+                    <Edit size={22} />
                   </ButtonBase>
                 </Grid>
               </Grid>
