@@ -161,9 +161,7 @@ class NavigationBar extends React.Component {
           <Toolbar className={classes.toolbar}>
             <a href={this.props.url_home}>
             <div className={classes.logo}>
-              <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
-                Opus
-              </NavBarLogo>
+              <NavBarLogo>Opus</NavBarLogo>
             </div>
             </a>
             {authed && (
