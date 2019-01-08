@@ -1,5 +1,88 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
+import {
+  Field,
+  reduxForm,
+  getFormValues,
+} from 'redux-form';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import Grid from '@material-ui/core/Grid';
+import DropZone from "react-dropzone";
+import FormControl from '@material-ui/core/FormControl';
+import _ from 'lodash';
+import UploadButton from '../UserEditForm/UploadButton';
+import { orientImage } from '../../helpers/imageHelpers';
+import { Camera } from '../icons';
+
+
+const styles = (theme) => ({
+    uploadButtonContainer: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginLeft: '16px',
+    },
+    emptyImagePreview: {
+        backgroundColor: '#F5F9FA',
+        display: 'inline-flex',
+        // Center camera icon
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    imagePreview: {
+        height: '64px',
+        width: '100px',
+    }
+});
+
+const EmptyImagePreview = ({classes}) => (
+    <div className={classNames(classes.emptyImagePreview, classes.imagePreview)}>
+        <Camera size={22} />
+    </div>
+)
+
+// Based on ../SignupForm/UploadDropZone
+const ImagePreview = ({ image, imageName, classes }) => {
+    if(!image) {
+        return <EmptyImagePreview classes={classes} />;
+    }
+
+    return <img src={image} alt={imageName} className={classes.imagePreview} />;
+};
+
+// Based on ../SignupForm/UploadDropZone
+// TODO: Merge the two once the design is more consistent.
+const DropZoneField = ({
+    handleOnDrop,
+    input,
+    image,
+    imageName,
+    label,
+    classes,
+    meta: { error, touched }
+}) => (
+    <Fragment>
+        <DropZone
+            accept="image/jpeg, image/png"
+            className="upload-container"
+            onDrop={file => orientImage(file[0], base64Image => {
+            handleOnDrop({
+                ...file,
+                preview: base64Image
+            })
+          })}
+        >
+            <ImagePreview image={image} imageName={imageName} classes={classes} />
+            <div className={classes.uploadButtonContainer}>
+                <UploadButton />
+            </div>
+        </DropZone>
+        {touched && error && <div>{error}</div>}
+    </Fragment>
+);
+
+const StyledDropZoneField = withStyles(styles)(DropZoneField);
+
 
 /**
  * Input that Handles uploading an image and correctly orienting the image.
@@ -49,32 +132,25 @@ class ImageUploadContainer extends Component {
             // requires a unique id if two or more
             // upload containers are present on a page
             id,
-            children
+            children,
+            classes,
+            currentValues,
+            onDrop
         } = this.props;
 
+
         return (
-            <div
-                className={`image-upload-container ${className || ''}`}
-            >
-                <label
-                    htmlFor={`addPicture-${id || 0}`}
-                >
-                   {
-                    React.Children.map(children, child => {
-                        return React.cloneElement(child, { onClick: () => {
-                            child.onCLick && child.onCLick();
-                        }})
-                    })
-                   }
-                </label>
-                <input
+            <FormControl className={`image-upload-container ${className || ''}`} fullWidth>
+                <Field
+                    name="image"
+                    component={StyledDropZoneField}
                     type="file"
-                    className="addPicture"
-                    id={`addPicture-${id || 0}`}
-                    style={{display: 'none'}}
-                    onChange={(e) => this.uploadImage(e)} />
-            </div>
-        )
+                    image={currentValues.image}
+                    imageName={_.get(currentValues.imageFile, 'name')}
+                    handleOnDrop={onDrop}
+                />
+            </FormControl>
+        );
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import {
   Field,
   reduxForm,
@@ -39,7 +40,10 @@ import {
   getGenres,
 } from '../../request/requests';
 import styles from './styles';
-import UploadButton from './UploadButton';
+
+import Dialog from '../Dialog/Dialog';
+import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
+
 
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
@@ -73,7 +77,7 @@ class UserEditForm extends Component {
 
     const data = Object.assign({}, values, {
       genres: values.genres,
-      image: _.get(values, 'image.file'),
+      image: _.get(values, 'imageFile'),
     });
 
     return updateUserBio(data, musicianId).then(res => {
@@ -93,6 +97,24 @@ class UserEditForm extends Component {
       //   image: errors.image.join(', ')
       // })
     });
+  }
+
+  openPhotoEditor(imageFile) {
+    const {
+      change,
+      openDialog,
+    } = this.props;
+
+    openDialog(
+      <ProfilePhotoEditorForm
+        image={imageFile.preview}
+        imageName={imageFile.name}
+        onClickConfirm={files => {
+          // There will only be one file.
+          change('image', files[0].preview);
+          change('imageFile', files[0]);
+        }} />
+    )
   }
 
   render() {
@@ -120,22 +142,14 @@ class UserEditForm extends Component {
             <form onSubmit={handleSubmit(this.submit)}>
               <Grid container spacing={24} direction="row">
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >PICTURE AVATAR</Caption>
+                  <Caption >PROFILE PHOTO</Caption>
                 </Grid>
-                 <InputButtons
-                    component={Input}
-                    id="image"
-                    label="image"
-                    name="image.name"
-                    placeholder="Your Avatar"
-                    type="text"
-                  >
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
                     <ImageUploadContainer
-                      onUpload={values => change('image', values)}
-                    >
-                      <UploadButton />
-                    </ImageUploadContainer>
-                  </InputButtons>
+                      currentValues={currentValues}
+                      onDrop={this.openPhotoEditor}
+                      onUpload={values => change('image', values)} />
+                  </Grid>
                   <Grid  item xs={12} sm={12} md={12} lg={12}>
                     <Caption >SOCIAL PROFILES</Caption>
                   </Grid>
@@ -305,4 +319,7 @@ const mapStateToProps = (state, props) => ({
   musicianId: props.id,
 })
 
-export default connect(mapStateToProps)(UserEditForm);
+export default compose(
+  connect(mapStateToProps),
+  Dialog,
+)(UserEditForm);
