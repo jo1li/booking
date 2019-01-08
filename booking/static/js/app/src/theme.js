@@ -141,6 +141,7 @@ export default createMuiTheme({
             A700:"#4D5C61"
         },
         background: {
+            default: "#F5F9FA",
             paper: "#FFFFFF"
         },
     },
