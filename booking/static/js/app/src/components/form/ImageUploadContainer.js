@@ -17,10 +17,14 @@ import { Camera } from '../icons';
 
 
 const styles = (theme) => ({
+    dropZone: {
+        display: 'flex',
+    },
     uploadButtonContainer: {
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
         marginLeft: '16px',
+        height: '64px',
     },
     emptyImagePreview: {
         backgroundColor: '#F5F9FA',
@@ -64,7 +68,7 @@ const DropZoneField = ({
     <Fragment>
         <DropZone
             accept="image/jpeg, image/png"
-            className="upload-container"
+            className={classNames("upload-container", classes.dropZone)}
             onDrop={file => orientImage(file[0], base64Image => {
             handleOnDrop({
                 ...file,
