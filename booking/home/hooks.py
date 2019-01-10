@@ -5,6 +5,8 @@ from account.conf import settings
 from account.compat import reverse
 from account.hooks import AccountDefaultHookSet
 
+from urllib.parse import urlparse
+
 
 class AccountHookSet(AccountDefaultHookSet):
 
@@ -33,14 +35,17 @@ class AccountHookSet(AccountDefaultHookSet):
 
     def send_password_reset_email(self, to, ctx):
 
+        print("hookssend_password_reset_email ctx", ctx)
+
         # TODO: this won't work in temp branch builds
         protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
         ctx['password_reset_url'] = "{0}://{1}{2}".format(
             protocol,
             settings.SITE_DOMAIN,
-            ctx['password_reset_url'].replace('http://example.com', '')
+            urlparse(ctx['password_reset_url']).path
         )
-        print(ctx)
+
+        print("hookssend_password_reset_email ctx", ctx)
 
         html_content = render_to_string("account/email/password_reset.html", ctx)
 
