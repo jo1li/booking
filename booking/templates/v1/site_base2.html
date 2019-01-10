@@ -18,50 +18,7 @@
     {% endblock og %}
 
     {% block assets %}
-    <style>
-        @font-face {
-            font-family: 'Modern Era';
-            src: url("{% static 'fonts/modern-era/ModernEra-Regular.woff2' %}") format('woff2'),
-                url("{% static 'fonts/modern-era/ModernEra-Regular.woff' %}") format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Modern Era';
-            src: url("{% static 'fonts/modern-era/ModernEra-Medium.woff2' %}") format('woff2'),
-                url("{% static 'fonts/modern-era/ModernEra-Medium.woff' %}") format('woff');
-            font-weight: 500;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Modern Era';
-            src: url("{% static 'fonts/modern-era/ModernEra-Medium.woff2' %}") format('woff2'),
-                url("{% static 'fonts/modern-era/ModernEra-Medium.woff' %}") format('woff');
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GT Zirkon';
-            src: url("{% static 'fonts/gt-zirkon/GT-Zirkon-Light.woff2' %}") format('woff2'),
-                url("{% static 'fonts/gt-zirkon/GT-Zirkon-Light.woff' %}") format('woff');
-            font-weight: 300;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GT Zirkon';
-            src: url("{% static 'fonts/gt-zirkon/GT-Zirkon-Book.woff2' %}") format('woff2'),
-                url("{% static 'fonts/gt-zirkon/GT-Zirkon-Book.woff' %}") format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GT Zirkon';
-            src: url("{% static 'fonts/gt-zirkon/GT-Zirkon-Medium.woff2' %}") format('woff2'),
-                url("{% static 'fonts/gt-zirkon/GT-Zirkon-Medium.woff' %}") format('woff');
-            font-weight: 500;
-            font-style: normal;
-        }
-    </style>
+    {% include "_font_includes.html" %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
