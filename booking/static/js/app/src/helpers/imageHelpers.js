@@ -8,7 +8,7 @@ const URL_OPTIONS = {
   fill: () => 'c_fill',
   face: () => 'g_face',
   thumbnail: () => 'c_thumb',
-  autoOriented: () => 'a_auto',
+  autoOriented: () => 'a_exif',
 }
 
 const getCloudinaryURL = (imageURL, options) => {

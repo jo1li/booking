@@ -23,6 +23,8 @@ import spotipy
 import spotipy.util as util
 from urllib import parse
 
+import cloudinary
+
 
 class GenreTag(tagulous.models.TagModel):
     class TagMeta:
@@ -85,6 +87,11 @@ class Musician(TimeStampedModel):
 
     stage_name = models.CharField(max_length=256)
     slug = models.CharField(max_length=32, null=True, blank=True, unique=True)
+
+
+    # When working with avatar and hero images, prefer the image_url and
+    #   image_hero_url properties. These will apply the default desired
+    #   transformations.
     image = models.ImageField(upload_to='media/', blank=True)
     image_hero = models.OneToOneField("MusicianImage", on_delete=models.SET_NULL, null=True, blank=True, related_name="hero_image")
     account_type = models.CharField(choices=ACCOUNT_TYPE_CHOICES, max_length=16, null=True, blank=True)
@@ -130,13 +137,30 @@ class Musician(TimeStampedModel):
 
     @property
     def image_url(self):
-        if self.image and hasattr(self.image, 'url'):
-            return self.image.url
+        if self.image and hasattr(self.image, 'name'):
+            return cloudinary.CloudinaryImage(self.image.name).build_url(angle="exif")
+
+
+    @property
+    def image_cloudinary_id(self):
+        if self.image and hasattr(self.image, 'name'):
+            return self.image.name
+        else:
+            return None
+
 
     @property
     def image_hero_url(self):
-        if self.image_hero and hasattr(self.image_hero, 'url'):
-            return self.image_hero.url
+        if self.image_hero and self.image_hero.image and hasattr(self.image_hero.image, 'name'):
+            return self.image_hero.image_url
+
+
+    @property
+    def image_hero_cloudinary_id(self):
+        if self.image_hero and self.image_hero.image and hasattr(self.image_hero.image, 'name'):
+            return self.image_hero.image.name
+        else:
+            return None
 
 
     def spotify_followers(self):
@@ -252,6 +276,19 @@ class MusicianImage(TimeStampedModel, OrderedModel):
 
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'name'):
+            return cloudinary.CloudinaryImage(self.image.name).build_url(angle="exif")
+
+
+    @property
+    def image_cloudinary_id(self):
+        if self.image and hasattr(self.image, 'name'):
+            return self.image.name
+        else:
+            return None
 
 
 @receiver(pre_save, sender=Musician)

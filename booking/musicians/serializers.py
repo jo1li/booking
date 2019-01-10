@@ -16,7 +16,9 @@ artist_fields = (
             'url_fq',
             'url_api',
             'image',
+            'image_cloudinary_id',
             'image_hero',
+            'image_hero_cloudinary_id',
             'on_tour',
             'hometown',
             'state',
@@ -91,6 +93,22 @@ class ArtistAudioSerializer(serializers.ModelSerializer):
 
 class ArtistImageSerializer(serializers.ModelSerializer):
 
+    image = serializers.SerializerMethodField(required=False)
+    artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+    order = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = MusicianImage
+        list_serializer_class = OrderedListSerializer
+        fields = ('id', 'image', 'image_cloudinary_id', 'artist', 'order', 'created', 'modified')
+
+
+    def get_image(self, instance):
+        return instance.image_url
+
+
+class ArtistImageUpdateSerializer(serializers.ModelSerializer):
+
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
     order = serializers.IntegerField(required=False)
 
@@ -123,7 +141,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     url_api = serializers.HyperlinkedIdentityField(view_name='artists-detail')
 
     stage_name = serializers.CharField(required=False)
-    image = serializers.ImageField(required=False, allow_empty_file=False)
+    image = serializers.SerializerMethodField(required=False)
     image_hero = ArtistImageSerializer()
 
     videos = ArtistVideoSerializer(many=True, read_only=True)
@@ -138,8 +156,13 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         fields = artist_fields + ('audios', 'videos', 'photos', 'genres',)
 
 
+    def get_image(self, instance):
+        return instance.image_url
+
+
 class ArtistUpdateSerializer(ArtistSerializer):
     genres = serializers.CharField(required=False)
+    image = serializers.ImageField(required=False, allow_empty_file=False)
     image_hero = ArtistImageSerializer(required=False)
     image_hero_id = serializers.IntegerField(required=False)
 
