@@ -145,6 +145,40 @@ export default compose(
 
 The Dialog state manager located at `components/Dialog/DialogStateManager.js` is a curried component whose first argument is a Dialog component. The Dialog component defaults to `DialogBase`. You can create a new Dialog component from `DialogBase` adding additional functionality or styles and compose in `DialogStateManager` to the new component, similar to the implementation of the default Dialog in `Dialog.js`.
 
+# Assets
+
+Currently, all of our scss files live in `booking/assets/scss`. Briefly, there
+2 completely different sets of scss; one for the artist profile, and one for the
+homepage / marketing site. There are a few historical reasons for them being
+separate;
+
+* It was originally intended that they would be separate designs, and ne'er the
+twain shall meet.
+* Artist Profile and Homepage were separate projects built out by
+[PSD2HTML](https://www.psd2html.com/), hence the two separate sets of files.
+
+Artist Profile scss files live at `booking/assets/scss`, excluding the
+`booking/assets/scss/home` directory. The scss entry point is
+`booking/assets/scss/artist-profile.scss`
+
+Homepage files live at `booking/assets/scss/home`. The scss entry point is
+`booking/assets/scss/home/main.scss`.
+
+ATM, this isn't ideal, as it's a confusing structure, and we may wind up
+combining styles. We have a few options. One is to change the folder structure
+to place home and artist-profile sass files next to each other. Another is to
+thoroughly audit for shared styles and combine.
+
+## Sass pipeline
+
+Our sass files are processed by a Django app called
+[django-sass-processor](https://github.com/jrief/django-sass-processor). With
+DEBUG on (running locally), the `sass_src` tag will regenerate css from the sass
+source every request. However, in stage/prod, we use the `compilescss` command
+at startup to generate css. Since the generated css files which eventually live
+in `booking/static/scss` are generated, we ignore them, to prevent devs from
+making changes to the generated files.
+
 # Fixtures
 
 This app comes with some default data for testing. To add to it, you can use the following commands. (`pbcopy` is mac-specific).
