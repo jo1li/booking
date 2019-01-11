@@ -158,7 +158,6 @@ class PhotoEdit extends React.Component {
      */
     async getImage() {
         const src = this.getBase64Image();
-        console.log("getImage", src);
         const file = await this.getBlobSrc(src);
         file.preview = src;
         return file;
