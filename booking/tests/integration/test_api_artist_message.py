@@ -34,9 +34,6 @@ class ApiArtistMessageTest(OpusTestCase):
         }
         result = self.app_api.post(artist_msg_url, params)
 
-        print(result)
-        print(result.json())
-
         result.status_code.should.equal(HTTPStatus.CREATED)
         result.json()['sent'].should.equal(True)
 
