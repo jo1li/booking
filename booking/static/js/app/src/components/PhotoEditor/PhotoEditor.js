@@ -229,6 +229,7 @@ class PhotoEdit extends React.Component {
 
                     const reducedWidth = configs.width - (configs.border * 2)
 
+                    if(reducedWidth < 0) return <div/>;
                     return (
                         <AvatarEditor
                             ref={(ref) => this.setEditorRef(ref)}
