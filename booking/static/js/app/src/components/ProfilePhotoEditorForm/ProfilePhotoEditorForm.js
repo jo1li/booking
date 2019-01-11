@@ -77,6 +77,9 @@ class EditBioForm extends Component {
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
+        <div className={classes.disabledMessage}>
+          Your window is too short for this feature. Rotate your device or expand your window size.
+        </div>
         <div className={classes.scrollableBody}>
             <ScaledElement
               className={classes.ratioContainer}
