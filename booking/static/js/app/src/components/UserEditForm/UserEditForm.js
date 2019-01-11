@@ -26,7 +26,7 @@ import Select from '../form/Select';
 import TextArea from '../form/TextArea';
 import TextField from '@material-ui/core/TextField';
 import SelectState from '../form/SelectState';
-import ImageUploadContainer from '../form/ImageUploadContainer';
+import ImageUploadContainer from './ImageUploadContainer';
 import TextCount from '../form/TextCount';
 import {
   validateURL,
