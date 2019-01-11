@@ -149,7 +149,7 @@ const styles = theme => ({
     fontWeight: 500,
   },
   stageName: {
-    fontSize: '27px',
+    marginTop: theme.spacing.unit / 2,
   },
   editIcon: {
     padding: theme.spacing.unit / 2,
@@ -170,12 +170,16 @@ const styles = theme => ({
   gridRoot: {
     flexGrow: 1,
   },
-  audience: {
-    marginBottom: theme.spacing.unit / 2,
-
-    ['@media (max-width:768px) and (min-width:600px)']: {
-      paddingLeft: theme.spacing.unit * 1.5,
+  socialGrid: {    
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    ['@media (max-width:768px) and (min-width:600px)']: {	    
+      gridGap: "1px 1px",
     },
+    backgroundColor: theme.palette.grey[100],
+  },
+  socialGridItem: {
+    backgroundColor: "white",
   },
   disabledColor: {
     opacity: 0,
@@ -203,8 +207,16 @@ const styles = theme => ({
     }
   },
   serviceButton: {
-    borderRadius: '4px',
+    borderRadius: '0',
     color: theme.palette.grey[400],
+    color: theme.palette.primary.light,
+    width: "100%",
+    height: "100%",
+    padding: `${theme.spacing.unit * 1.5}px ${theme.spacing.unit}px`,
+    paddingBottom: theme.spacing.unit*2,
+    '&:hover': {
+      backgroundColor: theme.palette.grey[50],
+    }
   },
   serviceLink: {
     color: theme.palette.text.primary,
