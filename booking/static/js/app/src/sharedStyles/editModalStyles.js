@@ -1,6 +1,6 @@
 const styles = theme => ({
   container: {
-    maxWidth: '700px',
+    maxWidth: 700,
     width: `calc(100vw - ${theme.spacing.unit * 12}px)`,
     height: `calc(100vh - ${theme.spacing.unit * 12}px)`,
   },
