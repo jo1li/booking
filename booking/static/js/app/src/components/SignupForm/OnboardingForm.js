@@ -259,8 +259,6 @@ class OnboardingForm extends Component {
       errors.spotify = urlerror;
     }
 
-    console.log(data);
-
     if(Object.keys(errors).length === 0) {
        try {
           const res = await updateUserBio(data, musicianid);
