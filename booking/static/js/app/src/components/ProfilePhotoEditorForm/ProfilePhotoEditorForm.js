@@ -99,7 +99,7 @@ class EditBioForm extends Component {
                 )}
               />
             <div className={classes.modalPadding}>
-              <Grid container direction='row'>
+              <Grid container direction='row' justify='space-between'>
                 <Grid item xs={8} sm={3} md={3} lg={3}>
                     <img src={base64Img} className={classes.preview}/>
                 </Grid>
