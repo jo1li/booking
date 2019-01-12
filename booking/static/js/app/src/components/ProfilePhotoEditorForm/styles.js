@@ -60,9 +60,12 @@ const styles = theme => {
       width: '100%'
     },
 
+    // Show a disabled message instead of the cropper on too-short screens:
     disabledMessage: {
       display: 'none',
     },
+    // Usually the user's screen is wide enough to see a non-full-screen modal,
+    // which has an awkward max usable height
     [`@media (min-width:${theme.breakpoints.values.sm}px) and (max-height:${MAX_HEIGHT_AT_WIDEST_MODAL}px)`]: {
       noScrollBody: {
         display: 'none',
@@ -72,6 +75,18 @@ const styles = theme => {
         ...modalStyles.scrollableBody,
       }
     },
+    // Other times the user is on a device with a smaller screen, like iPhone 5,
+    // so that even in landscape they see the full-screen modal -
+    // just make sure the screen is in portrait orientation in this case.
+    [`@media (max-width: ${theme.breakpoints.values.sm}px) and (min-aspect-ratio: 1/1)`]: {
+      noScrollBody: {
+        display: 'none',
+      },
+      disabledMessage: {
+        display: 'block',
+        ...modalStyles.scrollableBody,
+      }
+    }
 }};
 
 export default styles;
