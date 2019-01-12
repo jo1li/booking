@@ -80,7 +80,7 @@ class EditBioForm extends Component {
         <div className={classes.disabledMessage}>
           Your window is too short for this feature. Rotate your device or expand your window size.
         </div>
-        <div className={classes.scrollableBody}>
+        <div className={classes.noScrollBody}>
             <ScaledElement
               className={classes.ratioContainer}
               render={(width, height) => (

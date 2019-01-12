@@ -22,9 +22,12 @@ const styles = theme => {
 
   return {
     ...modalStyles,
-    scrollableBody: {
-      ...modalStyles.scrollableBody,
-      padding: '16px 0',
+    noScrollBody: {
+      height: '100%',
+      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
     },
     modalPadding: {
       padding: '10px 24px',
