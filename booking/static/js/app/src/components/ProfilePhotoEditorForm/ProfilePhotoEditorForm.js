@@ -17,6 +17,8 @@ import TextArea from '../form/TextArea';
 import { Display1, H6 } from '../typography';
 import ModalHeader from '../ModalHeader';
 import ScaledElement from '../ScaledElement';
+import Typography from '@material-ui/core/Typography';
+import { APOSTROPHE } from '../../constants/unicodeCharacters';
 
 import PhotoEditor from '../PhotoEditor';
 
@@ -78,7 +80,9 @@ class EditBioForm extends Component {
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
         <div className={classes.disabledMessage}>
-          Your window is too short for this feature. Rotate your device or expand your window size.
+          <Typography variant="body1">
+            We don{APOSTROPHE}t currently support this screen size. Please try rotating your device or use a larger screen to crop your photo.
+          </Typography>
         </div>
         <div className={classes.noScrollBody}>
             <ScaledElement
