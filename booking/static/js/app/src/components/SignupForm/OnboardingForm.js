@@ -104,7 +104,7 @@ const styles = theme => ({
     display: 'inline-block',
     overflow: 'hidden',
     '&:hover': {
-      backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.grey[50],
     },
     '& ul li': {
       margin: 0,
@@ -118,7 +118,7 @@ const styles = theme => ({
     },
     '& img': {
       width: 100,
-      height: 50,
+      height: 64,
       borderRadius: 2,
       backgroundColor: theme.palette.primary.light,
       MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.25)',

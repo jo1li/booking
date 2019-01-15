@@ -1,7 +1,7 @@
 const styles = theme => ({
   card: {
     display: 'flex',
-
+    color: theme.palette.grey[600],
     '& > hr': {
       opacity: '0.5',
     },
@@ -11,9 +11,8 @@ const styles = theme => ({
     // bc it prevents processing done on the key.
     // See https://stackoverflow.com/questions/45847090/media-queries-in-material-ui-components
     ['@media (min-width:768px)']: {
-      width: '235px',
+      width: '225px',
       flexDirection: 'column',
-      margin: '0 auto',
     },
     ['@media (max-width:768px) and (min-width:600px)']: {
       width: 'auto',
@@ -38,22 +37,25 @@ const styles = theme => ({
     backgroundColor: theme.palette.grey[200],
 
     ['@media (min-width:768px)']: {
-      height: '110px',
+      height: 144,
     },
     ['@media (max-width:768px) and (min-width:600px)']: {
-      width: '45%',
-      height: '174px',
+      width: '272px',
+      minHeight: '174px',
+      maxHeight: '220px',
       order: 0,
     },
     [theme.breakpoints.down('xs')]: {
-      height: '110px',
+      height: '144px',
     },
   },
 
   infoSection: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     ['@media (max-width:768px) and (min-width:600px)']: {
-      width: '55%',
-      height: '174px',
+      width: "calc(100% - 272px)",
       order: 1,
     },
   },
@@ -127,10 +129,12 @@ const styles = theme => ({
     },
   },
   tagline: {
+    color: theme.palette.grey[600],
     boxSizing: 'content-box',
     paddingTop: theme.spacing.unit,
-    height: '42px',
-    overflow: 'hidden', // TODO: Behavior here? Can't do ellipsis with multi-line.
+    paddingBottom: theme.spacing.unit * 1.5,
+    // height: '42px',
+    // overflow: 'hidden', // TODO: Behavior here? Can't do ellipsis with multi-line.
   },
 
   avatarStandIn: {
@@ -145,7 +149,7 @@ const styles = theme => ({
     fontWeight: 500,
   },
   stageName: {
-    fontSize: '27px',
+    marginTop: theme.spacing.unit / 2,
   },
   editIcon: {
     padding: theme.spacing.unit / 2,
@@ -166,12 +170,16 @@ const styles = theme => ({
   gridRoot: {
     flexGrow: 1,
   },
-  audience: {
-    marginBottom: theme.spacing.unit / 2,
-
-    ['@media (max-width:768px) and (min-width:600px)']: {
-      paddingLeft: theme.spacing.unit * 1.5,
+  socialGrid: {    
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    ['@media (max-width:768px) and (min-width:600px)']: {	    
+      gridGap: "1px 1px",
     },
+    backgroundColor: theme.palette.grey[100],
+  },
+  socialGridItem: {
+    backgroundColor: "white",
   },
   disabledColor: {
     opacity: 0,
@@ -199,8 +207,16 @@ const styles = theme => ({
     }
   },
   serviceButton: {
-    borderRadius: '4px',
+    borderRadius: '0',
     color: theme.palette.grey[400],
+    color: theme.palette.primary.light,
+    width: "100%",
+    height: "100%",
+    padding: `${theme.spacing.unit * 1.5}px ${theme.spacing.unit}px`,
+    paddingBottom: theme.spacing.unit*2,
+    '&:hover': {
+      backgroundColor: theme.palette.grey[50],
+    }
   },
   serviceLink: {
     color: theme.palette.text.primary,
@@ -234,11 +250,11 @@ const styles = theme => ({
     paddingTop: '8px',
     paddingBottom: '8px',
     marginBottom: '0px',
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
     [theme.breakpoints.up('sm')]: {
       paddingTop: theme.spacing.unit * 1.5,
       paddingBottom: theme.spacing.unit * 1.5,
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2
     },
     [theme.breakpoints.up('xs')]: {
       paddingTop: theme.spacing.unit * 1.5,

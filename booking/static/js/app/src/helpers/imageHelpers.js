@@ -31,8 +31,9 @@ export const getOpusThumbnailImageURL = (imageURL) => (
 
 // Gets the cloudinary default thumnail image URL, which orients the image
 // and helps with data/rendering
+// image size is double of display size to support retina displays
 export const getThumbnailImageURL = (imageURL) => (
-  getCloudinaryURL(imageURL, {thumbnail: true, width: 42, height: 32})
+  getCloudinaryURL(imageURL, {thumbnail: true, width: 100, height: 64})
 );
 
 // Gets the cloudinary image URL with an auto-orientation transformation
