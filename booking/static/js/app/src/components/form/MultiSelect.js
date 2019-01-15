@@ -161,6 +161,7 @@ class MultiSelect extends React.Component {
     return (
       <FormControl error={Boolean(touched && error)} fullWidth>
         <Select
+          isClearable={false}
           components={components}
           {...input}
           // onChange={event => input.onChange(event.target.value)}
