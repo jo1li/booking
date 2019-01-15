@@ -35,7 +35,7 @@ const DropZoneField = ({
       })}
     >
         <Fragment>
-          <Grid container style={{ flexGrow: 1 }}>
+          <Grid container style={{ flexGrow: 1 }} direction='column' alignItems='center'>
             <Grid item>
               {imagefile && imagefile.length > 0 ? (
                 <ul>
@@ -58,7 +58,7 @@ const DropZoneField = ({
               )}
             </Grid>
             <Grid item>
-              <Typography color="inherit" variant="body2" style={{ marginTop: '4px', lineHeight: '64px', paddingLeft: '8px' }}>Profile photo</Typography>
+              <Typography color="inherit" variant="body2" style={{ marginTop: 4, lineHeight: '21px', }}>Add a photo</Typography>
             </Grid>
           </Grid>
         </Fragment>
