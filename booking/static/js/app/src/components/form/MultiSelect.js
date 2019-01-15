@@ -34,13 +34,20 @@ const styles = theme => ({
     alignItems: 'center',
   },
   chip: {
+    fontSize: 12,
     margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
+    textTransform: 'uppercase',
   },
   chipFocused: {
     backgroundColor: emphasize(
       theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
       0.08,
     ),
+  },
+  chipDeleteIcon: {
+    height: 16,
+    width: 16,
+    marginRight: 10,
   },
   noOptionsMessage: {
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -98,15 +105,16 @@ function ValueContainer(props) {
 }
 
 function MultiValue(props) {
+  const { selectProps: { classes }} = props;
   return (
     <Chip
       tabIndex={-1}
       label={props.children}
-      className={classNames(props.selectProps.classes.chip, {
-        [props.selectProps.classes.chipFocused]: props.isFocused,
+      className={classNames(classes.chip, {
+        [classes.chipFocused]: props.isFocused,
       })}
       onDelete={props.removeProps.onClick}
-      deleteIcon={<CancelIcon {...props.removeProps} />}
+      deleteIcon={<CancelIcon className={classes.chipDeleteIcon} {...props.removeProps} />}
     />
   );
 }
