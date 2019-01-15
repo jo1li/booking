@@ -53,8 +53,8 @@ const styles = theme => {
       paddingTop: '23px',
     },
     preview: {
-      width: '140px',
-      height: '70px'
+      width: '100px',
+      height: '64px',
     },
     ratioContainer: {
       width: '100%'
