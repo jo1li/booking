@@ -373,7 +373,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="facebook"
-                  label="Facebook Page"
+                  label="Facebook Link"
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -384,7 +384,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="instagram"
-                  label="Instagram Profile"
+                  label="Instagram Link"
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -395,7 +395,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="spotify"
-                  label="Spotify Artist Page"
+                  label="Spotify Link"
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
