@@ -136,64 +136,22 @@ class UserEditForm extends Component {
                       <UploadButton />
                     </ImageUploadContainer>
                   </InputButtons>
-                  <Grid  item xs={12} sm={12} md={12} lg={12}>
-                    <Caption >SOCIAL PROFILES</Caption>
-                  </Grid>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
+                    <Caption>TAGLINE</Caption>
+                    <TextCount
+                      maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                      currentLength={_.get(currentValues, 'bio_short', []).length }
+                    >
+                      <Field
+                        name="bio_short"
+                        label="Tagline"
+                        placeholder="Your tagline"
+                        multiline={true}
+                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                         component={Input}
-                        id="facebook"
-                        label="facebook"
-                        name="facebook"
-                        placeholder="Connect Facebook account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Input}
-                        id="instagram"
-                        label="instagram"
-                        name="instagram"
-                        placeholder="Connect Instagram account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Input}
-                        id="spotify"
-                        label="spotify"
-                        name="spotify"
-                        placeholder="Connect Spotify account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={8} lg={8}>
-                    <Caption >HOME TOWN</Caption>
-                  </Grid>
-                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <Caption >STATE</Caption>
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={8} lg={8}>
-                    <Field
-                        component={Input}
-                        id="hometown"
-                        label="hometown"
-                        name="hometown"
-                        placeholder="What is your home town?"
-                        type="text"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <Field
-                        component={SelectState}
-                        id="state"
-                        label="state"
-                        name="state"
-                        placeholder="State"
-                        type="select"
-                    />
+                        validate={[validateTaglineMaxLength]}
+                      />
+                    </TextCount>
                   </Grid>
                   <Grid  item xs={12} sm={12} md={12} lg={12}>
                     <Caption >GENRE</Caption>
@@ -227,12 +185,12 @@ class UserEditForm extends Component {
                         placeholder="Select a genre"
                         items={genres}
                       />
-                    </Grid>
-                    <Grid  item xs={12} sm={12} md={12} lg={12}>
-                      <Caption >WEBSITE</Caption>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                      <Field
+                  </Grid>
+                  <Grid  item xs={12} sm={12} md={12} lg={12}>
+                    <Caption >WEBSITE</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
                         component={Input}
                         id="website"
                         label="Website"
@@ -242,23 +200,66 @@ class UserEditForm extends Component {
                         validate={[validateURL]}
                       />
                   </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Caption>TAGLINE</Caption>
-                    <TextCount
-                      maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                      currentLength={_.get(currentValues, 'bio_short', []).length }
-                    >
-                      <Field
-                        name="bio_short"
-                        label="Tagline"
-                        placeholder="Your tagline"
-                        multiline={true}
-                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                        component={Input}
-                        validate={[validateTaglineMaxLength]}
-                      />
-                    </TextCount>
+                  <Grid item xs={12} sm={8} md={8} lg={8}>
+                    <Caption >HOME TOWN</Caption>
                   </Grid>
+                   <Grid item xs={12} sm={4} md={4} lg={4}>
+                    <Caption >STATE</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={8} md={8} lg={8}>
+                    <Field
+                        component={Input}
+                        id="hometown"
+                        label="hometown"
+                        name="hometown"
+                        placeholder="What is your home town?"
+                        type="text"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={4} md={4} lg={4}>
+                    <Field
+                        component={SelectState}
+                        id="state"
+                        label="state"
+                        name="state"
+                        placeholder="State"
+                        type="select"
+                    />
+                  </Grid>
+                  <Grid  item xs={12} sm={12} md={12} lg={12}>
+                    <Caption >SOCIAL PROFILES</Caption>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="facebook"
+                        label="facebook"
+                        name="facebook"
+                        placeholder="Connect Facebook account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="instagram"
+                        label="instagram"
+                        name="instagram"
+                        placeholder="Connect Instagram account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Field
+                        component={Input}
+                        id="spotify"
+                        label="spotify"
+                        name="spotify"
+                        placeholder="Connect Spotify account"
+                        validate={[validateURL]}
+                    />
+                  </Grid>
+
               </Grid>
             </form>
           </Grid>
