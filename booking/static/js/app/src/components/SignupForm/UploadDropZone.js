@@ -46,19 +46,19 @@ const DropZoneField = ({
                   margin: '4px',
                   textAlign: 'center',
                   width: 100,
-                  height: 50,
+                  height: 64,
                   borderRadius: 2,
                   backgroundColor: '#fff',
                   MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.15)',
                   WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
                   BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.15)',
                 }}>
-                  <UploadCloud style={{ height: 50 }}/>
+                  <UploadCloud style={{ height: 64 }}/>
                 </div>
               )}
             </Grid>
             <Grid item>
-              <Typography color="inherit" variant="body2" style={{ marginTop: '4px', lineHeight: '50px', paddingLeft: '8px' }}>Profile photo</Typography>
+              <Typography color="inherit" variant="body2" style={{ marginTop: '4px', lineHeight: '64px', paddingLeft: '8px' }}>Profile photo</Typography>
             </Grid>
           </Grid>
         </Fragment>
