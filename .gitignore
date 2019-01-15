@@ -106,6 +106,7 @@ booking/static/*
 !booking/static/images
 !booking/static/js
 !booking/static/home
+!booking/static/fonts
 
 # docker
 docker-compose.override.yaml
