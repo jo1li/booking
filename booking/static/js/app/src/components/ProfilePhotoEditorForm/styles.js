@@ -70,6 +70,9 @@ const styles = theme => {
       noScrollBody: {
         display: 'none',
       },
+      footer: {
+        display: 'none',
+      },
       disabledMessage: {
         display: 'block',
         ...modalStyles.scrollableBody,
@@ -80,6 +83,9 @@ const styles = theme => {
     // just make sure the screen is in portrait orientation in this case.
     [`@media (max-width: ${theme.breakpoints.values.sm}px) and (min-aspect-ratio: 1/1)`]: {
       noScrollBody: {
+        display: 'none',
+      },
+      footer: {
         display: 'none',
       },
       disabledMessage: {
