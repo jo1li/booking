@@ -45,7 +45,7 @@ const styles = theme => ({
     paddingTop: 3,
   },
   avatar: {
-    width: 42,
+    width: 50,
     height: 32,
     borderRadius: 2,
     backgroundColor: theme.palette.primary.light,
