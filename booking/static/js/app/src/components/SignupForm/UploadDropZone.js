@@ -1,7 +1,7 @@
 import map from "lodash/map";
 import React, { Fragment } from "react";
 import DropZone from "react-dropzone";
-import { UploadCloud } from "react-feather";
+import { Camera } from '../icons';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { geGetImageFiletPreview } from '../../utils/formHelpers';
@@ -53,7 +53,7 @@ const DropZoneField = ({
                   WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
                   BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.15)',
                 }}>
-                  <UploadCloud style={{ height: 64 }}/>
+                  <Camera style={{ height: 64 }}/>
                 </div>
               )}
             </Grid>
