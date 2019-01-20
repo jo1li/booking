@@ -353,7 +353,35 @@ class OnboardingForm extends Component {
                   }}
                 />
               </FormControl>
-              <FormControl margin="normal" fullWidth>
+              <Grid container spacing={16}>
+                <Grid item style={{flexGrow: 1}}>
+                  <FormControl margin="normal" fullWidth>
+                    <Field
+                      name="hometown"
+                      label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">City</Typography>}
+                      component={TextField}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item className={classes.state}>
+                  <FormControl margin="normal" fullWidth>
+                    <InputLabel htmlFor="state">
+                      <Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">
+                        State
+                      </Typography>
+                    </InputLabel>
+                    <Field
+                        component={SelectState}
+                        id="state"
+                        label="State"
+                        name="state"
+                        placeholder=""
+                        type="select"
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <FormControl margin="normal" fullWidth style={{marginTop: 56}}>
                 <Field
                   name="facebook"
                   label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Facebook Link</Typography>}
@@ -386,30 +414,6 @@ class OnboardingForm extends Component {
                   }}
                 />
               </FormControl>
-              <Grid container spacing={16}>
-                <Grid item style={{flexGrow: 1}}>
-                  <FormControl margin="normal" fullWidth>
-                    <Field
-                      name="hometown"
-                      label="City"
-                      component={TextField}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item className={classes.state}>
-                  <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="state">State</InputLabel>
-                    <Field
-                        component={SelectState}
-                        id="state"
-                        label="State"
-                        name="state"
-                        placeholder=""
-                        type="select"
-                    />
-                  </FormControl>
-                </Grid>
-              </Grid>
               <Button
                 type="submit"
                 disabled={requiredEmpty || submitting}
