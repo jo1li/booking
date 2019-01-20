@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
@@ -11,6 +11,7 @@ import {
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -30,6 +31,7 @@ import UploadDropZone from './UploadDropZone';
 import isEmpty from "lodash/isEmpty";
 import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
+import TextCount from '../form/TextCount';
 
 import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
@@ -95,6 +97,16 @@ const styles = theme => ({
   },
   city: {
     maxWidth: '100%',
+  },
+  fullWidthShrunkLabel: {
+    width: 'calc(100% * 4/3)', // Because the label is scaled down to 75%. All ears for better ideas.
+  },
+  splitLabel: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  textCount: {
+    color: theme.palette.grey[500],
   },
   uploadArea: {
     width: '100%',
@@ -318,7 +330,16 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="bio_short"
-                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Tagline</Typography>}
+                  label={
+                    <Fragment>
+                      <Typography variant="overline">Tagline</Typography>
+                      <TextCount
+                        inline={true}
+                        className={classes.textCount}
+                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                        currentLength={_.get(currentValues, 'bio_short', []).length } />
+                    </Fragment>
+                  }
                   multiline={true}
                   maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                   component={TextField}
@@ -326,7 +347,9 @@ class OnboardingForm extends Component {
                   placeholder='Tagline'
                   InputLabelProps={{
                     shrink: true,
+                    className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
                   }}
+                  fullWidth
                 />
                 <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
               </FormControl>
