@@ -6,7 +6,29 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { geGetImageFiletPreview } from '../../utils/formHelpers';
 import { orientImage } from '../../helpers/imageHelpers';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  photoPlaceholder: {
+    margin: '4px',
+    textAlign: 'center',
+    width: 125,
+    height: 80,
+    borderRadius: 2,
+    backgroundColor: theme.palette.primaryTonal[50],
+    MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.15)',
+    WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
+    BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.15)',
+  },
+  centeredIcon: {
+    height: '100%',
+  },
+  caption: {
+    marginTop: theme.spacing.unit * 0.5,
+    lineHeight: '21px',
+    fontWeight: 500,
+  },
+});
 
 const renderImagePreview = imagefile => (
   map(imagefile, ({ name, preview }) => [
@@ -21,7 +43,8 @@ const DropZoneField = ({
   input,
   imagefile,
   label,
-  meta: { error, touched }
+  meta: { error, touched },
+  classes,
 }) => (
   <Fragment>
     <DropZone
@@ -42,23 +65,13 @@ const DropZoneField = ({
                   {renderImagePreview(imagefile)}
                 </ul>
               ) : (
-                <div style={{
-                  margin: '4px',
-                  textAlign: 'center',
-                  width: 100,
-                  height: 64,
-                  borderRadius: 2,
-                  backgroundColor: '#fff',
-                  MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.15)',
-                  WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
-                  BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.15)',
-                }}>
-                  <Camera style={{ height: 64 }}/>
+                <div className={classes.photoPlaceholder}>
+                  <Camera className={classes.centeredIcon}/>
                 </div>
               )}
             </Grid>
             <Grid item>
-              <Typography color="inherit" variant="body2" style={{ marginTop: 4, lineHeight: '21px', }}>Add a photo</Typography>
+              <Typography color="inherit" variant="body2" className={classes.caption}>Add a photo</Typography>
             </Grid>
           </Grid>
         </Fragment>
@@ -67,4 +80,4 @@ const DropZoneField = ({
   </Fragment>
 );
 
-export default DropZoneField;
+export default withStyles(styles)(DropZoneField);
