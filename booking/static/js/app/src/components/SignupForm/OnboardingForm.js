@@ -318,11 +318,15 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="bio_short"
-                  label="Tagline"
+                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Tagline</Typography>}
                   multiline={true}
                   maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                   component={TextField}
                   normalize={normalizeTagline}
+                  placeholder='Tagline'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
                 <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
               </FormControl>
@@ -341,15 +345,18 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="website"
-                  label="Your Website"
+                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Website</Typography>}
                   placeholder="http://"
                   component={TextField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="facebook"
-                  label="Facebook Page"
+                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Facebook Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -360,7 +367,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="instagram"
-                  label="Instagram Profile"
+                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Instagram Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -371,7 +378,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="spotify"
-                  label="Spotify Artist Page"
+                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Spotify Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
