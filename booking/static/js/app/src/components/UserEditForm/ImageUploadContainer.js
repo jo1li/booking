@@ -132,10 +132,6 @@ class ImageUploadContainer extends Component {
         const {
             className,
             onClick,
-
-            // requires a unique id if two or more
-            // upload containers are present on a page
-            id,
             children,
             classes,
             currentValues,
