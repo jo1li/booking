@@ -346,7 +346,7 @@ class OnboardingForm extends Component {
                 <Field
                   name="website"
                   label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Website</Typography>}
-                  placeholder="http://"
+                  placeholder="http://www.example.com"
                   component={TextField}
                   InputLabelProps={{
                     shrink: true,
