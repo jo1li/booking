@@ -2,12 +2,12 @@
 	padding-top: 64px;
 }
 a, .link {
-	color: $secondary-blue;
-	@include animate (color);
+	color: $color-primary-main;
+	// @include animate (color);
 
 	&:hover,
 	&:focus {
-		color: darken($secondary-blue, 15%);
+		color: $color-primary-dark !important;
 		text-decoration: none;
 	}
 }
@@ -251,6 +251,8 @@ a, .link {
 }
 
 .action-btn {
+	font-family: $display-font-family;
+	font-weight: 500;
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
@@ -427,14 +429,13 @@ $border-radius: 5px;
 	margin-bottom: 20px;
 
 	.subheading {
-		color: #999999;
-		text-transform: uppercase;
+		color: $color-grey-600;
 		font-weight: 500;
 	}
 }
 
 .profile-empty-state {
-	background-color: rgba(0, 0, 0, 0.05);
+	background-color: $color-grey-50;
 	border-radius: 2px;
 	cursor:pointer;
 	svg {
@@ -442,11 +443,12 @@ $border-radius: 5px;
 		top:5px;
 	}
 	p {
+		font-family: $display-font-family;
+		font-weight: 500;
 		padding: 10px 16px 15px;
 		margin:0;
-		color: $secondary-purple;
-		font-size: 14px;
-		font-weight: bold;
+		color: $color-primary-main;
+		font-size: 16px;
 	}
  }
 
