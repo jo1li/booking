@@ -189,7 +189,7 @@ class MultiSelect extends React.Component {
           // onChange={event => input.onChange(event.target.value)}
           onBlur={noop} // https://github.com/erikras/redux-form/issues/2768
           textFieldProps={{
-            label: 'Genres',
+            label,
             InputLabelProps: {
               shrink: true,
             },
