@@ -356,7 +356,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="genres"
-                  label="Genres"
+                  label={<Typography variant="overline">Genres</Typography>}
                   isMulti
                   component={MultiSelect}
                   options={genresForSelect}
@@ -368,7 +368,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="website"
-                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Website</Typography>}
+                  label={<Typography variant="overline">Website</Typography>}
                   placeholder="http://www.example.com"
                   component={TextField}
                   InputLabelProps={{
@@ -381,7 +381,7 @@ class OnboardingForm extends Component {
                   <FormControl margin="normal" fullWidth>
                     <Field
                       name="hometown"
-                      label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">City</Typography>}
+                      label={<Typography variant="overline">City</Typography>}
                       component={TextField}
                     />
                   </FormControl>
@@ -389,9 +389,7 @@ class OnboardingForm extends Component {
                 <Grid item className={classes.state}>
                   <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="state">
-                      <Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">
-                        State
-                      </Typography>
+                      <Typography variant="overline">State</Typography>
                     </InputLabel>
                     <Field
                         component={SelectState}
@@ -407,7 +405,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth style={{marginTop: 56}}>
                 <Field
                   name="facebook"
-                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Facebook Link</Typography>}
+                  label={<Typography variant="overline">Facebook Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -418,7 +416,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="instagram"
-                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Instagram Link</Typography>}
+                  label={<Typography variant="overline">Instagram Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
@@ -429,7 +427,7 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="spotify"
-                  label={<Typography style={{textTransform: 'uppercase', fontWeight: 500}} variant="caption">Spotify Link</Typography>}
+                  label={<Typography variant="overline">Spotify Link</Typography>}
                   placeholder="https://"
                   component={TextField}
                   InputProps = {{
