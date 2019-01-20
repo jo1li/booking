@@ -34,9 +34,14 @@ const styles = theme => ({
     alignItems: 'center',
   },
   chip: {
+    // TODO: is this font configuration information accessible via a `Typography` component?
     fontSize: 12,
     margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
     textTransform: 'uppercase',
+    fontWeight: 500,
+    color: theme.palette.primaryTonal[600], // TODO: close enough to item in specs?
+    backgroundColor: theme.palette.primaryTonal[50],
+    height: 32,
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -45,6 +50,7 @@ const styles = theme => ({
     ),
   },
   chipDeleteIcon: {
+    color: theme.palette.primaryTonal[200],
     height: 16,
     width: 16,
     marginRight: 10,
