@@ -45,15 +45,22 @@ const styles = theme => ({
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
+      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.primaryTonal[50],
       0.08,
     ),
   },
   chipDeleteIcon: {
     color: theme.palette.primaryTonal[200],
+    // TODO: do we want these numbers to come from theme.spacing.unit,
+    // despite not being empty space or not being a multiple of a half-unit?
     height: 16,
     width: 16,
-    marginRight: 10,
+    marginLeft: 11,
+    marginRight: 9,
+  },
+  chipLabel: {
+    paddingLeft: 18,
+    paddingRight: 0,
   },
   noOptionsMessage: {
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -120,6 +127,7 @@ function MultiValue(props) {
         [classes.chipFocused]: props.isFocused,
       })}
       onDelete={props.removeProps.onClick}
+      classes={{label: classes.chipLabel}}
       deleteIcon={<CancelIcon className={classes.chipDeleteIcon} {...props.removeProps} />}
     />
   );
