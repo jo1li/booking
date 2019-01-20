@@ -104,7 +104,7 @@ const styles = theme => ({
     display: 'inline-block',
     overflow: 'hidden',
     '&:hover': {
-      backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.grey[50],
     },
     '& ul li': {
       margin: 0,
@@ -118,7 +118,7 @@ const styles = theme => ({
     },
     '& img': {
       width: 100,
-      height: 50,
+      height: 64,
       borderRadius: 2,
       backgroundColor: theme.palette.primary.light,
       MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.25)',
@@ -210,7 +210,7 @@ class OnboardingForm extends Component {
   submit = async (values) => {
     const { updateUserBio, musicianid, imageFile } = this.props;
 
-    const genres = values.genres ? values.genres.map(g => g.value).join(",") : "";
+    const genres = values.genres ? values.genres.map(g => `"${g.value}"`).join(",") : "";
     let data = { ...values, genres: genres }
     if(!_.isEmpty(imageFile)) {
       data = { ...data, image: imageFile }
@@ -258,7 +258,6 @@ class OnboardingForm extends Component {
     } else if (data.spotify && !validateURL(data.spotify)) {
       errors.spotify = urlerror;
     }
-
 
     if(Object.keys(errors).length === 0) {
        try {
