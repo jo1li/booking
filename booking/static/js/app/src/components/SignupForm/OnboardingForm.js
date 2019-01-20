@@ -322,6 +322,7 @@ class OnboardingForm extends Component {
                 <Field
                   name="image"
                   component={UploadDropZone}
+                  label={currentValues.image ? 'Profile photo' : 'Add a photo'}
                   type="file"
                   imagefile={currentValues.image}
                   handleOnDrop={this.openPhotoEditor}

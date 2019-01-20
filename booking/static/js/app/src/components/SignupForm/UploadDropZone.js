@@ -71,7 +71,9 @@ const DropZoneField = ({
               )}
             </Grid>
             <Grid item>
-              <Typography color="inherit" variant="body2" className={classes.caption}>Add a photo</Typography>
+              <Typography color="inherit" variant="body2" className={classes.caption}>
+                {label}
+              </Typography>
             </Grid>
           </Grid>
         </Fragment>
