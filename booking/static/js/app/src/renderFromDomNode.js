@@ -6,7 +6,9 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import configureStore from './store';
 import loadInitialState from './loadInitialState';
+import loadShims from './loadShims';
 
+loadShims();
 const initialState = loadInitialState();
 const store = configureStore(initialState);
 
