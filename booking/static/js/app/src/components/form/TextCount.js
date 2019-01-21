@@ -34,7 +34,7 @@ let TextCount = (props) => {
   const isTooLong = currentLength > maxLength;
 
   return (
-        <div className={classes.countContaine}>
+        <div className={classes.countContainer}>
             <div className={inline ? '' : classes.count}>
                 <Typography variant="caption" className={className}>
                     <span className={isTooLong ? classes.bold : ''}>{currentLength}</span>
