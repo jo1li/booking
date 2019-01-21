@@ -128,18 +128,8 @@ class PhotoEdit extends React.Component {
      * @returns {String} base64 encoded string
      */
     getBase64Image() {
-        if (this.editor) {
-
-            // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
-            // drawn on another canvas, or added to the DOM.
-            const canvas = this.editor.getImage()
-
-            // If you want the image resized to the canvas size (also a HTMLCanvasElement)
-            // const canvasScaled = this.editor.getImageScaledToCanvas()
-
-            // creates a png
-            return canvas.toDataURL("image/png");
-        }
+        const canvas = this.editor.getImage();
+        return canvas.toDataURL('image/png');
     }
 
     /**
@@ -157,11 +147,15 @@ class PhotoEdit extends React.Component {
      * @return {Promise} resolves to a file object
      */
     async getImage() {
-        const src = this.getBase64Image();
-        console.log("getImage", src);
-        const file = await this.getBlobSrc(src);
-        file.preview = src;
-        return file;
+        const canvas = this.editor.getImage();
+        const blob = await new Promise(resolve => (canvas.toBlob(resolve)));
+        const imageFileData = {
+            isFile: true,
+            blob,
+            fileName: this.props.imageName || 'image.png',
+            preview: canvas.toDataURL('image/png'),
+        }
+        return imageFileData;
     }
 
     /**
