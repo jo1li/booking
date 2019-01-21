@@ -407,7 +407,7 @@ class OnboardingForm extends Component {
                 <Field
                   name="facebook"
                   label={<Typography variant="overline">Facebook Link</Typography>}
-                  placeholder="https://"
+                  placeholder="https://facebook.com/page"
                   component={TextField}
                   InputProps = {{
                     startAdornment: FacebookAdornment
@@ -418,7 +418,7 @@ class OnboardingForm extends Component {
                 <Field
                   name="instagram"
                   label={<Typography variant="overline">Instagram Link</Typography>}
-                  placeholder="https://"
+                  placeholder="https://instagram.com/username"
                   component={TextField}
                   InputProps = {{
                     startAdornment: InstagramAdornment
@@ -429,7 +429,7 @@ class OnboardingForm extends Component {
                 <Field
                   name="spotify"
                   label={<Typography variant="overline">Spotify Link</Typography>}
-                  placeholder="https://"
+                  placeholder="https://open.spotify.com/artist/12345"
                   component={TextField}
                   InputProps = {{
                     startAdornment: SpotifyAdornment
