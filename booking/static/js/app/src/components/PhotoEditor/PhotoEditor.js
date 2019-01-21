@@ -42,20 +42,6 @@ const delay = (func, timeout) => {
 }
 
 /**
- * Takes image and creates a file object
- *
- * @param {String} url - base64 string
- * @param {String} filename - name of the file
- * @param {String} mimeType - ex image/png
- *
- * @return {Promise} - resolves to file object
- */
-const urltoFile = (url, filename, mimeType) =>
-        fetch(url)
-            .then(res =>  res.arrayBuffer())
-            .then(buf => new File([buf], filename, {type:mimeType}))
-
-/**
  * When ReactPinchZoomPan's parent re-renders ReactPinchZoomPan
  * is re-rendered and the internal state is reset.
  * This means that the scale property is reset after each re-render of the parent
@@ -130,17 +116,6 @@ class PhotoEdit extends React.Component {
     getBase64Image() {
         const canvas = this.editor.getImage();
         return canvas.toDataURL('image/png');
-    }
-
-    /**
-     * Creates a file object from cropped image
-     *
-     *  @param {String} src base64 encoded string
-     *
-     * @returns {Promise} resolves to a file object
-     */
-    getBlobSrc(src) {
-        return urltoFile(src, this.props.imageName || 'image.png', 'image/png')
     }
 
     /**
