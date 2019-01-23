@@ -96,6 +96,38 @@
     }
   },
   {
+    "model": "musicians.musician",
+    "pk": 4,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 4,
+      "stage_name": "Johnny Li",
+      "slug": "johnny-li",
+      "image": "media/johnny_o1kgig",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Violinist & Co-Founder at Opus.",
+      "website": "https://www.opuslive.io",
+      "facebook": "https://www.facebook.com/johnny.li.1044",
+      "twitter": "",
+      "instagram": "https://instagram.com/opuslive",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Electronic",
+        "Instrumental"
+      ]
+    }
+  },
+  {
     "model": "musicians.musicianaudio",
     "pk": 1,
     "fields": {

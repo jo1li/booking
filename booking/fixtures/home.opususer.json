@@ -45,12 +45,32 @@
     "fields": {
       "password": "pbkdf2_sha256$100000$CM4KB2fkGQ5X$pPUoQeTTQbDHrtnJgHLCmVMmCVdK70uNzANb8qF60c8=",
       "last_login": "2018-09-19T15:21:18Z",
-      "is_superuser": false,
+      "is_superuser": true,
       "username": "danny@opuslive.io",
       "first_name": "Danny",
       "last_name": "Hyon",
       "email": "danny@opuslive.io",
-      "is_staff": false,
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-06-20T01:52:06Z",
+      "is_musician": true,
+      "is_booking_agent": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "home.opususer",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$CM4KB2fkGQ5X$pPUoQeTTQbDHrtnJgHLCmVMmCVdK70uNzANb8qF60c8=",
+      "last_login": "2018-09-19T15:21:18Z",
+      "is_superuser": true,
+      "username": "johnny@opuslive.io",
+      "first_name": "Johnny",
+      "last_name": "Li",
+      "email": "johnny@opuslive.io",
+      "is_staff": true,
       "is_active": true,
       "date_joined": "2018-06-20T01:52:06Z",
       "is_musician": true,
@@ -87,6 +107,15 @@
     }
   },
   {
+    "model": "account.account",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "timezone": "",
+      "language": "en"
+    }
+  },
+  {
     "model": "account.emailaddress",
     "pk": 1,
     "fields": {
@@ -112,6 +141,16 @@
     "fields": {
       "user": 3,
       "email": "danny@opuslive.io",
+      "verified": true,
+      "primary": true
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "email": "johnny@opuslive.io",
       "verified": true,
       "primary": true
     }
