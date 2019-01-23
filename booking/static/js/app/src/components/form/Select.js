@@ -3,14 +3,12 @@ import React from 'react';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
-import { ExpandMore } from '../icons';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import DropdownIndicator from './DropdownIndicator';
 import MenuItem from '@material-ui/core/MenuItem';
 import classNames from 'classnames';
 
 const styles = theme => ({
-  icon: {
-    color: theme.palette.secondary.main,
-  },
   underline: {
     '&:after': {
         borderBottom: `2px solid ${theme.palette.secondary.dark}`,
@@ -48,9 +46,8 @@ const ReduxFormSelect = ({
           className={className}
           classes={{
             root: classes.themedFont,
-            icon: classes.icon,
           }}
-          IconComponent={IconComponent || ExpandMore}
+          IconComponent={IconComponent || DropdownIndicator}
           fullWidth
           {...input}
           {...custom}

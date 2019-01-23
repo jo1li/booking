@@ -13,7 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Select from 'react-select';
-import { DropdownArrow } from '../icons';
+import DropdownIndicator from './DropdownIndicator';
 
 
 const styles = theme => ({
@@ -162,7 +162,7 @@ function Menu(props) {
   );
 }
 
-const DropdownIndicator = () => <ButtonBase><DropdownArrow size={20} /></ButtonBase>;
+const DropdownIndicatorButton = () => <ButtonBase><DropdownIndicator /></ButtonBase>;
 
 const components = {
   Control,
@@ -173,7 +173,7 @@ const components = {
   Placeholder,
   // SingleValue,
   ValueContainer,
-  DropdownIndicator,
+  DropdownIndicator: DropdownIndicatorButton,
 };
 
 class MultiSelect extends React.Component {
