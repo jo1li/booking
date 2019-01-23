@@ -125,15 +125,6 @@ const styles = theme => ({
       margin: 0,
       padding: 0,
     },
-    '& img': {
-      width: 100,
-      height: 64,
-      borderRadius: 2,
-      backgroundColor: theme.palette.primary.light,
-      MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.25)',
-      WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.25)',
-      BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.25)',
-    },
   },
   form: {
     width: '100%', // Fix IE11 issue.

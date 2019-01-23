@@ -7,18 +7,25 @@ import Grid from '@material-ui/core/Grid';
 import { geGetImageFiletPreview } from '../../utils/formHelpers';
 import { orientImage } from '../../helpers/imageHelpers';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 const styles = theme => ({
-  photoPlaceholder: {
+  imagePreview: {
     margin: '4px',
     textAlign: 'center',
     width: 125,
     height: 80,
     borderRadius: 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    borderRadius: 2,
+  },
+  emptyImagePreview: {
     backgroundColor: theme.palette.primaryTonal[50],
-    MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.15)',
-    WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
-    BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.15)',
+    border: `1px solid ${theme.palette.primaryTonal[200]}`,
+    display: 'inline-flex',
+    // Center camera icon
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   centeredIcon: {
     height: '100%',
