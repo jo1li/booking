@@ -48,8 +48,6 @@ const styles = theme => ({
   },
   chipDeleteIcon: {
     color: theme.palette.primaryTonal[200],
-    // TODO: do we want these numbers to come from theme.spacing.unit,
-    // despite not being empty space or not being a multiple of a half-unit?
     height: 16,
     width: 16,
     marginLeft: theme.spacing.unit,
