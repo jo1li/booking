@@ -39,7 +39,7 @@ const styles = theme => ({
     margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
     textTransform: 'uppercase',
     fontWeight: 500,
-    color: theme.palette.primaryTonal[600], // TODO: close enough to item in specs?
+    color: theme.palette.primaryTonal[500],
     backgroundColor: theme.palette.primaryTonal[50],
     height: 32,
   },
