@@ -299,7 +299,9 @@ class OnboardingForm extends Component {
       <ProfilePhotoEditorForm
         image={imageFile.preview}
         imageName={imageFile.name}
-        onClickConfirm={file => change('image', file)}
+        onClickConfirm={file => {
+          change('image', file);
+        }}
       />
     )
   }
@@ -326,7 +328,7 @@ class OnboardingForm extends Component {
                   component={UploadDropZone}
                   label={currentValues.image ? 'Change' : 'Add a photo'}
                   type="file"
-                  imagefile={currentValues.image}
+                  image={currentValues.image}
                   handleOnDrop={this.openPhotoEditor}
                 />
               </FormControl>

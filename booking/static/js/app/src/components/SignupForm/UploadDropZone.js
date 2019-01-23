@@ -30,18 +30,24 @@ const styles = theme => ({
   },
 });
 
-const renderImagePreview = imagefile => (
-  map(imagefile, ({ name, preview }) => [
-    <li key="imgpreview" style={{ display: 'inline-block' }}>
-      <img src={preview} alt={name} />
-    </li>
-  ])
-);
+const EmptyImagePreview = ({classes}) => (
+  <div className={classNames(classes.imagePreview, classes.emptyImagePreview)}>
+    <Camera size={22} />
+  </div>
+)
+
+const ImagePreview = ({ image, classes }) => {
+  if(!image) {
+    return <EmptyImagePreview classes={classes} />;
+  }
+
+  return <img src={image.preview} alt={image.name} className={classes.imagePreview} />;
+};
 
 const DropZoneField = ({
   handleOnDrop,
   input,
-  imagefile,
+  image,
   label,
   meta: { error, touched },
   classes,
@@ -60,15 +66,7 @@ const DropZoneField = ({
         <Fragment>
           <Grid container style={{ flexGrow: 1 }} direction='column' alignItems='center'>
             <Grid item>
-              {imagefile && imagefile.length > 0 ? (
-                <ul>
-                  {renderImagePreview(imagefile)}
-                </ul>
-              ) : (
-                <div className={classes.photoPlaceholder}>
-                  <Camera className={classes.centeredIcon}/>
-                </div>
-              )}
+              <ImagePreview image={image} classes={classes} />
             </Grid>
             <Grid item>
               <Typography color="inherit" variant="body2" className={classes.caption}>
