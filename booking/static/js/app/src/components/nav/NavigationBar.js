@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -35,6 +35,7 @@ const styles = theme => ({
     paddingRight: 32,
     fontSize: '1rem',
     color: theme.palette.grey[700],
+    fontFamily: theme.typography.h1.fontFamily,
     '& > p': {
       paddingLeft: 16,
       marginBottom: 0,
@@ -44,7 +45,7 @@ const styles = theme => ({
     paddingTop: 3,
   },
   avatar: {
-    width: 42,
+    width: 50,
     height: 32,
     borderRadius: 2,
     backgroundColor: theme.palette.primary.light,
@@ -56,7 +57,7 @@ const styles = theme => ({
     marginBottom: '0',
     marginTop: '-3px',
     listStyle: 'none',
-    color: theme.palette.grey[600],
+    color: theme.palette.grey[900],
     '& > li': {
       display: 'inline-block',
       padding: '0 auto'
@@ -65,11 +66,7 @@ const styles = theme => ({
       marginLeft: theme.spacing.unit * 3,
     },
     '& a': {
-      color: '#000',
-      opacity: 0.7,
-    },
-    '& a:hover': {
-      opacity: 1.0,
+      color: theme.palette.grey[900],
     }
   },
   sectionDesktop: {
@@ -157,30 +154,28 @@ class NavigationBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" elevation={0} color="inherit">
+        <AppBar position="static" elevation={1} color="inherit">
           <Toolbar className={classes.toolbar}>
             <a href={this.props.url_home}>
             <div className={classes.logo}>
-              <NavBarLogo color="rgba(0,0,0,0.7)" width={68} height={28}>
-                Opus
-              </NavBarLogo>
+              <NavBarLogo>Opus</NavBarLogo>
             </div>
             </a>
             {authed && (
               <div className={classes.sectionDesktop}>
                 <ul className={classes.destinations}>
                   <li>
-                    <Typography variant="body1">
+                    <Typography variant="subtitle1" style={{fontWeight: 500}}>
                       <a href={this.props.url_venues_logged_in}>Venues</a>
                     </Typography>
                   </li>
                   <li>
-                    <Typography variant="body1">
+                    <Typography variant="subtitle1" style={{fontWeight: 500}}>
                       <a href={this.props.url_artists_logged_in}>Artists</a>
                     </Typography>
                   </li>
                   <li>
-                    <Typography variant="body1">
+                    <Typography variant="subtitle1" style={{fontWeight: 500}}>
                       <a href={this.props.url_profile}>Profile</a>
                     </Typography>
                   </li>
@@ -204,7 +199,7 @@ class NavigationBar extends React.Component {
                         backgroundSize: '100%'
                       }}
                     ></div>
-                    <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 8, paddingRight: 8}}>
+                    <Typography color="textPrimary" variant="body2" noWrap style={{maxWidth: 150, paddingLeft: 8, paddingRight: 8}}>
                       {this.props.artist}
                     </Typography>
                     <DownIcon size={18} />
@@ -225,7 +220,7 @@ class NavigationBar extends React.Component {
                       }}
                     ></div>
                     <div className={classes.sectionDesktop}>
-                      <Typography color="inherit" variant="body1" noWrap style={{maxWidth: 150, paddingLeft: 4}}>
+                      <Typography color="textPrimary" variant="body2" noWrap style={{maxWidth: 150, paddingLeft: 4}}>
                         {this.props.artist}
                       </Typography>
                     </div>
