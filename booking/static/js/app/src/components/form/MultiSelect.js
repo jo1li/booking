@@ -32,6 +32,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
+    ...theme.typography.body1,
   },
   option: {
     ...theme.typography.body1,
