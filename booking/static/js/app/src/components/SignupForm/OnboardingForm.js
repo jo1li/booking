@@ -148,6 +148,7 @@ const styles = theme => ({
     marginRight: 0
   },
   label: theme.typography.overline,
+  textInput: theme.typography.body1,
 });
 
 
@@ -352,6 +353,11 @@ class OnboardingForm extends Component {
                     classes: { shrink: classes.label },
                     className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
                   }}
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
                   fullWidth
                 />
                 <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
@@ -378,6 +384,11 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
                 />
               </FormControl>
               <Grid container spacing={16}>
@@ -390,6 +401,11 @@ class OnboardingForm extends Component {
                       InputLabelProps={{
                         shrink: true,
                         classes: { shrink: classes.label },
+                      }}
+                      InputProps={{
+                        classes: {
+                          input: classes.textInput
+                        }
                       }}
                     />
                   </FormControl>
@@ -417,7 +433,10 @@ class OnboardingForm extends Component {
                   placeholder="https://facebook.com/page"
                   component={TextField}
                   InputProps = {{
-                    startAdornment: FacebookAdornment
+                    startAdornment: FacebookAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
                   }}
                   InputLabelProps={{
                     shrink: true,
@@ -432,7 +451,10 @@ class OnboardingForm extends Component {
                   placeholder="https://instagram.com/username"
                   component={TextField}
                   InputProps = {{
-                    startAdornment: InstagramAdornment
+                    startAdornment: InstagramAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
                   }}
                   InputLabelProps={{
                     shrink: true,
@@ -447,7 +469,10 @@ class OnboardingForm extends Component {
                   placeholder="https://open.spotify.com/artist/12345"
                   component={TextField}
                   InputProps = {{
-                    startAdornment: SpotifyAdornment
+                    startAdornment: SpotifyAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
                   }}
                   InputLabelProps={{
                     shrink: true,

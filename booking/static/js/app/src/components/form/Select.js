@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import { ExpandMore } from '../icons';
 import MenuItem from '@material-ui/core/MenuItem';
+import classNames from 'classnames';
 
 const styles = theme => ({
   icon: {
@@ -21,7 +22,11 @@ const styles = theme => ({
   menuItem: {
     '&:disabled': {
       opacity: '0.4',
-    }
+    },
+  },
+  // TODO: better class name
+  themedFont: {
+    ...theme.typography.body1,
   }
 });
 
@@ -42,6 +47,7 @@ const ReduxFormSelect = ({
       <Select
           className={className}
           classes={{
+            root: classes.themedFont,
             icon: classes.icon,
           }}
           IconComponent={IconComponent || ExpandMore}
@@ -50,7 +56,7 @@ const ReduxFormSelect = ({
           {...custom}
           displayEmpty
           >
-          <MenuItem value="" disabled classes={{root: classes.menuItem}}>
+          <MenuItem value="" disabled classes={{root: classNames(classes.menuItem, classes.themedFont)}}>
             {/* temporary work around becuase the disabled prop above is not activating styles properly */}
             <div style={{opacity: '0.4'}}>
               {placeholder}
@@ -60,7 +66,7 @@ const ReduxFormSelect = ({
               items.map(child => {
                   const placeholder = _.isObject(child) ? child.placeholder : child;
                   const value = _.isObject(child) ? child.value : child;
-                  return <MenuItem key={value} value={value}>{placeholder}</MenuItem>
+                  return <MenuItem key={value} value={value} classes={{root: classNames(classes.menuItem, classes.themedFont)}}>{placeholder}</MenuItem>
                 }
               )
             }

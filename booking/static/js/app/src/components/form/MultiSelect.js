@@ -33,6 +33,9 @@ const styles = theme => ({
     flex: 1,
     alignItems: 'center',
   },
+  option: {
+    ...theme.typography.body1,
+  },
   chip: {
     ...theme.typography.overline,
     margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
@@ -86,6 +89,7 @@ function Option(props) {
       buttonRef={props.innerRef}
       selected={props.isFocused}
       component="div"
+      className={props.selectProps.classes.option}
       style={{
         fontWeight: props.isSelected ? 500 : 400,
       }}
