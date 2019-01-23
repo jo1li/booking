@@ -47,7 +47,8 @@ export default createMuiTheme({
         },
         caption: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 500,
+          // TODO: this is 500 in the style guide but not in the onboarding form spec
+          fontWeight: 400,
           fontSize: "0.75rem",
           lineHeight: 1.66,
           letterSpacing: "0.06em",

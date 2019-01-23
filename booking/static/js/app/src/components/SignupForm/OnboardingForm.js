@@ -144,6 +144,9 @@ const styles = theme => ({
     marginLeft: 0,
     marginRight: 0
   },
+  caption: {
+    color: theme.palette.grey[600],
+  },
   label: theme.typography.overline,
   textInput: theme.typography.body1,
 });
@@ -352,12 +355,13 @@ class OnboardingForm extends Component {
                   }}
                   InputProps={{
                     classes: {
+                      root: classes.textInput,
                       input: classes.textInput
                     }
                   }}
                   fullWidth
                 />
-                <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
+                <FormHelperText><Typography variant="caption" className={classes.caption}>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</Typography></FormHelperText>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -366,7 +370,7 @@ class OnboardingForm extends Component {
                   isMulti
                   component={MultiSelect}
                   options={genresForSelect}
-                  helpText="Required • Select up to three."
+                  helpText={<Typography variant="caption" className={classes.caption}>Required • Select up to three.</Typography>}
                   normalize={normalizeGenres}
                 >
                 </Field>
