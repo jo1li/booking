@@ -115,9 +115,6 @@ const styles = theme => ({
     cursor: 'pointer',
     display: 'inline-block',
     overflow: 'hidden',
-    '&:hover': {
-      backgroundColor: theme.palette.grey[50],
-    },
     '& ul li': {
       margin: 0,
       padding: `${theme.spacing.unit/2}px`,
