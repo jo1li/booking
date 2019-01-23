@@ -310,7 +310,7 @@ class OnboardingForm extends Component {
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
-          <Typography variant="headline" align="center">Onboarding</Typography>
+          <Typography variant="h6" align="center">Create your profile</Typography>
           <Paper className={classes.paper}>
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" className={classes.uploadArea} fullWidth>
