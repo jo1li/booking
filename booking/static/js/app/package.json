@@ -27,7 +27,7 @@
     "react-pinch-zoom-pan": "^1.4.5",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
-    "react-select": "^2.1.1",
+    "react-select": "^2.3.0",
     "react-swipeable-views": "^0.12.14",
     "redux-form": "^7.4.2",
     "redux-form-validators": "^2.7.1",

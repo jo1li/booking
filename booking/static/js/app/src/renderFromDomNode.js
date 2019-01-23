@@ -2,29 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 import configureStore from './store';
 import loadInitialState from './loadInitialState';
+import loadShims from './loadShims';
 
+loadShims();
 const initialState = loadInitialState();
 const store = configureStore(initialState);
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            light: "#7f9ca8",
-            main: "#526e79",
-            dark: "#27434d",
-            contrastText: "#fff",
-        },
-        secondary: {
-            light: "#53ecfd",
-            main: "#00b9d1",
-            dark: "#0089a0",
-            contrastText: "#fff",
-        }
-    }
-});
 
 const RenderFromDomNode = ({ node, Component, onMount, onUnMount, className, ...props }) => {
     const domNode = document.getElementById(node);
