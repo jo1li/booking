@@ -147,6 +147,7 @@ const styles = theme => ({
     marginLeft: 0,
     marginRight: 0
   },
+  label: theme.typography.overline,
 });
 
 
@@ -333,7 +334,7 @@ class OnboardingForm extends Component {
                   name="bio_short"
                   label={
                     <Fragment>
-                      <Typography variant="overline">Tagline</Typography>
+                      Tagline
                       <TextCount
                         inline={true}
                         className={classes.textCount}
@@ -348,6 +349,7 @@ class OnboardingForm extends Component {
                   placeholder='Tagline'
                   InputLabelProps={{
                     shrink: true,
+                    classes: { shrink: classes.label },
                     className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
                   }}
                   fullWidth
@@ -369,11 +371,12 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="website"
-                  label={<Typography variant="overline">Website</Typography>}
+                  label='Website'
                   placeholder="http://www.example.com"
                   component={TextField}
                   InputLabelProps={{
                     shrink: true,
+                    classes: { shrink: classes.label },
                   }}
                 />
               </FormControl>
@@ -382,8 +385,12 @@ class OnboardingForm extends Component {
                   <FormControl margin="normal" fullWidth>
                     <Field
                       name="hometown"
-                      label={<Typography variant="overline">City</Typography>}
+                      label="City"
                       component={TextField}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: { shrink: classes.label },
+                      }}
                     />
                   </FormControl>
                 </Grid>
@@ -406,33 +413,45 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth style={{marginTop: 56}}>
                 <Field
                   name="facebook"
-                  label={<Typography variant="overline">Facebook Link</Typography>}
+                  label="Facebook Link"
                   placeholder="https://facebook.com/page"
                   component={TextField}
                   InputProps = {{
                     startAdornment: FacebookAdornment
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
                   }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="instagram"
-                  label={<Typography variant="overline">Instagram Link</Typography>}
+                  label="Instagram Link"
                   placeholder="https://instagram.com/username"
                   component={TextField}
                   InputProps = {{
                     startAdornment: InstagramAdornment
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
                   }}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="spotify"
-                  label={<Typography variant="overline">Spotify Link</Typography>}
+                  label="Spotify Link"
                   placeholder="https://open.spotify.com/artist/12345"
                   component={TextField}
                   InputProps = {{
                     startAdornment: SpotifyAdornment
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
                   }}
                 />
               </FormControl>
