@@ -100,6 +100,26 @@
     }
   },
   {
+    "model": "home.opususer",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$CM4KB2fkGQ5X$pPUoQeTTQbDHrtnJgHLCmVMmCVdK70uNzANb8qF60c8=",
+      "last_login": "2018-09-19T15:21:18Z",
+      "is_superuser": true,
+      "username": "soderstromkc@gmail.com",
+      "first_name": "KC",
+      "last_name": "Soderstrom",
+      "email": "soderstromkc@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2018-06-20T01:52:06Z",
+      "is_musician": true,
+      "is_booking_agent": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
     "model": "account.account",
     "pk": 1,
     "fields": {
@@ -140,6 +160,15 @@
     "pk": 5,
     "fields": {
       "user": 5,
+      "timezone": "",
+      "language": "en"
+    }
+  },
+  {
+    "model": "account.account",
+    "pk": 6,
+    "fields": {
+      "user": 6,
       "timezone": "",
       "language": "en"
     }
@@ -190,6 +219,16 @@
     "fields": {
       "user": 5,
       "email": "alan@opuslive.io",
+      "verified": true,
+      "primary": true
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 6,
+    "fields": {
+      "user": 6,
+      "email": "soderstromkc@gmail.com",
       "verified": true,
       "primary": true
     }

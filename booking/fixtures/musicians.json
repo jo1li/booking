@@ -159,6 +159,37 @@
     }
   },
   {
+    "model": "musicians.musician",
+    "pk": 6,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 6,
+      "stage_name": "KC Soderstrom",
+      "slug": "kc-soderstrom",
+      "image": "media/kc_zgjocx",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Not actually a band.",
+      "website": "http://dickinson.is",
+      "facebook": "https://www.facebook.com/opuslivemusic/",
+      "twitter": "",
+      "instagram": "https://instagram.com/alandickinson",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Spoken Word"
+      ]
+    }
+  },
+  {
     "model": "musicians.musicianaudio",
     "pk": 1,
     "fields": {
