@@ -54,7 +54,7 @@ export default createMuiTheme({
         },
         overline: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 400,
+          fontWeight: 500,
           fontSize: "0.75rem",
           lineHeight: 1.66,
           letterSpacing: "0.0133em",
@@ -169,4 +169,4 @@ export default createMuiTheme({
             paper: "#FFFFFF"
         },
     },
-  });  
+  });
