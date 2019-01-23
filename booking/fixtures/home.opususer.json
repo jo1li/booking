@@ -26,10 +26,30 @@
       "password": "pbkdf2_sha256$100000$CM4KB2fkGQ5X$pPUoQeTTQbDHrtnJgHLCmVMmCVdK70uNzANb8qF60c8=",
       "last_login": "2018-09-19T15:21:18Z",
       "is_superuser": false,
-      "username": "rockband",
+      "username": "rockband@sink.sendgrid.net",
       "first_name": "Rock",
       "last_name": "Band",
       "email": "rockband@sink.sendgrid.net",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2018-06-20T01:52:06Z",
+      "is_musician": true,
+      "is_booking_agent": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "home.opususer",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$100000$CM4KB2fkGQ5X$pPUoQeTTQbDHrtnJgHLCmVMmCVdK70uNzANb8qF60c8=",
+      "last_login": "2018-09-19T15:21:18Z",
+      "is_superuser": false,
+      "username": "danny@opuslive.io",
+      "first_name": "Danny",
+      "last_name": "Hyon",
+      "email": "danny@opuslive.io",
       "is_staff": false,
       "is_active": true,
       "date_joined": "2018-06-20T01:52:06Z",
@@ -58,6 +78,15 @@
     }
   },
   {
+    "model": "account.account",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "timezone": "",
+      "language": "en"
+    }
+  },
+  {
     "model": "account.emailaddress",
     "pk": 1,
     "fields": {
@@ -74,6 +103,16 @@
       "user": 2,
       "email": "rockband@sink.sendgrid.net",
       "verified": false,
+      "primary": true
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "email": "danny@opuslive.io",
+      "verified": true,
       "primary": true
     }
   },

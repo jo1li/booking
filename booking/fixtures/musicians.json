@@ -64,6 +64,38 @@
     }
   },
   {
+    "model": "musicians.musician",
+    "pk": 3,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 3,
+      "stage_name": "Danny Hyon",
+      "slug": "danny-hyon",
+      "image": "media/testimage_sb56kt",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": "Someone who believes in a better place where Artists, Musicians, and Creatives are protected and valued for their work.",
+      "bio_short": "Live Music Everywhere",
+      "website": "https://www.opuslive.io",
+      "facebook": "https://www.facebook.com/danny.hyon",
+      "twitter": "",
+      "instagram": "https://instagram.com/dannyhyon?r=nametag",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Acoustic",
+        "Hip Hop"
+      ]
+    }
+  },
+  {
     "model": "musicians.musicianaudio",
     "pk": 1,
     "fields": {
