@@ -52,11 +52,11 @@ const styles = theme => ({
     // despite not being empty space or not being a multiple of a half-unit?
     height: 16,
     width: 16,
-    marginLeft: 11,
-    marginRight: 9,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   chipLabel: {
-    paddingLeft: 18,
+    paddingLeft: theme.spacing.unit * 2,
     paddingRight: 0,
   },
   noOptionsMessage: {
