@@ -190,6 +190,37 @@
     }
   },
   {
+    "model": "musicians.musician",
+    "pk": 7,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 7,
+      "stage_name": "Zachary Stallings",
+      "slug": "zachary-stallings",
+      "image": "media/zach_vsmbqt",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Full Stack Developer.",
+      "website": "https://fourcornerfurniture.com/",
+      "facebook": "https://www.facebook.com/opuslivemusic/",
+      "twitter": "",
+      "instagram": "https://instagram.com/alandickinson",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Spoken Word"
+      ]
+    }
+  },
+  {
     "model": "musicians.musicianaudio",
     "pk": 1,
     "fields": {
