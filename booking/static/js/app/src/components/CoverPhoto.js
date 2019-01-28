@@ -74,7 +74,7 @@ class CoverPhoto extends React.Component {
                <ImageUploadContainer
                   onUpload={values => this.openPhotoEditDialog(values)}
                 >
-                  <div color="primary" className={classes.button} ><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</div>
+                  <Button color="primary" className={classes.button} ><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</Button>
               </ImageUploadContainer>
             </div>
           )}
