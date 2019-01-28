@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import { isSafari } from '../../utils/windowHelpers';
 
 /**
  * Input that Handles uploading an image and correctly orienting the image.
@@ -9,6 +10,7 @@ import autoBind from 'react-autobind';
 class ImageUploadContainer extends Component {
     constructor() {
         super();
+        this.input = React.createRef();
         autoBind(this);
     }
 
@@ -41,6 +43,10 @@ class ImageUploadContainer extends Component {
         });
     }
 
+    clickInput() {
+        this.input.current.click();
+    }
+
     render() {
         const {
             className,
@@ -62,17 +68,21 @@ class ImageUploadContainer extends Component {
                    {
                     React.Children.map(children, child => {
                         return React.cloneElement(child, { onClick: () => {
+                            if (!isSafari) {
+                                this.clickInput();
+                            }
                             child.onCLick && child.onCLick();
                         }})
                     })
                    }
-                </label>
-                <input
+                  <input
                     type="file"
+                    ref={this.input}
                     className="addPicture"
                     id={`addPicture-${id || 0}`}
                     style={{display: 'none'}}
                     onChange={(e) => this.uploadImage(e)} />
+                </label>
             </div>
         )
     }
