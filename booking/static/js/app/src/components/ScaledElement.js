@@ -3,6 +3,31 @@ import { withStateHandlers } from 'recompose';
 import propTypes from 'prop-types';
 
 class ScaledElement extends Component {
+
+    constructor() {
+        super();
+
+        this.state = {
+            width: null,
+            height: null,
+        };
+    }
+
+    componentDidMount() {
+
+        // its necessary to get the dimensions after mount
+        // otherwise the width and height can be null.
+        const {
+            width,
+            height,
+        } = this.getDimensions();
+
+         this.setState({
+            width,
+            height,
+        })
+    }
+
     getDimensions() {
         if (!this.container) {
             return {};
@@ -12,7 +37,7 @@ class ScaledElement extends Component {
             ratio,
         } = this.props;
 
-        const width = this.container.offsetWidth;
+        let width = this.container.offsetWidth;
 
         return {
             width,
@@ -29,11 +54,11 @@ class ScaledElement extends Component {
         const {
             width,
             height,
-        } = this.getDimensions();
+        } = this.state;
 
         return (
           <div className={className} ref={ref => this.container = ref}>
-            {render(width, height)}
+            { this.container ? render(width, height) : null }
           </div>
         )
     }

@@ -1,17 +1,26 @@
 import ActionCreators from './actionCreators';
 import * as requests from '../request/requests';
+import { getFormData } from '../utils/formHelpers';
+import { updateProfile } from './profile';
 
 // TODO: error handling
 
-export function createArtistPhoto({artistId, file}, callback) {
+export function createArtistPhoto({ artistId, file }) {
     return (dispatch, getState) => {
-        return requests.createPhoto({artistId, file})
+        const createPhotoData = getFormData({ image: file })
+        return requests.createPhoto({artistId, file: createPhotoData})
             .then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
                 return res;
-            }).then((res) => {
-                if(callback) callback(res);
-            });
+            })
+    }
+}
+
+export function createCoverPhoto({ artistId, file }) {
+    return async (dispatch, getState) => {
+        const createPhotoRes = await dispatch(createArtistPhoto({ artistId, file }));
+        const profileData = { image_hero_id: createPhotoRes.data.id }
+        const updateProfileRes = await dispatch(updateProfile(profileData, artistId));
     }
 }
 

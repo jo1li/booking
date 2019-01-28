@@ -20,6 +20,8 @@ import CancelConfirm from '../CancelConfirm';
 import ModalHeader from '../ModalHeader';
 import DraggablePhotoRows from './DraggablePhotoRows';
 import DroppableContainer from '../dragAndDrop/DroppableContainer';
+import CoverPhotoEditorForm from '../CoverPhotoEditorForm';
+import { selectHasHeroImage } from '../../selectors/photosSelectors';
 import {
   getUpdatedItems,
   getDestroyedItems,
@@ -63,6 +65,24 @@ class PhotoEditFormBase extends Component {
     } = this.props;
 
     getArtistItems({artistId: profile.id});
+  }
+
+  openCoverPhotoEditForm(image) {
+    const {
+      createCoverPhoto,
+      openDialog,
+      profile,
+    } = this.props;
+
+    this.props.openDialog(
+      <CoverPhotoEditorForm
+        image={image}
+        onClickConfirm={file => createCoverPhoto({
+          file,
+          artistId: profile.id,
+        })}
+      />
+    )
   }
 
   submit() {
@@ -125,14 +145,15 @@ class PhotoEditFormBase extends Component {
     });
   }
 
-  previewAndUpload(file) {
+  async previewAndUpload(file) {
     const {
       addToStore,
       removeFromStore,
       currentValues,
       profile,
-      updateProfile,
-      indexedPhotos,
+      hasHeroImage,
+      createArtistItem,
+      createCoverPhoto,
     } = this.props;
 
     // TODO: support multiple pending images at once
@@ -144,28 +165,22 @@ class PhotoEditFormBase extends Component {
       addToStore(pendingImage);
     }, { maxWidth: 200 });
 
-    // Send it to the server, and remove the preview when complete
-    const data = new FormData();
-    data.append('image', file);
-
     // Cover photo could have been deleted since page was loaded, so don't
     // just check that the ID isn't null.
-    const userHasCoverPhoto = indexedPhotos[_.get(profile, 'image_hero.id', null)] != undefined;
+    if (!hasHeroImage) {
+      await createCoverPhoto({
+          file,
+          artistId: profile.id,
+      });
+    } else {
+      await createArtistItem({
+        file,
+        order: currentValues.photos.length,
+        artistId: profile.id,
+      });
+    }
 
-    this.props.createArtistItem({
-      file: data,
-      order: currentValues.photos.length,
-      artistId: profile.id,
-    }, (res) => {
-      removeFromStore(pendingImage);
-
-      if(!userHasCoverPhoto) {
-        updateProfile({
-          image_hero_id: res.data.id,
-        },
-        profile.id);
-      }
-    });
+    removeFromStore(pendingImage);
   }
 
   render() {
@@ -196,7 +211,9 @@ class PhotoEditFormBase extends Component {
                 width={width}
                 theme={theme}
                 heroImageURL={profile.hero_image_url}
-                remove={(order) => this.removeItemFromForm(order)} />
+                remove={(order) => this.removeItemFromForm(order)}
+                onClickUseAsCoverPhoto={this.openCoverPhotoEditForm}
+              />
             <PhotoUploadButton
                 className={classes.photoEditFormSubmitButton}
                 label={<Fragment><CloudUpload className={classes.uploadIcon}/> Upload Photo</Fragment>}
@@ -236,10 +253,10 @@ const mapStateToProps = (state, props) => ({
   pendingPhotos: state.pending_photos,
   profile: state.profile,
   currentValues: getFormValues(EDIT_PHOTOS)(state) || {},
+  hasHeroImage: selectHasHeroImage(state)
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = {
     getArtistItems: PhotoActions.getArtistPhotos,
     updateArtistItem: PhotoActions.updateArtistPhoto,
     createArtistItem: PhotoActions.createArtistPhoto,
@@ -247,8 +264,8 @@ const mapDispatchToProps = (dispatch) => {
     addToStore: ActionCreators.pendingPhotosCreateOrUpdate,
     removeFromStore: ActionCreators.pendingPhotosDelete,
     updateProfile: ProfileActions.updateProfile,
-  }, dispatch);
-};
+    createCoverPhoto: PhotoActions.createCoverPhoto,
+  }
 
 const PhotoEditForm = compose(
   connect(mapStateToProps, mapDispatchToProps),
