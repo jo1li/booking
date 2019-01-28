@@ -29,7 +29,7 @@ export default createMuiTheme({
         },
         subtitle1: {
           fontFamily: DISPLAY_FONT_STACK,
-          fontWeight: 400,
+          fontWeight: 'bold',
           fontSize: "1rem",
           lineHeight: 1.375,
           letterSpacing: "0em",
@@ -169,4 +169,4 @@ export default createMuiTheme({
             paper: "#FFFFFF"
         },
     },
-  });  
+  });

@@ -49,14 +49,14 @@ const SetAsCoverPhotoButton = (props) => {
 }
 
 const CoverPhotoIndicatorGate = (props) => {
-  const { isCoverPhoto, useAsCoverPhoto, show, classes, item } = props;
+  const { isCoverPhoto, onClickUseAsCoverPhoto, show, classes, item } = props;
 
   if(!show) return null;
 
   if(isCoverPhoto) {
     return <CoverPhotoIndicator classes={classes} />;
   } else {
-    return <SetAsCoverPhotoButton onClick={useAsCoverPhoto} item={item} classes={classes} />;
+    return <SetAsCoverPhotoButton onClick={() => onClickUseAsCoverPhoto(item.image)} item={item} classes={classes} />;
   }
 }
 
@@ -70,7 +70,7 @@ const TopRow = (props) => {
     item,
     idx,
     isCoverPhoto,
-    useAsCoverPhoto,
+    onClickUseAsCoverPhoto,
     theme,
   } = props;
 
@@ -87,7 +87,7 @@ const TopRow = (props) => {
         classes={classes}
         isCoverPhoto={isCoverPhoto}
         item={item}
-        useAsCoverPhoto={useAsCoverPhoto} />
+        onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} />
     <DeleteButton
         onClick={() => remove(idx)}
         color={theme.palette.secondary.main}
@@ -100,7 +100,7 @@ const BottomRow = (props) => {
     classes,
     width,
     isCoverPhoto,
-    useAsCoverPhoto,
+    onClickUseAsCoverPhoto,
     item,
   } = props;
 
@@ -110,7 +110,7 @@ const BottomRow = (props) => {
         classes={classes}
         item={item}
         isCoverPhoto={isCoverPhoto}
-        useAsCoverPhoto={useAsCoverPhoto} />
+        onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} />
   </Grid>
 }
 
@@ -146,29 +146,19 @@ class PhotoRow extends Component {
     autoBind(this);
   }
 
-  useAsCoverPhoto(photo) {
-    const { profile, updateProfile } = this.props;
-    return updateProfile({
-      image_hero_id: photo.id,
-    },
-    profile.id);
-  }
-
   render() {
     return (
       <PhotoRowBase
         TopRow={TopRow}
         BottomRow={BottomRow}
         {...this.props}
-        useAsCoverPhoto={this.useAsCoverPhoto} />
+      />
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps =  {
     updateProfile: ProfileActions.updateProfile,
-  }, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(PhotoRow);
