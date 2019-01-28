@@ -17,7 +17,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
     class DialogWrapper extends Component {
         static initialState = {
             isOpen: false,
-            content: <Empty />
+            content: []
         }
 
         constructor(props) {
@@ -30,18 +30,40 @@ const DialogStateManager = Dialog => WrappedComponent => {
         openDialog(content) {
             this.setState({
                 isOpen: true,
-                content,
+                content: [ content, ...this.state.content],
             })
             Mousetrap.bind('escape', this.closeDialog);
         }
 
         closeDialog() {
+            const content = this.state.content.slice(1)
+            if (!content.length) {
+                this.setState(DialogWrapper.initialState);
+            }
+
+            this.setState({ content });
+            Mousetrap.unbind('escape');
+        }
+
+        closeAllDialogs() {
             this.setState(DialogWrapper.initialState);
             Mousetrap.unbind('escape');
         }
 
+        getContent() {
+            const { content } = this.state
+            if (!content.length) {
+                return <Empty />
+            }
+
+            return React.cloneElement(content[0], {
+                closeDialog: this.closeDialog,
+                closeAllDialogs: this.closeAllDialogs
+            })
+        }
+
         render() {
-            const content = React.cloneElement(this.state.content, { closeDialog: this.closeDialog })
+            const content = this.getContent();
             return (
                 <Fragment>
                     <WrappedComponent {...this.props}

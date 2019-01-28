@@ -8,7 +8,12 @@ import Camera from 'react-feather/dist/icons/camera';
 import Button from '@material-ui/core/Button';
 
 import { Dialog } from './Dialog';
-import PhotoEditForm from './PhotoEditForm';
+// import PhotoEditForm from './PhotoEditForm';
+import CoverPhotoEditorForm from './CoverPhotoEditorForm';
+import ImageUploadContainer from './form/ImageUploadContainer'
+import { selectProfile } from '../selectors/profileSelectors';
+import * as PhotoActions from '../actions/photos';
+import { getFormData } from '../utils/formHelpers';
 
 const styles = (theme) => ({
   button: {
@@ -38,10 +43,22 @@ const styles = (theme) => ({
 })
 
 class CoverPhoto extends React.Component {
-  openPhotoEditDialog = () => {
-    const { openDialog } = this.props;
+  openPhotoEditDialog = imageFile => {
+    const {
+      openDialog,
+      createCoverPhoto,
+      profile
+    } = this.props;
+
     openDialog(
-      <PhotoEditForm/>
+      <CoverPhotoEditorForm
+        image={imageFile.src}
+        imageName={imageFile.name}
+        onClickConfirm={file => createCoverPhoto({
+          file,
+          artistId: profile.id,
+        })}
+      />
     )
   }
   render() {
@@ -54,7 +71,11 @@ class CoverPhoto extends React.Component {
         <div id="cover-photo-empty">
           {isEditable && (
             <div className={classes.coverPhotoCTA}>
-              <Button color="primary" className={classes.button} onClick={() => this.openPhotoEditDialog()}><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</Button>
+               <ImageUploadContainer
+                  onUpload={values => this.openPhotoEditDialog(values)}
+                >
+                  <Button color="primary" className={classes.button} ><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</Button>
+              </ImageUploadContainer>
             </div>
           )}
           <div id="cover-photo-bar">
@@ -82,12 +103,16 @@ class CoverPhoto extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   photos: state.photos,
-  profile: state.profile,
+  profile: selectProfile(state),
   isEditable: state.is_current_user,
 });
 
+const mapDispatchToProps = {
+  createCoverPhoto: PhotoActions.createCoverPhoto,
+}
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles),
   Dialog,
 )(CoverPhoto);

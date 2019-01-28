@@ -19,6 +19,7 @@ const DraggablePhotoRows = (props) => {
     profile,
     pendingItems,
     coverPhotoID,
+    onClickUseAsCoverPhoto,
     theme,
   } = props;
 
@@ -45,6 +46,7 @@ const DraggablePhotoRows = (props) => {
                     itemName={itemName}
                     width={width}
                     profile={profile}
+                    onClickUseAsCoverPhoto={onClickUseAsCoverPhoto}
                     remove={remove} />
               )}
             </Draggable>
