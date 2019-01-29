@@ -46,7 +46,7 @@ const styles = theme => ({
       order: 0,
     },
     [theme.breakpoints.down('xs')]: {
-      height: '144px',
+      height: "calc((100vw - 30px) * 16 / 25)",
     },
   },
 
