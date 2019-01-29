@@ -22,8 +22,7 @@ const styles = theme => ({
       opacity: '0.4',
     },
   },
-  // TODO: better class name
-  themedFont: {
+  withBodyFont: {
     ...theme.typography.body1,
   }
 });
@@ -45,7 +44,7 @@ const ReduxFormSelect = ({
       <Select
           className={className}
           classes={{
-            root: classes.themedFont,
+            root: classes.withBodyFont,
           }}
           IconComponent={IconComponent || DropdownIndicator}
           fullWidth
@@ -53,7 +52,7 @@ const ReduxFormSelect = ({
           {...custom}
           displayEmpty
           >
-          <MenuItem value="" disabled classes={{root: classNames(classes.menuItem, classes.themedFont)}}>
+          <MenuItem value="" disabled classes={{root: classNames(classes.menuItem, classes.withBodyFont)}}>
             {/* temporary work around becuase the disabled prop above is not activating styles properly */}
             <div style={{opacity: '0.4'}}>
               {placeholder}
@@ -63,7 +62,7 @@ const ReduxFormSelect = ({
               items.map(child => {
                   const placeholder = _.isObject(child) ? child.placeholder : child;
                   const value = _.isObject(child) ? child.value : child;
-                  return <MenuItem key={value} value={value} classes={{root: classNames(classes.menuItem, classes.themedFont)}}>{placeholder}</MenuItem>
+                  return <MenuItem key={value} value={value} classes={{root: classNames(classes.menuItem, classes.withBodyFont)}}>{placeholder}</MenuItem>
                 }
               )
             }
