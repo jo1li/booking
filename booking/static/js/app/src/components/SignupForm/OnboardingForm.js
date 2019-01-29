@@ -131,9 +131,13 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
   },
   submit: {
+    ...theme.typography.button,
+    color: 'white',
     marginTop: theme.spacing.unit * 3,
     marginLeft: 0,
-    marginRight: 0
+    marginRight: 0,
+    // TODO: Should not have to overwrite radius in RaisedButton
+    borderRadius: 2,
   },
   caption: {
     color: theme.palette.grey[600],
@@ -482,7 +486,7 @@ class OnboardingForm extends Component {
                 color="primary"
                 className={classes.submit}
               >
-                Create your profile
+                {'Save & view your profile'}
               </Button>
             </form>
           </Paper>
