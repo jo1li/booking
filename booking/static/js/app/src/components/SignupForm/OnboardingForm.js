@@ -41,6 +41,9 @@ import { selectImageFile, selectImagePreview } from '../../selectors/onboardingS
 import MultiSelect from '../form/MultiSelect';
 
 import validator from 'validator';
+import {
+  validateMaxLength,
+} from '../../utils/validators';
 
 import {
   updateUserBio,
@@ -58,6 +61,9 @@ const validatorOptions = {
 const validateURL = (url) => {
   return validator.isURL(url, validatorOptions);
 }
+
+// NB: Don't define this in the prop value; it won't work the way you expect.
+const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 const styles = theme => ({
   layout: {
@@ -106,6 +112,8 @@ const styles = theme => ({
     justifyContent: 'space-between',
   },
   textCount: {
+    ...theme.palette.overline,
+    transform: 'scale(0.75)', // Lives next to a label shrunk to 75% normal size
     color: theme.palette.grey[500],
   },
   uploadArea: {
@@ -144,6 +152,10 @@ const styles = theme => ({
   },
   label: theme.typography.overline,
   textInput: theme.typography.body1,
+  error: {
+    ...theme.typography.caption,
+    color: 'red',
+  }
 });
 
 
@@ -171,13 +183,6 @@ const normalizeGenres = (genres) => {
   }
   if (Array.isArray(genres)) {
     return genres.slice(0,GENRES_MAX);
-  }
-}
-const normalizeTagline = (tagline) => {
-  if (!tagline) {
-    return tagline
-  } else {
-    return tagline.slice(0,TAGLINE_CHARS_MAX)
   }
 }
 
@@ -339,8 +344,10 @@ class OnboardingForm extends Component {
                     multiline={true}
                     maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
                     component={TextField}
-                    normalize={normalizeTagline}
+                    validate={[validateTaglineMaxLength]}
                     placeholder='Tagline'
+                    errorClassName={classes.error}
+                    helpText={<Typography variant="caption" className={classes.caption}>Required</Typography>}
                     InputLabelProps={{
                       classes: { shrink: classes.label },
                       className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
@@ -353,7 +360,6 @@ class OnboardingForm extends Component {
                     }}
                     fullWidth
                   />
-                  <FormHelperText><Typography variant="caption" className={classes.caption}>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</Typography></FormHelperText>
                 </TextCount>
               </FormControl>
               <FormControl margin="normal" fullWidth>
