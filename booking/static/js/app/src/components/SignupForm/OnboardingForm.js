@@ -328,37 +328,33 @@ class OnboardingForm extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field
-                  name="bio_short"
-                  label={
-                    <Fragment>
-                      Tagline
-                      <TextCount
-                        inline={true}
-                        className={classes.textCount}
-                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                        currentLength={_.get(currentValues, 'bio_short', []).length } />
-                    </Fragment>
-                  }
-                  multiline={true}
-                  maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                  component={TextField}
-                  normalize={normalizeTagline}
-                  placeholder='Tagline'
-                  InputLabelProps={{
-                    shrink: true,
-                    classes: { shrink: classes.label },
-                    className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.textInput,
-                      input: classes.textInput
-                    }
-                  }}
-                  fullWidth
-                />
-                <FormHelperText><Typography variant="caption" className={classes.caption}>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</Typography></FormHelperText>
+                <TextCount
+                    inline={true}
+                    className={classes.textCount}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    currentLength={_.get(currentValues, 'bio_short', []).length } >
+                  <Field
+                    name="bio_short"
+                    label={'Tagline'}
+                    multiline={true}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    component={TextField}
+                    normalize={normalizeTagline}
+                    placeholder='Tagline'
+                    InputLabelProps={{
+                      classes: { shrink: classes.label },
+                      className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.textInput,
+                        input: classes.textInput
+                      }
+                    }}
+                    fullWidth
+                  />
+                  <FormHelperText><Typography variant="caption" className={classes.caption}>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</Typography></FormHelperText>
+                </TextCount>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field

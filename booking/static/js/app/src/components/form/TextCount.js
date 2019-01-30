@@ -15,6 +15,12 @@ const styles = theme => ({
     right: 0,
     transform: 'translateY(-100%)'
   },
+  inlineCount: {
+    ...theme.typography.overline,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
   bold: {
     fontWeight: 'bold',
     color: 'red',
@@ -35,7 +41,7 @@ let TextCount = (props) => {
 
   return (
         <div className={classes.countContainer}>
-            <div className={inline ? '' : classes.count}>
+            <div className={inline ? classes.inlineCount : classes.count}>
                 <Typography variant="caption" className={className}>
                     <span className={isTooLong ? classes.bold : ''}>{currentLength}</span>
                     {`/${maxLength}`}
