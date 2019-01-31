@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
 import { withStyles } from '@material-ui/core/styles';
 
-import CancelConfirm from '../CancelConfirm';
+import { StyledCancelConfirm } from '../CancelConfirm';
 import TextArea from '../form/TextArea';
 import { Display1, H6 } from '../typography';
 import ModalHeader from '../ModalHeader';
@@ -21,6 +21,27 @@ import ScaledElement from '../ScaledElement';
 import PhotoEditor from '../PhotoEditor';
 
 import styles from './styles';
+
+const PreviewWithScale = (props) => {
+  const { base64Img, classes, zoom, updateZoom } = props;
+
+  return (
+    <Grid item xs={6} className={classes.previewWithScale}>
+      <img src={base64Img} className={classes.preview}/>
+      <div style={{ marginLeft: '16px', flexGrow: 1, }}>
+        <H6>Scale</H6>
+        <Slider
+          value={zoom}
+          min={PhotoEditor.MIN_SCALE}
+          max={PhotoEditor.MAX_SCALE}
+          aria-labelledby="label"
+          onChange={(e, value) => updateZoom(value)}
+          className={classes.slider}
+        />
+      </div>
+    </Grid>
+  );
+}
 
 class EditBioForm extends Component {
   constructor(props) {
@@ -77,50 +98,46 @@ class EditBioForm extends Component {
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
-        <div className={classes.scrollableBody}>
-            <ScaledElement
-              className={classes.ratioContainer}
-              render={(width, height) => (
-                  <PhotoEditor
-                      ref={(ref) => this.photoEditor = ref}
-                      image={image}
-                      imageName={imageName}
-                      scale={zoom}
-                      onCancel={() => onCancel && onCancel()}
-                      onChange={this.updatePreviewImage}
-                      onScaleChange={updateZoom}
-                      onImageLoad={this.updatePreviewImage}
-                      width={width}
-                      height={height}
-                  />
-                )}
+        <div className={classes.noScrollBody}>
+          <ScaledElement
+            className={classes.ratioContainer}
+            style={{ backgroundColor: 'rgba(127,127,127,1)'}}
+            render={(width, height) => (
+                <PhotoEditor
+                    ref={(ref) => this.photoEditor = ref}
+                    image={image}
+                    imageName={imageName}
+                    scale={zoom}
+                    onCancel={() => onCancel && onCancel()}
+                    onChange={this.updatePreviewImage}
+                    onScaleChange={updateZoom}
+                    onImageLoad={this.updatePreviewImage}
+                    width={width}
+                    height={height}
+                    className={classes.avatarEditor}
+                />
+              )}
               />
-            <div className={classes.modalPadding}>
-              <Grid container direction='row'>
-                <Grid item xs={8} sm={3} md={3} lg={3}>
-                    <img src={base64Img} className={classes.preview}/>
-                </Grid>
-                <Grid item xs={4} sm={4} md={4} lg={4}>
-                  <H6>Scale</H6>
-                  <Slider
-                    value={zoom}
-                    min={PhotoEditor.MIN_SCALE}
-                    max={PhotoEditor.MAX_SCALE}
-                    aria-labelledby="label"
-                    onChange={(e, value) => updateZoom(value)}
-                    className={classes.slider}
-                  />
-                </Grid>
-            </Grid>
-          </div>
         </div>
-        <CancelConfirm
-            onClickCancel={this.onClickCancel}
-            onClickConfirm={() => this.onConfirm()}
-            isLoading={submitting}
-            title={'Edit Biography'}
-            className={classes.footer}
-        />
+
+          <Grid
+              container
+              direction='row'
+              justify='space-between'
+              alignContent='flex-end'
+              alignItems='center'
+              className={classes.footer}>
+            <PreviewWithScale
+                base64Img={base64Img}
+                classes={classes}
+                zoom={zoom}
+                updateZoom={updateZoom} />
+            <StyledCancelConfirm
+                onClickCancel={this.onClickCancel}
+                onClickConfirm={() => this.onConfirm()}
+                isLoading={submitting} />
+          </Grid>
+
       </div>
     );
   }
