@@ -42,20 +42,6 @@ const delay = (func, timeout) => {
 }
 
 /**
- * Takes image and creates a file object
- *
- * @param {String} url - base64 string
- * @param {String} filename - name of the file
- * @param {String} mimeType - ex image/png
- *
- * @return {Promise} - resolves to file object
- */
-const urltoFile = (url, filename, mimeType) =>
-        fetch(url)
-            .then(res =>  res.arrayBuffer())
-            .then(buf => new File([buf], filename, {type:mimeType}))
-
-/**
  * When ReactPinchZoomPan's parent re-renders ReactPinchZoomPan
  * is re-rendered and the internal state is reset.
  * This means that the scale property is reset after each re-render of the parent
@@ -128,40 +114,23 @@ class PhotoEdit extends React.Component {
      * @returns {String} base64 encoded string
      */
     getBase64Image() {
-        if (this.editor) {
-
-            // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
-            // drawn on another canvas, or added to the DOM.
-            const canvas = this.editor.getImage()
-
-            // If you want the image resized to the canvas size (also a HTMLCanvasElement)
-            // const canvasScaled = this.editor.getImageScaledToCanvas()
-
-            // creates a png
-            return canvas.toDataURL("image/png");
-        }
-    }
-
-    /**
-     * Creates a file object from cropped image
-     *
-     *  @param {String} src base64 encoded string
-     *
-     * @returns {Promise} resolves to a file object
-     */
-    getBlobSrc(src) {
-        return urltoFile(src, this.props.imageName || 'image.png', 'image/png')
+        const canvas = this.editor.getImage();
+        return canvas.toDataURL('image/png');
     }
 
     /**
      * @return {Promise} resolves to a file object
      */
     async getImage() {
-        const src = this.getBase64Image();
-        console.log("getImage", src);
-        const file = await this.getBlobSrc(src);
-        file.preview = src;
-        return file;
+        const canvas = this.editor.getImage();
+        const blob = await new Promise(resolve => (canvas.toBlob(resolve)));
+        const imageFileData = {
+            isFile: true,
+            blob,
+            fileName: this.props.imageName || 'image.png',
+            preview: canvas.toDataURL('image/png'),
+        }
+        return imageFileData;
     }
 
     /**

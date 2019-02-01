@@ -1,3 +1,5 @@
+import { PROFILE_PHOTO_ASPECT_RATIO } from '../../constants/imageConstants';
+
 const styles = theme => ({
   card: {
     display: 'flex',
@@ -46,7 +48,7 @@ const styles = theme => ({
       order: 0,
     },
     [theme.breakpoints.down('xs')]: {
-      height: '144px',
+      paddingTop: `${1 / PROFILE_PHOTO_ASPECT_RATIO * 100}%`,
     },
   },
 
@@ -170,10 +172,10 @@ const styles = theme => ({
   gridRoot: {
     flexGrow: 1,
   },
-  socialGrid: {    
+  socialGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
-    ['@media (max-width:768px) and (min-width:600px)']: {	    
+    ['@media (max-width:768px) and (min-width:600px)']: {
       gridGap: "1px 1px",
     },
     backgroundColor: theme.palette.grey[100],

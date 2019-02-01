@@ -25,7 +25,7 @@ const DropZoneField = ({
 }) => (
   <Fragment>
     <DropZone
-      accept="image/jpeg, image/png"
+      accept="image/jpeg, image/png, image/gif"
       className="upload-container"
       onDrop={file => orientImage(file[0], base64Image => {
         handleOnDrop({
