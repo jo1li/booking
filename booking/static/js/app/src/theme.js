@@ -11,7 +11,7 @@ export default createMuiTheme({
         fontSize: BASE_FONT_SIZE,
         body1: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 300,
+          fontWeight: 400,
           fontSize: "1rem",
           lineHeight: 1.4285,
           letterSpacing: "0em",
@@ -47,7 +47,6 @@ export default createMuiTheme({
         },
         caption: {
           fontFamily: BODY_FONT_STACK,
-          // TODO: this is 500 in the style guide but not in the onboarding form spec
           fontWeight: 400,
           fontSize: "0.75rem",
           lineHeight: 1.66,
