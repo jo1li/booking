@@ -155,6 +155,10 @@ const styles = theme => ({
       color: theme.palette.grey[500],
     },
   },
+  placeholder: {
+    ...theme.typography.body1,
+    color: theme.palette.grey[500],
+  },
   label: {
     ...theme.typography.overline,
     transform: 'none', // Overwrite material-ui shrinking behavior
@@ -357,7 +361,10 @@ class OnboardingForm extends Component {
                     errorClassName={classes.error}
                     helpText={<Typography variant="caption" className={classes.caption}>Required</Typography>}
                     InputLabelProps={{
-                      classes: { shrink: classes.label },
+                      classes: {
+                        root: classes.placeholder,
+                        shrink: classes.label,
+                      },
                       className: classes.splitLabel,
                     }}
                     InputProps={{
