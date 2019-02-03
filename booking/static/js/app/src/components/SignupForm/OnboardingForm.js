@@ -149,6 +149,7 @@ const styles = theme => ({
   },
   caption: {
     color: theme.palette.grey[600],
+    letterSpacing: 'normal',
   },
   label: theme.typography.overline,
   textInput: theme.typography.body1,
