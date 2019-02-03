@@ -104,16 +104,12 @@ const styles = theme => ({
   city: {
     maxWidth: '100%',
   },
-  fullWidthShrunkLabel: {
-    width: 'calc(100% * 4/3)', // Because the label is scaled down to 75%. All ears for better ideas.
-  },
   splitLabel: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   textCount: {
     ...theme.palette.overline,
-    transform: 'scale(0.75)', // Lives next to a label shrunk to 75% normal size
     color: theme.palette.grey[500],
   },
   uploadArea: {
@@ -151,7 +147,10 @@ const styles = theme => ({
     color: theme.palette.grey[600],
     letterSpacing: 'normal',
   },
-  label: theme.typography.overline,
+  label: {
+    ...theme.typography.overline,
+    transform: 'none', // Overwrite material-ui shrinking behavior
+  },
   textInput: theme.typography.body1,
   error: {
     ...theme.typography.caption,
@@ -351,7 +350,7 @@ class OnboardingForm extends Component {
                     helpText={<Typography variant="caption" className={classes.caption}>Required</Typography>}
                     InputLabelProps={{
                       classes: { shrink: classes.label },
-                      className: classNames(classes.fullWidthShrunkLabel, classes.splitLabel),
+                      className: classes.splitLabel,
                     }}
                     InputProps={{
                       classes: {
@@ -366,12 +365,16 @@ class OnboardingForm extends Component {
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="genres"
-                  label={<Typography variant="overline">Genres</Typography>}
+                  label="Genres"
                   isMulti
                   component={MultiSelect}
                   options={genresForSelect}
                   helpText={<Typography variant="caption" className={classes.caption}>Required • Select up to three.</Typography>}
                   normalize={normalizeGenres}
+                  InputLabelProps={{
+                    classes: { shrink: classes.label },
+                    shrink: true,
+                  }}
                 >
                 </Field>
               </FormControl>

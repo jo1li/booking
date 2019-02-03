@@ -179,7 +179,7 @@ const components = {
 
 class MultiSelect extends React.Component {
   render(props) {
-    const { input, label, helpText, meta: { touched, error }, children, ...rest } = this.props
+    const { input, label, helpText, meta: { touched, error }, children, ...rest } = this.props;
     return (
       <FormControl error={Boolean(touched && error)} fullWidth>
         <Select
@@ -190,9 +190,7 @@ class MultiSelect extends React.Component {
           onBlur={noop} // https://github.com/erikras/redux-form/issues/2768
           textFieldProps={{
             label,
-            InputLabelProps: {
-              shrink: true,
-            },
+            InputLabelProps: this.props.InputLabelProps,
           }}
           {...rest}
         >
