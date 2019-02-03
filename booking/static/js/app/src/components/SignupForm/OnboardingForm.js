@@ -147,16 +147,23 @@ const styles = theme => ({
     color: theme.palette.grey[600],
     letterSpacing: 'normal',
   },
+  textInput: {
+    ...theme.typography.body1,
+    opacity: 1,
+    '&::placeholder': {
+      opacity: 1,
+      color: theme.palette.grey[500],
+    },
+  },
   label: {
     ...theme.typography.overline,
     transform: 'none', // Overwrite material-ui shrinking behavior
     color: theme.palette.grey[800],
   },
-  textInput: theme.typography.body1,
   error: {
     ...theme.typography.caption,
     color: 'red',
-  }
+  },
 });
 
 

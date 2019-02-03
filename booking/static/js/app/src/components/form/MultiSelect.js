@@ -71,6 +71,8 @@ const styles = theme => ({
     position: 'absolute',
     left: 2,
     fontSize: 16,
+    ...theme.typography.body1,
+    color: theme.palette.grey[500],
   },
   paper: {
     position: 'absolute',
