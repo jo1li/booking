@@ -110,7 +110,7 @@ const styles = theme => ({
   },
   textCount: {
     ...theme.palette.overline,
-    color: theme.palette.grey[500],
+    color: theme.palette.grey[600],
   },
   uploadArea: {
     width: '100%',
@@ -150,6 +150,7 @@ const styles = theme => ({
   label: {
     ...theme.typography.overline,
     transform: 'none', // Overwrite material-ui shrinking behavior
+    color: theme.palette.grey[800],
   },
   textInput: theme.typography.body1,
   error: {
