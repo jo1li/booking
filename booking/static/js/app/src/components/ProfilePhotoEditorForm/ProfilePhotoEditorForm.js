@@ -101,7 +101,6 @@ class EditBioForm extends Component {
         <div className={classes.noScrollBody}>
           <ScaledElement
             className={classes.ratioContainer}
-            style={{ backgroundColor: 'rgba(127,127,127,1)'}}
             render={(width, height) => (
                 <PhotoEditor
                     ref={(ref) => this.photoEditor = ref}

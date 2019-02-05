@@ -51,6 +51,11 @@ const styles = theme => {
     ratioContainer: {
       overflow: 'hidden',
       width: '100%',
+      height: '100%',
+      '& > *': {
+        // Background color on hard-to-select profile photo editor
+        backgroundColor: 'rgba(127,127,127,1)',
+      }
     }
 }};
 
