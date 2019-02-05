@@ -121,8 +121,8 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		font-size:20px;
 		@include media-breakpoint-up(xl) {
-			font-size:20px;
 		}
 		&:hover {
 		  @include transition(background-color, .15s, ease-in-out);
@@ -130,7 +130,7 @@
 		}
 		span{
 			display: block;
-			@include font(60px,86px);
+			@include font(40px,60px);
 			@include media-breakpoint-up(xl) {
 				@include font(48px,60px);
 			}
