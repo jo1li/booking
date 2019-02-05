@@ -95,14 +95,14 @@
 	@include font(14px,21px);
 	font-weight: 700;
 	text-align: center;
-	text-transform: uppercase;
 	.row{
 		margin-left: -23px;
 		margin-right: -23px;
 	}
 	.tab-link{
 		display: block;
-		background: $plantation;
+		background-color: $color-secondary-main;
+		font-family: $display-font-family;
 		color: $white;
 		text-decoration: none;
 		height: 240px;
@@ -110,19 +110,15 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		opacity: 1;
 		@include media-breakpoint-up(xl) {
 			font-size:20px;
 		}
 		&:hover {
-		  @include transition(opacity, .2s, ease-in-out);
-		  opacity: .8;
+		  @include transition(background-color, .15s, ease-in-out);
+		  background-color: $color-secondary-dark;
 		}
 		span{
 			display: block;
-			font-weight: 300;
-			text-transform: capitalize;
-			font-weight:100;
 			@include font(60px,86px);
 			@include media-breakpoint-up(xl) {
 				@include font(48px,60px);
