@@ -38,15 +38,12 @@ const styles = theme => {
       }
     },
     slider: {
-      // paddingTop: '23px',
       paddingTop: 15,
       paddingLeft: 6,
     },
     preview: {
       width: 75,
       height: 48,
-      // width: 100,
-      // height: 64,
     },
     ratioContainer: {
       overflow: 'hidden',

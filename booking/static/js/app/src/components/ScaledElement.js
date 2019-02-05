@@ -53,7 +53,6 @@ class ScaledElement extends Component {
     render() {
         const {
             className,
-            style,
             render,
         } = this.props;
 
@@ -63,7 +62,7 @@ class ScaledElement extends Component {
         } = this.getDimensions();
 
         return (
-          <div className={className} style={style} ref={ref => this.container = ref}>
+          <div className={className} ref={ref => this.container = ref}>
             {render(width, height)}
           </div>
         )
