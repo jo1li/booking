@@ -200,3 +200,12 @@ $font-family-sans-serif:						 $display-font-family;
 $font-size-base:                     16px;
 
 $paragraph-margin-bottom:            10px;
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: $color-secondary-main;
+  &:hover {
+    background-color: $color-secondary-dark;
+  }
+}
+
+$btn-border-width: 0;
