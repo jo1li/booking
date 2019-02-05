@@ -112,7 +112,7 @@
 	}
 	.tab-link{
 		display: block;
-		background-color: $color-secondary-main;
+		background-color: $color-primary-main;
 		font-family: $display-font-family;
 		color: $white;
 		text-decoration: none;
@@ -126,7 +126,7 @@
 		}
 		&:hover {
 		  @include transition(background-color, .15s, ease-in-out);
-		  background-color: $color-secondary-dark;
+		  background-color: $color-primary-dark;
 		}
 		span{
 			display: block;
@@ -378,8 +378,9 @@ form{
 	}
 }
 .mission{
-	background: linear-gradient(135deg, $color-primary-dark 0%, $color-secondary-dark 100%);
-	color: $white;
+	// background: linear-gradient(135deg, $color-secondary-main 0%, $color-grey-400 100%);
+	background: $color-secondary-light;
+	color: $color-primary-main;
 	text-align: center;
 	.container{
 		padding: 85px 0 85px;
@@ -393,7 +394,7 @@ form{
 	}
 }
 .visual{
-	background: $gallery;
+	background: $color-grey-50;
 	.container{
 		padding-top: 42px;
 		padding-bottom: 40px;
