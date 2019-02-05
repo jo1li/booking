@@ -145,3 +145,12 @@ $container-max-widths: (
   lg: 757px,
   xl: 757px
 );
+
+$display-font-family: "Modern Era", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$text-font-family: "GT Zirkon", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-family-base:                   $text-font-family;
+$font-family-sans-serif:						 $display-font-family;
+$font-size-base:                     16px;
+
+$paragraph-margin-bottom:            10px;
