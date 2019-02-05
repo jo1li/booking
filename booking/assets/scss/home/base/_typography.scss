@@ -7,7 +7,7 @@ h1{
 		@include font(48px,48px);
 	}
 	@include media-breakpoint-up(xl) {
-		font-size: 60px;
+		font-size: 70px;
 		line-height: 74px;
 	}
 }
