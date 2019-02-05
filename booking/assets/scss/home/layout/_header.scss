@@ -25,16 +25,18 @@
 		}
 		.nav-link{
 			border-bottom: 2px solid transparent;
+			font-family: $display-font-family;
+			font-weight: 500;
 			padding: 5px 15px;
 			@include media-breakpoint-up(md) {
 				padding: 0;
 			}
 		    @include media-breakpoint-up(xl) {
 		        @include font(16px,24px);
-		        font-weight: 300;
 		    }
 			&:hover{
-				border-bottom: 2px solid $mine-shaft;
+				border-bottom: 2px solid $color-primary-main;
+				color: $color-primary-main;
 			}
 		}
 	}
