@@ -81,6 +81,10 @@
 		// display: block;
 	}
 	.btn-primary {
+		&:hover {
+			background-color: white;
+			color: $color-primary-main;
+		}
 		margin: 1.1875rem auto 0 auto;
 		@include media-breakpoint-down(sm) {
 			width: 60%;
@@ -379,7 +383,7 @@ form{
 }
 .mission{
 	// background: linear-gradient(135deg, $color-secondary-main 0%, $color-grey-400 100%);
-	background: $color-secondary-light;
+	background: $color-secondary-50;
 	color: $color-primary-main;
 	text-align: center;
 	.container{
