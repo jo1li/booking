@@ -431,7 +431,7 @@ class OnboardingForm extends Component {
                 </Grid>
                 <Grid item className={classes.state}>
                   <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="state">
+                    <InputLabel htmlFor="state" className={classes.label}>
                       <Typography variant="overline">State</Typography>
                     </InputLabel>
                     <Field
