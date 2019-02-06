@@ -43,6 +43,7 @@ const styles = theme => ({
     color: theme.palette.primaryTonal[500],
     backgroundColor: theme.palette.primaryTonal[50],
     height: theme.spacing.unit * 4.5,
+    borderRadius: 18,
   },
   chipFocused: {
     backgroundColor: emphasize(
