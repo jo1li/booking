@@ -4,11 +4,13 @@
     "pk": 1,
     "fields": {
       "created": "2018-10-12T01:32:33.206Z",
-      "modified": "2018-10-12T01:58:38.449Z",
+      "modified": "2019-01-23T00:56:01.799Z",
       "user": 1,
       "stage_name": "Jim Stark",
       "slug": "jim-stark",
-      "image": "",
+      "image": "media/4257109_w0g94v",
+      "image_hero": null,
+      "account_type": null,
       "claimed": true,
       "on_tour": false,
       "hometown": "",
@@ -39,6 +41,8 @@
       "stage_name": "rock star",
       "slug": "rock-star",
       "image": "media/l_34633c94cd075eaa247f8b53b842e250_mj84sc",
+      "image_hero": null,
+      "account_type": null,
       "claimed": true,
       "on_tour": false,
       "hometown": "New York",
@@ -56,6 +60,163 @@
       "genres": [
         "Punk",
         "Rock"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
+    "pk": 3,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 3,
+      "stage_name": "Danny Hyon",
+      "slug": "danny-hyon",
+      "image": "media/testimage_sb56kt",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": "Someone who believes in a better place where Artists, Musicians, and Creatives are protected and valued for their work.",
+      "bio_short": "Live Music Everywhere",
+      "website": "https://www.opuslive.io",
+      "facebook": "https://www.facebook.com/danny.hyon",
+      "twitter": "",
+      "instagram": "https://instagram.com/dannyhyon?r=nametag",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Acoustic",
+        "Hip Hop"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
+    "pk": 4,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 4,
+      "stage_name": "Johnny Li",
+      "slug": "johnny-li",
+      "image": "media/johnny_o1kgig",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Violinist & Co-Founder at Opus.",
+      "website": "https://www.opuslive.io",
+      "facebook": "https://www.facebook.com/johnny.li.1044",
+      "twitter": "",
+      "instagram": "https://instagram.com/opuslive",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Electronic",
+        "Instrumental"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
+    "pk": 5,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 5,
+      "stage_name": "Alan Dickinson",
+      "slug": "alan-dickinson",
+      "image": "media/alan_klojms",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Not actually a band.",
+      "website": "http://dickinson.is",
+      "facebook": "https://www.facebook.com/opuslivemusic/",
+      "twitter": "",
+      "instagram": "https://instagram.com/alandickinson",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Spoken Word"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
+    "pk": 6,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 6,
+      "stage_name": "KC Soderstrom",
+      "slug": "kc-soderstrom",
+      "image": "media/kc_zgjocx",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Not actually a band.",
+      "website": "http://dickinson.is",
+      "facebook": "https://www.facebook.com/opuslivemusic/",
+      "twitter": "",
+      "instagram": "https://instagram.com/alandickinson",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Spoken Word"
+      ]
+    }
+  },
+  {
+    "model": "musicians.musician",
+    "pk": 7,
+    "fields": {
+      "created": "2018-10-12T01:32:33.206Z",
+      "modified": "2018-10-12T01:58:38.449Z",
+      "user": 7,
+      "stage_name": "Zachary Stallings",
+      "slug": "zachary-stallings",
+      "image": "media/zach_vsmbqt",
+      "image_hero": null,
+      "account_type": null,
+      "claimed": true,
+      "on_tour": false,
+      "hometown": "New York",
+      "state": "NY",
+      "bio": null,
+      "bio_short": "Full Stack Developer.",
+      "website": "https://fourcornerfurniture.com/",
+      "facebook": "https://www.facebook.com/opuslivemusic/",
+      "twitter": "",
+      "instagram": "https://instagram.com/alandickinson",
+      "youtube": null,
+      "soundcloud": null,
+      "bandcamp": null,
+      "spotify": "",
+      "genres": [
+        "Spoken Word"
       ]
     }
   },
