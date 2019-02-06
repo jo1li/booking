@@ -6,7 +6,7 @@ const styles = theme => {
   return {
     ...modalStyles,
     noScrollBody: {
-      height: '100%',
+      flexGrow: 1,
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
@@ -46,6 +46,7 @@ const styles = theme => {
       height: 48,
     },
     ratioContainer: {
+      flexGrow: 1,
       overflow: 'hidden',
       width: '100%',
       height: '100%',
