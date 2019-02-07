@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
@@ -11,6 +11,7 @@ import {
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -30,6 +31,7 @@ import UploadDropZone from './UploadDropZone';
 import isEmpty from "lodash/isEmpty";
 import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
+import TextCount from '../form/TextCount';
 
 import IconSpotify from '../ArtistCard/IconSpotify';
 import IconFacebook from '../ArtistCard/IconFacebook';
@@ -39,6 +41,9 @@ import { selectImageFile, selectImagePreview } from '../../selectors/onboardingS
 import MultiSelect from '../form/MultiSelect';
 
 import validator from 'validator';
+import {
+  validateMaxLength,
+} from '../../utils/validators';
 
 import {
   updateUserBio,
@@ -56,6 +61,9 @@ const validatorOptions = {
 const validateURL = (url) => {
   return validator.isURL(url, validatorOptions);
 }
+
+// NB: Don't define this in the prop value; it won't work the way you expect.
+const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 const styles = theme => ({
   layout: {
@@ -96,6 +104,14 @@ const styles = theme => ({
   city: {
     maxWidth: '100%',
   },
+  splitLabel: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  textCount: {
+    ...theme.palette.overline,
+    color: theme.palette.grey[600],
+  },
   uploadArea: {
     width: '100%',
     borderRadius: 3,
@@ -103,9 +119,6 @@ const styles = theme => ({
     cursor: 'pointer',
     display: 'inline-block',
     overflow: 'hidden',
-    '&:hover': {
-      backgroundColor: theme.palette.grey[50],
-    },
     '& ul li': {
       margin: 0,
       padding: `${theme.spacing.unit/2}px`,
@@ -116,24 +129,44 @@ const styles = theme => ({
       margin: 0,
       padding: 0,
     },
-    '& img': {
-      width: 100,
-      height: 64,
-      borderRadius: 2,
-      backgroundColor: theme.palette.primary.light,
-      MozBoxShadow:    'inset 0 0 0 1px rgba(0,0,0,0.25)',
-      WebkitBoxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.25)',
-      BoxShadow:       'inset 0 0 0 1px rgba(0,0,0,0.25)',
-    },
   },
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing.unit,
   },
   submit: {
+    ...theme.typography.button,
+    color: 'white',
     marginTop: theme.spacing.unit * 3,
     marginLeft: 0,
-    marginRight: 0
+    marginRight: 0,
+    // TODO: Should not have to overwrite radius in RaisedButton
+    borderRadius: 2,
+  },
+  caption: {
+    color: theme.palette.grey[600],
+    letterSpacing: 'normal',
+  },
+  textInput: {
+    ...theme.typography.body1,
+    opacity: 1,
+    '&::placeholder': {
+      opacity: 1,
+      color: theme.palette.grey[500],
+    },
+  },
+  placeholder: {
+    ...theme.typography.body1,
+    color: theme.palette.grey[500],
+  },
+  label: {
+    ...theme.typography.overline,
+    transform: 'none', // Overwrite material-ui shrinking behavior
+    color: theme.palette.grey[800],
+  },
+  error: {
+    ...theme.typography.caption,
+    color: 'red',
   },
 });
 
@@ -162,13 +195,6 @@ const normalizeGenres = (genres) => {
   }
   if (Array.isArray(genres)) {
     return genres.slice(0,GENRES_MAX);
-  }
-}
-const normalizeTagline = (tagline) => {
-  if (!tagline) {
-    return tagline
-  } else {
-    return tagline.slice(0,TAGLINE_CHARS_MAX)
   }
 }
 
@@ -285,7 +311,9 @@ class OnboardingForm extends Component {
       <ProfilePhotoEditorForm
         image={imageFile.preview}
         imageName={imageFile.name}
-        onClickConfirm={file => change('image', file)}
+        onClickConfirm={file => {
+          change('image', file);
+        }}
       />
     )
   }
@@ -303,28 +331,51 @@ class OnboardingForm extends Component {
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
-          <Typography variant="headline" align="center">Onboarding</Typography>
+          <Typography variant="h6" align="center">Create your profile</Typography>
           <Paper className={classes.paper}>
             <form className={classes.form} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" className={classes.uploadArea} fullWidth>
                 <Field
                   name="image"
                   component={UploadDropZone}
+                  label={currentValues.image ? 'Change' : 'Add a photo'}
                   type="file"
-                  imagefile={currentValues.image}
+                  image={currentValues.image}
                   handleOnDrop={this.openPhotoEditor}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <Field
-                  name="bio_short"
-                  label="Tagline"
-                  multiline={true}
-                  maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                  component={TextField}
-                  normalize={normalizeTagline}
-                />
-                <FormHelperText>Required • {`Up to ${MAX_BIO_SHORT_INPUT_LENGTH} characters long`}</FormHelperText>
+                <TextCount
+                    inline={true}
+                    className={classes.textCount}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    currentLength={_.get(currentValues, 'bio_short', []).length } >
+                  <Field
+                    name="bio_short"
+                    label={'Tagline'}
+                    multiline={true}
+                    maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
+                    component={TextField}
+                    validate={[validateTaglineMaxLength]}
+                    placeholder='Tagline'
+                    errorClassName={classes.error}
+                    helpText={<Typography variant="caption" className={classes.caption}>Required</Typography>}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.placeholder,
+                        shrink: classes.label,
+                      },
+                      className: classes.splitLabel,
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.textInput,
+                        input: classes.textInput
+                      }
+                    }}
+                    fullWidth
+                  />
+                </TextCount>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -333,49 +384,29 @@ class OnboardingForm extends Component {
                   isMulti
                   component={MultiSelect}
                   options={genresForSelect}
-                  helpText="Required • Select up to three."
+                  helpText={<Typography variant="caption" className={classes.caption}>Required • Select up to three.</Typography>}
                   normalize={normalizeGenres}
+                  InputLabelProps={{
+                    classes: { shrink: classes.label },
+                    shrink: true,
+                  }}
                 >
                 </Field>
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <Field
                   name="website"
-                  label="Your Website"
-                  placeholder="http://"
+                  label='Website'
+                  placeholder="http://www.example.com"
                   component={TextField}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field
-                  name="facebook"
-                  label="Facebook Page"
-                  placeholder="https://"
-                  component={TextField}
-                  InputProps = {{
-                    startAdornment: FacebookAdornment
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
                   }}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field
-                  name="instagram"
-                  label="Instagram Profile"
-                  placeholder="https://"
-                  component={TextField}
-                  InputProps = {{
-                    startAdornment: InstagramAdornment
-                  }}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <Field
-                  name="spotify"
-                  label="Spotify Artist Page"
-                  placeholder="https://"
-                  component={TextField}
-                  InputProps = {{
-                    startAdornment: SpotifyAdornment
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput
+                    }
                   }}
                 />
               </FormControl>
@@ -386,12 +417,23 @@ class OnboardingForm extends Component {
                       name="hometown"
                       label="City"
                       component={TextField}
+                      InputLabelProps={{
+                        shrink: true,
+                        classes: { shrink: classes.label },
+                      }}
+                      InputProps={{
+                        classes: {
+                          input: classes.textInput
+                        }
+                      }}
                     />
                   </FormControl>
                 </Grid>
                 <Grid item className={classes.state}>
                   <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="state">State</InputLabel>
+                    <InputLabel htmlFor="state" className={classes.label}>
+                      <Typography variant="overline">State</Typography>
+                    </InputLabel>
                     <Field
                         component={SelectState}
                         id="state"
@@ -403,6 +445,60 @@ class OnboardingForm extends Component {
                   </FormControl>
                 </Grid>
               </Grid>
+              <FormControl margin="normal" fullWidth style={{marginTop: 56}}>
+                <Field
+                  name="facebook"
+                  label="Facebook Link"
+                  placeholder="https://facebook.com/page"
+                  component={TextField}
+                  InputProps = {{
+                    startAdornment: FacebookAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
+                  }}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field
+                  name="instagram"
+                  label="Instagram Link"
+                  placeholder="https://instagram.com/username"
+                  component={TextField}
+                  InputProps = {{
+                    startAdornment: InstagramAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
+                  }}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <Field
+                  name="spotify"
+                  label="Spotify Link"
+                  placeholder="https://open.spotify.com/artist/12345"
+                  component={TextField}
+                  InputProps = {{
+                    startAdornment: SpotifyAdornment,
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    classes: { shrink: classes.label },
+                  }}
+                />
+              </FormControl>
               <Button
                 type="submit"
                 disabled={requiredEmpty || submitting}
@@ -411,7 +507,7 @@ class OnboardingForm extends Component {
                 color="primary"
                 className={classes.submit}
               >
-                Create your profile
+                {'Save & view your profile'}
               </Button>
             </form>
           </Paper>
