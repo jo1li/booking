@@ -419,6 +419,18 @@ class OnboardingForm extends Component {
                       input: classes.textInput
                     }
                   }}
+                  onBlur={
+                    (e) => {
+                      const url = currentValues.website;
+                      if(!url) return;
+                      const re = /^(.*:\/\/)?(.*)$/;
+                      const formattedUrl = url.replace(re, (match, protocolPrefix, rest) => {
+                        return `${protocolPrefix || 'http://'}${rest}`;
+                      });
+                      change('website', formattedUrl);
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <Grid container spacing={16}>
