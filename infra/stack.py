@@ -192,7 +192,7 @@ task_definition = t.add_resource(TaskDefinition(
                 Interval=10,
                 Timeout=5,
                 Retries=5,
-                StartPeriod=30
+                StartPeriod=180
             ),
             LogConfiguration=LogConfiguration(
                 LogDriver='awslogs',
@@ -214,7 +214,7 @@ service = t.add_resource(Service(
     DesiredCount=1,
     TaskDefinition=Ref(task_definition),
     LaunchType='FARGATE',
-    HealthCheckGracePeriodSeconds=90,
+    HealthCheckGracePeriodSeconds=180,
     SchedulingStrategy='REPLICA',
     NetworkConfiguration=NetworkConfiguration(
         AwsvpcConfiguration=AwsvpcConfiguration(

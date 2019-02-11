@@ -69,10 +69,10 @@
                                 <a class="nav-link" href="{{ venues }}">Venues</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#mission">Mission</a>
+                                <a class="nav-link" href="{{ url_shim }}#mission">Mission</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#opus-presents">Opus Presents</a>
+                                <a class="nav-link" href="{{ url_shim }}#opus-presents">Opus Presents</a>
                             </li>
                             <li class="nav-item {% ifequal request.path contact_us %}active{% endifequal %}">
                                 <a class="nav-link" href="{{ contact_us }}">Contact</a>

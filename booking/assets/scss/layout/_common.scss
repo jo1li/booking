@@ -210,6 +210,11 @@ a, .link {
 
 		.edit-photos-button-text {
 			padding: 0 7px;
+			font-family: $display-font-family;
+			font-weight: 500;
+			&:hover {
+				color: $color-primary-dark;
+			}
 		}
 
 		.hidden {
