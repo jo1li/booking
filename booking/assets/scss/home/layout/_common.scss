@@ -227,12 +227,10 @@
 			text-align: left;
 			margin: 0;
 		}
-		.laptop{
-			img{
-				@include size(288px,178px);
-				@include media-breakpoint-up(md) {
-					@include size(365px,225px);
-				}
+		img{
+			@include size(286px,239px);
+			@include media-breakpoint-up(md) {
+				@include size(366px,306px);
 			}
 		}
 	}
