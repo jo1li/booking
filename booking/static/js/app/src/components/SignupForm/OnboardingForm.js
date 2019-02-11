@@ -65,6 +65,17 @@ const validateURL = (url) => {
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
+const formatSocialURL = ({ urlBase, fieldName, currentValues, change }) => {
+  const url = currentValues[fieldName];
+  if(!url) return;
+  // Consider the word characters after the last slash to be the username
+  const re = /^(?:.*\/)?(\w+)$/;
+  const formattedUrl = url.replace(re, (match, username) => {
+    return `${urlBase}/${username}`;
+  });
+  change(fieldName, formattedUrl);
+}
+
 const styles = theme => ({
   layout: {
     width: 'auto',
@@ -319,7 +330,7 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid, change } = this.props
     // Not currently requiring image.
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
@@ -461,6 +472,17 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        urlBase: 'https://facebook.com',
+                        fieldName: 'facebook',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -479,6 +501,17 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        urlBase: 'https://instagram.com',
+                        fieldName: 'instagram',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -497,6 +530,17 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        urlBase: 'https://open.spotify.com/artist',
+                        fieldName: 'spotify',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <Button
