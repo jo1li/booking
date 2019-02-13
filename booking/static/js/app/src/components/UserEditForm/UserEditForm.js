@@ -5,6 +5,7 @@ import {
   Field,
   reduxForm,
   getFormValues,
+  SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +21,8 @@ import {
   AddButton,
 } from '../form/FabButton';
 
+import { selectImageFile, selectImagePreview } from '../../selectors/onboardingSelectors';
+
 import ModalHeader from '../ModalHeader';
 import Input from '../form/Input';
 import Select from '../form/Select';
@@ -28,6 +31,7 @@ import TextField from '@material-ui/core/TextField';
 import SelectState from '../form/SelectState';
 import ImageUploadContainer from './ImageUploadContainer';
 import TextCount from '../form/TextCount';
+import UserInfoForm from '../UserInfoForm';
 import {
   validateURL,
   validateMaxLength,
@@ -69,34 +73,76 @@ class UserEditForm extends Component {
     })
   }
 
-  submit(values) {
-    const {
-      musicianId,
-      updateUserBio,
-    } = this.props;
+  submit = async (values) => {
+    const { updateUserBio, musicianid, imageFile } = this.props;
 
-    const data = Object.assign({}, values, {
-      genres: values.genres,
-      image: _.get(values, 'imageFile'),
-    });
+    const genres = values.genres ? values.genres.map(g => `"${g.value}"`).join(",") : "";
+    let data = { ...values, genres: genres }
+    if(!_.isEmpty(imageFile)) {
+      data = { ...data, image: imageFile }
+    }
 
-    return updateUserBio(data, musicianId).then(res => {
-      // TODO: Prob a better to check for this
-      if(res.status === 200) {
-        // TODO: Don't *actually* refresh the page, but update with submitted values
-        //    temporary stopgap to allow team members to test w/ out
-        setTimeout(() => {
-          window.location.reload(true);
-        }, 1000);
-      }
+    const errors = {}
 
-    })
-    .catch(errors => {
-      console.log('errors', errors);
-      // throw new SubmissionError({
-      //   image: errors.image.join(', ')
-      // })
-    });
+    // tagline validation
+    if(!data.bio_short) {
+      errors.bio_short = "This field is required.";
+    }
+
+    // genres validation
+    if(_.isEmpty(data.genres)) {
+      errors.genres = "Please select at least 1 genre.";
+    }
+
+    // url regex
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+
+    // website validation
+    if (data.website && !simple_url_regex.test(data.website)) {
+      errors.website = "This link looks invalid. Please make sure the link starts with http:// or https://";
+    }
+
+    const urlerror = "This link looks invalid. Please check for typos and make sure the link starts with https://";
+
+    // facebook validation
+    if (data.facebook && data.facebook.toLowerCase().indexOf('facebook.com') === -1) {
+      errors.facebook = "Please use a Facebook link here."
+    } else if (data.facebook && !validateURL(data.facebook)) {
+      errors.facebook = urlerror;
+    }
+
+    // instagram validation
+    if (data.instagram && data.instagram.toLowerCase().indexOf('instagram.com') === -1) {
+      errors.instagram = "Please use an Instagram link here."
+    } else if (data.instagram && !validateURL(data.instagram)) {
+      errors.instagram = urlerror;
+    }
+
+    // spotify validation
+    if (data.spotify && data.spotify.toLowerCase().indexOf('spotify.com') === -1) {
+      errors.spotify = "Please use a Spotify link here."
+    } else if (data.spotify && !validateURL(data.spotify)) {
+      errors.spotify = urlerror;
+    }
+
+    if(Object.keys(errors).length === 0) {
+
+       try {
+          const res = await updateUserBio(data, musicianid);
+
+          if(res.status === 200) {
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 1000);
+          }
+
+        } catch(errors) {
+          console.error('Error in OnboardingForm submit', errors);
+        };
+    } else {
+      throw new SubmissionError(errors);
+    }
+
   }
 
   openPhotoEditor(imageFile) {
@@ -109,10 +155,9 @@ class UserEditForm extends Component {
       <ProfilePhotoEditorForm
         image={imageFile.preview}
         imageName={imageFile.name}
-        onClickConfirm={files => {
-          // There will only be one file.
-          change('image', files[0].preview);
-          change('imageFile', files[0]);
+        onClickConfirm={file => {
+          change('image', file.preview);
+          change('imageFile', file);
         }} />
     )
   }
@@ -137,146 +182,7 @@ class UserEditForm extends Component {
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Your Info</ModalHeader>
-        <div className={classes.scrollableBody}>
-          <Grid xs={12} lg={12}>
-            <form onSubmit={handleSubmit(this.submit)}>
-              <Grid container spacing={24} direction="row">
-                <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <Caption >PROFILE PHOTO</Caption>
-                </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <ImageUploadContainer
-                      currentValues={currentValues}
-                      onDrop={this.openPhotoEditor}
-                      onUpload={values => change('image', values)} />
-                  </Grid>
-                  <Grid  item xs={12} sm={12} md={12} lg={12}>
-                    <Caption >SOCIAL PROFILES</Caption>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Input}
-                        id="facebook"
-                        label="facebook"
-                        name="facebook"
-                        placeholder="Connect Facebook account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Input}
-                        id="instagram"
-                        label="instagram"
-                        name="instagram"
-                        placeholder="Connect Instagram account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Input}
-                        id="spotify"
-                        label="spotify"
-                        name="spotify"
-                        placeholder="Connect Spotify account"
-                        validate={[validateURL]}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={8} lg={8}>
-                    <Caption >HOME TOWN</Caption>
-                  </Grid>
-                   <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <Caption >STATE</Caption>
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={8} lg={8}>
-                    <Field
-                        component={Input}
-                        id="hometown"
-                        label="hometown"
-                        name="hometown"
-                        placeholder="What is your home town?"
-                        type="text"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} md={4} lg={4}>
-                    <Field
-                        component={SelectState}
-                        id="state"
-                        label="state"
-                        name="state"
-                        placeholder="State"
-                        type="select"
-                    />
-                  </Grid>
-                  <Grid  item xs={12} sm={12} md={12} lg={12}>
-                    <Caption >GENRE</Caption>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Select}
-                        id="genre"
-                        label="genre"
-                        name="genres.0"
-                        placeholder="Select a genre"
-                        items={genres}
-                      />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Select}
-                        id="genre"
-                        label="genre"
-                        name="genres.1"
-                        placeholder="Select a genre"
-                        items={genres}
-                      />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Field
-                        component={Select}
-                        id="genre"
-                        label="genre"
-                        name="genres.2"
-                        placeholder="Select a genre"
-                        items={genres}
-                      />
-                    </Grid>
-                    <Grid  item xs={12} sm={12} md={12} lg={12}>
-                      <Caption >WEBSITE</Caption>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                      <Field
-                        component={Input}
-                        id="website"
-                        label="Website"
-                        name="website"
-                        placeholder="Website"
-                        type="text"
-                        validate={[validateURL]}
-                      />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Caption>TAGLINE</Caption>
-                    <TextCount
-                      maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                      currentLength={_.get(currentValues, 'bio_short', []).length }
-                    >
-                      <Field
-                        name="bio_short"
-                        label="Tagline"
-                        placeholder="Your tagline"
-                        multiline={true}
-                        maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
-                        component={Input}
-                        validate={[validateTaglineMaxLength]}
-                      />
-                    </TextCount>
-                  </Grid>
-              </Grid>
-            </form>
-          </Grid>
-        </div>
+        <UserInfoForm oneColumn={false} currentValues={currentValues} openPhotoEditor={this.openPhotoEditor} />
         <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}
@@ -305,18 +211,24 @@ const mapStateToProps = (state, props) => ({
     facebook: props.facebook,
     instagram: props.instagram,
     spotify: props.spotify,
-    hometown: props.hometown,
-    genres: props.genres.map(g => g.name),
-    state: props.state,
+    hometown: props.hometown || "New York",
+    genres: props.genres.map(g => ({value: g.name, label: g.name})),
+    state: props.state || "NY",
     website: props.website,
     bio_short: props.bio_short,
   },
+  // initialValues: { hometown: "New York", state: "NY" },
   currentValues: getFormValues(EDIT_BASIC_INFO)(state) || {},
+  // formValues: getFormValues(ARTIST_ONBOARDING)(state), // TODO: use different form name
 
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
   getGenres: getGenres,
   musicianId: props.id,
+
+  updateUserBio: updateUserBio,
+  musicianid: props.id,
+  imageFile: selectImageFile(state),
 })
 
 export default compose(
