@@ -160,10 +160,6 @@ const styles = theme => ({
     // TODO: Should not have to overwrite radius in RaisedButton
     borderRadius: 2,
   },
-  caption: {
-    color: theme.palette.grey[600],
-    letterSpacing: 'normal',
-  },
   textInput: {
     ...theme.typography.body1,
     opacity: 1,
@@ -189,6 +185,9 @@ const styles = theme => ({
     maxHeight: '100%', // for some reason doesn't work with just height
     overflowY: 'scroll',
     width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing.unit * 3 / 2, // To eat the negative margin in the grids
+    }
   }
 });
 
@@ -245,33 +244,37 @@ class OnboardingForm extends Component {
 
   state = {
     genres: [],
+    distanceFromTop: 0,
+    // Just any number large enough to ensure the bototm shadow shows on load
+    // Banking on this modal being tall enough to have scrolling
+    distanceFromBottom: 100,
   }
 
   componentWillMount() {
     this.props.getGenres().then(res => {
       this.setState({
         genres: res.data.results.map(result => result.name),
-        scrolledToTopOfShadowContainer: true,
         // TODO: handle container too tall vs not too tall
       })
     })
   }
 
-  // openPhotoEditor(imageFile) {
-  //   const {
-  //     change,
-  //     openDialog,
-  //   } = this.props;
+  openPhotoEditor(imageFile) {
+    const {
+      change,
+      openDialog,
+    } = this.props;
 
-  //   openDialog(
-  //     <ProfilePhotoEditorForm
-  //       image={imageFile.preview}
-  //       imageName={imageFile.name}
-  //       onClickConfirm={file => {
-  //         change('image', file);
-  //       }} />
-  //   )
-  // }
+    openDialog(
+      <ProfilePhotoEditorForm
+        image={imageFile.preview}
+        imageName={imageFile.name}
+        onClickConfirm={file => {
+          change('image', file.preview);
+          change('imageFile', file);
+        }} />
+    )
+  }
 
   // TODO: move this into an HOC
   toggleScrollShadows(event) {
@@ -280,14 +283,15 @@ class OnboardingForm extends Component {
     }
 
     this.setState({
-      scrolledToTopOfShadowContainer: this.refs.scrollableContainerWithShadows.scrollTop === 0,
-      scrolledToBottomOfShadowContainer: this.refs.scrollableContainerWithShadows.scrollTop === this.refs.scrollableContainerWithShadows.scrollHeight - this.refs.scrollableContainerWithShadows.offsetHeight,
+      distanceFromTop: this.refs.scrollableContainerWithShadows.scrollTop,
+      distanceFromBottom: this.refs.scrollableContainerWithShadows.scrollHeight - (this.refs.scrollableContainerWithShadows.scrollTop + this.refs.scrollableContainerWithShadows.offsetHeight),
     });
 
   }
 
   render() {
-    const { classes, pristine, submitting, currentValues, imagePreview, invalid, change, oneColumn, width, openPhotoEditor } = this.props
+    const { classes, pristine, submitting, currentValues, imagePreview, invalid, change, oneColumn, width } = this.props;
+
     // Not currently requiring image.
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
@@ -306,8 +310,8 @@ class OnboardingForm extends Component {
                 component={UploadDropZone}
                 label={currentValues.image ? 'Change' : 'Add Photo'}
                 type="file"
-                image={currentValues.image}
-                handleOnDrop={openPhotoEditor}
+                image={currentValues.imageFile || {preview: currentValues.image, name: 'image.jpg'}}
+                handleOnDrop={this.openPhotoEditor}
               />
             </FormControl>
           </Grid>
@@ -316,7 +320,7 @@ class OnboardingForm extends Component {
       }
 
         <div className={classes.scrollMeMore} ref='scrollableContainerWithShadows' onScroll={this.toggleScrollShadows}>
-          <div style={{zIndex: 100, position: 'absolute', boxShadow: '0px 10px 10px -10px #000 inset', top: 0, left: 0, right: 0, height: '10px', opacity: this.state.scrolledToTopOfShadowContainer ? 0 : 1}} />
+          <div style={{zIndex: 100, position: 'absolute', backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.08))', top: Math.min(this.state.distanceFromTop - 10, 0), left: 0, right: 0, height: '10px'}} />
 
           { width === 'xs' ?
               <Grid item xs={12} sm={4} style={{ marginTop: 16 }}>
@@ -326,8 +330,8 @@ class OnboardingForm extends Component {
                     component={UploadDropZone}
                     label={currentValues.image ? 'Change' : 'Add Photo'}
                     type="file"
-                    image={currentValues.image}
-                    handleOnDrop={openPhotoEditor}
+                    image={currentValues.imageFile || {preview: currentValues.image, name: 'image.jpg'}}
+                    handleOnDrop={this.openPhotoEditor}
                   />
                 </FormControl>
               </Grid> :
@@ -539,7 +543,8 @@ class OnboardingForm extends Component {
               </FormControl>
             </Grid>
           </Grid>
-          <div style={{zIndex: 100, position: 'absolute', boxShadow: '0px -10px 10px -10px #000 inset', bottom: 0, left: 0, right: 0, height: '10px', opacity: this.state.scrolledToBottomOfShadowContainer ? 0 : 1}} />
+          <div style={{zIndex: 100, position: 'absolute', backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.08))', bottom: Math.min(this.state.distanceFromBottom - 10, 0), left: 0, right: 0, height: '10px', transition: 'opacity 0.3s',
+  '-webkit-transition': 'opacity 0.3s'}} />
         </div>
 
       </form>

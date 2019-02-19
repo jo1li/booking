@@ -4,7 +4,7 @@ import { Close } from '../components/icons';
 
 const styles = theme => ({
   closeButton: {
-    fill: theme.palette.secondary.main,
+    fill: theme.palette.primaryTonal[500],
   },
 });
 

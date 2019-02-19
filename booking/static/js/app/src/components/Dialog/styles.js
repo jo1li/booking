@@ -7,7 +7,7 @@ export const defaultColorSchemeStyles = theme => ({
     cursor: 'pointer',
   },
   closeButton: {
-    fill: theme.palette.secondary.main,
+    fill: theme.palette.primaryTonal[500],
   },
 });
 

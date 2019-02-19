@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
     container: {
-        border: `solid 1px ${theme.palette.secondary.main}`,
+        border: `solid 1px ${theme.palette.primaryTonal[500]}`,
         outline: 'none',
-        borderColor: theme.palette.secondary.main,
+        borderColor: theme.palette.primaryTonal[500],
         borderRadius: '100%',
-        color: theme.palette.secondary.main,
+        color: theme.palette.primaryTonal[500],
         padding: '8px 9px',
         fontSize: '0.8125rem',
         width: '44px',
@@ -16,11 +16,11 @@ const styles = theme => ({
         outline: 'none',
         minWidth: '44px',
         minHeight: '44px',
-        borderColor: theme.palette.secondary.main,
+        borderColor: theme.palette.primaryTonal[500],
         borderRadius: '100%',
         cursor: 'pointer',
         '&:hover': {
-            border: `1px solid ${theme.palette.secondary.main}`,
+            border: `1px solid ${theme.palette.primaryTonal[500]}`,
             backgroundColor: 'rgba(0, 185, 209, 0.08)',
         }
     }

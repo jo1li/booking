@@ -145,22 +145,22 @@ class UserEditForm extends Component {
 
   }
 
-  openPhotoEditor(imageFile) {
-    const {
-      change,
-      openDialog,
-    } = this.props;
+  // openPhotoEditor(imageFile) {
+  //   const {
+  //     change,
+  //     openDialog,
+  //   } = this.props;
 
-    openDialog(
-      <ProfilePhotoEditorForm
-        image={imageFile.preview}
-        imageName={imageFile.name}
-        onClickConfirm={file => {
-          change('image', file.preview);
-          change('imageFile', file);
-        }} />
-    )
-  }
+  //   openDialog(
+  //     <ProfilePhotoEditorForm
+  //       image={imageFile.preview}
+  //       imageName={imageFile.name}
+  //       onClickConfirm={file => {
+  //         change('image', file.preview);
+  //         change('imageFile', file);
+  //       }} />
+  //   )
+  // }
 
   render() {
     const {
@@ -181,8 +181,8 @@ class UserEditForm extends Component {
 
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
-        <ModalHeader classes={classes}>Edit Your Info</ModalHeader>
-        <UserInfoForm oneColumn={false} currentValues={currentValues} openPhotoEditor={this.openPhotoEditor} />
+        <ModalHeader classes={classes}>Edit Profile Information</ModalHeader>
+        <UserInfoForm oneColumn={false} currentValues={currentValues} change={change} />
         <CancelConfirm
             onClickCancel={closeDialog}
             onClickConfirm={handleSubmit(this.submit)}

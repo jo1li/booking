@@ -11,10 +11,10 @@ const styles = theme => ({
     minWidth: '44px',
     borderRadius: '100%',
     outline: 'none',
-    borderColor: theme.palette.secondary.main,
+    borderColor: theme.palette.primaryTonal[500],
     '&:disabled': {
         opacity: '0.2',
-        color: theme.palette.secondary.main,
+        color: theme.palette.primaryTonal[500],
     }
   },
 });
