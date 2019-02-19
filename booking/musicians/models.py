@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django_extensions.db.models import TimeStampedModel
 from django.db import models
-from django_mysql.models import JSONField
 from html.parser import HTMLParser
 
 from django.db.models.signals import pre_save, pre_delete
@@ -277,12 +276,7 @@ class MusicianImage(TimeStampedModel, OrderedModel):
 
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
-
-
-    def data_default():
-        return {}
-
-    data = JSONField(default=data_default)
+    data = models.TextField(null=True, blank=True)
 
 
     @property

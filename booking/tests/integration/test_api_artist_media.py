@@ -225,7 +225,7 @@ class ApiArtistPhotoTest(OpusTestCase):
 
         img = MusicianImage.objects.create(
                 musician=self.m,
-                data=self.json_data
+                data=json.dumps(self.json_data)
             )
 
         artist_photos_api_url = self.reverse_api('artist-photos-list', kwargs={'artist_pk': self.m.pk})
@@ -250,6 +250,9 @@ class ApiArtistPhotoTest(OpusTestCase):
         self.app_api.force_authenticate(user=self.m.user)
 
         response = self.app_api.post(artist_photos_api_url, data, format='multipart')
+        if response.status_code != HTTPStatus.CREATED:
+            print(response.json())
+
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
 
         # Ensure the image comes back with a cloudinary URL
