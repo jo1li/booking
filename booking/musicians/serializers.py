@@ -10,6 +10,8 @@ from .models import Musician, MusicianAudio, MusicianVideo, MusicianImage, Genre
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+import json
+
 
 artist_fields = (
             'stage_name',
@@ -37,6 +39,7 @@ artist_fields = (
             'soundcloud',
             'bandcamp',
         )
+
 
 class OrderedListSerializer(serializers.ListSerializer):
 
@@ -106,6 +109,17 @@ class ArtistImageSerializer(serializers.ModelSerializer):
 
     def get_image(self, instance):
         return instance.image_url
+
+
+    def to_representation(self, instance):
+        """Convert `username` to lowercase."""
+
+        ret = super().to_representation(instance)
+
+        if instance.data:
+            ret['data'] = json.loads(instance.data)
+
+        return ret
 
 
 class ArtistImageUpdateSerializer(serializers.ModelSerializer):
