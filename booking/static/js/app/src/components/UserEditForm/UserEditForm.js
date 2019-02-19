@@ -2,42 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import {
-  Field,
   reduxForm,
   getFormValues,
   SubmissionError,
 } from 'redux-form';
 import autoBind from 'react-autobind';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
-import { Caption, Display1 } from '../typography';
 
-import InputButtons from './InputButtons';
-import {
-  DeleteButton,
-  AddButton,
-} from '../form/FabButton';
-
-import { selectImageFile, selectImagePreview } from '../../selectors/onboardingSelectors';
+import { selectImageFile } from '../../selectors/onboardingSelectors';
 
 import ModalHeader from '../ModalHeader';
-import Input from '../form/Input';
-import Select from '../form/Select';
-import TextArea from '../form/TextArea';
-import TextField from '@material-ui/core/TextField';
-import SelectState from '../form/SelectState';
-import ImageUploadContainer from './ImageUploadContainer';
-import TextCount from '../form/TextCount';
 import UserInfoForm from '../UserInfoForm';
 import {
   validateURL,
-  validateMaxLength,
 } from '../../utils/validators';
 
-import { EDIT_BASIC_INFO, MAX_BIO_SHORT_INPUT_LENGTH } from '../../constants'
+import { EDIT_BASIC_INFO } from '../../constants'
 
 import {
   updateUserBio,
@@ -46,11 +29,6 @@ import {
 import styles from './styles';
 
 import Dialog from '../Dialog/Dialog';
-import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
-
-
-// NB: Don't define this in the prop value; it won't work the way you expect.
-const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
 class UserEditForm extends Component {
   constructor(props) {
@@ -95,7 +73,7 @@ class UserEditForm extends Component {
     }
 
     // url regex
-    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
+    const simple_url_regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/){1}[a-zA-Z0-9]+([-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,25}(:[0-9]{1,5})?(\/.*)?$/;
 
     // website validation
     if (data.website && !simple_url_regex.test(data.website)) {
@@ -174,11 +152,6 @@ class UserEditForm extends Component {
         valid,
     } = this.props;
 
-    const {
-      genres
-    } = this.state;
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Profile Information</ModalHeader>
@@ -226,7 +199,6 @@ const mapStateToProps = (state, props) => ({
   getGenres: getGenres,
   musicianId: props.id,
 
-  updateUserBio: updateUserBio,
   musicianid: props.id,
   imageFile: selectImageFile(state),
 })

@@ -1,34 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
-import { ARTIST_ONBOARDING, EDIT_BASIC_INFO } from '../constants/forms';
 import {
   Field,
-  reduxForm,
-  getFormValues,
-  SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
-import classNames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from './SignupForm/TextField';
 import SelectState from './form/SelectState';
-import Button from './form/RaisedButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Paper from '@material-ui/core/Paper';
 
 import InputLabel from '@material-ui/core/InputLabel';
 
 import UploadDropZone from './SignupForm/UploadDropZone';
-import isEmpty from "lodash/isEmpty";
 import Dialog from './Dialog/Dialog';
 import ProfilePhotoEditorForm from './ProfilePhotoEditorForm';
 import TextCount from './form/TextCount';
@@ -40,7 +30,6 @@ import { selectImageFile, selectImagePreview } from '../selectors/onboardingSele
 
 import MultiSelect from './form/MultiSelect';
 
-import validator from 'validator';
 import {
   validateMaxLength,
 } from '../utils/validators';
@@ -58,15 +47,15 @@ import {
 
 import { MAX_BIO_SHORT_INPUT_LENGTH } from '../constants'
 
-const validatorOptions = {
-  protocols: ['http','https'],
-  require_protocol: true,
-  disallow_auth: true
-}
+// const validatorOptions = {
+//   protocols: ['http','https'],
+//   require_protocol: true,
+//   disallow_auth: true
+// }
 
-const validateURL = (url) => {
-  return validator.isURL(url, validatorOptions);
-}
+// const validateURL = (url) => {
+//   return validator.isURL(url, validatorOptions);
+// }
 
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
@@ -191,19 +180,6 @@ const styles = theme => ({
   }
 });
 
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const TAGLINE_CHARS_MAX = MAX_BIO_SHORT_INPUT_LENGTH
 const GENRES_MAX = 3
 // Not currently requiring avatar in onboarding.
 // const imageIsRequired = value =>  {
@@ -290,10 +266,11 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, currentValues, imagePreview, invalid, change, oneColumn, width } = this.props;
+    const { classes, currentValues, change, width } = this.props;
 
     // Not currently requiring image.
-    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
+    // TODO: remember this is important in onboarding form
+    // const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
       value: g,
       label: g

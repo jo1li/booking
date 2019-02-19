@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
@@ -11,7 +11,6 @@ import {
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
-import classNames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -22,13 +21,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
 
 import InputLabel from '@material-ui/core/InputLabel';
 
 import UploadDropZone from './UploadDropZone';
-import isEmpty from "lodash/isEmpty";
 import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
 import TextCount from '../form/TextCount';
@@ -184,17 +181,7 @@ const styles = theme => ({
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const TAGLINE_CHARS_MAX = MAX_BIO_SHORT_INPUT_LENGTH
-const GENRES_MAX = 3
+const GENRES_MAX = 3;
 // Not currently requiring avatar in onboarding.
 // const imageIsRequired = value =>  {
 //   isEmpty(value) ? <Typography color="error">Please choose a profile photo.</Typography> : undefined;
