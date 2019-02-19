@@ -95,12 +95,13 @@ class ArtistImageSerializer(serializers.ModelSerializer):
 
     image = serializers.SerializerMethodField(required=False)
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+    data = serializers.JSONField()
     order = serializers.IntegerField(required=False)
 
     class Meta:
         model = MusicianImage
         list_serializer_class = OrderedListSerializer
-        fields = ('id', 'image', 'image_cloudinary_id', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'image', 'image_cloudinary_id', 'artist', 'data', 'order', 'created', 'modified')
 
 
     def get_image(self, instance):
@@ -110,12 +111,13 @@ class ArtistImageSerializer(serializers.ModelSerializer):
 class ArtistImageUpdateSerializer(serializers.ModelSerializer):
 
     artist = serializers.PrimaryKeyRelatedField(required=False, read_only=True, source='musician')
+    data = serializers.JSONField()
     order = serializers.IntegerField(required=False)
 
     class Meta:
         model = MusicianImage
         list_serializer_class = OrderedListSerializer
-        fields = ('id', 'image', 'artist', 'order', 'created', 'modified')
+        fields = ('id', 'image', 'artist', 'order', 'data', 'created', 'modified')
 
     def update(self, instance, validated_data):
 
