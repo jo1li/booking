@@ -40,6 +40,7 @@ import { selectImageFile, selectImagePreview } from '../../selectors/onboardingS
 
 import MultiSelect from '../form/MultiSelect';
 
+import parseURL from 'url-parse';
 import validator from 'validator';
 import {
   validateMaxLength,
@@ -65,15 +66,24 @@ const validateURL = (url) => {
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
 
-const formatSocialURL = ({ urlBase, fieldName, currentValues, change }) => {
+const formatSocialURL = ({ domain, pathPrefix='', fieldName, currentValues, change }) => {
   const url = currentValues[fieldName];
   if(!url) return;
+
+  // Empty object as second arg prevents defaulting to relative path
+  // (wrt to current location) when no protocol is given
+  const urlModel = parseURL(url, {});
+  urlModel.set('protocol', 'https');
+  urlModel.set('hostname', domain);
+  urlModel.set('query', '');
+
   // Consider the word characters after the last slash to be the username
   const re = /^(?:.*\/)?(\w+)$/;
-  const formattedUrl = url.replace(re, (match, username) => {
-    return `${urlBase}/${username}`;
-  });
-  change(fieldName, formattedUrl);
+  const [ match, username ] = urlModel.pathname.match(re);
+
+  urlModel.set('pathname', `${pathPrefix}${username}`);
+
+  change(fieldName, urlModel.href);
 }
 
 const styles = theme => ({
@@ -423,11 +433,13 @@ class OnboardingForm extends Component {
                     (e) => {
                       const url = currentValues.website;
                       if(!url) return;
-                      const re = /^(.*:\/\/)?(.*)$/;
-                      const formattedUrl = url.replace(re, (match, protocolPrefix, rest) => {
-                        return `${protocolPrefix || 'http://'}${rest}`;
-                      });
-                      change('website', formattedUrl);
+
+                      // Empty object as second arg prevents defaulting to
+                      // relative path (wrt to current location) when no
+                      // protocol is given
+                      const urlModel = parseURL(url, {});
+                      urlModel.set('protocol', urlModel.protocol || 'http');
+                      change('website', urlModel.href);
                       e.preventDefault();
                     }
                   }
@@ -487,7 +499,7 @@ class OnboardingForm extends Component {
                   onBlur={
                     (e) => {
                       formatSocialURL({
-                        urlBase: 'https://facebook.com',
+                        domain: 'facebook.com',
                         fieldName: 'facebook',
                         currentValues,
                         change,
@@ -516,7 +528,7 @@ class OnboardingForm extends Component {
                   onBlur={
                     (e) => {
                       formatSocialURL({
-                        urlBase: 'https://instagram.com',
+                        domain: 'instagram.com',
                         fieldName: 'instagram',
                         currentValues,
                         change,
@@ -545,7 +557,8 @@ class OnboardingForm extends Component {
                   onBlur={
                     (e) => {
                       formatSocialURL({
-                        urlBase: 'https://open.spotify.com/artist',
+                        domain: 'open.spotify.com',
+                        pathPrefix: 'artist/',
                         fieldName: 'spotify',
                         currentValues,
                         change,
