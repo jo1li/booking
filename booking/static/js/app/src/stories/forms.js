@@ -3,7 +3,7 @@ import { Provider } from './provider';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Button from '../components/form/Button';
-import UserEditFormContainer from '../components/UserEditForm';
+import { UserInfoEditFormModal as UserEditFormContainer } from '../components/UserInfoForms';
 
 
 storiesOf('Forms/UserEditForm', module)

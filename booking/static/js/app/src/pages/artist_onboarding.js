@@ -1,5 +1,5 @@
 import RenderFromDomNode from '../renderFromDomNode';
-import OnboardingForm from '../components/SignupForm/OnboardingForm';
+import { OnboardingForm } from '../components/UserInfoForms';
 
 export default function render_artist_onboarding_page() {
 

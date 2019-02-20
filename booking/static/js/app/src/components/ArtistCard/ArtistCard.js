@@ -15,7 +15,7 @@ import Camera from 'react-feather/dist/icons/camera';
 
 import { getOrientedImageURL } from '../../helpers/imageHelpers';
 import styles from './styles';
-import UserEditForm from '../UserEditForm';
+import { UserInfoEditFormModal as UserEditForm } from '../UserInfoForms';
 
 
 class ArtistCard extends React.Component {

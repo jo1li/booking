@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ARTIST_SIGNUP } from '../../constants/forms';
+import { ARTIST_SIGNUP } from '../constants/forms';
 import {
   Field,
   reduxForm,
   getFormValues,
-  formValueSelector,
   SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
-import TextField from './TextField';
-import RadioGroup from './RadioGroup';
+import TextField from './form/TextField';
+import RadioGroup from './form/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import Button from '../form/RaisedButton';
+import Button from './form/RaisedButton';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Paper from '@material-ui/core/Paper';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 
-import { createArtist } from '../../request/requests';
+import { createArtist } from '../request/requests';
 
 const styles = theme => ({
   layout: {
@@ -66,16 +63,6 @@ const styles = theme => ({
     paddingTop: `${theme.spacing.unit * 2}px`,
   },
 });
-
-const normalizeHandle = (handle) => {
-  if (!handle) {
-    return handle
-  } else {
-    // replace any non-alphanumeric character (spaces, ampersands, etc)
-    // with a dash, and lowercase the string
-    return handle.replace(/\W+/g, '-').toLowerCase();
-  }
-}
 
 class SignupForm extends Component {
 
@@ -134,13 +121,8 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { classes, invalid, pristine, submitting, handleSubmit, currentValues } = this.props
+    const { classes, invalid, submitting, handleSubmit, currentValues } = this.props
     const account_type = currentValues.account_type;
-    const requiredEmpty =
-      !account_type ||
-      !currentValues.email ||
-      !currentValues.name ||
-      !currentValues.password ? true : false;
 
     return (
       <React.Fragment>
