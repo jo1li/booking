@@ -109,10 +109,9 @@ class UserEditForm extends Component {
       <ProfilePhotoEditorForm
         image={imageFile.preview}
         imageName={imageFile.name}
-        onClickConfirm={files => {
-          // There will only be one file.
-          change('image', files[0].preview);
-          change('imageFile', files[0]);
+        onClickConfirm={file => {
+          change('image', file.preview);
+          change('imageFile', file);
         }} />
     )
   }
