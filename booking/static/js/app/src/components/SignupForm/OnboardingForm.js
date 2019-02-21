@@ -40,6 +40,7 @@ import { selectImageFile, selectImagePreview } from '../../selectors/onboardingS
 
 import MultiSelect from '../form/MultiSelect';
 
+import parseURL from 'url-parse';
 import validator from 'validator';
 import {
   validateMaxLength,
@@ -64,6 +65,26 @@ const validateURL = (url) => {
 
 // NB: Don't define this in the prop value; it won't work the way you expect.
 const validateTaglineMaxLength = validateMaxLength(MAX_BIO_SHORT_INPUT_LENGTH);
+
+const formatSocialURL = ({ domain, pathPrefix='', fieldName, currentValues, change }) => {
+  const url = currentValues[fieldName];
+  if(!url) return;
+
+  // Empty object as second arg prevents defaulting to relative path
+  // (wrt to current location) when no protocol is given
+  const urlModel = parseURL(url, {});
+  urlModel.set('protocol', 'https');
+  urlModel.set('hostname', domain);
+  urlModel.set('query', '');
+
+  // Consider the word characters after the last slash to be the username
+  const re = /^(?:.*\/)?(\w+)$/;
+  const [ match, username ] = urlModel.pathname.match(re);
+
+  urlModel.set('pathname', `${pathPrefix}${username}`);
+
+  change(fieldName, urlModel.href);
+}
 
 const styles = theme => ({
   layout: {
@@ -319,7 +340,7 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid } = this.props
+    const { classes, pristine, submitting, handleSubmit, currentValues, imagePreview, invalid, change } = this.props
     // Not currently requiring image.
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
     const genresForSelect = this.state.genres.map(g => ({
@@ -408,6 +429,20 @@ class OnboardingForm extends Component {
                       input: classes.textInput
                     }
                   }}
+                  onBlur={
+                    (e) => {
+                      const url = currentValues.website;
+                      if(!url) return;
+
+                      // Empty object as second arg prevents defaulting to
+                      // relative path (wrt to current location) when no
+                      // protocol is given
+                      const urlModel = parseURL(url, {});
+                      urlModel.set('protocol', urlModel.protocol || 'http');
+                      change('website', urlModel.href);
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <Grid container spacing={16}>
@@ -461,6 +496,17 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        domain: 'facebook.com',
+                        fieldName: 'facebook',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -479,6 +525,17 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        domain: 'instagram.com',
+                        fieldName: 'instagram',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -497,6 +554,18 @@ class OnboardingForm extends Component {
                     shrink: true,
                     classes: { shrink: classes.label },
                   }}
+                  onBlur={
+                    (e) => {
+                      formatSocialURL({
+                        domain: 'open.spotify.com',
+                        pathPrefix: 'artist/',
+                        fieldName: 'spotify',
+                        currentValues,
+                        change,
+                      });
+                      e.preventDefault();
+                    }
+                  }
                 />
               </FormControl>
               <Button
