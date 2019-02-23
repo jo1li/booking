@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
+import ScrollShadows from '../ScrollShadows';
 import { ArtistInfoFormSection, ProfilePhotoFormSection } from '../ArtistInfoFormSections';
 
 import {
@@ -98,7 +99,7 @@ class AristInfoForm extends Component {
           null
         }
 
-        <div>
+        <ScrollShadows className={classes.scrollableSection}>
           { width === 'xs' ?
               <Grid item xs={12} sm={4} className={classes.rigidProfilePhotoSection}>
                 <ProfilePhotoFormSection
@@ -120,7 +121,8 @@ class AristInfoForm extends Component {
                   genresForSelect={genresForSelect} />
             </Grid>
           </Grid>
-        </div>
+        </ScrollShadows>
+
       </form>
     );
   }
