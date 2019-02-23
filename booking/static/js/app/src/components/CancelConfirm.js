@@ -16,10 +16,10 @@ const styles = theme => ({
   // TODO: find out hover behavior and handle material-ui style
   saveButton: {
     marginRight: 0, // To line up flush with the container's padding
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primaryTonal[500],
     color: 'white',
     '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primaryTonal[500],
     },
   },
   cancelButton: {
@@ -54,6 +54,8 @@ const CancelConfirm = (props) => {
       </Button>
       <Button
           type="submit"
+          variant="contained"
+          color="secondary"
           onClick={onClickConfirm}
           className={`${classes.wideButton} ${classes.saveButton}`}
           disabled={disabled} >
