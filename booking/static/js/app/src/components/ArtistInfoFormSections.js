@@ -168,6 +168,7 @@ export const ArtistInfoFormSection = (props) => {
             <Field
               name="hometown"
               label="City"
+              placeholder="City"
               component={TextField}
               InputLabelProps={{
                 shrink: true,
@@ -191,7 +192,7 @@ export const ArtistInfoFormSection = (props) => {
                 id="state"
                 label="State"
                 name="state"
-                placeholder=""
+                placeholder="State"
                 type="select"
             />
           </FormControl>
