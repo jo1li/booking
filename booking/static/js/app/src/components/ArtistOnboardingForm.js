@@ -21,7 +21,6 @@ import Dialog from './Dialog/Dialog';
 import ProfilePhotoEditorForm from './ProfilePhotoEditorForm';
 import { ArtistInfoFormSection, ProfilePhotoFormSection } from './ArtistInfoFormSections';
 
-import { selectImageFile, selectImagePreview } from '../selectors/onboardingSelectors';
 import validator from 'validator';
 import { updateUserBio } from '../request/requests';
 import * as GenreActions from '../actions/genres';
@@ -49,7 +48,7 @@ class OnboardingForm extends Component {
   }
 
   submit = async (values) => {
-    const { updateUserBio, musicianid, imageFile } = this.props;
+    const { updateUserBio, musicianid } = this.props;
 
     const genres = values.genres ? values.genres.map(g => `"${g.value}"`).join(",") : "";
     let data = { ...values, genres }
@@ -123,9 +122,8 @@ const mapStateToProps = (state, props) => ({
   updateUserBio: updateUserBio,
   musicianId: props.musicianId,
 
-  // TODO: not using these at all, much less correctly
-  imageFile: selectImageFile(state),
-  imagePreview: selectImagePreview(state),
+  // TODO: better way to do this?
+  image: { preview: props.image, isFile: true, name: 'image.jpg' },
 
   genres: state.genres,
 });
