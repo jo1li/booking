@@ -27,12 +27,13 @@ function ContainedButtons(props) {
     type,
     className,
     disabled,
+    variant,
     ...remainingProps
   } = props;
 
   return (
     <Button
-      variant="outlined"
+      variant={variant || "outlined"}
       color="primary"
       type={type}
       onClick={onClick}

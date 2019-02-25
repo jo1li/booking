@@ -49,7 +49,11 @@ const CancelConfirm = (props) => {
 
   return (
     <Grid className={classes.buttonContainer} item xs={12} sm={12} md={12} lg={12}>
-      <Button onClick={onClickCancel} className={`${classes.wideButton} ${classes.cancelButton}`}>
+      <Button
+          variant="text"
+          onClick={onClickCancel}
+          className={`${classes.wideButton}
+          ${classes.cancelButton}`} >
         { !success ? 'Cancel' : 'Close' }
       </Button>
       <Button
