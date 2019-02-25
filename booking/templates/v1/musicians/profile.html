@@ -118,7 +118,7 @@
         profile: {
             id: {{ musician.pk }},
             stage_name: "{{ musician.stage_name|escapejs }}",
-            bio_short: "{{ musician.bio_short|escapejs|default_if_none:"" }}",
+            bio_short: "{{ musician.bio_short|default_if_none:""|escapejs }}",
             image_hero: {{ image_hero_json | safe }},
             on_tour: {{ musician.on_tour|yesno:"true,false" }},
             image: "{{ musician.image_url|default_if_none:"" }}", // TODO: default image? also, name could be more descriptive.
