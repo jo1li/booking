@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
@@ -8,14 +9,14 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 
+import _ from 'lodash';
+
 import Dialog from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
 import ScrollShadows from '../ScrollShadows';
 import { ArtistInfoFormSection, ProfilePhotoFormSection } from '../ArtistInfoFormSections';
 
-import {
-  getGenres,
-} from '../../request/requests';
+import * as GenreActions from '../../actions/genres';
 import sharedStyles from '../../sharedStyles/artistInfoFormsStyles.js';
 
 const styles = theme => ({
@@ -52,16 +53,8 @@ class AristInfoForm extends Component {
     autoBind(this);
   }
 
-  state = {
-    genres: [],
-  }
-
   componentWillMount() {
-    this.props.getGenres().then(res => {
-      this.setState({
-        genres: res.data.results.map(result => result.name),
-      })
-    })
+    this.props.getGenres();
   }
 
   openPhotoEditor(imageFile) {
@@ -79,10 +72,11 @@ class AristInfoForm extends Component {
   }
 
   render() {
-    const { classes, currentValues, change, width } = this.props;
-    const genresForSelect = this.state.genres.map(g => ({
-      value: g,
-      label: g
+    const { classes, currentValues, change, width, genres } = this.props;
+
+    const genresForSelect = _.map(genres, genre => ({
+      value: genre.name,
+      label: genre.name
     }));
 
     return (
@@ -129,9 +123,14 @@ class AristInfoForm extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  // TODO this should go into bindActionCreators and be used as an action
-  getGenres: getGenres,
-})
+  genres: state.genres || [],
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getGenres: GenreActions.getGenres,
+  }, dispatch);
+};
 
 // NB We're not calling `reduxForm` on this component and are calling it on the
 // parent instead.
@@ -141,7 +140,7 @@ const mapStateToProps = (state, props) => ({
 export default compose(
   withStyles(styles),
   withWidth(),
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   Dialog,
 )(AristInfoForm);
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import { ARTIST_ONBOARDING } from '../constants/forms';
 import {
@@ -22,10 +23,8 @@ import { ArtistInfoFormSection, ProfilePhotoFormSection } from './ArtistInfoForm
 
 import { selectImageFile, selectImagePreview } from '../selectors/onboardingSelectors';
 import validator from 'validator';
-import {
-  updateUserBio,
-  getGenres,
-} from '../request/requests';
+import { updateUserBio } from '../request/requests';
+import * as GenreActions from '../actions/genres';
 import styles from '../sharedStyles/artistInfoFormsStyles.js';
 
 const validatorOptions = {
@@ -45,16 +44,8 @@ class OnboardingForm extends Component {
     autoBind(this);
   }
 
-  state = {
-    genres: [],
-  }
-
   componentWillMount() {
-    this.props.getGenres().then(res => {
-      this.setState({
-        genres: res.data.results.map(result => result.name)
-      })
-    })
+    this.props.getGenres();
   }
 
   submit = async (values) => {
@@ -89,12 +80,12 @@ class OnboardingForm extends Component {
   }
 
   render() {
-    const { classes, submitting, handleSubmit, currentValues, change } = this.props
+    const { classes, submitting, handleSubmit, currentValues, change, genres } = this.props
     // Not currently requiring image.
     const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
-    const genresForSelect = this.state.genres.map(g => ({
-      value: g,
-      label: g
+    const genresForSelect = _.map(genres, genre => ({
+      value: genre.name,
+      label: genre.name
     }));
 
     return (
@@ -130,22 +121,29 @@ const mapStateToProps = (state, props) => ({
 
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
-  getGenres: getGenres,
   musicianId: props.musicianId,
 
   // TODO: not using these at all, much less correctly
   imageFile: selectImageFile(state),
   imagePreview: selectImagePreview(state),
-})
+
+  genres: state.genres,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getGenres: GenreActions.getGenres,
+  }, dispatch);
+};
 
 // Pulling this out of compose helps initialValues behave correctly.
 //  https://stackoverflow.com/a/47475674/103315
 OnboardingForm = reduxForm({
   form: ARTIST_ONBOARDING,
-})(OnboardingForm)
+})(OnboardingForm);
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   Dialog,
 )(OnboardingForm);
