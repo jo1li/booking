@@ -16,31 +16,14 @@ import ArtistInfoEditForm from './ArtistInfoEditForm';
 import { Dialog } from '../Dialog';
 import { EDIT_BASIC_INFO } from '../../constants';
 
-import {
-  updateUserBio,
-  getGenres,
-} from '../../request/requests';
+import { updateUserBio } from '../../request/requests';
 import styles from './styles';
 
 class ArtistInfoEditFormModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      genres: [],
-    }
-
     autoBind(this);
-  }
-
-  componentWillMount() {
-
-    // TODO MOVE THIS! this is not the correct way to get data
-    this.props.getGenres().then(res => {
-      this.setState({
-        genres: res.data.results.map(result => result.name)
-      })
-    })
   }
 
   submit(values) {
@@ -83,11 +66,6 @@ class ArtistInfoEditFormModal extends Component {
         valid,
     } = this.props;
 
-    const {
-      genres
-    } = this.state;
-
-
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Profile Information</ModalHeader>
@@ -128,7 +106,6 @@ const mapStateToProps = (state, props) => ({
 
   // TODO this should go into bindActionCreators and be used as an action
   updateUserBio: updateUserBio,
-  getGenres: getGenres,
   musicianId: props.id,
 })
 
