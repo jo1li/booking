@@ -98,7 +98,7 @@ export const ArtistInfoFormSection = (props) => {
             multiline={true}
             maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
             component={TextField}
-            validate={[validateTaglineMaxLength]}
+            validate={[required, validateTaglineMaxLength]}
             placeholder='Tagline'
             errorClassName={classes.error}
             helpText={<Typography variant="caption" className={classes.caption}>Required</Typography>}
