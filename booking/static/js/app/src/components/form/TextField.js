@@ -14,7 +14,8 @@ class TextFieldWithReduxForm extends React.Component {
       },
       helpText,
       ...rest
-    } = this.props
+    } = this.props;
+
     return (
       <Fragment>
         <TextField {...input} {...rest} />

@@ -21,6 +21,8 @@ import IconSpotify from './ArtistCard/IconSpotify';
 import IconFacebook from './ArtistCard/IconFacebook';
 import IconInstagram from './ArtistCard/IconInstagram';
 
+import { required, requiredArray } from '../utils/validators';
+
 const GENRES_MAX = 3;
 
 // NB: Don't define this in the prop value; it won't work the way you expect.
@@ -126,6 +128,8 @@ export const ArtistInfoFormSection = (props) => {
           options={genresForSelect}
           helpText={<Typography variant="caption" className={classes.caption}>Required • Select up to three.</Typography>}
           normalize={normalizeGenres}
+          validate={[requiredArray]}
+          errorClassName={classes.error}
           InputLabelProps={{
             classes: { shrink: classes.label },
             shrink: true,
