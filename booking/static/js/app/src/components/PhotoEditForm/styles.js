@@ -103,6 +103,10 @@ const styles = theme => {
       color: theme.palette.secondary.main,
       cursor: 'pointer',
     },
+    editCoverPhotoButton: {
+      marginLeft: '3px',
+      color: theme.palette.secondary.main,
+    },
     removed: {
       animationDuration: '0.4s',
       animationName: 'hide-photo-row',

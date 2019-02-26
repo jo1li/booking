@@ -28,11 +28,20 @@ class DragHandle extends Component {
 }
 
 const CoverPhotoIndicator = (props) => {
-  const { classes } = props;
+  const { classes, onClickUseAsCoverPhoto, item } = props;
   return (
-    <a
+    <div
       className={classes.coverPhotoIndicator}
-    ><CheckCircle className={classes.coverPhotoIndicatorCheckMark}/> Cover photo</a>
+    >
+      <CheckCircle className={classes.coverPhotoIndicatorCheckMark}/>
+        Cover photo
+        <span
+          onClick={() => onClickUseAsCoverPhoto(item.image)}
+          className={classes.editCoverPhotoButton}
+        >
+          Edit
+        </span>
+    </div>
   );
 };
 
@@ -54,7 +63,7 @@ const CoverPhotoIndicatorGate = (props) => {
   if(!show) return null;
 
   if(isCoverPhoto) {
-    return <CoverPhotoIndicator classes={classes} />;
+    return <CoverPhotoIndicator classes={classes} onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} item={item}/>;
   } else {
     return <SetAsCoverPhotoButton onClick={() => onClickUseAsCoverPhoto(item.image)} item={item} classes={classes} />;
   }
