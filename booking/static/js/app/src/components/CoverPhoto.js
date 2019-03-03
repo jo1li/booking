@@ -54,9 +54,10 @@ class CoverPhoto extends React.Component {
       <CoverPhotoEditorForm
         image={imageFile.src}
         imageName={imageFile.name}
-        onClickConfirm={file => createCoverPhoto({
+        onClickConfirm={(file, backgroundImageTop) => createCoverPhoto({
           file,
           artistId: profile.id,
+          backgroundImageTop
         })}
       />
     )
