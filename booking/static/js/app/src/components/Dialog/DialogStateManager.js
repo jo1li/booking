@@ -56,6 +56,10 @@ const DialogStateManager = Dialog => WrappedComponent => {
                 return <Empty />
             }
 
+            // NB: Some dialogs also open up dialogs that layer on top of
+            // themselves; don't pass props to `content` with the same name
+            // as props passed to `WrappedComponent` or they will be overwritten
+            // when a component is both content and a wrapped dialog trigger.
             return React.cloneElement(content[0], {
                 closeDialog: this.closeDialog,
                 closeAllDialogs: this.closeAllDialogs
@@ -68,7 +72,6 @@ const DialogStateManager = Dialog => WrappedComponent => {
                 <Fragment>
                     <WrappedComponent {...this.props}
                         openDialog={this.openDialog}
-                        closeDialog={this.closeDialog}
                     />
                     <Dialog
                         isOpen={this.state.isOpen}

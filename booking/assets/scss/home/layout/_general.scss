@@ -1,5 +1,5 @@
 body{
-    @include font(14px,21px);
+    @include font(16px,21px);
     @include media-breakpoint-up(xl) {
     	@include font(18px,26px);
         font-weight: 300;

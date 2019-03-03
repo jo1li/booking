@@ -32,13 +32,13 @@
     "redux-form": "^7.4.2",
     "redux-form-validators": "^2.7.1",
     "redux-thunk": "^2.3.0",
+    "url-parse": "^1.4.4",
     "validator": "^10.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test:integration": "node_modules/.bin/cypress open",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },

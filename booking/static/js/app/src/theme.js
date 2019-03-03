@@ -11,7 +11,7 @@ export default createMuiTheme({
         fontSize: BASE_FONT_SIZE,
         body1: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 300,
+          fontWeight: 400,
           fontSize: "1rem",
           lineHeight: 1.4285,
           letterSpacing: "0em",
@@ -47,14 +47,14 @@ export default createMuiTheme({
         },
         caption: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 500,
+          fontWeight: 400,
           fontSize: "0.75rem",
           lineHeight: 1.66,
           letterSpacing: "0.06em",
         },
         overline: {
           fontFamily: BODY_FONT_STACK,
-          fontWeight: 400,
+          fontWeight: 500,
           fontSize: "0.75rem",
           lineHeight: 1.66,
           letterSpacing: "0.0133em",

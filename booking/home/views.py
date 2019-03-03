@@ -64,7 +64,9 @@ def venues(request):
 
 
 def contact_us(request):
-    return opus_render(request, "home/contact_us.html")
+    return opus_render(request, "home/contact_us.html", {
+        "url_shim": reverse("home")
+    })
 
 
 def privacy(request):
@@ -84,6 +86,13 @@ def logout(request):
 class LoginView(account.views.LoginView):
 
     form_class = account.forms.LoginEmailForm
+
+    def get_context_data(self, **kwargs):
+        ctx = super(LoginView, self).get_context_data(**kwargs)
+        ctx.update({
+            "url_shim": reverse("home")
+        })
+        return ctx
 
     def get_success_url(self, fallback_url=None, **kwargs):
 

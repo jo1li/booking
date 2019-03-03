@@ -18,6 +18,7 @@ const styles = theme => ({
         minHeight: '44px',
         borderColor: theme.palette.secondary.main,
         borderRadius: '100%',
+        cursor: 'pointer',
         '&:hover': {
             border: `1px solid ${theme.palette.secondary.main}`,
             backgroundColor: 'rgba(0, 185, 209, 0.08)',
