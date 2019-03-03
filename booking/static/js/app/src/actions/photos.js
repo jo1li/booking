@@ -5,9 +5,9 @@ import { updateProfile } from './profile';
 
 // TODO: error handling
 
-export function createArtistPhoto({ artistId, file }) {
+export function createArtistPhoto({ artistId, file, data }) {
     return (dispatch, getState) => {
-        const createPhotoData = getFormData({ image: file })
+        const createPhotoData = getFormData({ image: file, data: JSON.stringify(data) })
         return requests.createPhoto({artistId, file: createPhotoData})
             .then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
@@ -16,9 +16,14 @@ export function createArtistPhoto({ artistId, file }) {
     }
 }
 
-export function createCoverPhoto({ artistId, file }) {
+export function createCoverPhoto({ artistId, file, backgroundImageTop }) {
     return async (dispatch, getState) => {
-        const createPhotoRes = await dispatch(createArtistPhoto({ artistId, file }));
+        const data = {
+            coverPhotoStyles: {
+                backgroundImageTop
+            }
+        }
+        const createPhotoRes = await dispatch(createArtistPhoto({ artistId, file, data }));
         const profileData = { image_hero_id: createPhotoRes.data.id }
         const updateProfileRes = await dispatch(updateProfile(profileData, artistId));
     }
