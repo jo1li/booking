@@ -1,7 +1,11 @@
 from tests.utils import OpusTestCase
 from tests.mommy_recipes import musician_recipe, random_video
 
+from musicians.models import MusicianImage
+
+import json
 import sure
+sure
 
 from http import HTTPStatus
 
@@ -210,6 +214,30 @@ class ApiArtistAudioTest(OpusTestCase):
 
 class ApiArtistPhotoTest(OpusTestCase):
 
+    json_data = {
+        "left": 5,
+        "right": 7,
+        "north": "57.5",
+        "caption": "Here's some stuff!"
+    }
+
+    def test_get(self):
+
+        img = MusicianImage.objects.create(
+                musician=self.m,
+                data=json.dumps(self.json_data)
+            )
+
+        artist_photos_api_url = self.reverse_api('artist-photos-list', kwargs={'artist_pk': self.m.pk})
+
+        response = self.app_api.get(artist_photos_api_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        results = response.json()['results']
+        created_img = next(r for r in results if r["id"] == img.id)
+
+        created_img['data'].should.equal(self.json_data)
+
 
     def test_create(self):
 
@@ -217,12 +245,17 @@ class ApiArtistPhotoTest(OpusTestCase):
 
         headers, cookies = self.get_api_reqs()
         data = self.get_test_file()
+        data['data'] = json.dumps(self.json_data)
 
         self.app_api.force_authenticate(user=self.m.user)
 
         response = self.app_api.post(artist_photos_api_url, data, format='multipart')
+        if response.status_code != HTTPStatus.CREATED:
+            print(response.json())
+
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
 
         # Ensure the image comes back with a cloudinary URL
         response.json()['image'].should.contain('https://res.cloudinary.com/opus-dev/image/upload/a_exif/v1/media/')
+        response.json()['data'].should.equal(self.json_data)
 
