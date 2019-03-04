@@ -7,6 +7,7 @@ import {
 } from 'redux-form';
 import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import _ from 'lodash'
 
 import CancelConfirm from '../CancelConfirm';
@@ -69,6 +70,7 @@ class ArtistInfoEditFormModal extends Component {
     return (
       <div className={`${classes.container} ${classes.withFooter}`}>
         <ModalHeader classes={classes}>Edit Profile Information</ModalHeader>
+        <CssBaseline/>
         <ArtistInfoEditForm oneColumn={false} currentValues={currentValues} change={change} />
         <CancelConfirm
             onClickCancel={closeDialog}
