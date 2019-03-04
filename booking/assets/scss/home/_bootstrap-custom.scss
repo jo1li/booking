@@ -36,6 +36,52 @@ $gallery:         #eeeeee;
 $governor-bay:    #3023ae;
 $lavender:        #c86dd7;
 
+
+// opus theme tonal color palettes
+$color-primary-50: #e8eafa;
+$color-primary-100: #c4c9f2;
+$color-primary-200: #9da6e9;
+$color-primary-300: #7383e0;
+$color-primary-400: #5267d9;
+$color-primary-500: #2b4bd1; // main primary
+$color-primary-600: #2543c6;
+$color-primary-700: #1838ba;
+$color-primary-800: #072daf;
+$color-primary-900: #00189c;
+$color-secondary-50: #dff7f3;
+$color-secondary-100: #b0ebde;
+$color-secondary-200: #78dfc9;
+$color-secondary-300: #2bd1b3; // main secondary
+$color-secondary-400: #00c5a1;
+$color-secondary-500: #00b791;
+$color-secondary-600: #00a983;
+$color-secondary-700: #009872;
+$color-secondary-800: #008764;
+$color-secondary-900: #006946;
+$color-grey-50: #f5f9fa;
+$color-grey-100: #e9f2f5;
+$color-grey-200: #ddeaed;
+$color-grey-300: #cedde0;
+$color-grey-400: #a2b7bd;
+$color-grey-500: #83989e;
+$color-grey-600: #607175;
+$color-grey-700: #4d5c61;
+$color-grey-800: #333f42; // default for headers
+$color-grey-900: #031b21; // default for body text
+$color-grey-a100: #c7d3d6;
+$color-grey-a200: #96a6ab;
+$color-grey-a400: #4D5C61;
+$color-grey-a700: #152a30;
+
+// opus theme material UI values
+$color-primary-main: $color-primary-500;
+$color-primary-light: #7280E3;
+$color-primary-dark: #0025B2;
+$color-secondary-main: $color-secondary-300;
+$color-secondary-light: #AEEBDE;
+$color-secondary-dark: #00B890;
+
+
 $body-color:                  $mine-shaft;
 
 $font-family-sans-serif:      'Roboto', 'Helvetica Neue', 'Helvetica', sans-serif;;
@@ -145,3 +191,21 @@ $container-max-widths: (
   lg: 757px,
   xl: 757px
 );
+
+$display-font-family: "Modern Era", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$text-font-family: "GT Zirkon", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-family-base:                   $text-font-family;
+$font-family-sans-serif:						 $display-font-family;
+$font-size-base:                     16px;
+
+$paragraph-margin-bottom:            10px;
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: $color-primary-main;
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+}
+
+$btn-border-width: 0;

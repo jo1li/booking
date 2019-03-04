@@ -2,7 +2,8 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Caption } from '../typography';
+import classNames from 'classnames';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   countContainer: {
@@ -14,6 +15,12 @@ const styles = theme => ({
     right: 0,
     transform: 'translateY(-100%)'
   },
+  inlineCount: {
+    ...theme.typography.overline,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
   bold: {
     fontWeight: 'bold',
     color: 'red',
@@ -23,20 +30,22 @@ const styles = theme => ({
 let TextCount = (props) => {
   const {
     classes,
+    className,
     maxLength,
     currentLength,
     children,
+    inline,
   } = props;
 
   const isTooLong = currentLength > maxLength;
 
   return (
         <div className={classes.countContainer}>
-            <div className={classes.count}>
-                <Caption>
+            <div className={inline ? classes.inlineCount : classes.count}>
+                <Typography variant="caption" className={className}>
                     <span className={isTooLong ? classes.bold : ''}>{currentLength}</span>
-                    {` / ${maxLength}`}
-                </Caption>
+                    {`/${maxLength}`}
+                </Typography>
             </div>
             {children}
         </div>
