@@ -94,7 +94,7 @@ export const ArtistInfoFormSection = (props) => {
             currentLength={_.get(currentValues, 'bio_short', []).length } >
           <Field
             name="bio_short"
-            label={'Tagline'}
+            label='Tagline'
             multiline={true}
             maxLength={MAX_BIO_SHORT_INPUT_LENGTH}
             component={TextField}
