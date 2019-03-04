@@ -1,4 +1,5 @@
 import editModalStyles from '../../sharedStyles/editModalStyles';
+import { PROFILE_PHOTO_ASPECT_RATIO } from '../../constants/imageConstants';
 
 const styles = theme => {
   const modalStyles = editModalStyles(theme);
@@ -50,10 +51,36 @@ const styles = theme => {
       overflow: 'hidden',
       width: '100%',
       height: '100%',
+      position: 'relative', // So the small screen message can center itself
       '& > *': {
         // Background color on hard-to-select profile photo editor
         backgroundColor: 'rgba(127,127,127,1)',
       }
+    },
+    smallScreenMessageWrapper: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      paddingBottom: `${1 / PROFILE_PHOTO_ASPECT_RATIO * 100}%`,
+      backgroundColor: 'transparent',
+      opacity: 1,
+      transition: 'opacity 0.2s',
+    },
+    smallScreenMessage: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translateX(-50%) translateY(-50%)',
+      borderRadius: 4,
+      color: 'white',
+      backgroundColor: 'rgba(0,0,0,0.9)',
+      width: '50%',
+      textAlign: 'center',
+      padding: theme.spacing.unit * 2,
+    },
+    hidden: {
+      opacity: 0,
     }
 }};
 

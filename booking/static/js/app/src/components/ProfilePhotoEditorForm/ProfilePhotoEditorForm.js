@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 import classNames from 'classnames';
@@ -11,6 +11,7 @@ import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
 import { withStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 
 import { StyledCancelConfirm } from '../CancelConfirm';
 import TextArea from '../form/TextArea';
@@ -19,6 +20,7 @@ import ModalHeader from '../ModalHeader';
 import ScaledElement from '../ScaledElement';
 
 import PhotoEditor from '../PhotoEditor';
+import SmallScreenMessage from './SmallScreenMessage';
 
 import styles from './styles';
 
@@ -96,25 +98,30 @@ class EditBioForm extends Component {
     const cancel = onCancel && closeDialog;
 
     return (
-      <div className={classNames(classes.container, classes.withFooter)}>
+      <div className={classNames(classes.container, classes.withFooter)} ref='container'>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
         <div className={classes.noScrollBody}>
           <ScaledElement
             className={classes.ratioContainer}
             render={(width, height) => (
-                <PhotoEditor
-                    ref={(ref) => this.photoEditor = ref}
-                    image={image}
-                    imageName={imageName}
-                    scale={zoom}
-                    onCancel={() => onCancel && onCancel()}
-                    onChange={this.updatePreviewImage}
-                    onScaleChange={updateZoom}
-                    onImageLoad={this.updatePreviewImage}
-                    width={width}
-                    height={height}
-                    className={classes.avatarEditor}
-                />
+                <Fragment>
+                  <PhotoEditor
+                      ref={(ref) => this.photoEditor = ref}
+                      image={image}
+                      imageName={imageName}
+                      scale={zoom}
+                      onCancel={() => onCancel && onCancel()}
+                      onChange={this.updatePreviewImage}
+                      onScaleChange={updateZoom}
+                      onImageLoad={this.updatePreviewImage}
+                      width={width}
+                      height={height}
+                      className={classes.avatarEditor}
+                  />
+                  <Hidden smUp={true}>
+                    <SmallScreenMessage classes={classes}/>
+                  </Hidden>
+                </Fragment>
               )}
               />
         </div>
