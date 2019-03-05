@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
@@ -127,10 +126,8 @@ const mapStateToProps = (state, props) => ({
   genres: state.genres || [],
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    getGenres: GenreActions.getGenres,
-  }, dispatch);
+const mapDispatchToProps = {
+  getGenres: GenreActions.getGenres,
 };
 
 // NB We're not calling `reduxForm` on this component and are calling it on the
