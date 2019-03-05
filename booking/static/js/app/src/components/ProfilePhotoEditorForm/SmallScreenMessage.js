@@ -4,9 +4,10 @@ import autoBind from 'react-autobind';
 import Typography from '@material-ui/core/Typography';
 
 const TIME_TO_HIDE_HELP = 5; // seconds
+const TIME_TO_REMOVE_FROM_EVENT_HANDLING = 0.2; // seconds
 
 class SmallScreenMessage extends Component {
-  state = { isVisible: true };
+  state = { isVisible: true, isRemoved: false };
 
   componentWillMount(props) {
     autoBind(this);
@@ -15,13 +16,22 @@ class SmallScreenMessage extends Component {
 
   hide() {
     this.setState({isVisible: false});
+    setTimeout(this.remove, TIME_TO_REMOVE_FROM_EVENT_HANDLING * 1000);
+  }
+
+  remove() {
+    this.setState({isRemoved: true});
   }
 
   render() {
     const { classes } = this.props;
+    const { isVisible, isRemoved } = this.state;
+
+    if(isRemoved) return null;
+
     return (
       <div
-          className={classNames(this.state.isVisible ? null : classes.hidden, classes.smallScreenMessageWrapper)}
+          className={classNames(isVisible ? null : classes.hidden, classes.smallScreenMessageWrapper)}
           onClick={this.hide}>
         <Typography variant="body1" className={classes.smallScreenMessage}>
           Pinch and zoom to set the visible area of the image.
