@@ -52,16 +52,6 @@ const styles = theme => ({
     cursor: 'pointer',
     display: 'inline-block',
     overflow: 'hidden',
-    '& ul li': {
-      margin: 0,
-      padding: `${theme.spacing.unit/2}px`,
-      listStyleType: 'none',
-      lineHeight: '0px',
-    },
-    '& ul': {
-      margin: 0,
-      padding: 0,
-    },
   },
   form: {
     width: '100%', // Fix IE11 issue.
