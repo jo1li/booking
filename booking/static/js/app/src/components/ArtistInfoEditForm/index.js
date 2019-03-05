@@ -1,2 +1,1 @@
-import ArtistInfoEditForm from './ArtistInfoEditFormModal';
-export default ArtistInfoEditForm;
+export { default } from './ArtistInfoEditFormModal';
