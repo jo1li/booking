@@ -81,7 +81,7 @@ class OnboardingForm extends Component {
   render() {
     const { classes, submitting, handleSubmit, currentValues, change, genres } = this.props
     // Not currently requiring image.
-    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short ? true : false;
+    const requiredEmpty = _.isEmpty(currentValues.genres) || !currentValues.bio_short;
     const genresForSelect = _.map(genres, genre => ({
       value: genre.name,
       label: genre.name
