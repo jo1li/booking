@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
+import Hidden from '@material-ui/core/Hidden';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -81,7 +82,7 @@ class AristInfoForm extends Component {
 
     return (
       <form className={classes.form}>
-        { width !== 'xs' ?
+        <Hidden xsDown={true}>
           <Grid container direction='column' spacing={24} className={classes.floatingProfilePhotoSection}>
             <Grid item xs={12} sm={4}>
               <ProfilePhotoFormSection
@@ -89,23 +90,23 @@ class AristInfoForm extends Component {
                   currentValues={currentValues}
                   openPhotoEditor={this.openPhotoEditor} />
             </Grid>
-          </Grid> :
-          null
-        }
+          </Grid>
+        </Hidden>
 
         <ScrollShadows className={classes.scrollableSection}>
-          { width === 'xs' ?
-              <Grid item xs={12} sm={4} className={classes.rigidProfilePhotoSection}>
-                <ProfilePhotoFormSection
-                    classes={classes}
-                    currentValues={currentValues}
-                    openPhotoEditor={this.openPhotoEditor} />
-              </Grid> :
-            null
-          }
+          <Hidden smUp={true}>
+            <Grid item xs={12} sm={4} className={classes.rigidProfilePhotoSection}>
+              <ProfilePhotoFormSection
+                  classes={classes}
+                  currentValues={currentValues}
+                  openPhotoEditor={this.openPhotoEditor} />
+            </Grid>
+          </Hidden>
 
           <Grid container direction='row' spacing={width === 'xs' ? 0 : 24}>
-            <Grid item xs={0} sm={4}/>
+            <Hidden xsDown={true}>
+              <Grid item sm={4}/>
+            </Hidden>
           { /* Material-ui is overly specific in its css selectors so this has to go in style */ }
             <Grid item xs={12} sm={8} style={{padding: width === 'xs' ? '0 24px' : '0 36px 0 0'}}>
               <ArtistInfoFormSection
