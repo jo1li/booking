@@ -32,7 +32,8 @@ class SmallScreenMessage extends Component {
     return (
       <div
           className={classNames(isVisible ? null : classes.hidden, classes.smallScreenMessageWrapper)}
-          onClick={this.hide}>
+          onClick={this.remove}
+          onTouchStart={this.remove}>
         <Typography variant="body1" className={classes.smallScreenMessage}>
           Pinch and zoom to set the visible area of the image.
         </Typography>
