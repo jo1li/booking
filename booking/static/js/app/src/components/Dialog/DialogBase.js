@@ -13,6 +13,7 @@ const DialogBase = ({
       isOpen,
       close,
       reverseColors,
+      handleClose
     }) => {
       paperProps = _.merge({classes: {root: classes.root}}, paperProps);
 
@@ -21,7 +22,7 @@ const DialogBase = ({
         fullWidth={fullWidth}
         maxWidth={maxWidth}
         open={isOpen}
-        onClose={this.handleClose}
+        onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         PaperProps={paperProps}

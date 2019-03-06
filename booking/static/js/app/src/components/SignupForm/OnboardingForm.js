@@ -307,6 +307,7 @@ class OnboardingForm extends Component {
     }
 
     if(Object.keys(errors).length === 0) {
+      console.log("here 4")
        try {
           const res = await updateUserBio(data, musicianid);
 
