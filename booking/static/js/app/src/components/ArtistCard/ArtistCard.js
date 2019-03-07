@@ -15,7 +15,7 @@ import Camera from 'react-feather/dist/icons/camera';
 
 import { getOrientedImageURL } from '../../helpers/imageHelpers';
 import styles from './styles';
-import UserEditForm from '../UserEditForm';
+import ArtistInfoEditForm from '../ArtistInfoEditForm';
 
 
 class ArtistCard extends React.Component {
@@ -24,7 +24,7 @@ class ArtistCard extends React.Component {
     const { classes, profile, isEditable } = props;
     const { image, stage_name } = profile;
     const noPhoto = <span className={classes.avatarStandIn}>No Photo</span>
-    const editableAndNoPhoto = <span className={classes.avatarStandIn}><Button color="primary" className={classes.button} onClick={() => this.renderUserEditForm(props)}><Camera className={classes.iconLeft} size={22} /> Add Your Photo</Button></span>
+    const editableAndNoPhoto = <span className={classes.avatarStandIn}><Button color="primary" className={classes.button} onClick={() => this.renderArtistEditForm(props)}><Camera className={classes.iconLeft} size={22} /> Add Your Photo</Button></span>
     return (
       <CardMedia className={classes.avatarSection} image={image ? getOrientedImageURL(image) : ""} title={ image ? stage_name : null}>
         { !image ? isEditable ? editableAndNoPhoto : noPhoto : null }
@@ -84,8 +84,8 @@ class ArtistCard extends React.Component {
     return `${hometown}, ${state}`;
   }
 
-  renderUserEditForm(props) {
-    props.openDialog(<UserEditForm {...props.profile} />);
+  renderArtistEditForm(props) {
+    props.openDialog(<ArtistInfoEditForm {...props.profile} />);
   }
 
   render() {
@@ -125,7 +125,7 @@ class ArtistCard extends React.Component {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <ButtonBase className={classes.editIcon} onClick={() => this.renderUserEditForm(this.props)}>
+                  <ButtonBase className={classes.editIcon} onClick={() => this.renderArtistEditForm(this.props)}>
                     <Edit size={22} />
                   </ButtonBase>
                 </Grid>

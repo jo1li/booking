@@ -93,6 +93,10 @@ export const required = (val) => {
   return val ? undefined : 'This field is required.';
 }
 
+export const requiredArray = (arrayVal) => {
+  return _.get(arrayVal, 'length', 0) ? undefined : 'This field is required.';
+}
+
 // TODO: Probably want a different validation function for each social
 // URL, to validate e.g. `https://facebook.com/[username]` specifically
 export const validateURL = (val) => {

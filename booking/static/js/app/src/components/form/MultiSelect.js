@@ -44,6 +44,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primaryTonal[50],
     height: theme.spacing.unit * 4.5,
     borderRadius: 18,
+    letterSpacing: 1,
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -182,9 +183,12 @@ const components = {
 
 class MultiSelect extends React.Component {
   render(props) {
-    const { input, label, helpText, meta: { touched, error }, children, ...rest } = this.props;
+    // `touched` isn't getting set here, so use `visited` to determine
+    // whether to show error.
+    const { input, label, helpText, meta: { visited, error }, errorClassName, children, ...rest } = this.props;
+
     return (
-      <FormControl error={Boolean(touched && error)} fullWidth>
+      <FormControl error={Boolean(visited && error)} fullWidth>
         <Select
           isClearable={false}
           components={components}
@@ -199,8 +203,14 @@ class MultiSelect extends React.Component {
         >
           {children}
         </Select>
-        <FormHelperText>{helpText}</FormHelperText>
-        {Boolean(touched && error) && <FormHelperText error={true}>{error}</FormHelperText>}
+        {
+          Boolean(visited && error) &&
+          <FormHelperText error={true} className={errorClassName || ''}>{error}</FormHelperText>
+        }
+        {
+          !Boolean(visited && error) && helpText !== undefined &&
+          <FormHelperText>{helpText}</FormHelperText>
+        }
       </FormControl>
     )
   }
