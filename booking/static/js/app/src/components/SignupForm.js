@@ -239,7 +239,8 @@ class SignupForm extends Component {
 
           </TabbedList>
           </Paper>
-          <Typography variant="body1" align="center"><a href="/">Opus Homepage</a></Typography>
+          {/* TODO: already have a way to not hardcode /account/login, or need one? */}
+          <Typography variant="body1" align="center">Already a member? <a href="/account/login">Log In</a></Typography>
         </main>
       </React.Fragment>
     );
