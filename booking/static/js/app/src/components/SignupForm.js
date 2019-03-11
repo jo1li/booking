@@ -128,7 +128,7 @@ class SignupForm extends Component {
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
-          <Typography variant="headline" align="center">Create an Account</Typography>
+          <Typography variant="h6" align="center">Join Opus</Typography>
           <Paper className={classes.paper}>
             <Typography variant="body2">For Artists</Typography>
             <form className={classes.container} onSubmit={handleSubmit(this.submit)}>
