@@ -3,15 +3,15 @@ import { Provider } from './provider';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Button from '../components/form/Button';
-import UserEditFormContainer from '../components/UserEditForm';
+import ArtistInfoEditForm from '../components/ArtistInfoEditForm';
 
 
-storiesOf('Forms/UserEditForm', module)
+storiesOf('Forms/ArtistInfoEditForm', module)
   .addDecorator(story => <Provider story={story()}/>)
   .add('Basic', () => (
     <div>
       <Button id="open-edit-user-profile">Edit Profile</Button>
-      <UserEditFormContainer
+      <ArtistInfoEditForm
         id="user-edit-form"
         musicianid="1"
         stage_name="Opus"

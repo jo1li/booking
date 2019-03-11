@@ -8,35 +8,40 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import DropZone from "react-dropzone";
 import FormControl from '@material-ui/core/FormControl';
 import _ from 'lodash';
-import UploadButton from '../UserEditForm/UploadButton';
+import UploadButton from '../form/UploadButton';
 import { orientImage } from '../../helpers/imageHelpers';
 import { Camera } from '../icons';
 
-
-const styles = (theme) => ({
-    dropZone: {
-        display: 'flex',
-    },
-    uploadButtonContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        marginLeft: '16px',
-        height: '64px',
-    },
-    emptyImagePreview: {
-        backgroundColor: '#F5F9FA',
-        display: 'inline-flex',
-        // Center camera icon
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    imagePreview: {
-        height: '64px',
-        width: '100px',
-    }
+const styles = theme => ({
+  imagePreview: {
+    margin: '4px',
+    textAlign: 'center',
+    width: 125,
+    height: 80,
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    borderRadius: 2,
+  },
+  emptyImagePreview: {
+    backgroundColor: theme.palette.primaryTonal[50],
+    border: `1px solid ${theme.palette.primaryTonal[200]}`,
+    display: 'inline-flex',
+    // Center camera icon
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centeredIcon: {
+    height: '100%',
+  },
+  caption: {
+    marginTop: theme.spacing.unit * 0.5,
+    lineHeight: '21px',
+    fontWeight: 500,
+  },
 });
 
 const EmptyImagePreview = ({classes}) => (
@@ -65,24 +70,32 @@ const DropZoneField = ({
     classes,
     meta: { error, touched }
 }) => (
-    <Fragment>
-        <DropZone
-            accept="image/jpeg, image/png, image/gif"
-            className={classNames("upload-container", classes.dropZone)}
-            onDrop={file => orientImage(file[0], base64Image => {
-            handleOnDrop({
-                ...file,
-                preview: base64Image
-            })
-          })}
-        >
-            <ImagePreview image={image} imageName={imageName} classes={classes} />
-            <div className={classes.uploadButtonContainer}>
-                <UploadButton />
-            </div>
-        </DropZone>
-        {touched && error && <div>{error}</div>}
-    </Fragment>
+  <Fragment>
+    <DropZone
+      accept="image/jpeg, image/png, image/gif"
+      className="upload-container"
+      onDrop={file => orientImage(file[0], base64Image => {
+        handleOnDrop({
+          ...file,
+          preview: base64Image
+        })
+      })}
+    >
+        <Fragment>
+          <Grid container style={{ flexGrow: 1 }} direction='column' alignItems='center'>
+            <Grid item>
+              <ImagePreview image={image} classes={classes} />
+            </Grid>
+            <Grid item>
+              <Typography color="inherit" variant="button" className={classes.caption}>
+                {label}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Fragment>
+    </DropZone>
+    {touched && error && <div>{error}</div>}
+  </Fragment>
 );
 
 const StyledDropZoneField = withStyles(styles)(DropZoneField);
@@ -135,9 +148,9 @@ class ImageUploadContainer extends Component {
             children,
             classes,
             currentValues,
-            onDrop
+            handleOnDrop,
+            label,
         } = this.props;
-
 
         return (
             <FormControl className={`image-upload-container ${className || ''}`} fullWidth>
@@ -145,9 +158,10 @@ class ImageUploadContainer extends Component {
                     name="image"
                     component={StyledDropZoneField}
                     type="file"
-                    image={currentValues.image}
-                    imageName={_.get(currentValues.imageFile, 'name')}
-                    handleOnDrop={onDrop}
+                    image={_.get(currentValues.image, 'preview')}
+                    imageName={_.get(currentValues.image, 'name')}
+                    label={label}
+                    handleOnDrop={handleOnDrop}
                 />
             </FormControl>
         );
