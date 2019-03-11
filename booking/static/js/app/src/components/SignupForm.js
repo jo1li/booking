@@ -12,15 +12,12 @@ import classNames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from './form/TextField';
-import RadioGroup from './form/RadioGroup';
-import Radio from '@material-ui/core/Radio';
 import TabbedList from './TabbedList';
 import Button from './form/RaisedButton';
 import ToggleButtonGroup from './form/ToggleButtonGroup';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Paper from '@material-ui/core/Paper';
 
