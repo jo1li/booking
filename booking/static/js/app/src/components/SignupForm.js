@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from './form/TextField';
 import RadioGroup from './form/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import TabbedList from './TabbedList';
 import Button from './form/RaisedButton';
 import ToggleButtonGroup from './form/ToggleButtonGroup';
 
@@ -131,8 +132,10 @@ class SignupForm extends Component {
         <main className={classes.layout}>
           <Typography variant="h6" align="center">Join Opus</Typography>
           <Paper className={classes.paper}>
-            <Typography variant="body2">For Artists</Typography>
-            <form className={classes.container} onSubmit={handleSubmit(this.submit)}>
+          <TabbedList
+              classes={classes}
+              tabNames={['For Artists', 'For Venues']} >
+            <form onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" fullWidth>
 
                 <Field
@@ -229,6 +232,12 @@ class SignupForm extends Component {
                 Create Account
               </Button>
             </form>
+
+            <Typography variant="body1">
+              Venues coming soon! Sign up for the beta <a href="https://goo.gl/forms/ZNCw8SFHFuju1Pyy2">here</a>.
+            </Typography>
+
+          </TabbedList>
           </Paper>
           <Typography variant="body1" align="center"><a href="/">Opus Homepage</a></Typography>
         </main>
