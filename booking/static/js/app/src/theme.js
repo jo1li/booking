@@ -178,5 +178,18 @@ export default createMuiTheme({
                 }
             },
         },
+        MuiToggleButton: {
+            root: {
+                height: 'auto', // Height is hardcoded in px by default
+                '&:hover': {
+                    backgroundColor: 'auto', // Random harsh color change by default
+                }
+            },
+            selected: {
+                '&:after': {
+                    display: 'none', // Strange muting overlay by default
+                }
+            }
+        }
     },
   });
