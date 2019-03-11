@@ -8,6 +8,7 @@ import {
   SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from './form/TextField';
@@ -23,10 +24,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Paper from '@material-ui/core/Paper';
 
+import sharedStyles from '../sharedStyles/artistInfoFormsStyles.js';
 
 import { createArtist } from '../request/requests';
 
 const styles = theme => ({
+  ...sharedStyles(theme),
   layout: {
     width: 'auto',
     display: 'block', // Fix IE11 issue.
@@ -39,30 +42,75 @@ const styles = theme => ({
       marginRight: 'auto',
       marginTop: theme.spacing.unit * 5,
     },
+    marginBottom: theme.spacing.unit * 8, // Arbitrary, just need some room
   },
   paper: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 3,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE11 issue.
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  tabBody: {
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px 0`,
     marginTop: theme.spacing.unit,
+    marginBlockEnd: `${theme.spacing.unit * 2}px`, // Doesn't automatically get turned into px
   },
-  submit: {
+  formControl: {
     marginTop: theme.spacing.unit * 3,
-    marginLeft: 0,
-    marginRight: 0
   },
-  typeRadioGroup: {
+  tab: {
+    ...theme.typography.body2,
+    color: theme.palette.grey[900],
+    fontWeight: 400,
+    textTransform: 'uppercase',
+    flex: 1,
+  },
+  unselectedTab: {
+    borderBottom: `1px solid ${theme.palette.grey[50]}`,
+  },
+  selectedTab: {
+    backgroundColor: theme.palette.secondaryTonal[50],
+  },
+  artistTypeContainer: {
     paddingTop: `${theme.spacing.unit * 2}px`,
+    display: 'flex',
+
+    // Makes the buttons center themselves on the next line on small screens
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  artistTypeLegend: {
+    ...theme.typography.body2,
+    fontWeight: 400,
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center', // Center text vertically
+  },
+  toggleButtonGroup: {
+    textAlign: 'right',
+    boxShadow: 'none',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexShrink: 0,
+  },
+  toggleButton: {
+    ...theme.typography.body1,
+    backgroundColor: theme.palette.primaryTonal[50],
+    padding: '10px 14px 12px',
+  },
+  selectedToggleButton: {
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primaryTonal[500],
   },
 });
 
@@ -135,9 +183,8 @@ class SignupForm extends Component {
           <TabbedList
               classes={classes}
               tabNames={['For Artists', 'For Venues']} >
-            <form onSubmit={handleSubmit(this.submit)}>
-              <FormControl margin="normal" fullWidth>
-
+            <form className={classNames(classes.form, classes.tabBody)} onSubmit={handleSubmit(this.submit)}>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
                 <Field
                   name="email"
                   label='Email'
@@ -158,7 +205,7 @@ class SignupForm extends Component {
                   fullWidth
                 />
               </FormControl>
-              <FormControl margin="normal" fullWidth}>
+              <FormControl margin="normal" fullWidth className={classNames(classes.formControl, classes.artistTypeContainer)}>
                 <FormLabel component="legend" className={classes.artistTypeLegend}>Is this account for an individual or a group?</FormLabel>
                 <Field
                   component={ToggleButtonGroup}
@@ -197,7 +244,7 @@ class SignupForm extends Component {
                   fullWidth
                 />
               </FormControl>
-              <FormControl margin="normal" fullWidth>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
                 <Field
                   type="password"
                   name="password"
@@ -231,7 +278,7 @@ class SignupForm extends Component {
               </Button>
             </form>
 
-            <Typography variant="body1">
+            <Typography variant="body1" className={classes.tabBody}>
               Venues coming soon! Sign up for the beta <a href="https://goo.gl/forms/ZNCw8SFHFuju1Pyy2">here</a>.
             </Typography>
 
