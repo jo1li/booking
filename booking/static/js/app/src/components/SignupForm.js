@@ -14,6 +14,7 @@ import TextField from './form/TextField';
 import RadioGroup from './form/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Button from './form/RaisedButton';
+import ToggleButtonGroup from './form/ToggleButtonGroup';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -154,20 +155,25 @@ class SignupForm extends Component {
                   fullWidth
                 />
               </FormControl>
-              <div className={classes.typeRadioGroup}>
-                <FormControl margin="normal" fullWidth>
-                  <FormLabel component="legend">Is this account for an individual or a group?</FormLabel>
-                  <Field
-                    component={RadioGroup}
-                    aria-label="artist type"
-                    name="account_type"
-                  >
-                    <FormControlLabel value="individual" control={<Radio />} label="Individual" />
-                    <FormControlLabel value="group" control={<Radio />} label="Group" />
-                  </Field>
-                </FormControl>
-              </div>
-              <FormControl margin="normal" fullWidth>
+              <FormControl margin="normal" fullWidth}>
+                <FormLabel component="legend" className={classes.artistTypeLegend}>Is this account for an individual or a group?</FormLabel>
+                <Field
+                  component={ToggleButtonGroup}
+                  classes={classes}
+                  aria-label="artist type"
+                  name="account_type"
+                  options={[
+                    {
+                      value: 'individual',
+                      label: 'Individual',
+                    }, {
+                      value: 'group',
+                      label: 'Group',
+                    }
+                  ]}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
                 <Field
                   name="name"
                   label={account_type === 'individual' ? 'Artist Name' : 'Group Name'}
