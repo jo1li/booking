@@ -172,7 +172,7 @@ class SignupForm extends Component {
                   name="name"
                   label={account_type === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
-                  placeholder='Artist Name'
+                  placeholder={`${account_type === 'individual' ? 'Artist' : 'Group'} Name`}
                   InputLabelProps={{
                     classes: {
                       root: classes.placeholder,
@@ -194,7 +194,7 @@ class SignupForm extends Component {
                   name="password"
                   label="Password"
                   component={TextField}
-                  placeholder='Artist Name'
+                  placeholder='Password'
                   InputLabelProps={{
                     classes: {
                       root: classes.placeholder,
