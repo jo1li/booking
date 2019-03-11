@@ -133,7 +133,26 @@ class SignupForm extends Component {
             <Typography variant="body2">For Artists</Typography>
             <form className={classes.container} onSubmit={handleSubmit(this.submit)}>
               <FormControl margin="normal" fullWidth>
-                <Field name="email" label="Email" component={TextField} />
+
+                <Field
+                  name="email"
+                  label='Email'
+                  component={TextField}
+                  placeholder='Email'
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      root: classes.textInput,
+                      input: classes.textInput
+                    }
+                  }}
+                  fullWidth
+                />
               </FormControl>
               <div className={classes.typeRadioGroup}>
                 <FormControl margin="normal" fullWidth>
@@ -153,6 +172,21 @@ class SignupForm extends Component {
                   name="name"
                   label={account_type === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
+                  validate={[required]}
+                  placeholder='Artist Name'
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      root: classes.textInput,
+                      input: classes.textInput
+                    }
+                  }}
+                  fullWidth
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
@@ -161,6 +195,21 @@ class SignupForm extends Component {
                   name="password"
                   label="Password"
                   component={TextField}
+                  validate={[required]}
+                  placeholder='Artist Name'
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      root: classes.textInput,
+                      input: classes.textInput
+                    }
+                  }}
+                  fullWidth
                 />
               </FormControl>
               <Button
