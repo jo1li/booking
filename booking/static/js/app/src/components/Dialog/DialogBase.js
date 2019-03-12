@@ -1,5 +1,7 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import { ScrollLocky } from 'react-scroll-locky';
+
 import _ from 'lodash';
 
 const DialogBase = ({
@@ -29,7 +31,9 @@ const DialogBase = ({
         <div className={classes.iconContainer}>
           <CloseComponent onClick={close} />
         </div>
+        <ScrollLocky headless>
           {children}
+        </ScrollLocky>
       </Dialog>
 }
 
