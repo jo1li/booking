@@ -276,7 +276,7 @@ class SignupForm extends Component {
             </form>
 
             <Typography variant="body1" className={classes.tabBody}>
-              Venues coming soon! Sign up for the beta <a href="https://goo.gl/forms/ZNCw8SFHFuju1Pyy2">here</a>.
+              Venue profiles coming soon! Sign up for early access <a href="https://goo.gl/forms/ZNCw8SFHFuju1Pyy2">here</a>.
             </Typography>
 
           </TabbedList>
