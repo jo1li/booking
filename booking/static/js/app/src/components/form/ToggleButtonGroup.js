@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
+// NB: Toggles are part of material-ui lab, so can behave kind of funky,
+// had to be supplemented here.
 class OpusToggleButtonGroup extends Component {
   state = { value: 'individual'}
 
@@ -21,7 +23,10 @@ class OpusToggleButtonGroup extends Component {
               key={idx}
               disableRipple
               value={option.value}
-              onClick={() => this.setState({value: option.value})}
+              onClick={() => {
+                this.setState({value: option.value});
+                input.onChange(option.value); // Doesn't trigger automatically
+              }}
               className={classNames(
                 option.value === this.state.value ? classes.selectedToggleButton : '',
                 classes.toggleButton,
