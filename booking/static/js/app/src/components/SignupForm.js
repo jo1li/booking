@@ -108,6 +108,10 @@ const styles = theme => ({
   selectedToggleButton: {
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primaryTonal[500],
+    // Fix for iOS
+    '&:hover': {
+        backgroundColor: theme.palette.primaryTonal[500],
+    }
   },
 });
 
