@@ -8,9 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 
 import { StyledCancelConfirm } from '../CancelConfirm';
-import TextArea from '../form/TextArea';
-import { Display1, H6 } from '../typography';
 import ModalHeader from '../ModalHeader';
+import Typography from '@material-ui/core/Typography';
 import ScaledElement from '../ScaledElement';
 
 import PhotoEditor from '../PhotoEditor';
@@ -25,7 +24,7 @@ const PreviewWithScale = (props) => {
     <Grid item xs={6} className={classes.previewWithScale}>
       <img src={base64Img} className={classes.preview}/>
       <div style={{ marginLeft: '16px', flexGrow: 1, }}>
-        <H6>Scale</H6>
+        <Typography variant="h6">Scale</Typography>
         <Slider
           value={zoom}
           min={PhotoEditor.MIN_SCALE}
