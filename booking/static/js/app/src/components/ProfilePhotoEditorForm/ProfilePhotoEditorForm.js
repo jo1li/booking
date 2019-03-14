@@ -118,6 +118,9 @@ class EditBioForm extends Component {
                       height={height}
                       className={classes.avatarEditor}
                   />
+                  { /* Because the editor takes up the full height in landscape,
+                       this message will lie below the end of the
+                       overflow-hidden container and not be visible. */ }
                   <Hidden smUp={true}>
                     <SmallScreenMessage classes={classes}/>
                   </Hidden>
