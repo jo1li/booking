@@ -4,9 +4,11 @@ import { withStateHandlers } from 'recompose';
 import propTypes from 'prop-types';
 
 class ScaledElement extends Component {
-    componentWillMount() {
+    state = {}
+
+    constructor() {
+        super();
         autobind(this);
-        this.setState({});
     }
 
     componentDidMount() {
