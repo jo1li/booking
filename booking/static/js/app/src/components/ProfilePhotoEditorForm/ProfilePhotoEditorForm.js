@@ -22,7 +22,7 @@ const PreviewWithScale = (props) => {
 
   return (
     <Grid item xs={6} className={classes.previewWithScale}>
-      <img src={base64Img} className={classes.preview}/>
+      <img src={base64Img} className={classes.preview} alt="Preview"/>
       <div style={{ marginLeft: '16px', flexGrow: 1, }}>
         <Typography variant="h6">Scale</Typography>
         <Slider
