@@ -1,12 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 import classNames from 'classnames';
-import {
-  Field,
-  reduxForm,
-  getFormValues,
-} from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
@@ -81,21 +75,15 @@ class EditBioForm extends Component {
 
   render() {
     const {
-        closeDialog,
         submitting,
-        handleSubmit,
         classes,
-        submitSucceeded,
         image,
         imageName,
-        onClickConfirm,
         onCancel,
         base64Img,
         zoom,
         updateZoom,
     } = this.props;
-
-    const cancel = onCancel && closeDialog;
 
     return (
       <div className={classNames(classes.container, classes.withFooter)} ref='container'>

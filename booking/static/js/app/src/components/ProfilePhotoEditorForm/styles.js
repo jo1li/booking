@@ -1,5 +1,4 @@
 import editModalStyles from '../../sharedStyles/editModalStyles';
-import { PROFILE_PHOTO_ASPECT_RATIO } from '../../constants/imageConstants';
 
 const styles = theme => {
   const modalStyles = editModalStyles(theme);
