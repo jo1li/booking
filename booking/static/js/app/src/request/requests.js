@@ -68,4 +68,4 @@ export const destroyPhoto = ({artistId, photoId}) => {
     return request.delete(`/v1/artists/${artistId}/photos/${photoId}`);
 }
 
-export const getGenres = (data, id) => request.get(`/v1/genres/`);
+export const getGenres = () => request.get(`/v1/genres/`);

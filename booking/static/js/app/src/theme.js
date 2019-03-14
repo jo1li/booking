@@ -169,4 +169,14 @@ export default createMuiTheme({
             paper: "#FFFFFF"
         },
     },
+    overrides:{
+        MuiInput: {
+            underline: {
+                '&:before': {
+                    borderBottomColor: "#DDEAED", // grey[200]
+                    borderBottomWidth: 2,
+                }
+            },
+        },
+    },
   });

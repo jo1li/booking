@@ -9,13 +9,12 @@ const styles = theme => ({
     // TODO: Do we want these button styles to be *everywhere*? bc now they are.
     borderRadius: '5px',
     height: '38px',
-    border: `solid 1px ${theme.palette.secondary.main}`,
-    borderColor: theme.palette.secondary.main,
+    border: `solid 1px ${theme.palette.primaryTonal[500]}`,
+    borderColor: theme.palette.primaryTonal[500],
     outline: 'none',
     outlineColor: 'none',
     '&:disabled': {
-        opacity: '0.2',
-        color: theme.palette.secondary.contrastText,
+        border: 0,
     }
   },
 });
@@ -28,13 +27,14 @@ function ContainedButtons(props) {
     type,
     className,
     disabled,
+    variant,
     ...remainingProps
   } = props;
 
   return (
     <Button
-      variant="outlined"
-      color="secondary"
+      variant={variant || "outlined"}
+      color="primary"
       type={type}
       onClick={onClick}
       disabled={disabled}
