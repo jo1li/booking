@@ -222,6 +222,7 @@ class SignupForm extends Component {
                       label: 'Group',
                     }
                   ]}
+                  onBlur={e => e.preventDefault()}
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth className={classes.formControl}>
