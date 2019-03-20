@@ -173,7 +173,7 @@ export default createMuiTheme({
         MuiInput: {
             underline: {
                 '&:before': {
-                    borderBottomColor: "#DDEAED", // grey[200]
+                    borderBottomColor: "#96A6AB", // grey[A200]
                     borderBottomWidth: 1,
                 }
             },
