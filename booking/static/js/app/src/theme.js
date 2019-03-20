@@ -174,7 +174,7 @@ export default createMuiTheme({
             underline: {
                 '&:before': {
                     borderBottomColor: "#DDEAED", // grey[200]
-                    borderBottomWidth: 2,
+                    borderBottomWidth: 1,
                 }
             },
         },
