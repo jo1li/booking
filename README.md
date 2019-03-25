@@ -4,7 +4,9 @@ Opusapp Booking Utility
 
 # Admin
 
-You can login to the admin with chris@opuslive.io / opusadmin.
+You can login to the django admin locally with `chris@opuslive.io` / `opusadmin`, or any fixturized team account.
+
+The URL is `/opus-control`. This has been changed from the standard `/admin` for security reasons.
 
 # Deploy
 
