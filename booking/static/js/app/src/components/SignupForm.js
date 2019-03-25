@@ -99,6 +99,9 @@ const styles = theme => ({
     flexShrink: 0,
   },
   toggleButton: {
+    // Putting the typography information here instead of using a <Typography/>
+    // tag in JSX to allow the color from .selectedToggleButton to overwrite
+    // the color if the toggle button is selected.
     ...theme.typography.body1,
     backgroundColor: theme.palette.primaryTonal[50],
     padding: '10px 14px 12px',
