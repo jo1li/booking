@@ -200,8 +200,7 @@ class SignupForm extends Component {
                   }}
                   InputProps={{
                     classes: {
-                      root: classes.textInput,
-                      input: classes.textInput
+                      input: classes.textInput,
                     }
                   }}
                   fullWidth
@@ -244,7 +243,6 @@ class SignupForm extends Component {
                   }}
                   InputProps={{
                     classes: {
-                      root: classes.textInput,
                       input: classes.textInput
                     }
                   }}
@@ -266,8 +264,7 @@ class SignupForm extends Component {
                   }}
                   InputProps={{
                     classes: {
-                      root: classes.textInput,
-                      input: classes.textInput
+                      input: classes.textInput,
                     }
                   }}
                   fullWidth
