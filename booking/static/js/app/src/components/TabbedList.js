@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
+import Typography from '@material-ui/core/Typography';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import classNames from 'classnames';
@@ -29,7 +30,7 @@ export default class TabbedList extends Component {
               _.map(tabNames, (label, idx) =>
                 <Tab
                     disableRipple
-                    label={label}
+                    label={<Typography variant='body2'>{label}</Typography>}
                     classes={{
                       root: classNames(classes.tab, classes.unselectedTab),
                       selected: classNames(classes.tab, classes.selectedTab),

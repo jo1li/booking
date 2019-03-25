@@ -65,7 +65,6 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
   },
   tab: {
-    ...theme.typography.body2,
     color: theme.palette.grey[900],
     fontWeight: 400,
     textTransform: 'uppercase',
@@ -87,7 +86,6 @@ const styles = theme => ({
     justifyContent: 'center',
   },
   artistTypeLegend: {
-    ...theme.typography.body2,
     fontWeight: 400,
     flex: 1,
     display: 'flex',
@@ -207,7 +205,11 @@ class SignupForm extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth className={classNames(classes.formControl, classes.artistTypeContainer)}>
-                <FormLabel component="legend" className={classes.artistTypeLegend}>Is this account for an individual or a group?</FormLabel>
+                <FormLabel component="legend" className={classes.artistTypeLegend}>
+                  <Typography variant='body2'>
+                    Is this account for an individual or a group?
+                  </Typography>
+                </FormLabel>
                 <Field
                   component={ToggleButtonGroup}
                   classes={classes}
