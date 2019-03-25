@@ -8,23 +8,25 @@ import {
   SubmissionError,
 } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from './form/TextField';
-import RadioGroup from './form/RadioGroup';
-import Radio from '@material-ui/core/Radio';
+import TabbedList from './TabbedList';
 import Button from './form/RaisedButton';
+import ToggleButtonGroup from './form/ToggleButtonGroup';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Paper from '@material-ui/core/Paper';
 
+import sharedStyles from '../sharedStyles/artistInfoFormsStyles.js';
 
 import { createArtist } from '../request/requests';
 
 const styles = theme => ({
+  ...sharedStyles(theme),
   layout: {
     width: 'auto',
     display: 'block', // Fix IE11 issue.
@@ -37,30 +39,80 @@ const styles = theme => ({
       marginRight: 'auto',
       marginTop: theme.spacing.unit * 5,
     },
+    marginBottom: theme.spacing.unit * 8, // Arbitrary, just need some room
   },
   paper: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 3,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE11 issue.
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  tabBody: {
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px 0`,
     marginTop: theme.spacing.unit,
+    marginBlockEnd: `${theme.spacing.unit * 2}px`, // Doesn't automatically get turned into px
   },
-  submit: {
+  formControl: {
     marginTop: theme.spacing.unit * 3,
-    marginLeft: 0,
-    marginRight: 0
   },
-  typeRadioGroup: {
+  tab: {
+    color: theme.palette.grey[900],
+    fontWeight: 400,
+    textTransform: 'uppercase',
+    flex: 1,
+  },
+  unselectedTab: {
+    borderBottom: `1px solid ${theme.palette.grey[50]}`,
+  },
+  selectedTab: {
+    backgroundColor: theme.palette.secondaryTonal[50],
+  },
+  artistTypeContainer: {
     paddingTop: `${theme.spacing.unit * 2}px`,
+    display: 'flex',
+
+    // Makes the buttons center themselves on the next line on small screens
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  artistTypeLegend: {
+    fontWeight: 400,
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center', // Center text vertically
+  },
+  toggleButtonGroup: {
+    textAlign: 'right',
+    boxShadow: 'none',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexShrink: 0,
+  },
+  toggleButton: {
+    // Putting the typography information here instead of using a <Typography/>
+    // tag in JSX to allow the color from .selectedToggleButton to overwrite
+    // the color if the toggle button is selected.
+    ...theme.typography.body1,
+    backgroundColor: theme.palette.primaryTonal[50],
+    padding: '10px 14px 12px',
+  },
+  selectedToggleButton: {
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primaryTonal[500],
+    // Fix for iOS
+    '&:hover': {
+        backgroundColor: theme.palette.primaryTonal[500],
+    }
   },
 });
 
@@ -80,7 +132,7 @@ class SignupForm extends Component {
 
     // password validation
     if(!data.password || data.password.length < 8) {
-      errors.password = 'Password must be atleast 8 characters';
+      errors.password = 'Password must be at least 8 characters';
     } else if (data.password.length > 128) {
       errors.password = 'Password cannot be longer than 128 characters';
     }
@@ -128,39 +180,94 @@ class SignupForm extends Component {
       <React.Fragment>
         <CssBaseline/>
         <main className={classes.layout}>
-          <Typography variant="headline" align="center">Create an Account</Typography>
+          <Typography variant="h6" align="center">Join Opus</Typography>
           <Paper className={classes.paper}>
-            <Typography variant="body2">For Artists</Typography>
-            <form className={classes.container} onSubmit={handleSubmit(this.submit)}>
-              <FormControl margin="normal" fullWidth>
-                <Field name="email" label="Email" component={TextField} />
+          <TabbedList
+              classes={classes}
+              tabNames={['For Artists', 'For Venues']} >
+            <form className={classNames(classes.form, classes.tabBody)} onSubmit={handleSubmit(this.submit)}>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
+                <Field
+                  name="email"
+                  label='Email'
+                  component={TextField}
+                  placeholder='Email'
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput,
+                    }
+                  }}
+                  fullWidth
+                />
               </FormControl>
-              <div className={classes.typeRadioGroup}>
-                <FormControl margin="normal" fullWidth>
-                  <FormLabel component="legend">Is this account for an individual or a group?</FormLabel>
-                  <Field
-                    component={RadioGroup}
-                    aria-label="artist type"
-                    name="account_type"
-                  >
-                    <FormControlLabel value="individual" control={<Radio />} label="Individual" />
-                    <FormControlLabel value="group" control={<Radio />} label="Group" />
-                  </Field>
-                </FormControl>
-              </div>
-              <FormControl margin="normal" fullWidth>
+              <FormControl margin="normal" fullWidth className={classNames(classes.formControl, classes.artistTypeContainer)}>
+                <FormLabel component="legend" className={classes.artistTypeLegend}>
+                  <Typography variant='body2'>
+                    Is this account for an individual or a group?
+                  </Typography>
+                </FormLabel>
+                <Field
+                  component={ToggleButtonGroup}
+                  classes={classes}
+                  aria-label="artist type"
+                  name="account_type"
+                  options={[
+                    {
+                      value: 'individual',
+                      label: 'Individual',
+                    }, {
+                      value: 'group',
+                      label: 'Group',
+                    }
+                  ]}
+                  onBlur={e => e.preventDefault()}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
                 <Field
                   name="name"
                   label={account_type === 'individual' ? 'Artist Name' : 'Group Name'}
                   component={TextField}
+                  placeholder={`${account_type === 'individual' ? 'Artist' : 'Group'} Name`}
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput
+                    }
+                  }}
+                  fullWidth
                 />
               </FormControl>
-              <FormControl margin="normal" fullWidth>
+              <FormControl margin="normal" fullWidth className={classes.formControl}>
                 <Field
                   type="password"
                   name="password"
                   label="Password"
                   component={TextField}
+                  placeholder='Password'
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.placeholder,
+                      shrink: classes.label,
+                    },
+                  }}
+                  InputProps={{
+                    classes: {
+                      input: classes.textInput,
+                    }
+                  }}
+                  fullWidth
                 />
               </FormControl>
               <Button
@@ -174,8 +281,15 @@ class SignupForm extends Component {
                 Create Account
               </Button>
             </form>
+
+            <Typography variant="body1" className={classes.tabBody}>
+              Venue profiles coming soon! Sign up for early access <a href="https://goo.gl/forms/ZNCw8SFHFuju1Pyy2">here</a>.
+            </Typography>
+
+          </TabbedList>
           </Paper>
-          <Typography variant="body1" align="center"><a href="/">Opus Homepage</a></Typography>
+          {/* TODO: we could use a way to avoid hardcoding this */}
+          <Typography variant="body1" align="center">Already a member? <a href="/account/login">Log In</a></Typography>
         </main>
       </React.Fragment>
     );
