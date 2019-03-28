@@ -193,7 +193,7 @@ class ArtistCreateSerializer(serializers.Serializer):
     email = serializers.EmailField(
             validators=[UniqueValidator(
                 queryset=OpusUser.objects.all(),
-                message='That email is already taken.'
+                message='You already have an account! Try logging in.'
             )]
         )
     slug = serializers.SlugField(required=False)
