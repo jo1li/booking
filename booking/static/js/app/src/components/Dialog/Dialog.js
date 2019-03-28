@@ -5,6 +5,7 @@ import DialogStateManager from './DialogStateManager';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import BasicCloseButton from '../BasicCloseButton';
+import { isTablet } from 'react-device-detect';
 import {
     defaultColorSchemeStyles,
     reverseColorSchemeStyles,
@@ -37,4 +38,5 @@ export const getConfiguredDialog = ({isFullScreen, CloseComponent = BasicCloseBu
     )(StatelessDialog);
 }
 
+export const TabletFullScreenDialog = getConfiguredDialog({isFullScreen: isTablet});
 export default getConfiguredDialog({CloseComponent: BasicCloseButton});

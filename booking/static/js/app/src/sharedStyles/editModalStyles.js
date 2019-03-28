@@ -11,6 +11,11 @@ const styles = theme => ({
     }
   },
 
+  fullScreenContainer: {
+    width: '100%',
+    height: '100%',
+  },
+
   caption: {
     '& > *': {
       fontWeight: 'normal',

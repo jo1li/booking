@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose, withStateHandlers } from 'recompose';
 import classNames from 'classnames';
 import autoBind from 'react-autobind';
+import { isTablet } from 'react-device-detect';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
 import { withStyles } from '@material-ui/core/styles';
@@ -85,7 +86,12 @@ class EditBioForm extends Component {
     } = this.props;
 
     return (
-      <div className={classNames(classes.container, classes.withFooter)} ref='container'>
+      <div
+          className={classNames(
+            isTablet ? classes.fullScreenContainer : classes.container,
+            classes.withFooter,
+          )}
+          ref='container'>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
         <div className={classes.noScrollBody}>
           <ScaledElement

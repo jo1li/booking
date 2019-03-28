@@ -11,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import _ from 'lodash';
 
-import Dialog from '../Dialog/Dialog';
+import { TabletFullScreenDialog } from '../Dialog/Dialog';
 import ProfilePhotoEditorForm from '../ProfilePhotoEditorForm';
 import ScrollShadows from '../ScrollShadows';
 import { ArtistInfoFormSection, ProfilePhotoFormSection } from '../ArtistInfoFormSections';
@@ -139,6 +139,6 @@ export default compose(
   withStyles(styles),
   withWidth(),
   connect(mapStateToProps, mapDispatchToProps),
-  Dialog,
+  TabletFullScreenDialog,
 )(AristInfoForm);
 
