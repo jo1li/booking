@@ -25,7 +25,8 @@ import CONFIGS from '../../configs';
 
 const title = 'Edit YouTube Video Embeds';
 
-const inputPlaceholder = 'Copy and paste video player embed code here.';
+const inputLabel = 'YouTube Embed';
+const inputPlaceholder = 'Paste an embed code from YouTube';
 
 const helpRows = [
   [
@@ -47,6 +48,7 @@ const helpRows = [
 
 const copy = {
   title,
+  inputLabel,
   inputPlaceholder,
   helpSections: [
     {
@@ -81,13 +83,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const validate = values => {
-
-  return {
-    videos: validate_video_embeds(values.videos)
-  };
-
-}
-const warn = values => {
 
   return {
     videos: validate_video_embeds(values.videos)

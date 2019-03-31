@@ -13,16 +13,12 @@ import _ from 'lodash';
 import { EDIT_AUDIOS } from '../../constants/forms';
 import styles from './styles';
 import * as AudioActions from '../../actions/audios';
-import {
-  LEFT_DOUBLE_QUOTES,
-  RIGHT_DOUBLE_QUOTES,
-} from '../../constants/unicodeCharacters';
 import { validate_audio_embeds } from '../../utils/validators';
 import CONFIGS from '../../configs';
 
-const title = 'Edit Audio';
-
-const inputPlaceholder = 'Copy and paste audio player embed code here.';
+const title = 'Edit Audio Embeds';
+const inputLabel = 'Audio Embed';
+const inputPlaceholder = 'Paste an embed code from Soundcloud or Spotify';
 
 const soundcloudHelpRows = [
   [
@@ -62,6 +58,7 @@ const spotifyHelpRows = [
 
 const copy = {
   title,
+  inputLabel,
   inputPlaceholder,
   helpSections: [
     {
@@ -90,13 +87,6 @@ const mapStateToProps = (state, props) => ({
 });
 
 const validate = values => {
-
-  return {
-    audios: validate_audio_embeds(values.audios)
-  };
-
-}
-const warn = values => {
 
   return {
     audios: validate_audio_embeds(values.audios)
