@@ -25,7 +25,8 @@ import CONFIGS from '../../configs';
 
 const title = 'Edit YouTube Video Embeds';
 
-const inputPlaceholder = 'Copy and paste video player embed code here.';
+const inputLabel = 'YouTube Embed';
+const inputPlaceholder = 'Paste an embed code from YouTube';
 
 const helpRows = [
   [
@@ -47,6 +48,7 @@ const helpRows = [
 
 const copy = {
   title,
+  inputLabel,
   inputPlaceholder,
   helpSections: [
     {

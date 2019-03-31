@@ -20,9 +20,9 @@ import {
 import { validate_audio_embeds } from '../../utils/validators';
 import CONFIGS from '../../configs';
 
-const title = 'Edit Audio';
-
-const inputPlaceholder = 'Copy and paste audio player embed code here.';
+const title = 'Edit Audio Embeds';
+const inputLabel = 'Audio Embed';
+const inputPlaceholder = 'Paste an embed code from Soundcloud or Spotify';
 
 const soundcloudHelpRows = [
   [
@@ -62,6 +62,7 @@ const spotifyHelpRows = [
 
 const copy = {
   title,
+  inputLabel,
   inputPlaceholder,
   helpSections: [
     {
