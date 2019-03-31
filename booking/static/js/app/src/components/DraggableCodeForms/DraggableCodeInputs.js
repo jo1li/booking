@@ -49,7 +49,7 @@ const TopRow = (props) => {
       <div className={classes.preview}>
         {
           item && item.src ?
-        <iframe title={item && item.src} src={item && item.src} className={classes.photoImg} alt="thumbnail" width='96px' height='96px'/> :
+        <iframe title={item && item.src} src={item && item.src} className={classes.iframe} alt="thumbnail" width='96px' height='96px'/> :
         null
         }
         <input type="hidden" value={item && item.id} name={`${itemName}[${idx}]`}/>
