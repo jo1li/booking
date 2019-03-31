@@ -33,14 +33,11 @@ const TopRow = (props) => {
     dndProvidedProps,
     classes,
     itemName,
-    items,
+    item,
     order,
     label,
     placeholder,
   } = props;
-
-  const idx = order; // TODO: sloppy
-  const item = items[order]; // TODO: sloppy
 
   return <div className={classes.codeInput}>
       <DragHandle
@@ -52,7 +49,7 @@ const TopRow = (props) => {
         <iframe title={item && item.src} src={item && item.src} className={classes.iframe} alt="thumbnail" width='96px' height='96px'/> :
         null
         }
-        <input type="hidden" value={item && item.id} name={`${itemName}[${idx}]`}/>
+        <input type="hidden" value={item && item.id} name={`${itemName}[${order}]`}/>
       </div>
       <div className={classes.inputFieldContainer}>
         <FormControl fullWidth>
@@ -79,7 +76,7 @@ const TopRow = (props) => {
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <DeleteButton
             className={classes.deleteButton}
-            onClick={() => remove(idx)} />
+            onClick={() => remove(order)} />
       </div>
   </div>
 }
@@ -136,7 +133,7 @@ const DraggableCodeInputs = (props) => {
               dndProvidedProps={provided}
               innerRef={provided.innerRef}
               classes={classes}
-              items={items}
+              item={items[idx]}
               itemName={itemName}
               label={label}
               placeholder={placeholder}
