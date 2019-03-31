@@ -27,6 +27,29 @@ class DragHandle extends Component {
   }
 }
 
+const getSrc = (video) => {
+  if(!video) return null;
+  if(!video.code) return null;
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(video.code, "text/html");
+  const iframe = doc.body.childNodes[0]
+
+  if (!iframe) {
+    return null;
+  }
+
+  if(iframe.tagName !== 'IFRAME') {
+    return null;
+  }
+
+  if(!iframe.hasAttribute('src')) {
+    return null;
+  }
+
+  return iframe.src;
+}
+
 const TopRow = (props) => {
   const {
     remove,
@@ -39,14 +62,16 @@ const TopRow = (props) => {
     placeholder,
   } = props;
 
+  const src = getSrc(item);
+
   return <div className={classes.codeInput}>
       <DragHandle
           dndProvidedProps={dndProvidedProps}
           classes={classes} />
       <div className={classes.preview}>
         {
-          item && item.src ?
-        <iframe title={item && item.src} src={item && item.src} className={classes.iframe} alt="thumbnail" width='96px' height='96px'/> :
+          src ?
+        <iframe title={src} src={src} className={classes.iframe} alt="thumbnail" width='96px' height='96px'/> :
         null
         }
         <input type="hidden" value={item && item.id} name={`${itemName}[${order}]`}/>
