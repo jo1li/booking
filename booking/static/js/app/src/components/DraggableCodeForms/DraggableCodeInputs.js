@@ -1,58 +1,129 @@
 import React, { Component } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-import Grid from '@material-ui/core/Grid';
+import TextField from '../form/TextField';
+import { Field } from 'redux-form';
+import FormControl from '@material-ui/core/FormControl';
+import IconButton from '@material-ui/core/IconButton';
 import _ from 'lodash'
+import autoBind from 'react-autobind';
 
-import TextArea from '../form/TextArea';
-import InputButtons from './InputButtons';
+import { Code, Delete } from '../icons';
 
-import { DeleteButton } from '../form/FabButton';
-import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
+const DeleteButton = (props) => {
+  return <IconButton {...props} color='primary'><Delete width={22}/></IconButton>;
+}
 
-class DraggableCodeInput extends Component {
-
+class DragHandle extends Component {
   render() {
-    const {
-      order,
-      remove,
-      innerRef,
-      dndProvidedProps,
-      classes,
-      width,
-      itemName,
-      placeholder,
-    } = this.props;
-
+    const { dndProvidedProps, classes } = this.props;
+    // Note: `button` would be more semantic than `div` but `button` gives
+    // `draggable=false` for some reason.
     return (
-      <div
-          ref={innerRef}
-          className={`${classes.codeInput}`}
-          {...dndProvidedProps.draggableProps} >
-        <Grid container direction="row">
-          <InputButtons
-              component={TextArea}
-              key={`input-${itemName}[${order}]`}
-              name={`${itemName}[${order}].code`}
-              className={classes.textArea}
-              placeholder={placeholder}
-              isMobile={'xs' === width} >
-            <DeleteButton
-                mobileText="clear"
-                onClick={() => remove(order)}
-                className={classes.button} />
-            <DragHandleMoveButton
-                dndProvidedProps={dndProvidedProps}
-                classes={classes} />
-          </InputButtons>
-        </Grid>
+      <div {...dndProvidedProps.dragHandleProps} className={classes.dragHandle}>
+        <Code className={classes.dragHandleIcon}/>
       </div>
     );
   }
 }
 
+const TopRow = (props) => {
+  const {
+    remove,
+    dndProvidedProps,
+    classes,
+    itemName,
+    items,
+    order,
+    label,
+    placeholder,
+  } = props;
+
+  const idx = order; // TODO: sloppy
+  const item = items[order]; // TODO: sloppy
+
+  return <div className={classes.codeInput}>
+      <DragHandle
+          dndProvidedProps={dndProvidedProps}
+          classes={classes} />
+      <div className={classes.preview}>
+        {
+          item && item.src ?
+        <iframe title={item && item.src} src={item && item.src} className={classes.photoImg} alt="thumbnail" width='96px' height='96px'/> :
+        null
+        }
+        <input type="hidden" value={item && item.id} name={`${itemName}[${idx}]`}/>
+      </div>
+      <div className={classes.inputFieldContainer}>
+        <FormControl fullWidth>
+          <Field
+            name={`${itemName}[${order}].code`}
+            component={TextField}
+            label={label}
+            style={{flexGrow: 1}}
+            placeholder={placeholder}
+            type="text"
+            InputLabelProps={{
+              shrink: true,
+              classes: { shrink: classes.label },
+            }}
+            InputProps={{
+              classes: {
+                input: classes.textInput
+              }
+            }}
+            errorClassName={classes.error}
+          />
+        </FormControl>
+      </div>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <DeleteButton
+            className={classes.deleteButton}
+            onClick={() => remove(idx)} />
+      </div>
+  </div>
+}
+
+// NB: this needs to be a class for react dnd to work.
+class DraggableCodeInputBase extends Component {
+  render() {
+    const {
+      innerRef,
+      dndProvidedProps,
+      classes,
+      item,
+      TopRow,
+    } = this.props;
+
+    return (
+      <div
+          ref={innerRef}
+          {...dndProvidedProps.draggableProps}
+          className={`${classes.codeInputContainer} ${item && item.removed ? classes.removed : ''}`} >
+        <TopRow {...this.props}/>
+      </div>
+    );
+  }
+}
+
+class DraggableCodeInput extends Component {
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
+  render() {
+    return (
+      <DraggableCodeInputBase
+        TopRow={TopRow}
+        {...this.props} />
+    );
+  }
+}
+
+
 const DraggableCodeInputs = (props) => {
-  const { itemName, items, classes, width, remove, placeholder } = props;
+  const { itemName, items, classes, width, remove, label, placeholder } = props;
 
   return (
     <div className={classes.codeInputParent}>
@@ -65,7 +136,9 @@ const DraggableCodeInputs = (props) => {
               dndProvidedProps={provided}
               innerRef={provided.innerRef}
               classes={classes}
+              items={items}
               itemName={itemName}
+              label={label}
               placeholder={placeholder}
               width={width}
               remove={remove} />

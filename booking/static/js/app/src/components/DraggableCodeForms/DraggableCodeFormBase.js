@@ -53,6 +53,7 @@ const FormSection = (props) => {
         <DraggableCodeInputs
             items={currentValues[itemName]}
             itemName={itemName}
+            label={copy.inputLabel}
             placeholder={copy.inputPlaceholder}
             classes={classes}
             width={width}
