@@ -5,13 +5,6 @@ const styles = theme => {
   const parentStyles = editModalStyles(theme);
   return {
   ...parentStyles,
-    tabBody: {
-      maxWidth: '100%',
-      width: '100%',
-      height: '100%',
-      paddingTop: theme.spacing.unit * 2,
-      overflowY: 'scroll',
-    },
     codeInputParent: {
       '& > div:not($codeInputContainer)': {
         // react-beautiful-dnd and material-ui are stepping on each other's toes
@@ -102,15 +95,6 @@ const styles = theme => {
       height: '54px', // To match buttons in main tab footer
       boxSizing: 'border-box',
       padding: 0,
-    },
-    tab: {
-      '&:focus': {
-        outline: 'none',
-        // Just give a hard-to-notice background until we decide what we want to
-        // want to do for accessibility. Not great but better than nothing.
-        // TODO: check with team about what they want for :focus accessibility
-        backgroundColor: '#fafafa',
-      }
     },
     captionTop: {
       padding: `0 ${theme.spacing.unit * 3}px`,
@@ -249,6 +233,30 @@ const styles = theme => {
       // Height and width attrs needed for object-fit to work
       height: 80,
       width: 114,
+    },
+
+    tabList: {
+      marginTop: theme.spacing.unit,
+      padding: `0 ${theme.spacing.unit * 3}px`,
+    },
+    tabBody: {
+      maxWidth: '100%',
+      width: '100%',
+      height: '100%',
+      paddingTop: theme.spacing.unit * 2,
+      overflowY: 'scroll',
+    },
+    tab: {
+      color: theme.palette.grey[900],
+      fontWeight: 400,
+      textTransform: 'uppercase',
+      flex: 1,
+    },
+    unselectedTab: {
+      borderBottom: `1px solid ${theme.palette.grey[50]}`,
+    },
+    selectedTab: {
+      backgroundColor: theme.palette.secondaryTonal[50],
     },
 
   };

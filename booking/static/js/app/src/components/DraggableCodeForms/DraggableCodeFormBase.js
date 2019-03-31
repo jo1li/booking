@@ -181,10 +181,10 @@ class CodeFormBase extends Component {
 
     return (
       <Fragment>
+        <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
         <TabbedList
             classes={classes}
             tabNames={['Embed'].concat(helpSectionTitles)} >
-          <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
           <FormSection {...this.props} submit={this.submit} remove={this.removeItemFromForm}/>
 
