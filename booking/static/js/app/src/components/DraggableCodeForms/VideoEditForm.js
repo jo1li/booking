@@ -89,13 +89,6 @@ const validate = values => {
   };
 
 }
-const warn = values => {
-
-  return {
-    videos: validate_video_embeds(values.videos)
-  };
-
-}
 
 let VideoEditFormBase = compose(
   reduxForm({

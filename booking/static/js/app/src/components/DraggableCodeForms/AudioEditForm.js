@@ -13,10 +13,6 @@ import _ from 'lodash';
 import { EDIT_AUDIOS } from '../../constants/forms';
 import styles from './styles';
 import * as AudioActions from '../../actions/audios';
-import {
-  LEFT_DOUBLE_QUOTES,
-  RIGHT_DOUBLE_QUOTES,
-} from '../../constants/unicodeCharacters';
 import { validate_audio_embeds } from '../../utils/validators';
 import CONFIGS from '../../configs';
 
@@ -91,13 +87,6 @@ const mapStateToProps = (state, props) => ({
 });
 
 const validate = values => {
-
-  return {
-    audios: validate_audio_embeds(values.audios)
-  };
-
-}
-const warn = values => {
 
   return {
     audios: validate_audio_embeds(values.audios)

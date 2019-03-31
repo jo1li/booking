@@ -15,7 +15,6 @@ import {
   getDestroyedItems,
   removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
-import { validate_video_embeds } from '../../utils/validators';
 
 const FormSection = (props) => {
   const {
