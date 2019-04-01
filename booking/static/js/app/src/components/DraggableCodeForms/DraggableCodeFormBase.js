@@ -32,6 +32,7 @@ const FormSection = (props) => {
     submitSucceeded,
     error,
     valid,
+    change,
     remove,
     goToTab, // Comes from tabbed list
   } = props;
@@ -54,6 +55,7 @@ const FormSection = (props) => {
         <DraggableCodeInputs
             items={currentValues[itemName]}
             itemName={itemName}
+            change={change}
             placeholder={copy.inputPlaceholder}
             classes={classes}
             width={width}
