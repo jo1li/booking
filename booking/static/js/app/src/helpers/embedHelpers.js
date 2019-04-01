@@ -1,4 +1,3 @@
-import Bandcamp from 'bandcamp-scraper';
 import _ from 'lodash';
 
 const spotifyUrlRegex = /^https:\/\/open\.spotify\.com\/track\/(\w+)$/;
