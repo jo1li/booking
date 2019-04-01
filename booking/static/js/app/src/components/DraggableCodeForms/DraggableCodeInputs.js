@@ -10,6 +10,8 @@ import InputButtons from './InputButtons';
 import { DeleteButton } from '../form/FabButton';
 import DragHandleMoveButton from '../DraggableCodeForms/DragHandleMoveButton';
 
+import { getEmbedCode } from '../../helpers/embedHelpers';
+
 class DraggableCodeInput extends Component {
 
   render() {
@@ -20,6 +22,7 @@ class DraggableCodeInput extends Component {
       dndProvidedProps,
       classes,
       width,
+      change,
       itemName,
       placeholder,
     } = this.props;
@@ -35,6 +38,12 @@ class DraggableCodeInput extends Component {
               key={`input-${itemName}[${order}]`}
               name={`${itemName}[${order}].code`}
               className={classes.textArea}
+              onBlur={(event) => {
+                setTimeout(() => {
+                  const value = event.currentTarget.value;
+                  change(`${itemName}[${order}].code`, getEmbedCode(value));
+                });
+              }}
               placeholder={placeholder}
               isMobile={'xs' === width} >
             <DeleteButton
@@ -52,7 +61,7 @@ class DraggableCodeInput extends Component {
 }
 
 const DraggableCodeInputs = (props) => {
-  const { itemName, items, classes, width, remove, placeholder } = props;
+  const { itemName, items, classes, width, remove, placeholder, change } = props;
 
   return (
     <div className={classes.codeInputParent}>
@@ -65,6 +74,7 @@ const DraggableCodeInputs = (props) => {
               dndProvidedProps={provided}
               innerRef={provided.innerRef}
               classes={classes}
+              change={change}
               itemName={itemName}
               placeholder={placeholder}
               width={width}
