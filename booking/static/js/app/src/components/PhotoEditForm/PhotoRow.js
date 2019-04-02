@@ -29,6 +29,7 @@ class DragHandle extends Component {
 
 const CoverPhotoIndicator = (props) => {
   const { classes, openCoverPhotoEditForm, item } = props;
+  // TODO: don't tack styles onto 'edit' span
   return (
     <div
       className={classes.coverPhotoIndicator}
@@ -38,6 +39,7 @@ const CoverPhotoIndicator = (props) => {
         <span
           onClick={() => openCoverPhotoEditForm(item)}
           className={classes.editCoverPhotoButton}
+          style={{margin: '0 8px', cursor: 'pointer'}}
         >
           Edit
         </span>

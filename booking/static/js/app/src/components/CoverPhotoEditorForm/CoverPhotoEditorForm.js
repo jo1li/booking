@@ -185,6 +185,7 @@ class EditBioForm extends Component {
     const positionerDimensions = this.state.positionerDimensions;
     const setState = this.setState.bind(this); // TODO: yucky
 
+    // TODO: don't tack styles onto icons; just make them buttons or w/e
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
@@ -200,12 +201,14 @@ class EditBioForm extends Component {
                 onTouchStart={this.panDown}
                 onMouseUp={this.cancelPan}
                 onTouchEnd={this.cancelPan}
+                style={{cursor: 'pointer'}}
               />
               <ArrowDown
                 onMouseDown={this.panUp}
                 onTouchStart={this.panUp}
                 onMouseUp={this.cancelPan}
                 onTouchEnd={this.cancelPan}
+                style={{cursor: 'pointer'}}
               />
             </Grid>
           </Grid>
