@@ -87,12 +87,18 @@ class CoverPhoto extends React.Component {
       );
     }
 
+    // TODO: Add this on load once ironed out
+    // TODO: the panning value doesn't translate all that well to this - why?
+    const topPosition = _.get(coverPhoto, 'data.coverPhotoStyles.top');
+    const position = topPosition ? `0 ${Math.floor(topPosition * 100)}%` : 'center';
+
     return (
       <div
         id="cover-photo"
         tabIndex={0}
         className={_.size(photos) ? classes.clickable : ''}
         style={{
+          backgroundPosition: position,
           backgroundImage: `url(${coverPhoto.image})`,
       }}>
         <div id="cover-photo-bar">

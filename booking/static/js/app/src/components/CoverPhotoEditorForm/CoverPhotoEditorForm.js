@@ -34,8 +34,8 @@ const getChange = (magnitude, previous) => {
     return 1
   }
 
-  if (change <= 0.1) {
-    return 0.1;
+  if (change <= 0.002) {
+    return 0.002;
   }
 
   return change;
@@ -189,7 +189,7 @@ export default compose(
 
       // setting this initial value to 0.1 because any change
       // below 0.1 is not registered as a change in PhotoEditor
-      positionY: 0.1
+      positionY: 0
     }),
     {
       panY: ({ positionY }) => magnitude => ({
