@@ -67,21 +67,28 @@ class PhotoEditFormBase extends Component {
     getArtistItems({artistId: profile.id});
   }
 
-  openCoverPhotoEditForm(image) {
+  openCoverPhotoEditForm(photoObject) {
     const {
-      createCoverPhoto,
       openDialog,
       profile,
+      updateArtistItem,
+      updateProfile,
     } = this.props;
 
     this.props.openDialog(
       <CoverPhotoEditorForm
-        image={image}
-        onClickConfirm={file => createCoverPhoto({
-          file,
+        image={photoObject.image}
+        onClickConfirm={({positionY}) => updateArtistItem({
           artistId: profile.id,
-        })}
-      />
+          id: photoObject.id,
+          coverPhotoStyles: {
+            top: positionY,
+          },
+          order: photoObject.order,
+        }).then(() => updateProfile(
+          { image_hero_id: photoObject.id },
+          profile.id
+        ))} />
     )
   }
 
@@ -154,6 +161,8 @@ class PhotoEditFormBase extends Component {
       hasHeroImage,
       createArtistItem,
       createCoverPhoto,
+      updateProfile,
+      indexedPhotos,
     } = this.props;
 
     // TODO: support multiple pending images at once
@@ -165,22 +174,31 @@ class PhotoEditFormBase extends Component {
       addToStore(pendingImage);
     }, { maxWidth: 200 });
 
+    const photoObject = {
+      image: file,
+      data: {},
+      order: currentValues.photos.length,
+    };
+
     // Cover photo could have been deleted since page was loaded, so don't
     // just check that the ID isn't null.
-    if (!hasHeroImage) {
-      await createCoverPhoto({
-          file,
-          artistId: profile.id,
-      });
-    } else {
-      await createArtistItem({
-        file,
-        order: currentValues.photos.length,
-        artistId: profile.id,
-      });
-    }
+    const userHasCoverPhoto = indexedPhotos[_.get(profile, 'image_hero.id', null)] != undefined;
 
-    removeFromStore(pendingImage);
+    // Send it to the server, and remove the preview when complete
+    this.props.createArtistItem({
+      photoObject,
+      artistId: profile.id,
+    }).then((res) => {
+      removeFromStore(pendingImage);
+
+      if(!userHasCoverPhoto) {
+        updateProfile({
+          image_hero_id: res.data.id,
+        },
+        profile.id);
+      }
+    });
+
   }
 
   render() {
@@ -212,7 +230,7 @@ class PhotoEditFormBase extends Component {
                 theme={theme}
                 heroImageURL={profile.hero_image_url}
                 remove={(order) => this.removeItemFromForm(order)}
-                onClickUseAsCoverPhoto={this.openCoverPhotoEditForm}
+                openCoverPhotoEditForm={this.openCoverPhotoEditForm}
               />
             <PhotoUploadButton
                 className={classes.photoEditFormSubmitButton}
@@ -264,7 +282,6 @@ const mapDispatchToProps = {
     addToStore: ActionCreators.pendingPhotosCreateOrUpdate,
     removeFromStore: ActionCreators.pendingPhotosDelete,
     updateProfile: ProfileActions.updateProfile,
-    createCoverPhoto: PhotoActions.createCoverPhoto,
   }
 
 const PhotoEditForm = compose(

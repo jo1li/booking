@@ -86,11 +86,10 @@ class EditBioForm extends Component {
     const {
       onClickConfirm,
       closeDialog,
-      positionY
+      positionY,
     } = this.props;
 
-    const file = await this.photoEditor.getImage();
-    await onClickConfirm(file, positionY)
+    await onClickConfirm({positionY});
     closeDialog();
   }
 

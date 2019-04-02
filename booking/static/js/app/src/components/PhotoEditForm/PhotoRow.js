@@ -28,7 +28,7 @@ class DragHandle extends Component {
 }
 
 const CoverPhotoIndicator = (props) => {
-  const { classes, onClickUseAsCoverPhoto, item } = props;
+  const { classes, openCoverPhotoEditForm, item } = props;
   return (
     <div
       className={classes.coverPhotoIndicator}
@@ -36,7 +36,7 @@ const CoverPhotoIndicator = (props) => {
       <CheckCircle className={classes.coverPhotoIndicatorCheckMark}/>
         Cover photo
         <span
-          onClick={() => onClickUseAsCoverPhoto(item.image)}
+          onClick={() => openCoverPhotoEditForm(item)}
           className={classes.editCoverPhotoButton}
         >
           Edit
@@ -58,14 +58,14 @@ const SetAsCoverPhotoButton = (props) => {
 }
 
 const CoverPhotoIndicatorGate = (props) => {
-  const { isCoverPhoto, onClickUseAsCoverPhoto, show, classes, item } = props;
+  const { isCoverPhoto, openCoverPhotoEditForm, show, classes, item } = props;
 
   if(!show) return null;
 
   if(isCoverPhoto) {
-    return <CoverPhotoIndicator classes={classes} onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} item={item}/>;
+    return <CoverPhotoIndicator classes={classes} openCoverPhotoEditForm={openCoverPhotoEditForm} item={item}/>;
   } else {
-    return <SetAsCoverPhotoButton onClick={() => onClickUseAsCoverPhoto(item.image)} item={item} classes={classes} />;
+    return <SetAsCoverPhotoButton onClick={() => openCoverPhotoEditForm(item)} item={item} classes={classes} />;
   }
 }
 
@@ -79,7 +79,7 @@ const TopRow = (props) => {
     item,
     idx,
     isCoverPhoto,
-    onClickUseAsCoverPhoto,
+    openCoverPhotoEditForm,
     theme,
   } = props;
 
@@ -96,7 +96,7 @@ const TopRow = (props) => {
         classes={classes}
         isCoverPhoto={isCoverPhoto}
         item={item}
-        onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} />
+        openCoverPhotoEditForm={openCoverPhotoEditForm} />
     <DeleteButton
         onClick={() => remove(idx)}
         color={theme.palette.secondary.main}
@@ -109,7 +109,7 @@ const BottomRow = (props) => {
     classes,
     width,
     isCoverPhoto,
-    onClickUseAsCoverPhoto,
+    openCoverPhotoEditForm,
     item,
   } = props;
 
@@ -119,7 +119,7 @@ const BottomRow = (props) => {
         classes={classes}
         item={item}
         isCoverPhoto={isCoverPhoto}
-        onClickUseAsCoverPhoto={onClickUseAsCoverPhoto} />
+        openCoverPhotoEditForm={openCoverPhotoEditForm} />
   </Grid>
 }
 

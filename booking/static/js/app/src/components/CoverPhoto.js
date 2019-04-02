@@ -50,6 +50,7 @@ class CoverPhoto extends React.Component {
       profile
     } = this.props;
 
+    // TODO: where is this supposed to run?
     openDialog(
       <CoverPhotoEditorForm
         image={imageFile.src}
