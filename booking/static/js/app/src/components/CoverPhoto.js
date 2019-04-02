@@ -46,7 +46,7 @@ class CoverPhoto extends React.Component {
   openPhotoEditDialog = imageFile => {
     const {
       openDialog,
-      createCoverPhoto,
+      updateArtistPhoto,
       profile
     } = this.props;
 
@@ -55,10 +55,10 @@ class CoverPhoto extends React.Component {
       <CoverPhotoEditorForm
         image={imageFile.src}
         imageName={imageFile.name}
-        onClickConfirm={(file, backgroundImageTop) => createCoverPhoto({
-          file,
+        onClickConfirm={({positionY}) => updateArtistPhoto({
           artistId: profile.id,
-          backgroundImageTop
+          imageId: profile.image_hero_id,
+          backgroundImageTop: positionY,
         })}
       />
     )
@@ -88,9 +88,8 @@ class CoverPhoto extends React.Component {
     }
 
     // TODO: Add this on load once ironed out
-    // TODO: the panning value doesn't translate all that well to this - why?
     const topPosition = _.get(coverPhoto, 'data.coverPhotoStyles.top');
-    const position = topPosition ? `0 ${Math.floor(topPosition * 100)}%` : 'center';
+    const position = topPosition ? `0 ${Math.round(topPosition * 100)}%` : 'center';
 
     return (
       <div
@@ -116,7 +115,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = {
-  createCoverPhoto: PhotoActions.createCoverPhoto,
+  updateArtistPhoto: PhotoActions.updateArtistPhoto,
 }
 
 export default compose(

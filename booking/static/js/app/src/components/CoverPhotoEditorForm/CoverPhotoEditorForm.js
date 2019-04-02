@@ -14,6 +14,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject, Scheduler } from 'rxjs';
+import sizeOf from 'image-size';
+import http from 'http';
+import url from 'url';
 
 import CancelConfirm from '../CancelConfirm';
 import TextArea from '../form/TextArea';
@@ -41,12 +44,22 @@ const getChange = (magnitude, previous) => {
   return change;
 }
 
+// TODO: change this class name
 class EditBioForm extends Component {
+  state = {
+    imageDimensions: {},
+    positionerDimensions: {},
+  }
+
   constructor(props) {
     super(props);
 
     this.createVerticalPan();
     autoBind(this);
+  }
+
+  componentDidMount() {
+    this.setImageDimensions();
   }
 
   createVerticalPan() {
@@ -82,14 +95,41 @@ class EditBioForm extends Component {
     this.verticalPan.next(false);
   }
 
+  /**
+   * The avatar editor positionY range runs from:
+   * half its height, in percent relative to image height,
+   * to 1 - that number.
+   *
+   * The consumer runs from 0 to 1.
+   * So this scales the values.
+   */
+  getScaledPositionY() {
+    const {
+      positionY,
+    } = this.props;
+
+    // TODO: be graceful if some state isn't ready yet
+    const {
+      imageDimensions,
+      positionerDimensions,
+    } = this.state;
+
+    // TODO: handle very wide images
+    const scale = positionerDimensions.width / imageDimensions.width;
+    const scaledImageHeight = imageDimensions.height * scale;
+    const positionerPercentHeight = positionerDimensions.height / scaledImageHeight;
+
+    const slope = 1 / (1 - positionerPercentHeight);
+    const modifiedPositionY = slope * (positionY - positionerPercentHeight / 2);
+  }
+
   async onConfirm() {
     const {
       onClickConfirm,
       closeDialog,
-      positionY,
     } = this.props;
 
-    await onClickConfirm({positionY});
+    await onClickConfirm({positionY: this.getScaledPositionY});
     closeDialog();
   }
 
@@ -103,6 +143,28 @@ class EditBioForm extends Component {
     closeDialog();
   }
 
+  async getImageDimensions(imageURL) {
+    const options = url.parse(imageURL);
+
+    return new Promise((resolve) => {
+      http.get(options, (response) => {
+        const chunks = [];
+        response.on('data', (chunk) => {
+          chunks.push(chunk);
+        }).on('end', () => {
+          const buffer = Buffer.concat(chunks);
+          resolve(sizeOf(buffer));
+        });
+      });
+    });
+  }
+
+  setImageDimensions() {
+    const imageURL = this.props.image;
+    this.getImageDimensions(imageURL).then((dimensions) => {
+      this.setState({imageDimensions: dimensions});
+    })
+  }
 
   render() {
     const {
@@ -119,7 +181,9 @@ class EditBioForm extends Component {
         setPositionY,
     } = this.props;
 
-    const cancel = onCancel && closeDialog;
+    const imageDimensions = this.state.imageDimensions;
+    const positionerDimensions = this.state.positionerDimensions;
+    const setState = this.setState.bind(this); // TODO: yucky
 
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
@@ -151,6 +215,11 @@ class EditBioForm extends Component {
               ratio={4.8}
               className={classes.ratioContainer}
               render={(width, height) => {
+                // TODO: this better
+                if(!positionerDimensions.width) {
+                  setTimeout(() => setState({positionerDimensions: {width, height}}), 0);
+                }
+
                 return (
                   <PhotoEditor
                       ref={(ref) => this.photoEditor = ref}
