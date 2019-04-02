@@ -256,6 +256,13 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
+    image_hero_styles = json.loads(musician.image_hero.data).get("coverPhotoStyles", {})
+    image_hero_top = (
+        "{}%".format(round(image_hero_styles["top"] * 100))
+        if "top" in image_hero_styles
+        else "center"
+    )
+
     context = {
         "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
@@ -268,6 +275,7 @@ def profile(request, slug=None):
         "photos_json": json.dumps(photos_dict),
         "genres": ArtistGenreTagSerializer(musician.genres.all(), many=True).data,
         "image_hero_json": json.dumps(ArtistImageSerializer(musician.image_hero).data),
+        "image_hero_top": image_hero_top,
         "react_page_name": "ARTIST_PROFILE"
     }
 
