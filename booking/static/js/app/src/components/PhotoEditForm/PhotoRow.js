@@ -10,8 +10,7 @@ import { Code, CheckCircle, Delete } from '../icons';
 import * as ProfileActions from '../../actions/profile';
 
 const DeleteButton = (props) => {
-  const { color, ...remainingProps } = props;
-  return <IconButton {...remainingProps}><Delete color={color}/></IconButton>;
+  return <IconButton color="primary" {...props}><Delete/></IconButton>;
 }
 
 class DragHandle extends Component {
@@ -82,7 +81,6 @@ const TopRow = (props) => {
     idx,
     isCoverPhoto,
     openCoverPhotoEditForm,
-    theme,
   } = props;
 
   return <Grid item container direction="row" className={classes.photoFormRowTop}>
@@ -101,7 +99,6 @@ const TopRow = (props) => {
         openCoverPhotoEditForm={openCoverPhotoEditForm} />
     <DeleteButton
         onClick={() => remove(idx)}
-        color={theme.palette.secondary.main}
         className={`${classes.button} ${classes.deleteButton}`} />
   </Grid>
 }

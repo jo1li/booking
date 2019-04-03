@@ -31,7 +31,6 @@ const styles = theme => {
       height: '15px',
     },
     deleteButton: {
-      color: theme.palette.grey[500],
       border: 'none',
       alignSelf: 'center',
       boxSizing: 'content-box',
@@ -63,7 +62,7 @@ const styles = theme => {
     },
     photoEditFormSubmitButton: {
       cursor: 'pointer',
-      color: theme.palette.secondary.main,
+      color: theme.palette.primaryTonal[500],
       fontSize: '15px',
       backgroundColor: theme.palette.grey[100],
       width: '100%',
@@ -100,12 +99,12 @@ const styles = theme => {
     setAsCoverPhotoButton: {
       marginLeft: 'auto',
       alignSelf: 'center',
-      color: theme.palette.secondary.main,
+      color: theme.palette.primaryTonal[500],
       cursor: 'pointer',
     },
     editCoverPhotoButton: {
       marginLeft: '3px',
-      color: theme.palette.secondary.main,
+      color: theme.palette.primaryTonal[500],
     },
     removed: {
       animationDuration: '0.4s',

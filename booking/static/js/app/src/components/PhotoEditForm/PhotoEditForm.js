@@ -292,7 +292,7 @@ const PhotoEditForm = compose(
     enableReinitialize: true,
   }),
   withWidth(),
-  withStyles(styles, { withTheme: true }),
+  withStyles(styles),
 )(DroppablePhotoEditFormBase);
 
 export default PhotoEditForm;
