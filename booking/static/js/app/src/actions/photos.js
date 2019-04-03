@@ -9,7 +9,7 @@ import { updateProfile } from './profile';
 export function createArtistPhoto({ artistId, photoObject }) {
     return (dispatch, getState) => {
         const photoObjectCopy = _.clone(photoObject);
-        photoObjectCopy.data = JSON.stringify(photoObject.data);
+        photoObjectCopy.data = JSON.stringify(JSON.stringify(photoObject.data));
 
         const formData = getFormData(photoObjectCopy);
 

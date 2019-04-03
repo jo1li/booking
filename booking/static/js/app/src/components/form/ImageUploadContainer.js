@@ -173,86 +173,87 @@ class ImageUploadContainer extends Component {
         );
     }
 }
-// class ImageUploadContainer extends Component {
-//     constructor() {
-//         super();
-//         this.input = React.createRef();
-//         autoBind(this);
-//     }
+// TODO: resolve this with the changed styles
+export class UnstyledImageUploadContainer extends Component {
+    constructor() {
+        super();
+        this.input = React.createRef();
+        autoBind(this);
+    }
 
-//     /**
-//      * uploaded images on mobile are typically oriented incorrectly.
-//      * loadImage corrects the image orientation.
-//      * https://github.com/blueimp/JavaScript-Load-Image
-//      */
-//     orientImage(file, callback) {
-//         window.loadImage(
-//             file,
-//             img => callback(img.toDataURL("image/png")),
-//             { canvas: true, orientation: true }
-//         );
-//     }
+    /**
+     * uploaded images on mobile are typically oriented incorrectly.
+     * loadImage corrects the image orientation.
+     * https://github.com/blueimp/JavaScript-Load-Image
+     */
+    orientImage(file, callback) {
+        window.loadImage(
+            file,
+            img => callback(img.toDataURL("image/png")),
+            { canvas: true, orientation: true }
+        );
+    }
 
-//     /**
-//      * Passes the uploaded file object as well as a
-//      * base 64 of the image to the onUpload callback
-//      */
-//     uploadImage(e) {
-//         const { onUpload } = this.props;
-//         let file = e.target.files[0]
-//         this.orientImage(file, (src) => {
-//             onUpload({
-//                 file,
-//                 name: file.name,
-//                 src
-//             })
-//         });
-//     }
+    /**
+     * Passes the uploaded file object as well as a
+     * base 64 of the image to the onUpload callback
+     */
+    uploadImage(e) {
+        const { onUpload } = this.props;
+        let file = e.target.files[0]
+        this.orientImage(file, (src) => {
+            onUpload({
+                file,
+                name: file.name,
+                src
+            })
+        });
+    }
 
-//     clickInput() {
-//         this.input.current.click();
-//     }
+    clickInput() {
+        this.input.current.click();
+    }
 
-//     render() {
-//         const {
-//             className,
-//             onClick,
-//             children,
-//             classes,
-//             currentValues,
-//             handleOnDrop,
-//             label,
-//             id,
-//         } = this.props;
+    render() {
+        const {
+            className,
+            onClick,
+            children,
+            classes,
+            currentValues,
+            handleOnDrop,
+            label,
+            id,
+        } = this.props;
 
-//         return (
-//             <div
-//                 className={`image-upload-container ${className || ''}`}
-//             >
-//                 <label
-//                     htmlFor={`addPicture-${id || 0}`}
-//                 >
-//                    {
-//                     React.Children.map(children, child => {
-//                         return React.cloneElement(child, { onClick: () => {
-//                             if (!isSafari) {
-//                                 this.clickInput();
-//                             }
-//                             child.onCLick && child.onCLick();
-//                         }})
-//                     })
-//                    }
-//                   <input
-//                     type="file"
-//                     ref={this.input}
-//                     className="addPicture"
-//                     id={`addPicture-${id || 0}`}
-//                     style={{display: 'none'}}
-//                     onChange={(e) => this.uploadImage(e)} />
-//                 </label>
-//             </div>
-//         )
-//     }
-// }
+        return (
+            <div
+                className={`image-upload-container ${className || ''}`}
+            >
+                <label
+                    htmlFor={`addPicture-${id || 0}`}
+                >
+                   {
+                    React.Children.map(children, child => {
+                        return React.cloneElement(child, { onClick: () => {
+                            if (!isSafari) {
+                                this.clickInput();
+                            }
+                            child.onCLick && child.onCLick();
+                        }})
+                    })
+                   }
+                  <input
+                    type="file"
+                    ref={this.input}
+                    className="addPicture"
+                    id={`addPicture-${id || 0}`}
+                    style={{display: 'none'}}
+                    onChange={(e) => this.uploadImage(e)} />
+                </label>
+            </div>
+        )
+    }
+}
 
 export default ImageUploadContainer;

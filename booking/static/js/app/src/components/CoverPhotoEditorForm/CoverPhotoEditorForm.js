@@ -120,7 +120,7 @@ class EditBioForm extends Component {
     const positionerPercentHeight = positionerDimensions.height / scaledImageHeight;
 
     const slope = 1 / (1 - positionerPercentHeight);
-    const modifiedPositionY = slope * (positionY - positionerPercentHeight / 2);
+    return slope * (positionY - positionerPercentHeight / 2);
   }
 
   async onConfirm() {
@@ -129,7 +129,7 @@ class EditBioForm extends Component {
       closeDialog,
     } = this.props;
 
-    await onClickConfirm({positionY: this.getScaledPositionY});
+    await onClickConfirm({positionY: this.getScaledPositionY()});
     closeDialog();
   }
 
@@ -258,9 +258,6 @@ export default compose(
   withStyles(styles),
   withStateHandlers(
     () => ({
-
-      // setting this initial value to 0.1 because any change
-      // below 0.1 is not registered as a change in PhotoEditor
       positionY: 0
     }),
     {

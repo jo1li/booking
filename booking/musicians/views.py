@@ -130,6 +130,7 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
         i = MusicianImage.objects.get(pk=resp.data['id'])
         resp.data['image'] = cloudinary.CloudinaryImage(i.image_cloudinary_id).build_url(angle="exif")
+        resp.data['data'] = json.loads(resp.data['data'])
 
         return resp
 
