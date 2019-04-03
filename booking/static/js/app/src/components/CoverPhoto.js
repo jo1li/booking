@@ -69,22 +69,25 @@ class CoverPhoto extends React.Component {
     // NB: cover-photo-bar needs to be here in order for sticky
     // artist card to work when there is no cover photo
     if(!coverPhoto) {
-      return (
-        <div id="cover-photo-empty">
-          {isEditable && (
-            <div className={classes.coverPhotoCTA}>
-               <ImageUploadContainer
-                  onUpload={values => this.openPhotoEditDialog(values)}
-                >
-                  <Button color="primary" className={classes.button} ><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</Button>
-              </ImageUploadContainer>
-            </div>
-          )}
-          <div id="cover-photo-bar">
-            <div id="cover-photo-fade-placeholder"/>
-          </div>
-        </div>
-      );
+      // TODO: make this work - complaining because no reduxform
+      // return (
+      //   <div id="cover-photo-empty">
+      //     {isEditable && (
+      //       <div className={classes.coverPhotoCTA}>
+      //          <ImageUploadContainer
+      //             onUpload={values => this.openPhotoEditDialog(values)}
+      //           >
+      //             <Button color="primary" className={classes.button} ><Camera className={classes.iconLeft} size={22}/> Add a Cover Photo</Button>
+      //         </ImageUploadContainer>
+      //       </div>
+      //     )}
+      //     <div id="cover-photo-bar">
+      //       <div id="cover-photo-fade-placeholder"/>
+      //     </div>
+      //   </div>
+      // );
+
+      return <div id="cover-photo-empty"/>;
     }
 
     // TODO: Add this on load once ironed out

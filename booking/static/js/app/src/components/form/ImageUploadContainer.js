@@ -164,7 +164,7 @@ class ImageUploadContainer extends Component {
                     name="image"
                     component={StyledDropZoneField}
                     type="file"
-                    image={_.get(currentValues.image, 'preview')}
+                    image={_.get(currentValues, 'image.preview')}
                     imageName={_.get(currentValues.image, 'name')}
                     label={label}
                     handleOnDrop={handleOnDrop}
