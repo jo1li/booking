@@ -245,7 +245,7 @@ class ApiArtistPhotoTest(OpusTestCase):
 
         headers, cookies = self.get_api_reqs()
         data = self.get_test_file()
-        data['data'] = json.dumps(self.json_data)
+        data['data'] = json.dumps(json.dumps(self.json_data))
 
         self.app_api.force_authenticate(user=self.m.user)
 
