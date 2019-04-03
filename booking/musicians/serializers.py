@@ -110,6 +110,18 @@ class ArtistImageSerializer(serializers.ModelSerializer):
     def get_image(self, instance):
         return instance.image_url
 
+    def get_vertical_position(instance):
+        try:
+            data = json.loads(instance.data)
+        except AttributeError:
+            return None
+
+        try:
+            vertical_position = data['coverPhotoStyles']['top']
+        except KeyError:
+            return None
+
+        return vertical_position
 
     def to_representation(self, instance):
         """Convert `username` to lowercase."""

@@ -256,12 +256,11 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
-    image_hero_styles = json.loads(musician.image_hero.data).get("coverPhotoStyles", {})
-    image_hero_top = (
-        "{}%".format(round(image_hero_styles["top"] * 100))
-        if "top" in image_hero_styles
-        else "center"
-    )
+    hero_vertical_position = ArtistImageSerializer.get_vertical_position(musician.image_hero)
+    if hero_vertical_position is not None:
+        image_hero_top = "{}%".format(round(hero_vertical_position * 100))
+    else:
+        image_hero_top = "center"
 
     context = {
         "current_user_pk": request.user.pk if request.user else None,
