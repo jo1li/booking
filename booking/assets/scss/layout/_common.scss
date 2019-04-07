@@ -1,5 +1,8 @@
 #main {
 	padding-top: 64px;
+	@include media ('<=phone') {
+		padding-top: 56px;
+	}
 }
 a, .link {
 	color: $color-primary-main;
