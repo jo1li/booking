@@ -133,11 +133,10 @@ a, .link {
 	.photo-buttons {
 		display: flex;
 		position: absolute;
+		bottom: 15px;
 
 		/* TODO: would be nice to use variables instead of hardcoding below */
 
-		/* Don't run over the cover photo on smaller screens */
-		top: 164px;
 		// @media (min-width: 768px) {
 		//     top: 164px;
 		// }
