@@ -17,7 +17,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 
 import Button from './form/RaisedButton';
-import { TabletFullScreenDialog } from './Dialog/Dialog';
+import { SmallDeviceFullScreenDialog } from './Dialog/Dialog';
 import ProfilePhotoEditorForm from './ProfilePhotoEditorForm';
 import { ArtistInfoFormSection, ProfilePhotoFormSection } from './ArtistInfoFormSections';
 
@@ -143,5 +143,5 @@ OnboardingForm = reduxForm({
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  TabletFullScreenDialog,
+  SmallDeviceFullScreenDialog,
 )(OnboardingForm);
