@@ -173,10 +173,23 @@ export default createMuiTheme({
         MuiInput: {
             underline: {
                 '&:before': {
-                    borderBottomColor: "#DDEAED", // grey[200]
-                    borderBottomWidth: 2,
+                    borderBottomColor: "#96A6AB", // grey[A200]
+                    borderBottomWidth: 1,
                 }
             },
         },
+        MuiToggleButton: {
+            root: {
+                height: 'auto', // Height is hardcoded in px by default
+                '&:hover': {
+                    backgroundColor: 'auto', // Random harsh color change by default
+                }
+            },
+            selected: {
+                '&:after': {
+                    display: 'none', // Strange muting overlay by default
+                }
+            }
+        }
     },
   });

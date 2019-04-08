@@ -65,6 +65,7 @@ const styles = theme => ({
     marginRight: 0,
     // TODO: Should not have to overwrite radius in RaisedButton
     borderRadius: 2,
+    boxShadow: 'none',
   },
   textInput: {
     ...theme.typography.body1,
