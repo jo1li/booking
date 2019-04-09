@@ -41,7 +41,7 @@ const styles = theme => ({
   footer: {
     borderTop: `1px solid ${theme.palette.grey[200]}`,
     padding: theme.spacing.unit * 3,
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[50],
   },
   helpSectionFooter: {
     borderTop: `1px solid ${theme.palette.grey[200]}`,

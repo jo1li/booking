@@ -1,5 +1,4 @@
 import ArtistCard from '../components/ArtistCard';
-import UserEditForm from '../components/UserEditForm';
 import EditBioForm from '../components/EditBioForm';
 import SendArtistMessageForm from '../components/SendArtistMessageForm';
 import { AudioEditForm, VideoEditForm } from '../components/DraggableCodeForms';
