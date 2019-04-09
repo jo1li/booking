@@ -30,6 +30,8 @@ After merging a PR, master will automatically be built out to [https://opus-stag
 Closed PRs do not trigger cleanup of their infrastructure. Periodically, dangling cloudformation stacks will need to be deleted.
 
 * Navigate to the [Cloudformation console](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active)
+* Stacks are named by PR.
+* Delete stacks with the names of PRs that have been deleted.
 
 ## To deploy manually
 
