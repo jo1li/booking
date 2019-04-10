@@ -72,6 +72,8 @@ const CancelConfirm = (props) => {
   );
 }
 
+export const StyledCancelConfirm = withStyles(styles)(CancelConfirm);
+
 const CenteredCancelConfirm = (props) => {
   return (
     <div

@@ -1,5 +1,8 @@
 #main {
 	padding-top: 64px;
+	@include media ('<=phone') {
+		padding-top: 56px;
+	}
 }
 a, .link {
 	color: $color-primary-main;
@@ -58,12 +61,11 @@ a, .link {
 
 .artist-placeholder {
 	width: 100%;
-	height: 210px;
+	padding-bottom: 20%;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	position: relative;
-	padding: 15px 0;
 	z-index: 9;
 
 	// @include media ('>=tablet') {
@@ -131,11 +133,10 @@ a, .link {
 	.photo-buttons {
 		display: flex;
 		position: absolute;
+		bottom: 15px;
 
 		/* TODO: would be nice to use variables instead of hardcoding below */
 
-		/* Don't run over the cover photo on smaller screens */
-		top: 164px;
 		// @media (min-width: 768px) {
 		//     top: 164px;
 		// }

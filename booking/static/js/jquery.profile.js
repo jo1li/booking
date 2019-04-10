@@ -13,6 +13,9 @@ function initFixedBlocks() {
     var barHolder = jQuery('.artist-placeholder');
     var main = jQuery('.main-content');
     var offsetTop = barHolder.outerHeight() - 60;
+    var navBarHeight = navBar.outerHeight();
+    var coverPhotoHeight = fixedCoverPhoto.outerHeight();
+    var barHolderHeight = barHolder.outerHeight();
 
     ResponsiveHelper.addRange({
       '768..': {
@@ -22,10 +25,8 @@ function initFixedBlocks() {
             activeClass: 'fixed-position',
             positionType: 'fixed',
             extraTop: function() {
-              const NAV_BAR_HEIGHT = navBar.outerHeight();
-              const COVER_PHOTO_HEIGHT = fixedCoverPhoto.outerHeight();
               const OVERLAP = 49;
-              return NAV_BAR_HEIGHT + COVER_PHOTO_HEIGHT - OVERLAP;
+              return navBarHeight + coverPhotoHeight - OVERLAP;
             }
           });
         }
@@ -40,6 +41,9 @@ function initFixedBlocks() {
 
     win.on('resize orientationchange', function(){
       offsetTop = barHolder.outerHeight() - 60;
+      navBarHeight = navBar.outerHeight();
+      coverPhotoHeight = fixedCoverPhoto.outerHeight();
+      barHolderHeight = barHolder.outerHeight();
     });
 
     // var onScroll = function() {
@@ -59,14 +63,17 @@ function initFixedBlocks() {
     // };
 
     var onScroll = function() {
+      const COVER_PHOTO_MARGIN = 32;
       if (win.scrollTop() >= offsetTop) {
+        // TODO: store these on resize somewhere?
+        const STICKY_TOP_HEIGHT = navBarHeight + coverPhotoHeight;
         barHolder.css({
           position: 'fixed',
-          top: '-84px',
+          top: `${STICKY_TOP_HEIGHT - barHolderHeight}px`,
           bottom: 'auto'
         }).addClass(fixedClass);
         main.css({
-          paddingTop: '250px'
+          paddingTop: `${barHolderHeight + COVER_PHOTO_MARGIN}px`,
         });
       } else {
         barHolder.css({
@@ -75,7 +82,7 @@ function initFixedBlocks() {
           bottom: ''
         }).removeClass(fixedClass);
         main.css({
-          paddingTop: '32px'
+          paddingTop: `${COVER_PHOTO_MARGIN}px`,
         });
       }
     };
