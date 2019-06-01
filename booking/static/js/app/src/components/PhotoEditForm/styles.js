@@ -103,8 +103,9 @@ const styles = theme => {
       cursor: 'pointer',
     },
     editCoverPhotoButton: {
-      marginLeft: '3px',
+      margin: '0 8px',
       color: theme.palette.primaryTonal[500],
+      cursor: 'pointer',
     },
     removed: {
       animationDuration: '0.4s',
