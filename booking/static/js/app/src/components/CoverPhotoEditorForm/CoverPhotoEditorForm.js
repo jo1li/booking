@@ -10,6 +10,7 @@ import {
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/lab/Slider';
+import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Observable } from 'rxjs/Observable'
@@ -175,6 +176,7 @@ class EditBioForm extends Component {
         handleSubmit,
         classes,
         submitSucceeded,
+        width,
         image,
         imageName,
         onClickConfirm,
@@ -194,7 +196,13 @@ class EditBioForm extends Component {
         <Grid container direction='row' className={classes.body}>
           <Grid item xs={8} sm={8} md={10} lg={10}>
             <Typography color="inherit" variant="subtitle1">Position the image</Typography>
-            <Typography color="inherit" variant="body1" >Some areas may be cropped on larger screens.</Typography>
+            <Typography color="inherit" variant="body1" >
+              {
+                width === 'xs' ?
+                'Use arrows to position the photo.' :
+                'Click and drag photo to position.'
+              }
+            </Typography>
           </Grid>
           <Grid item xs={4} sm={4} md={2} lg={2}>
             <Grid container direction='column' alignItems="flex-end">
@@ -257,6 +265,7 @@ class EditBioForm extends Component {
 }
 
 export default compose(
+  withWidth(),
   withStyles(styles),
   withStateHandlers(
     () => ({
