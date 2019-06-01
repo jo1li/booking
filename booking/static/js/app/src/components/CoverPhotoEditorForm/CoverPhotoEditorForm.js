@@ -164,15 +164,10 @@ class CoverPhotoEditorForm extends Component {
 
   render() {
     const {
-        closeDialog,
-        submitting,
-        handleSubmit,
         classes,
-        submitSucceeded,
         width,
         image,
         imageName,
-        onClickConfirm,
         onCancel,
         positionY,
         setPositionY,
