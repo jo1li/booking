@@ -173,11 +173,13 @@ class CoverPhotoEditorForm extends Component {
         setPositionY,
     } = this.props;
 
-    const imageDimensions = this.state.imageDimensions;
-    const positionerDimensions = this.state.positionerDimensions;
-    const setState = this.setState.bind(this); // TODO: yucky
+    const {
+      imageDimensions,
+      positionerDimensions,
+    } = this.state;
 
-    // TODO: don't tack styles onto icons; just make them buttons or w/e
+    const setState = this.setState.bind(this);
+
     return (
       <div className={classNames(classes.container, classes.withFooter)}>
         <ModalHeader classes={classes}>Crop Photo</ModalHeader>
