@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 import classNames from 'classnames';
-import {
-  Field,
-  reduxForm,
-  getFormValues,
-} from 'redux-form';
 import autoBind from 'react-autobind';
 import Grid from '@material-ui/core/Grid';
-import Slider from '@material-ui/lab/Slider';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -22,8 +15,6 @@ import url from 'url';
 import { isEmpty } from 'lodash';
 
 import CancelConfirm from '../CancelConfirm';
-import TextArea from '../form/TextArea';
-import { Display1, H6 } from '../typography';
 import ModalHeader from '../ModalHeader';
 import ScaledElement from '../ScaledElement';
 import { ArrowUp, ArrowDown } from '../icons';
