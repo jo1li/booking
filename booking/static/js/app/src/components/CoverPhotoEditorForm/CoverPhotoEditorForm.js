@@ -38,8 +38,7 @@ const getChange = (magnitude, previous) => {
   return change;
 }
 
-// TODO: change this class name
-class EditBioForm extends Component {
+class CoverPhotoEditorForm extends Component {
   state = {
     imageDimensions: {},
     positionerDimensions: {},
@@ -280,4 +279,4 @@ export default compose(
 
     }
   )
-)(EditBioForm);
+)(CoverPhotoEditorForm);
