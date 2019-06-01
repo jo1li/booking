@@ -49,6 +49,7 @@ class EditBioForm extends Component {
   state = {
     imageDimensions: {},
     positionerDimensions: {},
+    isSubmitting: false,
   }
 
   constructor(props) {
@@ -129,6 +130,7 @@ class EditBioForm extends Component {
       closeDialog,
     } = this.props;
 
+    this.setState({ isSubmitting: true });
     await onClickConfirm({positionY: this.getScaledPositionY()});
     closeDialog();
   }
@@ -245,7 +247,7 @@ class EditBioForm extends Component {
         <CancelConfirm
             onClickCancel={this.onClickCancel}
             onClickConfirm={() => this.onConfirm()}
-            isLoading={submitting}
+            isLoading={this.state.isSubmitting}
             title={'Edit Biography'}
             className={classes.footer}
         />
