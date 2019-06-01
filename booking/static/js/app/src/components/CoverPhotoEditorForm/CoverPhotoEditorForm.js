@@ -19,6 +19,7 @@ import { BehaviorSubject, Scheduler } from 'rxjs';
 import sizeOf from 'image-size';
 import http from 'http';
 import url from 'url';
+import { isEmpty } from 'lodash';
 
 import CancelConfirm from '../CancelConfirm';
 import TextArea from '../form/TextArea';
@@ -111,11 +112,12 @@ class EditBioForm extends Component {
       positionY,
     } = this.props;
 
-    // TODO: be graceful if some state isn't ready yet
     const {
       imageDimensions,
       positionerDimensions,
     } = this.state;
+
+    if(isEmpty(imageDimensions) || isEmpty(positionerDimensions)) return 0;
 
     // TODO: handle very wide images
     const scale = positionerDimensions.width / imageDimensions.width;
