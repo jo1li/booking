@@ -13,6 +13,7 @@ import Slider from '@material-ui/lab/Slider';
 import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject, Scheduler } from 'rxjs';
 import sizeOf from 'image-size';
@@ -206,20 +207,21 @@ class EditBioForm extends Component {
           </Grid>
           <Grid item xs={4} sm={4} md={2} lg={2}>
             <Grid container direction='column' alignItems="flex-end">
-              <ArrowUp
-                onMouseDown={this.panDown}
-                onTouchStart={this.panDown}
-                onMouseUp={this.cancelPan}
-                onTouchEnd={this.cancelPan}
-                style={{cursor: 'pointer'}}
-              />
-              <ArrowDown
-                onMouseDown={this.panUp}
-                onTouchStart={this.panUp}
-                onMouseUp={this.cancelPan}
-                onTouchEnd={this.cancelPan}
-                style={{cursor: 'pointer'}}
-              />
+              <ButtonBase
+                  onMouseDown={this.panDown}
+                  onTouchStart={this.panDown}
+                  onMouseUp={this.cancelPan}
+                  onTouchEnd={this.cancelPan}
+                  disableRipple={true} >
+                <ArrowUp/>
+              </ButtonBase>
+              <ButtonBase
+                  onMouseDown={this.panUp}
+                  onTouchStart={this.panUp}
+                  onMouseUp={this.cancelPan}
+                  onTouchEnd={this.cancelPan} >
+                <ArrowDown/>
+              </ButtonBase>
             </Grid>
           </Grid>
         </Grid>
