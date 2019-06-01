@@ -230,7 +230,11 @@ class EditBioForm extends Component {
               ratio={4.8}
               className={classes.ratioContainer}
               render={(width, height) => {
-                // TODO: this better
+
+                // TODO: Is there a better way to handle this?
+                // We need the dimensions in order to convert to the y-position
+                // that the html needs (relative to top instead of relative to
+                // middle), but can't call `setState` directly within `render`.
                 if(!positionerDimensions.width) {
                   setTimeout(() => setState({positionerDimensions: {width, height}}), 0);
                 }
