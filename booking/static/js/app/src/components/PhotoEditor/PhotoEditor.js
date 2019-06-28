@@ -176,6 +176,7 @@ class PhotoEdit extends React.Component {
             onPositionChange,
             position,
             style,
+            className,
         } = this.props;
 
         if (hide) {
@@ -198,8 +199,10 @@ class PhotoEdit extends React.Component {
                     // but needs to be here to allow for mobile pinch zoom and external zooming.
                     onScaleChange && onScaleChange(nextScale)
 
-                    const reducedWidth = configs.width - (configs.border * 2)
+                    const reducedWidth = configs.width - (configs.border * 2);
+                    const reducedHeight = configs.height - (configs.border * 2);
 
+                    if(reducedWidth < 0 || reducedHeight < 0) return <div/>;
                     return (
 
                         // Only some props will cause a re-render. please see shouldComponentUpdate.
@@ -212,6 +215,8 @@ class PhotoEdit extends React.Component {
                             width={reducedWidth}
                             position={position}
                             onPositionChange={value => onPositionChange && onPositionChange(value)}
+                            height={reducedHeight}
+                            className={className || ''}
                             onLoadSuccess={() => onImageLoad && onImageLoad()}
                         />
                 )

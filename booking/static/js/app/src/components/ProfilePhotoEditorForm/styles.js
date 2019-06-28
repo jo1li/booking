@@ -5,6 +5,16 @@ const styles = theme => {
 
   return {
     ...modalStyles,
+    noScrollBody: {
+      flexGrow: 1,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    avatarEditor: {
+      margin: '0 auto',
+      display: 'block',
+    },
     scrollableBody: {
       ...modalStyles.scrollableBody,
       padding: '16px 0',
@@ -21,15 +31,39 @@ const styles = theme => {
     textArea: {
       height: '300px',
     },
+    previewWithScale: {
+      display: 'flex',
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      }
+    },
     slider: {
-      paddingTop: '23px',
+      paddingTop: 15,
+      paddingLeft: 6,
     },
     preview: {
-      width: '100px',
-      height: '64px',
+      width: 75,
+      height: 48,
     },
     ratioContainer: {
-      width: '100%'
+      flexGrow: 1,
+      overflow: 'hidden',
+      width: '100%',
+      height: '100%',
+      position: 'relative', // So the small screen message can center itself
+      '& > *': {
+        // Background color on hard-to-select profile photo editor
+        backgroundColor: 'rgba(127,127,127,1)',
+      }
+    },
+    smallScreenMessage: {
+      borderRadius: 4,
+      backgroundColor: 'transparent',
+      textAlign: 'center',
+      padding: theme.spacing.unit * 2,
+    },
+    hidden: {
+      opacity: 0,
     }
 }};
 

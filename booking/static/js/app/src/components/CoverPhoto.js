@@ -42,6 +42,9 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    }
   }
 });
 

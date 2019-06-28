@@ -25,6 +25,14 @@ First, whenever a PR is opened, CI will run tests against the newly opened branc
 
 After merging a PR, master will automatically be built out to [https://opus-stage.com](https://opus-stage.com).
 
+## Cleanup
+
+Closed PRs do not trigger cleanup of their infrastructure. Periodically, dangling cloudformation stacks will need to be deleted.
+
+* Navigate to the [Cloudformation console](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks?filter=active)
+* Stacks are named by PR.
+* Delete stacks with the names of PRs that have been deleted.
+
 ## To deploy manually
 
 * Ensure that the requirements noted in `infra/requirements.txt` are installed.
@@ -33,6 +41,34 @@ After merging a PR, master will automatically be built out to [https://opus-stag
 Then, from the root of this repo
 ```bash
 ./infra/deploy.py --env-file=infra/config/booking-stage.yml
+```
+
+## Manual production deployments
+
+At the time of writing, there isn't an automatic production deployment method. Here's the manual steps;
+
+#### Setup
+
+* [Configure AWS keys](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html).
+* Navigate to the `infra` directory.
+* Create a virtualenv (optional)
+* Run `pip install`
+
+To test your aws credentials you can run `aws iam list-account-aliases`. This should return an alias of `opusapps`.
+
+#### Deploy
+
+The current branch configuration has `master` being consistently deployed to opus stage, and `production` being deployed to production. Here are the steps for a production deploy;
+
+* Have the team verify that master has all desired features for the build on opus stage.
+* Compare `production` -> `master`. If there are changes (hotfixes), create a PR and sync those changes.
+* If a PR was created to sync hotfixes, wait for that build to complete, and reconfirm stage with all changes.
+* Create a PR from `master` -> `production`
+* Confirm all changes are present in that PR.
+* Tests will run for this PR. Wait for them to complete.
+* Once tests are green, run the following;
+```bash
+./infra/deploy.py --env-file=infra/config/booking-prod.yml
 ```
 
 # A note on templates
