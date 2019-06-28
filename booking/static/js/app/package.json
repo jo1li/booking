@@ -20,6 +20,7 @@
     "react-autobind": "^1.0.6",
     "react-avatar-editor": "^11.0.4",
     "react-beautiful-dnd": "^8.0.7",
+    "react-device-detect": "^1.6.2",
     "react-dom": "^16.4.1",
     "react-dropzone": "^6.2.4",
     "react-feather": "^1.1.1",
