@@ -276,6 +276,8 @@ class MusicianImage(TimeStampedModel, OrderedModel):
 
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='media/', blank=True)
+    data = models.TextField(null=True, blank=True)
+
 
     @property
     def image_url(self):
