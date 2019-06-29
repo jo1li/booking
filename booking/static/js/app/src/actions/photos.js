@@ -1,23 +1,33 @@
+import _ from 'lodash';
 import ActionCreators from './actionCreators';
 import * as requests from '../request/requests';
+import { getFormData } from '../utils/formHelpers';
+import { updateProfile } from './profile';
 
 // TODO: error handling
 
-export function createArtistPhoto({artistId, file}, callback) {
+export function createArtistPhoto({ artistId, photoObject }) {
     return (dispatch, getState) => {
-        return requests.createPhoto({artistId, file})
+        const photoObjectCopy = _.clone(photoObject);
+        photoObjectCopy.data = JSON.stringify(JSON.stringify(photoObject.data));
+
+        const formData = getFormData(photoObjectCopy);
+
+        return requests.createPhoto({artistId, formData})
             .then(res => {
                 dispatch(ActionCreators.photosCreateOrUpdate(res.data));
                 return res;
-            }).then((res) => {
-                if(callback) callback(res);
-            });
+            })
     }
 }
 
-export function updateArtistPhoto({id, artistId, order}) {
+export function updateArtistPhoto({id, artistId, order, coverPhotoStyles}) {
+    const props = {
+        order,
+        data: JSON.stringify({coverPhotoStyles}),
+    };
     return (dispatch, getState) => {
-        return requests.updatePhoto({artistId, photoId: id, order}).then(res => {
+        return requests.updatePhoto({artistId, photoId: id, props}).then(res => {
             dispatch(ActionCreators.photosCreateOrUpdate(res.data));
         })
     }

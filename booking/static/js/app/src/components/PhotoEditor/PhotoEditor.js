@@ -50,17 +50,15 @@ const delay = (func, timeout) => {
  */
 class ReactPinchZoomPanContainer extends Component {
     shouldComponentUpdate(props, lastProps) {
-        const hasChanged = prop => props[prop] !== this.props[prop];
+        const hasChanged = prop => _.isEqual(props[prop], this.props[prop]);
 
-        const isScaleChanged = hasChanged('scale')
-        const isWidthChanged = hasChanged('width');
-
-        const shouldReRender = [
-            isScaleChanged,
-            isWidthChanged
-        ].some(_.identity);
-
-        return shouldReRender;
+        return [
+            'scale',
+            'width',
+            'position'
+        ]
+        .map(hasChanged)
+        .some(_.identity);
     }
 
     render() {
@@ -175,6 +173,9 @@ class PhotoEdit extends React.Component {
             width,
             initialScale,
             onScaleChange,
+            onPositionChange,
+            position,
+            style,
             className,
         } = this.props;
 
@@ -203,12 +204,17 @@ class PhotoEdit extends React.Component {
 
                     if(reducedWidth < 0 || reducedHeight < 0) return <div/>;
                     return (
+
+                        // Only some props will cause a re-render. please see shouldComponentUpdate.
                         <AvatarEditor
                             ref={(ref) => this.setEditorRef(ref)}
                             {...configs}
+                            {...{ position }}
                             onImageChange={this.onChange()}
                             scale={nextScale}
                             width={reducedWidth}
+                            position={position}
+                            onPositionChange={value => onPositionChange && onPositionChange(value)}
                             height={reducedHeight}
                             className={className || ''}
                             onLoadSuccess={() => onImageLoad && onImageLoad()}
@@ -233,6 +239,7 @@ PhotoEdit.defaultProps = {
     scale: MIN_SCALE,
     borderRadius: 0,
     style: {},
+    position: null,
 }
 
 export default PhotoEdit;
