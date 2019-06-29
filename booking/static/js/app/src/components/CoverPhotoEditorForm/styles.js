@@ -34,6 +34,7 @@ const styles = theme => {
     },
     ratioContainer: {
       width: '100%',
+      height: '100%',
       '&:hover': {
         cursor: 'move'
       }
