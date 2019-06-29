@@ -21,9 +21,7 @@ class ScaledElement extends Component {
         const {
             width,
             height,
-        } = this.
-        
-        ();
+        } = this.getDimensions();
 
          this.setState({
             width,
