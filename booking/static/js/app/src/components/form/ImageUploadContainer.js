@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import autoBind from 'react-autobind';
+
 import {
   Field,
   reduxForm,
@@ -15,6 +16,7 @@ import _ from 'lodash';
 import UploadButton from '../form/UploadButton';
 import { orientImage } from '../../helpers/imageHelpers';
 import { Camera } from '../icons';
+import { isSafari } from '../../utils/windowHelpers';
 
 const styles = theme => ({
   imagePreview: {
@@ -100,7 +102,6 @@ const DropZoneField = ({
 
 const StyledDropZoneField = withStyles(styles)(DropZoneField);
 
-
 /**
  * Input that Handles uploading an image and correctly orienting the image.
  *
@@ -109,6 +110,7 @@ const StyledDropZoneField = withStyles(styles)(DropZoneField);
 class ImageUploadContainer extends Component {
     constructor() {
         super();
+        this.input = React.createRef();
         autoBind(this);
     }
 
@@ -141,6 +143,10 @@ class ImageUploadContainer extends Component {
         });
     }
 
+    clickInput() {
+        this.input.current.click();
+    }
+
     render() {
         const {
             className,
@@ -158,13 +164,95 @@ class ImageUploadContainer extends Component {
                     name="image"
                     component={StyledDropZoneField}
                     type="file"
-                    image={_.get(currentValues.image, 'preview')}
+                    image={_.get(currentValues, 'image.preview')}
                     imageName={_.get(currentValues.image, 'name')}
                     label={label}
                     handleOnDrop={handleOnDrop}
                 />
             </FormControl>
         );
+    }
+}
+// TODO: resolve this with the changed styles
+export class UnstyledImageUploadContainer extends Component {
+    constructor() {
+        super();
+        this.input = React.createRef();
+        autoBind(this);
+    }
+
+    /**
+     * uploaded images on mobile are typically oriented incorrectly.
+     * loadImage corrects the image orientation.
+     * https://github.com/blueimp/JavaScript-Load-Image
+     */
+    orientImage(file, callback) {
+        window.loadImage(
+            file,
+            img => callback(img.toDataURL("image/png")),
+            { canvas: true, orientation: true }
+        );
+    }
+
+    /**
+     * Passes the uploaded file object as well as a
+     * base 64 of the image to the onUpload callback
+     */
+    uploadImage(e) {
+        const { onUpload } = this.props;
+        let file = e.target.files[0]
+        this.orientImage(file, (src) => {
+            onUpload({
+                file,
+                name: file.name,
+                src
+            })
+        });
+    }
+
+    clickInput() {
+        this.input.current.click();
+    }
+
+    render() {
+        const {
+            className,
+            onClick,
+            children,
+            classes,
+            currentValues,
+            handleOnDrop,
+            label,
+            id,
+        } = this.props;
+
+        return (
+            <div
+                className={`image-upload-container ${className || ''}`}
+            >
+                <label
+                    htmlFor={`addPicture-${id || 0}`}
+                >
+                   {
+                    React.Children.map(children, child => {
+                        return React.cloneElement(child, { onClick: () => {
+                            if (!isSafari) {
+                                this.clickInput();
+                            }
+                            child.onCLick && child.onCLick();
+                        }})
+                    })
+                   }
+                  <input
+                    type="file"
+                    ref={this.input}
+                    className="addPicture"
+                    id={`addPicture-${id || 0}`}
+                    style={{display: 'none'}}
+                    onChange={(e) => this.uploadImage(e)} />
+                </label>
+            </div>
+        )
     }
 }
 
