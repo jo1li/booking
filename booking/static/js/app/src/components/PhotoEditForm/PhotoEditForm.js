@@ -20,8 +20,6 @@ import CancelConfirm from '../CancelConfirm';
 import ModalHeader from '../ModalHeader';
 import DraggablePhotoRows from './DraggablePhotoRows';
 import DroppableContainer from '../dragAndDrop/DroppableContainer';
-import CoverPhotoEditorForm from '../CoverPhotoEditorForm';
-import { selectHasHeroImage } from '../../selectors/photosSelectors';
 import {
   getUpdatedItems,
   getDestroyedItems,
@@ -65,31 +63,6 @@ class PhotoEditFormBase extends Component {
     } = this.props;
 
     getArtistItems({artistId: profile.id});
-  }
-
-  openCoverPhotoEditForm(photoObject) {
-    const {
-      openDialog,
-      profile,
-      updateArtistItem,
-      updateProfile,
-    } = this.props;
-
-    this.props.openDialog(
-      <CoverPhotoEditorForm
-        image={photoObject.image}
-        onClickConfirm={({positionY}) => updateArtistItem({
-          artistId: profile.id,
-          id: photoObject.id,
-          coverPhotoStyles: {
-            top: positionY,
-          },
-          order: photoObject.order,
-        }).then(() => updateProfile(
-          { image_hero_id: photoObject.id },
-          profile.id
-        ))} />
-    )
   }
 
   submit() {
@@ -152,15 +125,12 @@ class PhotoEditFormBase extends Component {
     });
   }
 
-  async previewAndUpload(file) {
+  previewAndUpload(file) {
     const {
       addToStore,
       removeFromStore,
       currentValues,
       profile,
-      hasHeroImage,
-      createArtistItem,
-      createCoverPhoto,
       updateProfile,
       indexedPhotos,
     } = this.props;
@@ -174,21 +144,19 @@ class PhotoEditFormBase extends Component {
       addToStore(pendingImage);
     }, { maxWidth: 200 });
 
-    const photoObject = {
-      image: file,
-      data: {},
-      order: currentValues.photos.length,
-    };
+    // Send it to the server, and remove the preview when complete
+    const data = new FormData();
+    data.append('image', file);
 
     // Cover photo could have been deleted since page was loaded, so don't
     // just check that the ID isn't null.
     const userHasCoverPhoto = indexedPhotos[_.get(profile, 'image_hero.id', null)] != undefined;
 
-    // Send it to the server, and remove the preview when complete
     this.props.createArtistItem({
-      photoObject,
+      file: data,
+      order: currentValues.photos.length,
       artistId: profile.id,
-    }).then((res) => {
+    }, (res) => {
       removeFromStore(pendingImage);
 
       if(!userHasCoverPhoto) {
@@ -198,7 +166,6 @@ class PhotoEditFormBase extends Component {
         profile.id);
       }
     });
-
   }
 
   render() {
@@ -229,9 +196,7 @@ class PhotoEditFormBase extends Component {
                 width={width}
                 theme={theme}
                 heroImageURL={profile.hero_image_url}
-                remove={(order) => this.removeItemFromForm(order)}
-                openCoverPhotoEditForm={this.openCoverPhotoEditForm}
-              />
+                remove={(order) => this.removeItemFromForm(order)} />
             <PhotoUploadButton
                 className={classes.photoEditFormSubmitButton}
                 label={<Fragment><CloudUpload className={classes.uploadIcon}/> Upload Photo</Fragment>}
@@ -271,10 +236,10 @@ const mapStateToProps = (state, props) => ({
   pendingPhotos: state.pending_photos,
   profile: state.profile,
   currentValues: getFormValues(EDIT_PHOTOS)(state) || {},
-  hasHeroImage: selectHasHeroImage(state)
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
     getArtistItems: PhotoActions.getArtistPhotos,
     updateArtistItem: PhotoActions.updateArtistPhoto,
     createArtistItem: PhotoActions.createArtistPhoto,
@@ -282,7 +247,8 @@ const mapDispatchToProps = {
     addToStore: ActionCreators.pendingPhotosCreateOrUpdate,
     removeFromStore: ActionCreators.pendingPhotosDelete,
     updateProfile: ProfileActions.updateProfile,
-  }
+  }, dispatch);
+};
 
 const PhotoEditForm = compose(
   connect(mapStateToProps, mapDispatchToProps),
@@ -292,7 +258,7 @@ const PhotoEditForm = compose(
     enableReinitialize: true,
   }),
   withWidth(),
-  withStyles(styles),
+  withStyles(styles, { withTheme: true }),
 )(DroppablePhotoEditFormBase);
 
 export default PhotoEditForm;

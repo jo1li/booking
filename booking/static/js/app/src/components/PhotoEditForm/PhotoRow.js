@@ -10,7 +10,8 @@ import { Code, CheckCircle, Delete } from '../icons';
 import * as ProfileActions from '../../actions/profile';
 
 const DeleteButton = (props) => {
-  return <IconButton color="primary" {...props}><Delete/></IconButton>;
+  const { color, ...remainingProps } = props;
+  return <IconButton {...remainingProps}><Delete color={color}/></IconButton>;
 }
 
 class DragHandle extends Component {
@@ -27,21 +28,11 @@ class DragHandle extends Component {
 }
 
 const CoverPhotoIndicator = (props) => {
-  const { classes, openCoverPhotoEditForm, item } = props;
-
+  const { classes } = props;
   return (
-    <div
+    <a
       className={classes.coverPhotoIndicator}
-    >
-      <CheckCircle className={classes.coverPhotoIndicatorCheckMark}/>
-        Cover photo
-        <span
-          onClick={() => openCoverPhotoEditForm(item)}
-          className={classes.editCoverPhotoButton}
-        >
-          Edit
-        </span>
-    </div>
+    ><CheckCircle className={classes.coverPhotoIndicatorCheckMark}/> Cover photo</a>
   );
 };
 
@@ -58,14 +49,14 @@ const SetAsCoverPhotoButton = (props) => {
 }
 
 const CoverPhotoIndicatorGate = (props) => {
-  const { isCoverPhoto, openCoverPhotoEditForm, show, classes, item } = props;
+  const { isCoverPhoto, useAsCoverPhoto, show, classes, item } = props;
 
   if(!show) return null;
 
   if(isCoverPhoto) {
-    return <CoverPhotoIndicator classes={classes} openCoverPhotoEditForm={openCoverPhotoEditForm} item={item}/>;
+    return <CoverPhotoIndicator classes={classes} />;
   } else {
-    return <SetAsCoverPhotoButton onClick={() => openCoverPhotoEditForm(item)} item={item} classes={classes} />;
+    return <SetAsCoverPhotoButton onClick={useAsCoverPhoto} item={item} classes={classes} />;
   }
 }
 
@@ -79,7 +70,8 @@ const TopRow = (props) => {
     item,
     idx,
     isCoverPhoto,
-    openCoverPhotoEditForm,
+    useAsCoverPhoto,
+    theme,
   } = props;
 
   return <Grid item container direction="row" className={classes.photoFormRowTop}>
@@ -95,9 +87,10 @@ const TopRow = (props) => {
         classes={classes}
         isCoverPhoto={isCoverPhoto}
         item={item}
-        openCoverPhotoEditForm={openCoverPhotoEditForm} />
+        useAsCoverPhoto={useAsCoverPhoto} />
     <DeleteButton
         onClick={() => remove(idx)}
+        color={theme.palette.secondary.main}
         className={`${classes.button} ${classes.deleteButton}`} />
   </Grid>
 }
@@ -107,7 +100,7 @@ const BottomRow = (props) => {
     classes,
     width,
     isCoverPhoto,
-    openCoverPhotoEditForm,
+    useAsCoverPhoto,
     item,
   } = props;
 
@@ -117,7 +110,7 @@ const BottomRow = (props) => {
         classes={classes}
         item={item}
         isCoverPhoto={isCoverPhoto}
-        openCoverPhotoEditForm={openCoverPhotoEditForm} />
+        useAsCoverPhoto={useAsCoverPhoto} />
   </Grid>
 }
 
@@ -153,19 +146,29 @@ class PhotoRow extends Component {
     autoBind(this);
   }
 
+  useAsCoverPhoto(photo) {
+    const { profile, updateProfile } = this.props;
+    return updateProfile({
+      image_hero_id: photo.id,
+    },
+    profile.id);
+  }
+
   render() {
     return (
       <PhotoRowBase
         TopRow={TopRow}
         BottomRow={BottomRow}
         {...this.props}
-      />
+        useAsCoverPhoto={this.useAsCoverPhoto} />
     );
   }
 }
 
-const mapDispatchToProps =  {
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
     updateProfile: ProfileActions.updateProfile,
+  }, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(PhotoRow);

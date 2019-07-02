@@ -15,8 +15,6 @@ export { Move } from 'react-feather';
 export { Edit } from 'react-feather';
 export { Code } from 'react-feather';
 export { ChevronDown as DropdownArrow } from 'react-feather';
-export { ArrowUp } from 'react-feather';
-export { ArrowDown } from 'react-feather';
 export { CheckCircle } from 'react-feather';
 export { Camera } from 'react-feather';
 export { default as CircularProgress } from '@material-ui/core/CircularProgress';
