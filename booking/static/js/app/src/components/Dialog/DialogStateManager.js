@@ -17,7 +17,7 @@ const DialogStateManager = Dialog => WrappedComponent => {
     class DialogWrapper extends Component {
         static initialState = {
             isOpen: false,
-            content: []
+            content: <Empty />
         }
 
         constructor(props) {
@@ -30,44 +30,22 @@ const DialogStateManager = Dialog => WrappedComponent => {
         openDialog(content) {
             this.setState({
                 isOpen: true,
-                content: [ content, ...this.state.content],
+                content,
             })
             Mousetrap.bind('escape', this.closeDialog);
         }
 
         closeDialog() {
-            const content = this.state.content.slice(1)
-            if (!content.length) {
-                this.setState(DialogWrapper.initialState);
-            }
-
-            this.setState({ content });
-            Mousetrap.unbind('escape');
-        }
-
-        closeAllDialogs() {
             this.setState(DialogWrapper.initialState);
             Mousetrap.unbind('escape');
         }
 
-        getContent() {
-            const { content } = this.state
-            if (!content.length) {
-                return <Empty />
-            }
-
+        render() {
             // NB: Some dialogs also open up dialogs that layer on top of
             // themselves; don't pass props to `content` with the same name
             // as props passed to `WrappedComponent` or they will be overwritten
             // when a component is both content and a wrapped dialog trigger.
-            return React.cloneElement(content[0], {
-                closeDialog: this.closeDialog,
-                closeAllDialogs: this.closeAllDialogs
-            })
-        }
-
-        render() {
-            const content = this.getContent();
+            const content = React.cloneElement(this.state.content, { closeDialog: this.closeDialog })
             return (
                 <Fragment>
                     <WrappedComponent {...this.props}

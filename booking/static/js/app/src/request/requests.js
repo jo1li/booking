@@ -56,12 +56,12 @@ export const getPhotos = ({artistId}) => {
     return request.get(`/v1/artists/${artistId}/photos/`);
 }
 
-export const updatePhoto = ({artistId, photoId, props}) => {
-    return request.put(`/v1/artists/${artistId}/photos/${photoId}/`, props);
+export const updatePhoto = ({artistId, photoId, order}) => {
+    return request.put(`/v1/artists/${artistId}/photos/${photoId}/`, {order});
 }
 
-export const createPhoto = ({artistId, formData}) => {
-    return request.post(`/v1/artists/${artistId}/photos/`, formData);
+export const createPhoto = ({artistId, file}) => {
+    return request.post(`/v1/artists/${artistId}/photos/`, file);
 }
 
 export const destroyPhoto = ({artistId, photoId}) => {

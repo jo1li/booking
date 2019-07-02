@@ -4,10 +4,7 @@ import { withStateHandlers } from 'recompose';
 import propTypes from 'prop-types';
 
 class ScaledElement extends Component {
-    state = {
-        width: null,
-        height: null,
-    }
+    state = {}
 
     constructor() {
         super();
@@ -16,17 +13,6 @@ class ScaledElement extends Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.updateContainerDimensions, 0);
-        // its necessary to get the dimensions after mount
-        // otherwise the width and height can be null.
-        const {
-            width,
-            height,
-        } = this.getDimensions();
-
-         this.setState({
-            width,
-            height,
-        })
     }
 
     componentWillUnmount() {
@@ -75,11 +61,11 @@ class ScaledElement extends Component {
         const {
             width,
             height,
-        } = this.state;
+        } = this.getDimensions();
 
         return (
           <div className={className} ref={ref => this.container = ref}>
-            { this.container ? render(width, height) : null }
+            {render(width, height)}
           </div>
         )
     }

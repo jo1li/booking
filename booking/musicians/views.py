@@ -130,7 +130,6 @@ class ArtistImageViewSet(ArtistMediaViewSet):
 
         i = MusicianImage.objects.get(pk=resp.data['id'])
         resp.data['image'] = cloudinary.CloudinaryImage(i.image_cloudinary_id).build_url(angle="exif")
-        resp.data['data'] = json.loads(resp.data['data'])
 
         return resp
 
@@ -257,12 +256,6 @@ def profile(request, slug=None):
         for photo in ArtistImageSerializer(photos, many=True).data
     }
 
-    hero_vertical_position = ArtistImageSerializer.get_vertical_position(musician.image_hero)
-    if hero_vertical_position is not None:
-        image_hero_top = "{}%".format(round(hero_vertical_position * 100))
-    else:
-        image_hero_top = "center"
-
     context = {
         "current_user_pk": request.user.pk if request.user else None,
         "musician": musician,
@@ -275,7 +268,6 @@ def profile(request, slug=None):
         "photos_json": json.dumps(photos_dict),
         "genres": ArtistGenreTagSerializer(musician.genres.all(), many=True).data,
         "image_hero_json": json.dumps(ArtistImageSerializer(musician.image_hero).data),
-        "image_hero_top": image_hero_top,
         "react_page_name": "ARTIST_PROFILE"
     }
 

@@ -12,9 +12,6 @@ const URL_OPTIONS = {
 }
 
 const getCloudinaryURL = (imageURL, options) => {
-  if (!imageURL) {
-    return '';
-  }
   const urlOptions = _.map(options, (value, key) => URL_OPTIONS[key](value));
   const urlOptionsString = urlOptions.join(',')
   // TODO: surely there is a more legible way to do this

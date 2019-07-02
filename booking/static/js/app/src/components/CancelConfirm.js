@@ -60,7 +60,7 @@ const CancelConfirm = (props) => {
           type="submit"
           variant="contained"
           color="secondary"
-          onClick={isLoading ? () => {} : onClickConfirm}
+          onClick={onClickConfirm}
           className={`${classes.wideButton} ${classes.saveButton}`}
           disabled={disabled} >
         {/* TODO refactor this, this is awful*/}

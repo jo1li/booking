@@ -29,7 +29,7 @@ export default createMuiTheme({
         },
         subtitle1: {
           fontFamily: DISPLAY_FONT_STACK,
-          fontWeight: 'bold',
+          fontWeight: 400,
           fontSize: "1rem",
           lineHeight: 1.375,
           letterSpacing: "0em",
