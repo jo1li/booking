@@ -15,7 +15,6 @@ import {
   getDestroyedItems,
   removeItemContentFromForm,
 } from '../../helpers/dragAndDropHelpers';
-import { validate_video_embeds } from '../../utils/validators';
 
 const FormSection = (props) => {
   const {
@@ -54,6 +53,7 @@ const FormSection = (props) => {
         <DraggableCodeInputs
             items={currentValues[itemName]}
             itemName={itemName}
+            label={copy.inputLabel}
             placeholder={copy.inputPlaceholder}
             classes={classes}
             width={width}
@@ -181,10 +181,10 @@ class CodeFormBase extends Component {
 
     return (
       <Fragment>
+        <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
         <TabbedList
             classes={classes}
             tabNames={['Embed'].concat(helpSectionTitles)} >
-          <ModalHeader classes={classes} hasTabs={true}>{copy.title}</ModalHeader>
 
           <FormSection {...this.props} submit={this.submit} remove={this.removeItemFromForm}/>
 
